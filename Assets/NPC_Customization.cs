@@ -25,10 +25,14 @@ public class NPC_Customization : MonoBehaviour
     [SerializeField] TextMeshProUGUI speedStat;
 
 
-    [SerializeField] List<GameObject> helmets = new List<GameObject>();
-    [SerializeField] List<GameObject> weapon = new List<GameObject>();
-    [SerializeField] List<GameObject> capes = new List<GameObject>();
-    [SerializeField] List<GameObject> bodies = new List<GameObject>();
+    [SerializeField] List<GameObject> romanHelmets = new List<GameObject>();
+    [SerializeField] List<GameObject> romanWeapons = new List<GameObject>();
+    [SerializeField] List<GameObject> romanCapes = new List<GameObject>();
+    [SerializeField] List<GameObject> romanBodies = new List<GameObject>();
+
+    [SerializeField] List<GameObject> farmHelmets = new List<GameObject>();
+    [SerializeField] List<GameObject> farmWeapons = new List<GameObject>();
+    [SerializeField] List<GameObject> farmBodies = new List<GameObject>();
 
     [SerializeField] Transform weaponPoint;
     [SerializeField] Transform capePoint;
@@ -63,21 +67,35 @@ public class NPC_Customization : MonoBehaviour
             if (currentCape != null) Destroy(currentCape);
             if (currentBody != null) Destroy(currentBody);
 
-            int r = Random.RandomRange(0, helmets.Count);
-            currentHelmet = Instantiate(helmets[r], helmetPoint);
-            r = Random.Range(0, weapon.Count);
-            currentWeapon = Instantiate(weapon[r], weaponPoint);
-            r = Random.Range(0, capes.Count);
-            if (capes[r] != null)
-                currentCape = Instantiate(capes[r], capePoint);
-            r = Random.Range(0, bodies.Count);
-            currentBody = Instantiate(bodies[r], bodyPoint);
+            int r = Random.RandomRange(0, romanHelmets.Count);
+            currentHelmet = Instantiate(romanHelmets[r], helmetPoint);
+            r = Random.Range(0, romanWeapons.Count);
+            currentWeapon = Instantiate(romanWeapons[r], weaponPoint);
+            r = Random.Range(0, romanCapes.Count);
+            if (romanCapes[r] != null)
+                currentCape = Instantiate(romanCapes[r], capePoint);
+            r = Random.Range(0, romanBodies.Count);
+            currentBody = Instantiate(romanBodies[r], bodyPoint);
+        }
+        if (Theme == NPCTheme.Farm)
+        {
+            if (currentHelmet != null) Destroy(currentHelmet);
+            if (currentWeapon != null) Destroy(currentWeapon);
+            if (currentCape != null) Destroy(currentCape);
+            if (currentBody != null) Destroy(currentBody);
+
+            int r = Random.RandomRange(0, farmHelmets.Count);
+            currentHelmet = Instantiate(farmHelmets[r], helmetPoint);
+            r = Random.Range(0, farmWeapons.Count);
+            currentWeapon = Instantiate(farmWeapons[r], weaponPoint);
+            r = Random.Range(0, farmBodies.Count);
+            currentBody = Instantiate(farmBodies[r], bodyPoint);
         }
 
-        //POINT DISTRIBUTION
+            //POINT DISTRIBUTION
 
-        //start with reset from earlier iterations:
-        currentPoints = maxPoints;
+            //start with reset from earlier iterations:
+            currentPoints = maxPoints;
         stats[0] = 0;
         stats[1] = 0;
         stats[2] = 0;
