@@ -20,7 +20,7 @@ public class SimpleCombatController : MonoBehaviour
         // Handle attack input
         if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastAttackTime + attackCooldown)
         {
-            PerformAttack();
+            Attack();
         }
 
         // Handle ability input
@@ -30,7 +30,7 @@ public class SimpleCombatController : MonoBehaviour
         }
     }
 
-    void PerformAttack()
+    void Attack()
     {
         lastAttackTime = Time.time;
         Debug.Log("Attacking!"); // Optional: Show debug message
