@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class ThemeData
@@ -39,6 +35,13 @@ public class ThemeData
     public List<GameObject> chargerBodies;
     public List<GameObject> chargerWeapons;
     public List<GameObject> chargerShields;
+    [Header("Rock thrower")]
+    public List<GameObject> rockThrowerHelmets;
+    public List<GameObject> rockThrowerCapes;
+    public List<GameObject> rockThrowerBodies;
+    public List<GameObject> rockThrowerWeapons;
+    public List<GameObject> rockThrowerShields;
+    //Add future classes under new Header
 
 }
 public class NPC_Customization : MonoBehaviour
@@ -46,10 +49,12 @@ public class NPC_Customization : MonoBehaviour
 
     [SerializeField] private Dictionary<NPCTheme, ThemeData> themeDataDict;
 
+
     [Header("Theme Data")]
     [SerializeField] private ThemeData romanTheme;
     [SerializeField] private ThemeData farmTheme;
     [SerializeField] private ThemeData miniTheme;
+    [SerializeField] private ThemeData fantasyTheme;
     public enum NPCTheme
     {
         Roman,
@@ -57,6 +62,7 @@ public class NPC_Customization : MonoBehaviour
         SciFi,
         Farm,
         Mini
+        //Add more Themes here
     };
 
     public enum NPCClass
@@ -64,18 +70,13 @@ public class NPC_Customization : MonoBehaviour
         Basic,
         Tank,
         Running,
-        Charger
+        Charger,
+        RockThrower,
+        Warrior
+        //Add more classes here
     }
     public NPCTheme Theme;
     public NPCClass Class;
-
-    public int maxPoints = 10;
-    private int currentPoints;
-    public int[] stats;
-
-    [SerializeField] TextMeshProUGUI attackStat;
-    [SerializeField] TextMeshProUGUI defenseStat;
-    [SerializeField] TextMeshProUGUI speedStat;
 
     [Header("Spawn Points")]
     [SerializeField] Transform weaponPoint;
@@ -89,30 +90,22 @@ public class NPC_Customization : MonoBehaviour
     private GameObject currentCape;
     private GameObject currentShield;
     [SerializeField] GameObject currentBody;
+    
+    //Animations
+    Animator currentAnimator;
+    [SerializeField] AnimatorController animController;
 
     private void Awake()
     {
-        // Initialize the dictionary
         themeDataDict = new Dictionary<NPCTheme, ThemeData>()
         {
             { NPCTheme.Roman, romanTheme },
             { NPCTheme.Farm, farmTheme },
-            { NPCTheme.Mini, miniTheme }
+            { NPCTheme.Mini, miniTheme },
+            { NPCTheme.Fantasy, fantasyTheme }
+            //Connect future themes here
         };
     }
-
-    void Start()
-    {
-        stats = new int[3];
-        attackStat.text = "Attack: " + stats[0];
-        defenseStat.text = "Defense: " + stats[1];
-        speedStat.text = "Speed: " + stats[2];
-    }
-    public void ChangeTheme(Dropdown change)
-    {
-        Theme = (NPCTheme)change.value;
-    }
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -128,14 +121,13 @@ public class NPC_Customization : MonoBehaviour
             // Destroy previously instantiated assets
             DestroyAssets();
 
-            // Get the appropriate asset lists based on the selected class
-            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.tankHelmets, themeData.chargerHelmets);
-            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.tankWeapons, themeData.chargerWeapons);
-            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.tankBodies, themeData.chargerBodies);
-            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.tankCapes, themeData.chargerCapes);
-            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.tankShields, themeData.chargerShields);
+            //Connect future assets  and classes in their lists
+            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets);
+            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons);
+            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies);
+            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes);
+            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields);
 
-            // Instantiate assets if they exist
             if (helmets != null && helmets.Count > 0)
             {
                 currentHelmet = InstantiateRandomAsset(helmets, helmetPoint);
@@ -149,6 +141,12 @@ public class NPC_Customization : MonoBehaviour
             if (bodies != null && bodies.Count > 0)
             {
                 currentBody = InstantiateRandomAsset(bodies, bodyPoint);
+
+                currentAnimator = currentBody.GetComponent<Animator>();
+                if(currentAnimator != null)
+                {
+                    currentAnimator.runtimeAnimatorController = animController;
+                }
             }
 
             if (capes != null && capes.Count > 0)
@@ -163,9 +161,9 @@ public class NPC_Customization : MonoBehaviour
         }
     }
 
-    
 
-    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> tank, List<GameObject> charger)
+
+    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior /*add future classes in paramter*/)
     {
         switch (Class)
         {
@@ -175,27 +173,14 @@ public class NPC_Customization : MonoBehaviour
                 return tank;
             case NPCClass.Charger:
                 return charger;
+            case NPCClass.RockThrower:
+                return rockThrower;
+            case NPCClass.Warrior:
+                return warrior;
+            //Add future classes in switch case
             default:
                 return null;
         }
-    }
-
-    private void DistributePoints()
-    {
-        currentPoints = maxPoints;
-        stats[0] = 0;
-        stats[1] = 0;
-        stats[2] = 0;
-
-        while (currentPoints > 0)
-        {
-            stats[Random.Range(0, 3)]++;
-            currentPoints--;
-        }
-
-        attackStat.text = "Attack: " + stats[0];
-        defenseStat.text = "Defense: " + stats[1];
-        speedStat.text = "Speed: " + stats[2];
     }
 
     private GameObject InstantiateRandomAsset(List<GameObject> assets, Transform spawnPoint)
