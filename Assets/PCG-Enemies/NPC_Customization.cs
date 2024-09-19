@@ -44,6 +44,13 @@ public class ThemeData
     //Add future classes under new Header
 
 }
+
+[System.Serializable]
+public class ThemeDataPair
+{
+    public NPC_Customization.NPCTheme theme;
+    public ThemeData themeData;
+}
 public class NPC_Customization : MonoBehaviour
 {
 
@@ -51,10 +58,11 @@ public class NPC_Customization : MonoBehaviour
 
 
     [Header("Theme Data")]
-    [SerializeField] private ThemeData romanTheme;
-    [SerializeField] private ThemeData farmTheme;
-    [SerializeField] private ThemeData miniTheme;
-    [SerializeField] private ThemeData fantasyTheme;
+    [SerializeField] private List<ThemeDataPair> themeDataList;
+    //[SerializeField] private ThemeData romanTheme;
+    //[SerializeField] private ThemeData farmTheme;
+    //[SerializeField] private ThemeData miniTheme;
+    //[SerializeField] private ThemeData fantasyTheme;
     public enum NPCTheme
     {
         Roman,
@@ -90,21 +98,33 @@ public class NPC_Customization : MonoBehaviour
     private GameObject currentCape;
     private GameObject currentShield;
     [SerializeField] GameObject currentBody;
-    
+
     //Animations
     Animator currentAnimator;
     [SerializeField] AnimatorController animController;
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    themeDataDict = new Dictionary<NPCTheme, ThemeData>()
+    //    {
+    //        { NPCTheme.Roman, romanTheme },
+    //        { NPCTheme.Farm, farmTheme },
+    //        { NPCTheme.Mini, miniTheme },
+    //        { NPCTheme.Fantasy, fantasyTheme }
+    //        //Connect future themes here
+    //    };
+    //}
+
+    private ThemeData GetThemeDataByTheme(NPCTheme theme)
     {
-        themeDataDict = new Dictionary<NPCTheme, ThemeData>()
+        foreach (var pair in themeDataList)
         {
-            { NPCTheme.Roman, romanTheme },
-            { NPCTheme.Farm, farmTheme },
-            { NPCTheme.Mini, miniTheme },
-            { NPCTheme.Fantasy, fantasyTheme }
-            //Connect future themes here
-        };
+            if (pair.theme == theme)
+            {
+                return pair.themeData;
+            }
+        }
+        return null;
     }
     void Update()
     {
@@ -116,10 +136,11 @@ public class NPC_Customization : MonoBehaviour
     }
     public void Randomize()
     {
-        if (themeDataDict.TryGetValue(Theme, out ThemeData themeData))
+        ThemeData themeData = GetThemeDataByTheme(Theme);
+        DestroyAssets();
+        if (themeData != null)
         {
             // Destroy previously instantiated assets
-            DestroyAssets();
 
             //Connect future assets  and classes in their lists
             List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets);
@@ -128,39 +149,104 @@ public class NPC_Customization : MonoBehaviour
             List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes);
             List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields);
 
-            if (helmets != null && helmets.Count > 0)
-            {
-                currentHelmet = InstantiateRandomAsset(helmets, helmetPoint);
-            }
-
-            if (weapons != null && weapons.Count > 0)
-            {
-                currentWeapon = InstantiateRandomAsset(weapons, weaponPoint);
-            }
-
             if (bodies != null && bodies.Count > 0)
             {
                 currentBody = InstantiateRandomAsset(bodies, bodyPoint);
 
                 currentAnimator = currentBody.GetComponent<Animator>();
-                if(currentAnimator != null)
+                if (currentAnimator != null)
                 {
                     currentAnimator.runtimeAnimatorController = animController;
                 }
-            }
 
-            if (capes != null && capes.Count > 0)
-            {
-                currentCape = InstantiateRandomAsset(capes, capePoint);
-            }
+                if (helmets != null && helmets.Count > 0)
+                {
+                    Transform headBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head");
+                    if (headBone != null)
+                    {
+                        // Preserve local position and rotation
+                        Vector3 originalPosition = helmetPoint.localPosition;
+                        Quaternion originalRotation = helmetPoint.localRotation;
 
-            if (shields != null && shields.Count > 0)
-            {
-                currentShield = InstantiateRandomAsset(shields, shieldPoint);
+                        // Reparent the helmetPoint
+                        helmetPoint.SetParent(headBone);
+
+                        // Restore original local position and rotation
+                        helmetPoint.localPosition = Vector3.zero;
+                        helmetPoint.localRotation = Quaternion.identity;
+
+                        currentHelmet = InstantiateRandomAsset(helmets, helmetPoint);
+                    }
+                }
+
+                // Attach weapon
+                if (weapons != null && weapons.Count > 0)
+                {
+                    Transform rHandBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Thumb_01 1/Thumb_02 1");
+                    if (rHandBone != null)
+                    {
+                        // Preserve local position and rotation
+                        Vector3 originalPosition = weaponPoint.localPosition;
+                        Quaternion originalRotation = weaponPoint.localRotation;
+
+                        // Reparent the weaponPoint
+                        weaponPoint.SetParent(rHandBone);
+
+                        // Restore original local position and rotation
+                        weaponPoint.localPosition = Vector3.zero; 
+                        weaponPoint.localRotation = Quaternion.identity; 
+                        weaponPoint.localRotation = originalRotation;
+                        weaponPoint.localPosition = originalPosition;
+
+                        currentWeapon = InstantiateRandomAsset(weapons, weaponPoint);
+                    }
+                }
+
+                // Attach cape
+                if (capes != null && capes.Count > 0)
+                {
+                    Transform neckBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Neck");
+                    if (neckBone != null)
+                    {
+                        // Preserve local position and rotation
+                        Vector3 originalPosition = capePoint.localPosition;
+                        Quaternion originalRotation = capePoint.localRotation;
+
+                        // Reparent the capePoint
+                        capePoint.SetParent(neckBone);
+
+                        // Restore original local position and rotation
+                        capePoint.localPosition = Vector3.zero;
+                        capePoint.localRotation = Quaternion.identity;
+
+                        currentCape = InstantiateRandomAsset(capes, capePoint);
+                    }
+                }
+
+                // Attach shield
+                if (shields != null && shields.Count > 0)
+                {
+                    Transform lHandBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Thumb_01/Thumb_02/Thumb_03");
+                    if (lHandBone != null)
+                    {
+                        // Preserve local position and rotation
+                        Vector3 originalPosition = shieldPoint.localPosition;
+                        Quaternion originalRotation = shieldPoint.localRotation;
+
+                        // Reparent the shieldPoint
+                        shieldPoint.SetParent(lHandBone);
+
+                        // Restore original local position and rotation
+                        shieldPoint.localPosition = Vector3.zero;
+                        shieldPoint.localRotation = Quaternion.identity;
+                        shieldPoint.localRotation = originalRotation;
+
+                        currentShield = InstantiateRandomAsset(shields, shieldPoint);
+                    }
+                }
             }
         }
     }
-
 
 
     private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior /*add future classes in paramter*/)
