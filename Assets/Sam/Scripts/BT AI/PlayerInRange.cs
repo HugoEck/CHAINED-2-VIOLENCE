@@ -11,11 +11,13 @@ public class PlayerInRange : Node
     {
         attackRange = agent.attackRange;
         
-        targetedPlayer = agent.CalculateClosestTarget();
+        
+        
     }
 
     public override NodeState Evaluate(BaseManager agent)
     {
+        targetedPlayer = agent.CalculateClosestTarget();
         float distance = Vector3.Distance(agent.transform.position, targetedPlayer.position);
 
         if (distance <= attackRange)

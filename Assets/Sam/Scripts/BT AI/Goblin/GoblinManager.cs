@@ -52,7 +52,7 @@ public class GoblinManager : BaseManager
         Sequence isDead= new Sequence(new List<Node> { checkIfDead, killAgent});
         Sequence attack = new Sequence(new List<Node> { playerInRange, attackPlayer });
 
-        rootNode = new Selector(new List<Node>() { isDead, attack });
+        rootNode = new Selector(new List<Node>() { isDead, attack, chasePlayer });
 
         
     }

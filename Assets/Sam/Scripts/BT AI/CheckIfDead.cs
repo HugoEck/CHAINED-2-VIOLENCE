@@ -16,10 +16,12 @@ public class CheckIfDead : Node
     {
         if (agent.currentHealth <= deadThreshold)
         {
+            
             return NodeState.SUCCESS;
         }
         else
         {
+            
             return NodeState.FAILURE;
         }
     }
