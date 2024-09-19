@@ -12,12 +12,12 @@ public class Selector : Node
         this.nodes = nodes;
     }
 
-    public override NodeState Evaluate()
+    public override NodeState Evaluate(BaseManager agent)
     {
 
         foreach (Node node in nodes)
         {
-            switch (node.Evaluate())
+            switch (node.Evaluate(agent))
             {
                 case NodeState.RUNNING:
                     _nodeState = NodeState.RUNNING;

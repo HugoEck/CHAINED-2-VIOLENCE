@@ -11,12 +11,12 @@ public class Sequence : Node
         this.nodes = nodes;
     }
 
-    public override NodeState Evaluate()
+    public override NodeState Evaluate(BaseManager agent)
     {
         bool isAnyNodeRunning = false;
         foreach(Node node in nodes)
         {
-            switch (node.Evaluate())
+            switch (node.Evaluate(agent))
             {
                 case NodeState.RUNNING:
                     isAnyNodeRunning = true;
