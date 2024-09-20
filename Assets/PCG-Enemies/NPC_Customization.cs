@@ -130,13 +130,13 @@ public class NPC_Customization : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Randomize();
+            //Randomize();
         }
         transform.Rotate(0, 0.3f, 0);
     }
-    public void Randomize()
+    public void Randomize(NPCTheme npcTheme, NPCClass npcClass)
     {
-        ThemeData themeData = GetThemeDataByTheme(Theme);
+        ThemeData themeData = GetThemeDataByTheme(npcTheme);
         DestroyAssets();
         if (themeData != null)
         {
