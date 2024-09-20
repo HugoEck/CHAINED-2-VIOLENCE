@@ -8,10 +8,10 @@ public class KillAgent : Node
     BaseManager agent;
 
 
-    public KillAgent(BaseManager agent)
-    {
-        this.agent = agent;
-    }
+    //public KillAgent(BaseManager agent)
+    //{
+    //    //this.agent = agent;
+    //}
 
     public override NodeState Evaluate(BaseManager agent)
     {

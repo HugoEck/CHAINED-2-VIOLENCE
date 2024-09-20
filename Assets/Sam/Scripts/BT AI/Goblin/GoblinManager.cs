@@ -7,19 +7,15 @@ public class GoblinManager : BaseManager
 {
     //[HideInInspector]
 
-    public NavMeshAgent navMeshAgent;
+    //public NavMeshAgent navMeshAgent;
     Node rootNode;
     Material material;
 
-    private void Awake()
-    {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        material = GetComponent<MeshRenderer>().material;
-    }
+    
 
     void Start()
     {
-
+        
         currentHealth = maxHealth;
         navMeshAgent.speed = speed;
         ConstructBT();
@@ -43,11 +39,11 @@ public class GoblinManager : BaseManager
 
     private void ConstructBT()
     {
-        CheckIfDead checkIfDead = new CheckIfDead(this);
-        KillAgent killAgent = new KillAgent(this);
-        PlayerInRange playerInRange = new PlayerInRange(this);
-        AttackPlayer attackPlayer = new AttackPlayer(this);
-        ChasePlayer chasePlayer = new ChasePlayer(this, navMeshAgent);
+        CheckIfDead checkIfDead = new CheckIfDead();
+        KillAgent killAgent = new KillAgent();
+        PlayerInRange playerInRange = new PlayerInRange();
+        AttackPlayer attackPlayer = new AttackPlayer();
+        ChasePlayer chasePlayer = new ChasePlayer();
 
         Sequence isDead= new Sequence(new List<Node> { checkIfDead, killAgent});
         Sequence attack = new Sequence(new List<Node> { playerInRange, attackPlayer });
@@ -61,5 +57,5 @@ public class GoblinManager : BaseManager
     {
         material.color = color;
     }
-    
+
 }

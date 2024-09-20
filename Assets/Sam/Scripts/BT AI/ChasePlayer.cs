@@ -7,31 +7,41 @@ using UnityEngine.AI;
 public class ChasePlayer : Node
 {
     
-    private NavMeshAgent navMeshAgent;
-
-    public ChasePlayer ( BaseManager agent, NavMeshAgent navMeshAgent)
-    {
-        
-        this.navMeshAgent = navMeshAgent;
-    }
+    
 
     public override NodeState Evaluate(BaseManager agent)
     {
         targetedPlayer = agent.CalculateClosestTarget();
         float distance = Vector3.Distance(agent.transform.position, targetedPlayer.transform.position);
         
-        if(distance > 0.2)
+        if (distance > agent.attackRange)
         {
-            //navMeshAgent.isStopped = false;
-            navMeshAgent.SetDestination(targetedPlayer.position);
+            agent.navMeshAgent.isStopped = false;
+            agent.navMeshAgent.SetDestination(targetedPlayer.position);
+            
             return NodeState.RUNNING;
         }
-        else
+        
+        else //Denna kan aldrig bli true eftersom att PlayerInRange hinner bli true före.
         {
-            //navMeshAgent.isStopped= true;
+
+            agent.navMeshAgent.isStopped = true;
+            RotateTowardsPlayer(agent, targetedPlayer);
             return NodeState.SUCCESS;
         }
 
         
+    }
+
+    private void RotateTowardsPlayer(BaseManager agent, Transform targetedPlayer)
+    {
+        // Calculate the direction from the agent to the player
+        Vector3 direction = (targetedPlayer.position - agent.transform.position).normalized;
+
+        // Calculate the target rotation to face the player
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+
+        // Smoothly rotate the agent towards the player
+        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navMeshAgent.angularSpeed);
     }
 }

@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class AttackPlayer : Node
 {
-    private int damage;
+    //private float damage;
+    //private float attackSpeed;
 
-    public AttackPlayer(BaseManager agent)
-    {
-        damage = agent.damage;
-        targetedPlayer = agent.CalculateClosestTarget();
-
-    }
+    //public AttackPlayer(BaseManager agent)
+    //{
+    //    //damage = agent.damage;
+    //    //attackSpeed = agent.attackSpeed;
+        
+    //}
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        agent.transform.localScale = new Vector3(3,3,3);
+        targetedPlayer = agent.CalculateClosestTarget();
+        agent.AttackPlayer(targetedPlayer);
+        
         return NodeState.RUNNING;
     }
 }
