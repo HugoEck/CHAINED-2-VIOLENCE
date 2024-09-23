@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6746231873100724913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3269440588233255927}
+  - component: {fileID: 3254856682388944462}
+  m_Layer: 0
+  m_Name: ItemSpawnerAligner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3269440588233255927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746231873100724913}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3254856682388944462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746231873100724913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6671ca3ec52b5d4da9dd2b677744412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastDistance: 100
+  overlapTestBoxSize: 5
+  spawnedObjectLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  itemsToPickFrom:
+  - {fileID: 9064349029294168536, guid: f9f7ba7ba34fd76418d2f20bb4b0697a, type: 3}
+  - {fileID: 2558261172680922099, guid: 17195f059cef49b42aec426fcee2643d, type: 3}
+  - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
+  - {fileID: 6810822671076020267, guid: 5b8a2577c6fe74e4ebf99f3a9a5d106e, type: 3}
+  - {fileID: 5318324823612231208, guid: a711611cf74924842a0e76eeb36d214c, type: 3}
+  - {fileID: 4793064779417787695, guid: 8eb36f3de01c08d4581f5f0aa3a0384b, type: 3}
+  - {fileID: 1833758746571175651, guid: ed9bbcb366badc44abcf3f6ed793a50d, type: 3}
+  - {fileID: 8069750076735145532, guid: fe1c4366e77e1b740968ab634ae883bb, type: 3}
+  - {fileID: 4495637541287041551, guid: 374edf06b87058b4eb21e20ee69ce2dd, type: 3}
