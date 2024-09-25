@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 135901814}
   - component: {fileID: 135901824}
   m_Layer: 6
-  m_Name: 'Player_2 '
+  m_Name: Player2
   m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4440,7 +4440,7 @@ GameObject:
   - component: {fileID: 871931913}
   - component: {fileID: 871931924}
   m_Layer: 6
-  m_Name: Player_1
+  m_Name: Player1
   m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8123,8 +8123,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1728172070}
   - component: {fileID: 1728172071}
-  - component: {fileID: 1728172072}
-  - component: {fileID: 1728172073}
   m_Layer: 0
   m_Name: Character_Male_Face_01
   m_TagString: Untagged
@@ -8175,53 +8173,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1728172072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728172068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e18616510de7ba40a2c42f48a920526, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 1
-  currentHealth: 0
-  damage: 1
-  defense: 0
-  speed: 2
-  attackSpeed: 1
-  attackRange: 1
-  lastAttackedTime: 0
-  player1: {fileID: 871931923}
-  player2: {fileID: 135901813}
-  navMeshAgent: {fileID: 0}
-  playerManager1: {fileID: 0}
-  playerManager2: {fileID: 0}
---- !u!195 &1728172073
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728172068}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &1737413730
 GameObject:
   m_ObjectHideFlags: 0
@@ -8511,6 +8462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1804003518}
+  - component: {fileID: 1804003519}
   m_Layer: 0
   m_Name: Current Body
   m_TagString: Untagged
@@ -8533,6 +8485,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1629959354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &1804003519
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804003517}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1805062694
 PrefabInstance:
   m_ObjectHideFlags: 0

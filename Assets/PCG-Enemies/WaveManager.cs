@@ -21,19 +21,24 @@ public class WaveManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            CreateArmy(10, NPC_Customization.NPCTheme.Roman, NPC_Customization.NPCClass.Basic);
+            CreateArmy(50, NPC_Customization.NPCTheme.Roman, NPC_Customization.NPCClass.Basic);
         }
     }
 
     public void CreateArmy(int waveSize, NPC_Customization.NPCTheme theme, NPC_Customization.NPCClass enemyClass)
     {
         enemyCreater.Randomize(theme, enemyClass);
-        GameObject randomEnemy = enemyCreatorObject.transform.Find("Current Body").gameObject;
+        //GameObject randomEnemy = enemyCreatorObject.transform.Find("Current Body").gameObject;
+        GameObject randomEnemy = Instantiate(enemyCreater.currentBody);
+        randomEnemy.transform.parent = null;
 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
         for (int i = 0; i < waveSize; i++)
         {
-            GameObject newEnemy = Instantiate(randomEnemy, spawnPoint);
+            GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
+            newEnemy.name = enemyClass.ToString() + " enemy" + i;
+            newEnemy.transform.parent = null;
+            enemyCreater.AddBehaviourToClass(newEnemy);
         }
     }
 

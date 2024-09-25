@@ -39,7 +39,7 @@ public class BaseManager : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         playerManager1 = player1.GetComponent<PlayerManager>();
         playerManager2 = player2.GetComponent<PlayerManager>();
-        
+
     }
     public virtual void SetHealth(float damage)
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GoblinManager : BaseManager
 {
@@ -10,8 +11,8 @@ public class GoblinManager : BaseManager
     //public NavMeshAgent navMeshAgent;
     Node rootNode;
     Material material;
-
     
+
 
     void Start()
     {
