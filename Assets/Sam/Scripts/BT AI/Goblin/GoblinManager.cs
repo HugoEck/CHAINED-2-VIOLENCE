@@ -6,33 +6,28 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GoblinManager : BaseManager
 {
-    //[HideInInspector]
 
-    //public NavMeshAgent navMeshAgent;
     Node rootNode;
-    Material material;
-    
-
+    int currentFrame = 0;
+    int nrFrameSkips = 1;
 
     void Start()
     {
-        
-        currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
         ConstructBT();
     }
 
     private void Update()
     {
-        rootNode.Evaluate(this);
-        if (rootNode.nodeState == NodeState.FAILURE)
+        if (currentFrame == nrFrameSkips)
         {
-            SetColor(Color.red);
+            rootNode.Evaluate(this);
+        }
+        else
+        {
+            currentFrame++;
         }
 
-
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             currentHealth--;
         }
@@ -54,9 +49,6 @@ public class GoblinManager : BaseManager
         
     }
 
-    public void SetColor(Color color)
-    {
-        material.color = color;
-    }
+   
 
 }

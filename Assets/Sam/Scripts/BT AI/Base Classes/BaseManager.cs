@@ -14,33 +14,38 @@ public class BaseManager : MonoBehaviour
     //---------GE NÅGOT VÄRDE INUTI INSPEKTORN----------------
 
     public float maxHealth;
-    public float currentHealth;
-    public float damage, defense, speed, attackSpeed;
+    public float damage;
+    public float defense;
+    public float speed;
+    public float attackSpeed;
     public float attackRange;
 
     //---------GE EJ NÅGOT VÄRDE INUTI INSPEKTORN-------------
 
-    public NavMeshAgent navMeshAgent;
-    public PlayerManager playerManager1;
-    public PlayerManager playerManager2;
-
-    //-----------------PRIVATE/PROTECTED----------------------
+    [HideInInspector] public NavMeshAgent navMeshAgent;
+    [HideInInspector] public PlayerManager playerManager1;
+    [HideInInspector] public PlayerManager playerManager2;
+    [HideInInspector] public float currentHealth;
 
     private GameObject player1;
     private GameObject player2;
     private float lastAttackedTime;
 
-    //--------------------------------------------------------
 
     public virtual void Awake()
     {
+
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
         navMeshAgent = GetComponent<NavMeshAgent>();
         playerManager1 = player1.GetComponent<PlayerManager>();
         playerManager2 = player2.GetComponent<PlayerManager>();
+        currentHealth = maxHealth;
+        navMeshAgent.speed = speed;
 
     }
+
+    
     public virtual void SetHealth(float damage)
     {
         currentHealth -= damage;
