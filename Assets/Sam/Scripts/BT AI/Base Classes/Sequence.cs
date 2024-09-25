@@ -13,14 +13,14 @@ public class Sequence : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        bool isAnyNodeRunning = false;
+
         foreach(Node node in nodes)
         {
             switch (node.Evaluate(agent))
             {
                 case NodeState.RUNNING:
-                    isAnyNodeRunning = true;
-                    break;
+                    _nodeState = NodeState.RUNNING;
+                    return _nodeState;
 
                 case NodeState.SUCCESS:
                     break;
@@ -34,7 +34,7 @@ public class Sequence : Node
             }
             
         }
-        _nodeState= isAnyNodeRunning? NodeState.RUNNING: NodeState.SUCCESS;
+        _nodeState= NodeState.SUCCESS;
         return _nodeState;
     }
 }
