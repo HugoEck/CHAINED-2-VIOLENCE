@@ -27,18 +27,30 @@ public class WaveManager : MonoBehaviour
 
     public void CreateArmy(int waveSize, NPC_Customization.NPCTheme theme, NPC_Customization.NPCClass enemyClass)
     {
+        StartCoroutine(CreateArmyCoroutine(waveSize, theme, enemyClass));
+    }
+
+    private IEnumerator CreateArmyCoroutine(int waveSize, NPC_Customization.NPCTheme theme, NPC_Customization.NPCClass enemyClass)
+    {
+        // Randomize and create the base enemy
         enemyCreater.Randomize(theme, enemyClass);
-        //GameObject randomEnemy = enemyCreatorObject.transform.Find("Current Body").gameObject;
         GameObject randomEnemy = Instantiate(enemyCreater.currentBody);
         randomEnemy.transform.parent = null;
 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+
         for (int i = 0; i < waveSize; i++)
         {
+            // Instantiate a new enemy
             GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
             newEnemy.name = enemyClass.ToString() + " enemy" + i;
             newEnemy.transform.parent = null;
+
+            // Add behavior to the new enemy
             enemyCreater.AddBehaviourToClass(newEnemy);
+
+            // Optionally yield return null to spread creation over frames
+            yield return null; // This will wait for one frame before continuing the loop
         }
     }
 

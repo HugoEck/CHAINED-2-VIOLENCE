@@ -22,9 +22,13 @@ public class GoblinManager : BaseManager
         ConstructBT();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         rootNode.Evaluate(this);
+    }
+    private void Update()
+    {
+        
         if (rootNode.nodeState == NodeState.FAILURE)
         {
             SetColor(Color.red);
@@ -37,6 +41,7 @@ public class GoblinManager : BaseManager
             currentHealth--;
         }
     }
+  
 
     private void ConstructBT()
     {
