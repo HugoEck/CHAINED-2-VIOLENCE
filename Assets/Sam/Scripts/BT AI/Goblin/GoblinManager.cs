@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GoblinManager : BaseManager
 {
@@ -10,8 +11,8 @@ public class GoblinManager : BaseManager
     //public NavMeshAgent navMeshAgent;
     Node rootNode;
     Material material;
-
     
+
 
     void Start()
     {
@@ -21,9 +22,13 @@ public class GoblinManager : BaseManager
         ConstructBT();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         rootNode.Evaluate(this);
+    }
+    private void Update()
+    {
+        
         if (rootNode.nodeState == NodeState.FAILURE)
         {
             SetColor(Color.red);
@@ -36,6 +41,7 @@ public class GoblinManager : BaseManager
             currentHealth--;
         }
     }
+  
 
     private void ConstructBT()
     {

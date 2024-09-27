@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.AI;
 
 [System.Serializable]
 public class ThemeData
@@ -97,7 +99,7 @@ public class NPC_Customization : MonoBehaviour
     private GameObject currentWeapon;
     private GameObject currentCape;
     private GameObject currentShield;
-    [SerializeField] GameObject currentBody;
+    [SerializeField] public GameObject currentBody;
 
     //Animations
     Animator currentAnimator;
@@ -138,6 +140,7 @@ public class NPC_Customization : MonoBehaviour
     {
         ThemeData themeData = GetThemeDataByTheme(npcTheme);
         DestroyAssets();
+
         if (themeData != null)
         {
             // Destroy previously instantiated assets
@@ -158,6 +161,7 @@ public class NPC_Customization : MonoBehaviour
                 {
                     currentAnimator.runtimeAnimatorController = animController;
                 }
+                
 
                 if (helmets != null && helmets.Count > 0)
                 {
@@ -248,6 +252,17 @@ public class NPC_Customization : MonoBehaviour
         }
     }
 
+    public void AddBehaviourToClass(GameObject enemy)
+    {
+        enemy.AddComponent<NavMeshAgent>();
+        if (Class == NPCClass.Basic)
+        {
+            GoblinManager behaviour = enemy.AddComponent<GoblinManager>();
+            behaviour.speed = 1;
+            behaviour.maxHealth = 100;
+
+        }
+    }
 
     private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior /*add future classes in paramter*/)
     {
