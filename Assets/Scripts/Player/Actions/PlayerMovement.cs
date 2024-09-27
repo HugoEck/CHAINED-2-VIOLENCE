@@ -26,10 +26,14 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
         _playerRigidBody = GetComponent<Rigidbody>();
         _playerInput = GetComponent<PlayerInput>();
         _moveAction = _playerInput.actions.FindAction("PlayerMovementAction");
+
     }
     private void Update()
     {
         _playerMoveDirection = _moveAction.ReadValue<Vector2>();
+
+        float speed = _playerMoveDirection.magnitude;
+
     }
 
     #region Player Movement & Camera rotation

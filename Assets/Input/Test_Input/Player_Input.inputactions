@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "AttackAction",
+                    "type": "Button",
+                    "id": "639fe83a-09f8-472d-bdc5-2d213e64bc86",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -70,6 +79,17 @@
                     "action": "PlayerMovementAction",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6d0112b6-86c1-473f-8fcb-3ca51915050a",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AttackAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
