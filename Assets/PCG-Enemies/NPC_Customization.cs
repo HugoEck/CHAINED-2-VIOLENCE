@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor.Animations;
+
 using UnityEngine;
 
 [System.Serializable]
@@ -98,6 +99,7 @@ public class NPC_Customization : MonoBehaviour
     private GameObject currentCape;
     private GameObject currentShield;
     [SerializeField] GameObject currentBody;
+
 
     //Animations
     Animator currentAnimator;
