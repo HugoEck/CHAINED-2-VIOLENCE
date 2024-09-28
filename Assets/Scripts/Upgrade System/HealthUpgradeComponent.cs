@@ -27,7 +27,7 @@ public class HealthUpgradeComponent : MonoBehaviour
         if (healthUpgradeData != null)
         {
             maxHealth += healthUpgradeData.healthIncrease;
-            currentHealth = maxHealth; // Heals to full when upgrade //remove later on
+            currentHealth = maxHealth; // heals to full when upgrade //remove later on
             Debug.Log("Health upgraded! New Max Health: " + maxHealth);
         }
         else

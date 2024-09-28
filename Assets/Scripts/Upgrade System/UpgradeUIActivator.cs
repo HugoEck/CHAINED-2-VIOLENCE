@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// fix so it works for both players with networking etc...
+/// </summary>
 public class UpgradeUIActivator : MonoBehaviour
 {
     public GameObject upgradeUICanvas;
