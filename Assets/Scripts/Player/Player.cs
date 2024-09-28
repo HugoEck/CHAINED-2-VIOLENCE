@@ -59,15 +59,8 @@ public class Player : NetworkBehaviour
     /// Since the host takes ownership of both playerObjects at spawn, this method needs to be called in the playerSpawner script
     /// to ensure that the host can only move the player 1 object until he looses ownership of player 2 when a client joins
     /// </summary>
-    public void ActivatePlayerMovement()
-    {
-        // Only activate movement for the owner
-        if (IsOwner)
-        {
-            _bIsPlayerMovementActivated = true;
-        }
-    }
-
+    public void ActivatePlayerMovement() => _bIsPlayerMovementActivated = true;
+ 
     #endregion
 }
 
