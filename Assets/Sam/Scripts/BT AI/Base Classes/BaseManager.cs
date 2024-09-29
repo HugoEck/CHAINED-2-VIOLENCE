@@ -13,10 +13,12 @@ public class BaseManager : MonoBehaviour
 
     //---------GE NÅGOT VÄRDE INUTI INSPEKTORN----------------
 
+
     public float maxHealth;
     public float currentHealth;
     public float damage, defense, speed, attackSpeed;
     public float attackRange;
+    public float unitCost;
 
     //---------GE EJ NÅGOT VÄRDE INUTI INSPEKTORN-------------
 

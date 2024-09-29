@@ -4,17 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class GoblinManager : BaseManager
+public class RunnerManager : BaseManager
 {
 
     Node rootNode;
     Material material;
-    
-
 
     void Start()
     {
-        
+
         currentHealth = maxHealth;
         navMeshAgent.speed = speed;
         ConstructBT();
@@ -23,7 +21,6 @@ public class GoblinManager : BaseManager
     private void FixedUpdate()
     {
         rootNode.Evaluate(this);
-
         if (rootNode.nodeState == NodeState.FAILURE)
         {
             SetColor(Color.red);
@@ -39,12 +36,12 @@ public class GoblinManager : BaseManager
         AttackPlayer attackPlayer = new AttackPlayer();
         ChasePlayer chasePlayer = new ChasePlayer();
 
-        Sequence isDead= new Sequence(new List<Node> { checkIfDead, killAgent});
+        Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
         Sequence attack = new Sequence(new List<Node> { playerInRange, attackPlayer });
 
         rootNode = new Selector(new List<Node>() { isDead, attack, chasePlayer });
 
-        
+
     }
 
     public void SetColor(Color color)

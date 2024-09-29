@@ -5,18 +5,13 @@ using UnityEngine;
 
 public class KillAgent : Node
 {
-    BaseManager agent;
 
-
-    //public KillAgent(BaseManager agent)
-    //{
-    //    //this.agent = agent;
-    //}
 
     public override NodeState Evaluate(BaseManager agent)
     {
         GameObject.Destroy(agent.gameObject);
 
+        // DETTA KOMMER ATT ÄNDRAS TILL RUNNING IFALL VI VILL HA EN ANIMATION.
         return NodeState.SUCCESS;
     }
 }

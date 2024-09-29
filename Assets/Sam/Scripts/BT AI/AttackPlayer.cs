@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class AttackPlayer : Node
 {
-    //private float damage;
-    //private float attackSpeed;
-
-    //public AttackPlayer(BaseManager agent)
-    //{
-    //    //damage = agent.damage;
-    //    //attackSpeed = agent.attackSpeed;
-        
-    //}
 
     public override NodeState Evaluate(BaseManager agent)
     {
