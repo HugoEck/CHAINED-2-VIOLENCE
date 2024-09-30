@@ -10,7 +10,6 @@ public class BaseManager : MonoBehaviour
     //Detta skript innehåller alla basvariabler samt metoder för alla andra managers.
 
 
-
     public float maxHealth;
     public float currentHealth;
     public float damage, defense, speed, attackSpeed;
@@ -26,7 +25,6 @@ public class BaseManager : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public PlayerManager playerManager1;
     public PlayerManager playerManager2;
-
 
     public virtual void Awake()
     {
@@ -54,18 +52,6 @@ public class BaseManager : MonoBehaviour
         }
     }
 
-    //Ersätt denna metoden med IsAttackAllowed()
-    public virtual void AttackPlayer(Transform player)
-    {
-        PlayerManager playerManager= GetCorrectPlayerManager(player);
-
-        if (Time.time > lastAttackedTime + attackSpeed)
-        {
-            playerManager.SetHealth(damage);
-            lastAttackedTime = Time.time;
-        }
-    }
-
     public virtual bool IsAttackAllowed()
     {
 
@@ -79,9 +65,8 @@ public class BaseManager : MonoBehaviour
             return false;
         }
     }
-
-    
-    protected PlayerManager GetCorrectPlayerManager(Transform player)
+ 
+    public PlayerManager GetCorrectPlayerManager(Transform player)
     {
         if (player == player1)
         {
