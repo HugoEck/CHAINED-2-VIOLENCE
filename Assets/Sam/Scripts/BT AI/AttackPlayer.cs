@@ -8,8 +8,14 @@ public class AttackPlayer : Node
     public override NodeState Evaluate(BaseManager agent)
     {
         targetedPlayer = agent.CalculateClosestTarget();
-        agent.AttackPlayer(targetedPlayer);
-        
+
+        PlayerManager playerManager = agent.GetCorrectPlayerManager(targetedPlayer);
+
+        if (agent.IsAttackAllowed())
+        {
+            playerManager.SetHealth(agent.damage);
+        }
+
         return NodeState.RUNNING;
     }
 }

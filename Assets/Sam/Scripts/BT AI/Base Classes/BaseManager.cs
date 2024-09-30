@@ -54,18 +54,6 @@ public class BaseManager : MonoBehaviour
         }
     }
 
-    //Ersätt denna metoden med IsAttackAllowed()
-    public virtual void AttackPlayer(Transform player)
-    {
-        PlayerManager playerManager= GetCorrectPlayerManager(player);
-
-        if (Time.time > lastAttackedTime + attackSpeed)
-        {
-            playerManager.SetHealth(damage);
-            lastAttackedTime = Time.time;
-        }
-    }
-
     public virtual bool IsAttackAllowed()
     {
 
@@ -79,9 +67,8 @@ public class BaseManager : MonoBehaviour
             return false;
         }
     }
-
     
-    protected PlayerManager GetCorrectPlayerManager(Transform player)
+    public PlayerManager GetCorrectPlayerManager(Transform player)
     {
         if (player == player1)
         {
