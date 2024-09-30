@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class ChasePlayer : Node
 {
     
-    
 
     public override NodeState Evaluate(BaseManager agent)
     {

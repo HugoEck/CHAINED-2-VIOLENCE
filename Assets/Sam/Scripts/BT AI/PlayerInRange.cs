@@ -7,8 +7,6 @@ public class PlayerInRange : Node
 
     float distance;
 
-   
-
     public override NodeState Evaluate(BaseManager agent)
     {
         targetedPlayer = agent.CalculateClosestTarget();

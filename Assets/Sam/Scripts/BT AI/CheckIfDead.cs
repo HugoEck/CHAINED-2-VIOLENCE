@@ -7,10 +7,6 @@ public class CheckIfDead : Node
 
     private int deadThreshold = 0;
     
-    //public CheckIfDead(BaseManager agent)
-    //{
-
-    //}
 
     public override NodeState Evaluate(BaseManager agent)
     {

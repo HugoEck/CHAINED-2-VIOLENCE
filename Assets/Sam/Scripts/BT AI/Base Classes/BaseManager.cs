@@ -11,26 +11,22 @@ public class BaseManager : MonoBehaviour
 
 
 
-    //---------GE NÅGOT VÄRDE INUTI INSPEKTORN----------------
-
     public float maxHealth;
     public float currentHealth;
     public float damage, defense, speed, attackSpeed;
     public float attackRange;
-
-    //---------GE EJ NÅGOT VÄRDE INUTI INSPEKTORN-------------
-
-    public NavMeshAgent navMeshAgent;
-    public PlayerManager playerManager1;
-    public PlayerManager playerManager2;
-
-    //-----------------PRIVATE/PROTECTED----------------------
+    public float unitCost;
 
     private GameObject player1;
     private GameObject player2;
     private float lastAttackedTime;
 
-    //--------------------------------------------------------
+    [Header("GE EJ VÄRDE")]
+
+    public NavMeshAgent navMeshAgent;
+    public PlayerManager playerManager1;
+    public PlayerManager playerManager2;
+
 
     public virtual void Awake()
     {
@@ -57,6 +53,8 @@ public class BaseManager : MonoBehaviour
             return player2.transform;
         }
     }
+
+    //Ersätt denna metoden med IsAttackAllowed()
     public virtual void AttackPlayer(Transform player)
     {
         PlayerManager playerManager= GetCorrectPlayerManager(player);
@@ -66,7 +64,22 @@ public class BaseManager : MonoBehaviour
             playerManager.SetHealth(damage);
             lastAttackedTime = Time.time;
         }
-    } 
+    }
+
+    public virtual bool IsAttackAllowed()
+    {
+
+        if (Time.time > lastAttackedTime + attackSpeed)
+        {
+            lastAttackedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     
     protected PlayerManager GetCorrectPlayerManager(Transform player)
     {
