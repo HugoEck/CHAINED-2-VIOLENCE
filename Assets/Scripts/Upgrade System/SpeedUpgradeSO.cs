@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpeedUpgrade", menuName = "Upgrades/Speed")]
 public class SpeedUpgradeSO : ScriptableObject
 {
-    public int speedIncrease;
+    public float speedIncrease;
     public int cost;
     // Start is called before the first frame update
     void Start()

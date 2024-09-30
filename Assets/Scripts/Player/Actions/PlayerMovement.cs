@@ -21,6 +21,9 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
 
     private Vector2 _playerMoveDirection = Vector2.zero; // Direction on 2d plane (movement input)
     private Vector3 _isometricPlayerMoveDirection = Vector3.zero; // Adjust the player direction based on camera angle
+
+    public float WalkingSpeed => _walkingSpeed;
+
     private void Start()
     {
         _mainCameraReference = Camera.main;
@@ -36,6 +39,13 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
     #region Player Movement & Camera rotation
 
     #region Movement
+
+    // Used for upgrading the player movement speed thru the upgrade system.
+    public void SetWalkingSpeed(float newSpeed)
+    {
+        _walkingSpeed = newSpeed;
+    }
+
     public void MovePlayer()
     {
              

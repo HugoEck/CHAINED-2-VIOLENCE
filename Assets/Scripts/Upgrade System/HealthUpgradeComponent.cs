@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class HealthUpgradeComponent : MonoBehaviour
 {
-    public HealthUpgradeSO healthUpgradeData; // Reference to Scriptable Object
-
-    public int currentHealth = 100;
-    public int maxHealth = 100;
-
+    private PlayerManager playerManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerManager = GetComponent<PlayerManager>();
+        if (playerManager == null)
+        {
+            Debug.LogError("PlayerManager component is missing!");
+        }
     }
 
     // Update is called once per frame
@@ -22,17 +22,17 @@ public class HealthUpgradeComponent : MonoBehaviour
         
     }
 
-    public void Upgrade()
+    public void Upgrade(HealthUpgradeSO healthUpgradeData)
     {
-        if (healthUpgradeData != null)
+        if (playerManager != null && healthUpgradeData != null)
         {
-            maxHealth += healthUpgradeData.healthIncrease;
-            currentHealth = maxHealth; // heals to full when upgrade //remove later on
-            Debug.Log("Health upgraded! New Max Health: " + maxHealth);
+            playerManager.maxHealth += healthUpgradeData.healthIncrease;
+            playerManager.currentHealth = playerManager.maxHealth; // heal to full after the upgrade?
+            Debug.Log("Health upgraded by " + healthUpgradeData.healthIncrease + ". New Max Health: " + playerManager.maxHealth);
         }
         else
         {
-            Debug.LogWarning("No Health Upgrade Data Assigned");
+            Debug.LogWarning("Failed to upgrade health. PlayerManager or HealthUpgradeSO is null.");
         }
     }
 }

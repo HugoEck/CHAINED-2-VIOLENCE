@@ -732,6 +732,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65280137}
   m_Mesh: {fileID: -8803937527578110353, guid: bdf6d15c795180e4298b6b5081ff9bd7, type: 3}
+--- !u!115 &82951330
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 7
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_Type: 0
+  m_ExecutionOrder: 0
+  m_ClassName: NetworkObject
+  m_Namespace: Unity.Netcode
+  m_AssemblyName: Unity.Netcode.Runtime
 --- !u!1 &102353648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,6 +1806,9 @@ GameObject:
   - component: {fileID: 318182166}
   - component: {fileID: 318182165}
   - component: {fileID: 318182164}
+  - component: {fileID: 318182177}
+  - component: {fileID: 318182178}
+  - component: {fileID: 318182180}
   - component: {fileID: 318182161}
   - component: {fileID: 318182160}
   - component: {fileID: 318182159}
@@ -1800,7 +1818,8 @@ GameObject:
   - component: {fileID: 318182173}
   - component: {fileID: 318182175}
   - component: {fileID: 318182174}
-  - component: {fileID: 318182176}
+  - component: {fileID: 318182179}
+  - component: {fileID: 318182181}
   m_Layer: 6
   m_Name: Player_1
   m_TagString: Player1
@@ -2165,10 +2184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d7257bf9aa3834f88eb501e170aeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUpgradeData: {fileID: 11400000, guid: 1b408dd75797e2a4d9c8bd1c1808e8ff, type: 2}
-  currentHealth: 100
-  maxHealth: 100
---- !u!114 &318182176
+--- !u!114 &318182177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2177,13 +2193,86 @@ MonoBehaviour:
   m_GameObject: {fileID: 318182158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c18196e15bc883418460e6816ddf9ee, type: 3}
+  m_Script: {fileID: 1711993933}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
+  GlobalObjectIdHash: 77491640
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &318182178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318182158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1989463476}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1257783737
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &318182179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318182158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8885c52ee5f52148931989ac5f23187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &318182180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318182158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 82951330}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 658463795
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &318182181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318182158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dabf9b64fb2dfb409acaa6be528108d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: 0
-  baseDamage: 0
-  moveSpeed: 0
+  currentHealth: 0
 --- !u!1 &331459179
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,6 +3855,47 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300090, guid: 1e627bcafe9e32d40ad554880f36b5eb,
         type: 3}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624659526}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradePlayer1Speed
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UpgradeManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: c42cebbc1297cd64fb539f8f44b48626,
+        type: 2}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: SpeedUpgradeSO, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3794728028828616749, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_Name
@@ -4643,6 +4773,8 @@ GameObject:
   - component: {fileID: 927899843}
   - component: {fileID: 927899842}
   - component: {fileID: 927899841}
+  - component: {fileID: 927899855}
+  - component: {fileID: 927899856}
   - component: {fileID: 927899838}
   - component: {fileID: 927899837}
   - component: {fileID: 927899836}
@@ -4652,8 +4784,8 @@ GameObject:
   - component: {fileID: 927899850}
   - component: {fileID: 927899852}
   - component: {fileID: 927899851}
-  - component: {fileID: 927899853}
-  - component: {fileID: 927899854}
+  - component: {fileID: 927899857}
+  - component: {fileID: 927899858}
   m_Layer: 6
   m_Name: 'Player_2 '
   m_TagString: Player2
@@ -5004,9 +5136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d7257bf9aa3834f88eb501e170aeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUpgradeData: {fileID: 11400000, guid: 1b408dd75797e2a4d9c8bd1c1808e8ff, type: 2}
-  currentHealth: 100
-  maxHealth: 100
 --- !u!114 &927899852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5021,7 +5150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageUpgradeData: {fileID: 11400000, guid: ae87daa745842624a8c7f23d830302bd, type: 2}
   baseDamage: 10
---- !u!114 &927899853
+--- !u!114 &927899855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5030,10 +5159,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 927899835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0aaba4ec6ff37c4da37658f96d3271e, type: 3}
+  m_Script: {fileID: 1711993933}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &927899854
+  GlobalObjectIdHash: 3892524038
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &927899856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5042,13 +5180,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 927899835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c18196e15bc883418460e6816ddf9ee, type: 3}
+  m_Script: {fileID: 1989463476}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
+  GlobalObjectIdHash: 1656657260
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &927899857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927899835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8885c52ee5f52148931989ac5f23187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &927899858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927899835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dabf9b64fb2dfb409acaa6be528108d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: 0
-  baseDamage: 0
-  moveSpeed: 0
+  currentHealth: 0
 --- !u!1 &932881660
 GameObject:
   m_ObjectHideFlags: 0
@@ -7911,6 +8080,47 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300090, guid: 1e627bcafe9e32d40ad554880f36b5eb,
         type: 3}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1624659526}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradePlayer2Speed
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UpgradeManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: c42cebbc1297cd64fb539f8f44b48626,
+        type: 2}
+    - target: {fileID: 3508644720930530539, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: SpeedUpgradeSO, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3794728028828616749, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_Name
@@ -8033,6 +8243,21 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1701157010}
   m_PrefabAsset: {fileID: 0}
+--- !u!115 &1711993933
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 7
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_Type: 0
+  m_ExecutionOrder: 0
+  m_ClassName: NetworkObject
+  m_Namespace: Unity.Netcode
+  m_AssemblyName: Unity.Netcode.Runtime
 --- !u!1 &1716710939
 GameObject:
   m_ObjectHideFlags: 0
@@ -9858,6 +10083,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987365513}
   m_Mesh: {fileID: -8803937527578110353, guid: bdf6d15c795180e4298b6b5081ff9bd7, type: 3}
+--- !u!115 &1989463476
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 7
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_Type: 0
+  m_ExecutionOrder: 0
+  m_ClassName: NetworkObject
+  m_Namespace: Unity.Netcode
+  m_AssemblyName: Unity.Netcode.Runtime
 --- !u!1 &2003007851
 GameObject:
   m_ObjectHideFlags: 0

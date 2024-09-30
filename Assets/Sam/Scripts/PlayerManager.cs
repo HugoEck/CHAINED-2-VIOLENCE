@@ -16,4 +16,5 @@ public class PlayerManager : MonoBehaviour
     {
         currentHealth -= damage;
     }
+
 }

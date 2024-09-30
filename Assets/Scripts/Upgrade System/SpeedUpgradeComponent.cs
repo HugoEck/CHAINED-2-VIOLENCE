@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class SpeedUpgradeComponent : MonoBehaviour
 {
-    public SpeedUpgradeSO speedUpgradeData; // Reference to Scriptable Object
-
-    //Playermovement references
     private PlayerMovement playerMovement; // Reference to the player's movement script
     private int currentSpeedLevel = 0;
 
@@ -26,11 +23,11 @@ public class SpeedUpgradeComponent : MonoBehaviour
         
     }
 
-    public void Upgrade()
+    public void Upgrade(SpeedUpgradeSO speedUpgradeData)
     {
         if (playerMovement != null)
         {
-            //playerMovement.speed += speedUpgradeData.speedIncrease;
+            playerMovement.SetWalkingSpeed(playerMovement.WalkingSpeed + speedUpgradeData.speedIncrease);
             currentSpeedLevel++;
             Debug.Log("Speed upgraded! Current speed level: " + currentSpeedLevel);
         }
