@@ -8,26 +8,30 @@ public class AnimationStateController : MonoBehaviour
     private InputAction _moveAction;
     private InputAction _attackAction;
 
+    int _velocityHash;
     int _isWalkingHash;
     int _isAttackingHash;
 
+
+    [SerializeField] private float walkingSpeedThreshold = 2f;  
+    [SerializeField] private float runningSpeedThreshold = 5f; 
     void Start()
     {
-        // Get references to the Animator and PlayerInput components
+       
         _animator = GetComponentInChildren<Animator>();
         _playerInput = GetComponent<PlayerInput>();
 
         if (_playerInput == null)
         {
             Debug.LogError("PlayerInput component is missing on the Player GameObject!");
-            return; // Early exit if the PlayerInput component is missing
+            return; 
         }
 
-        // Get the movement and attack actions
+        
         _moveAction = _playerInput.actions["PlayerMovementAction"];
         _attackAction = _playerInput.actions["AttackAction"];
 
-        // Check if actions are initialized correctly
+        
         if (_moveAction == null)
         {
             Debug.LogError("PlayerMovementAction is not found in the Input Actions Asset!");
@@ -49,6 +53,7 @@ public class AnimationStateController : MonoBehaviour
         // Cache Animator parameter hashes for performance
         _isWalkingHash = Animator.StringToHash("isWalking");
         _isAttackingHash = Animator.StringToHash("isAttacking");
+        _velocityHash = Animator.StringToHash("Velocity");
     }
 
     void Update()
@@ -61,7 +66,10 @@ public class AnimationStateController : MonoBehaviour
 
         // Read movement input
         Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+        float velocity = moveInput.magnitude;
         bool isWalking = moveInput.magnitude > 0;
+
+        //_animator.SetFloat(_velocityHash, velocity);
 
         // Update walking animation based on input
         _animator.SetBool(_isWalkingHash, isWalking);
