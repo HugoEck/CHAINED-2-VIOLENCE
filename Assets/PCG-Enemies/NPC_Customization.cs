@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Animations;
 
 using UnityEngine;
@@ -256,13 +257,13 @@ public class NPC_Customization : MonoBehaviour
 
     public void AddBehaviourToClass(GameObject enemy)
     {
-        enemy.AddComponent<NavMeshAgent>();
+        NavMeshAgent agent = enemy.AddComponent<NavMeshAgent>();
         if (Class == NPCClass.Basic)
         {
             GoblinManager behaviour = enemy.AddComponent<GoblinManager>();
-            behaviour.speed = 1;
+            behaviour.speed = 3;
+            behaviour.attackRange = 3;
             behaviour.maxHealth = 100;
-
         }
     }
 

@@ -32,10 +32,12 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator CreateArmyCoroutine(int waveSize, NPC_Customization.NPCTheme theme, NPC_Customization.NPCClass enemyClass)
     {
+        GameObject enemyParent = new GameObject(theme + " " + enemyClass +" Army");
+
         // Randomize and create the base enemy
         enemyCreater.Randomize(theme, enemyClass);
         GameObject randomEnemy = Instantiate(enemyCreater.currentBody);
-        randomEnemy.transform.parent = null;
+        randomEnemy.transform.parent = enemyParent.transform; // Set the parent for the base enemy
 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
 
@@ -44,7 +46,7 @@ public class WaveManager : MonoBehaviour
             // Instantiate a new enemy
             GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
             newEnemy.name = enemyClass.ToString() + " enemy" + i;
-            newEnemy.transform.parent = null;
+            newEnemy.transform.parent = enemyParent.transform; // Set the parent for the new enemy
 
             // Add behavior to the new enemy
             enemyCreater.AddBehaviourToClass(newEnemy);
