@@ -81,7 +81,7 @@ public class NPC_Customization : MonoBehaviour
     {
         Basic,
         Tank,
-        Running,
+        Runner,
         Charger,
         RockThrower,
         Warrior
@@ -141,20 +141,24 @@ public class NPC_Customization : MonoBehaviour
     }
     public void Randomize(NPCTheme npcTheme, NPCClass npcClass)
     {
-        ThemeData themeData = GetThemeDataByTheme(npcTheme);
         DestroyAssets();
+        
+        Theme = npcTheme;
+        Class = npcClass;
+
+        ThemeData themeData = GetThemeDataByTheme(npcTheme);
+
 
         if (themeData != null)
         {
-            // Destroy previously instantiated assets
+            // Connect future assets and classes in their lists
+            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets);
+            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons);
+            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.runnerBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies);
+            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes);
+            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields);
 
-            //Connect future assets  and classes in their lists
-            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets);
-            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons);
-            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies);
-            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes);
-            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields);
-
+            // Instantiate body and set up animator
             if (bodies != null && bodies.Count > 0)
             {
                 currentBody = InstantiateRandomAsset(bodies, bodyPoint);
@@ -164,94 +168,46 @@ public class NPC_Customization : MonoBehaviour
                 {
                     currentAnimator.runtimeAnimatorController = animController;
                 }
-                
 
+                // Attach helmet
+                // Attach the helmet, weapon, cape, and shield as needed
                 if (helmets != null && helmets.Count > 0)
                 {
                     Transform headBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Neck/Head");
                     if (headBone != null)
                     {
-                        // Preserve local position and rotation
-                        Vector3 originalPosition = helmetPoint.localPosition;
-                        Quaternion originalRotation = helmetPoint.localRotation;
-
-                        // Reparent the helmetPoint
-                        helmetPoint.SetParent(headBone);
-
-                        // Restore original local position and rotation
-                        helmetPoint.localPosition = Vector3.zero;
-                        helmetPoint.localRotation = Quaternion.identity;
-
-                        currentHelmet = InstantiateRandomAsset(helmets, helmetPoint);
+                        currentHelmet = InstantiateRandomAsset(helmets, headBone);
                     }
                 }
 
-                // Attach weapon
                 if (weapons != null && weapons.Count > 0)
                 {
-                    Transform rHandBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R/Thumb_01 1/Thumb_02 1");
+                    Transform rHandBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_R/Shoulder_R/Elbow_R/Hand_R");
                     if (rHandBone != null)
                     {
-                        // Preserve local position and rotation
-                        Vector3 originalPosition = weaponPoint.localPosition;
-                        Quaternion originalRotation = weaponPoint.localRotation;
-
-                        // Reparent the weaponPoint
-                        weaponPoint.SetParent(rHandBone);
-
-                        // Restore original local position and rotation
-                        weaponPoint.localPosition = Vector3.zero; 
-                        weaponPoint.localRotation = Quaternion.identity; 
-                        weaponPoint.localRotation = originalRotation;
-                        weaponPoint.localPosition = originalPosition;
-
-                        currentWeapon = InstantiateRandomAsset(weapons, weaponPoint);
+                        currentWeapon = InstantiateRandomAsset(weapons, rHandBone);
                     }
                 }
 
-                // Attach cape
                 if (capes != null && capes.Count > 0)
                 {
                     Transform neckBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Neck");
                     if (neckBone != null)
                     {
-                        // Preserve local position and rotation
-                        Vector3 originalPosition = capePoint.localPosition;
-                        Quaternion originalRotation = capePoint.localRotation;
-
-                        // Reparent the capePoint
-                        capePoint.SetParent(neckBone);
-
-                        // Restore original local position and rotation
-                        capePoint.localPosition = Vector3.zero;
-                        capePoint.localRotation = Quaternion.identity;
-
-                        currentCape = InstantiateRandomAsset(capes, capePoint);
+                        currentCape = InstantiateRandomAsset(capes, neckBone);
                     }
                 }
 
-                // Attach shield
                 if (shields != null && shields.Count > 0)
                 {
-                    Transform lHandBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L/Thumb_01/Thumb_02/Thumb_03");
+                    Transform lHandBone = currentBody.transform.Find("Root/Hips/Spine_01/Spine_02/Spine_03/Clavicle_L/Shoulder_L/Elbow_L/Hand_L");
                     if (lHandBone != null)
                     {
-                        // Preserve local position and rotation
-                        Vector3 originalPosition = shieldPoint.localPosition;
-                        Quaternion originalRotation = shieldPoint.localRotation;
-
-                        // Reparent the shieldPoint
-                        shieldPoint.SetParent(lHandBone);
-
-                        // Restore original local position and rotation
-                        shieldPoint.localPosition = Vector3.zero;
-                        shieldPoint.localRotation = Quaternion.identity;
-                        shieldPoint.localRotation = originalRotation;
-
-                        currentShield = InstantiateRandomAsset(shields, shieldPoint);
+                        currentShield = InstantiateRandomAsset(shields, lHandBone);
                     }
                 }
             }
+
         }
     }
 
@@ -263,16 +219,26 @@ public class NPC_Customization : MonoBehaviour
             GoblinManager behaviour = enemy.AddComponent<GoblinManager>();
             behaviour.speed = 3;
             behaviour.attackRange = 3;
-            behaviour.maxHealth = 100;
+            behaviour.maxHealth = 1;
+        }
+        if (Class == NPCClass.Runner)
+        {
+            RunnerManager behaviour = enemy.AddComponent<RunnerManager>();
+            behaviour.speed = 6;
+            behaviour.attackRange = 3;
+            behaviour.maxHealth = 1;
+
         }
     }
 
-    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior /*add future classes in paramter*/)
+    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> runner, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior /*add future classes in paramter*/)
     {
         switch (Class)
         {
             case NPCClass.Basic:
                 return basic;
+            case NPCClass.Runner:
+                return runner;
             case NPCClass.Tank:
                 return tank;
             case NPCClass.Charger:
@@ -287,19 +253,41 @@ public class NPC_Customization : MonoBehaviour
         }
     }
 
-    private GameObject InstantiateRandomAsset(List<GameObject> assets, Transform spawnPoint)
+    private GameObject InstantiateRandomAsset(List<GameObject> assets, Transform parentBone)
     {
-        int r = Random.Range(0, assets.Count);
-        return Instantiate(assets[r], spawnPoint);
+        if (assets == null || assets.Count == 0 || parentBone == null)
+        {
+            return null;
+        }
+
+        int randomIndex = Random.Range(0, assets.Count);
+        GameObject newAsset = Instantiate(assets[randomIndex], parentBone.position, parentBone.rotation, parentBone);
+        return newAsset;
     }
 
 
     private void DestroyAssets()
     {
-        if (currentHelmet != null) Destroy(currentHelmet);
-        if (currentWeapon != null) Destroy(currentWeapon);
-        if (currentCape != null) Destroy(currentCape);
-        if (currentBody != null) Destroy(currentBody);
-        if (currentShield != null) Destroy(currentShield);
+        // Destroy the old attachments without affecting the root objects
+        DestroyChildren(helmetPoint);
+        DestroyChildren(weaponPoint);
+        DestroyChildren(capePoint);
+        DestroyChildren(shieldPoint);
+        DestroyChildren(bodyPoint);
+
+        // Reset asset references (this is optional depending on how you track them)
+        currentHelmet = null;
+        currentWeapon = null;
+        currentCape = null;
+        currentShield = null;
+        currentBody = null;
+    }
+
+    private void DestroyChildren(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

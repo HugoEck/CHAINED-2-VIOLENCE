@@ -36,7 +36,7 @@ public class GoblinManager : BaseManager
 
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             currentHealth--;
         }
