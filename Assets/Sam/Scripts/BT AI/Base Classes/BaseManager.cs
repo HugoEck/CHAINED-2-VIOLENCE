@@ -28,8 +28,8 @@ public class BaseManager : MonoBehaviour
 
     public virtual void Awake()
     {
-        player1 = GameObject.Find("Player1");
-        player2 = GameObject.Find("Player2");
+        player1 = GameObject.Find("Player_1");
+        player2 = GameObject.Find("Player_2");
         navMeshAgent = GetComponent<NavMeshAgent>();
         playerManager1 = player1.GetComponent<PlayerManager>();
         playerManager2 = player2.GetComponent<PlayerManager>();
