@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 /// <summary>
 /// This script handles the steam connections using facepunch API (creating a game, joining a game etc)
@@ -14,6 +15,11 @@ public class SteamLobby : MonoBehaviour
 {
     public static SteamLobby Instance { get; private set; }
 
+    #region ONLY FOR TESTING
+    [SerializeField] private Chained2ViolenceGameManager _testGameManager; // THIS IS ONLY USED FOR TESTING 
+    [SerializeField] private Canvas _createGameCanvasTest; // THIS IS ONLY USED FOR TESTING (DISABLING THE TESTING CANVAS IN THE TestStartHost method) 
+
+    #endregion
     /// <summary>
     /// This is only used during testing, pick which scene should be loaded when game is started (The loaded scene only works if there are already player objects instantiated)
     /// </summary>
@@ -172,7 +178,23 @@ public class SteamLobby : MonoBehaviour
 
         Loader.LoadNetwork(_loadSceneForTesting); // SWITCH OUT _loadSceneForTesting FOR PRODUCTION WITH PRE DETERMINED SCENE TO LOAD
     }
+    /// <summary>
+    /// THIS METHOD IS ONLY USED FOR TESTING; IT USES THE _testGameManager reference
+    /// </summary>
+    public async void TestStartHost()
+    {
+        
+        NetworkManager.Singleton.OnServerStarted += NetworkManager_OnServerStarted;
 
+        NetworkManager.Singleton.ConnectionApprovalCallback += NetworkManager_ConnectionApprovalCallback;
+        
+        NetworkManager.Singleton.StartHost();
+
+        _testGameManager.gameObject.SetActive(true);
+        CurrentLobby = await SteamMatchmaking.CreateLobbyAsync(MAX_NUMBER_OF_PLAYERS);
+
+        _createGameCanvasTest.gameObject.SetActive(false);
+    }
     private void NetworkManager_OnServerStarted()
     {
        

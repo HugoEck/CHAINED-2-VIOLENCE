@@ -30,8 +30,8 @@ public class Chained2ViolenceGameManager : NetworkBehaviour
             // Immediately assign host to Player1
             AssignHostToPlayer1();
         }
-    }
 
+    }
     public override void OnDestroy()
     {
         if (NetworkManager.Singleton.IsServer)
