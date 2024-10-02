@@ -56,6 +56,10 @@ public class ThemeDataPair
 public class NPC_Customization : MonoBehaviour
 {
 
+    [Header("NPC GameObjects")]
+    [SerializeField] GameObject Rock;
+
+
     [SerializeField] private Dictionary<NPCTheme, ThemeData> themeDataDict;
 
 
@@ -159,6 +163,7 @@ public class NPC_Customization : MonoBehaviour
             // Instantiate body and set up animator
             if (bodies != null && bodies.Count > 0)
             {
+                
                 currentBody = InstantiateRandomAsset(bodies, bodyPoint);
 
                 currentAnimator = currentBody.GetComponent<Animator>();
@@ -225,7 +230,23 @@ public class NPC_Customization : MonoBehaviour
             behaviour.speed = 6;
             behaviour.attackRange = 3;
             behaviour.maxHealth = 1;
+        }
+        if (Class == NPCClass.RockThrower)
+        {
+            RockThrowerManager behaviour = enemy.AddComponent<RockThrowerManager>();
 
+            GameObject throwPoint = new GameObject("throwPoint");
+            throwPoint.transform.SetParent(enemy.transform, false);
+            throwPoint.transform.localPosition = new Vector3(0.5f, 2, 1);
+
+            behaviour.throwPoint = throwPoint.transform;
+            behaviour.rockPrefab = Rock;
+
+            behaviour.attackSpeed = 3;
+            behaviour.maxHealth = 2;
+            behaviour.attackRange = 20;
+            behaviour.speed = 3;
+            behaviour.damage = 2;
         }
     }
 

@@ -4,8 +4,10 @@ using TMPro;
 using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
+    
+
     [SerializeField] GameObject enemyCreatorObject;
-    NPC_Customization enemyCreater;
+    NPC_Customization enemyCreator;
 
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     List<Wave> waves = new List<Wave>();
@@ -18,7 +20,7 @@ public class WaveManager : MonoBehaviour
     public float deltaTime;
     private void Awake()
     {
-        enemyCreater = enemyCreatorObject.GetComponent<NPC_Customization>();
+        enemyCreator = enemyCreatorObject.GetComponent<NPC_Customization>();
     }
 
 
@@ -43,7 +45,7 @@ public class WaveManager : MonoBehaviour
             Wave wave = new Wave();
             wave.waveName = "testWave";
             EnemyConfig enemy = new EnemyConfig();
-            enemy.enemyClass = NPC_Customization.NPCClass.Basic;
+            enemy.enemyClass = NPC_Customization.NPCClass.RockThrower;
             enemy.theme = NPC_Customization.NPCTheme.Roman;
             enemy.waveSize = 10;
             wave.enemyConfigs = new List<EnemyConfig>();
@@ -52,10 +54,9 @@ public class WaveManager : MonoBehaviour
             //text.text = "Current wave is: " + currentWave;
             currentWave++;
         }
-
-        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
-        float fps = 1.0f / deltaTime;
-        text.text = Mathf.Ceil(fps).ToString();
+        //deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        //float fps = 1.0f / deltaTime;
+        //text.text = Mathf.Ceil(fps).ToString();
     }
 
     public void SpawnWave(Wave wave)
@@ -70,9 +71,10 @@ public class WaveManager : MonoBehaviour
         foreach (var enemyConfig in wave.enemyConfigs)
         {
             // Randomize and create the base enemy
-            enemyCreater.Randomize(enemyConfig.theme, enemyConfig.enemyClass);
-            GameObject randomEnemy = Instantiate(enemyCreater.currentBody);
-            randomEnemy.transform.parent = waveParent.transform; // Set the parent for the base enemy
+            enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass);
+            GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
+            //randomEnemy.transform.parent = waveParent.transform; // Set the parent for the base enemy
+            randomEnemy.transform.position = new Vector3(100, 0, 100);
 
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
 
@@ -84,7 +86,7 @@ public class WaveManager : MonoBehaviour
                 newEnemy.transform.parent = waveParent.transform; // Set the parent for the new enemy
 
                 // Add behavior to the new enemy
-                enemyCreater.AddBehaviourToClass(newEnemy);
+                enemyCreator.AddBehaviourToClass(newEnemy);
 
                 // Optionally yield return null to spread creation over frames
                 yield return null; // This will wait for one frame before continuing the loop
