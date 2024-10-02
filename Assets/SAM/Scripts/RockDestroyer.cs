@@ -7,6 +7,14 @@ public class RockDestroyer : MonoBehaviour
 
     [HideInInspector] public float damage;
 
+    float currentTime = 0;
+    float timer = 5;
+
+
+    private void Update()
+    {
+        
+    }
     private void OnCollisionEnter(Collision collision)
     {
         PlayerManager player = collision.gameObject.GetComponent<PlayerManager>();
@@ -15,7 +23,9 @@ public class RockDestroyer : MonoBehaviour
         {
             player.SetHealth(damage);
         }
-
+        if(collision.gameObject.tag != "Rock")
+        {
         Destroy(gameObject);
+        }
     }
 }
