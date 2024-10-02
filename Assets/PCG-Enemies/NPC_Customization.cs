@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
-
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -106,7 +104,7 @@ public class NPC_Customization : MonoBehaviour
 
     //Animations
     Animator currentAnimator;
-    [SerializeField] AnimatorController animController;
+    [SerializeField] RuntimeAnimatorController animController;
 
     //private void Awake()
     //{

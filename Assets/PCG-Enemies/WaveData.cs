@@ -63,4 +63,5 @@ public class Wave
 {
     public string waveName;              
     public List<EnemyConfig> enemyConfigs; 
+    
 }

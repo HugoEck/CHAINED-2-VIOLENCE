@@ -14,6 +14,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     public int currentWave = 0;
 
+
+    public float deltaTime;
     private void Awake()
     {
         enemyCreater = enemyCreatorObject.GetComponent<NPC_Customization>();
@@ -28,15 +30,32 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && currentWave < waves.Count)
-        {
-            
-                SpawnWave(waves[currentWave]);
-            
-            text.text = "Current wave is: " + currentWave;
-            currentWave++;
+        //if (Input.GetKeyDown(KeyCode.Space) && currentWave < waves.Count)
+        //{
+        //    SpawnWave(waves[currentWave]);
+        //    text.text = "Current wave is: " + currentWave;
+        //    currentWave++;
+        //}
 
+        //Debug Wave
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Wave wave = new Wave();
+            wave.waveName = "testWave";
+            EnemyConfig enemy = new EnemyConfig();
+            enemy.enemyClass = NPC_Customization.NPCClass.Basic;
+            enemy.theme = NPC_Customization.NPCTheme.Roman;
+            enemy.waveSize = 10;
+            wave.enemyConfigs = new List<EnemyConfig>();
+            wave.enemyConfigs.Add(enemy);
+            SpawnWave(wave);
+            //text.text = "Current wave is: " + currentWave;
+            currentWave++;
         }
+
+        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        float fps = 1.0f / deltaTime;
+        text.text = Mathf.Ceil(fps).ToString();
     }
 
     public void SpawnWave(Wave wave)
