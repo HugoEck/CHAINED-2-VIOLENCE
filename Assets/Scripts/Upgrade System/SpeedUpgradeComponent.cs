@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpeedUpgradeComponent : MonoBehaviour
 {
     private PlayerMovement playerMovement; // Reference to the player's movement script
-    private int currentSpeedLevel = 0;
+    public int currentUpgradeLevel = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +28,8 @@ public class SpeedUpgradeComponent : MonoBehaviour
         if (playerMovement != null)
         {
             playerMovement.SetWalkingSpeed(playerMovement.WalkingSpeed + speedUpgradeData.speedIncrease);
-            currentSpeedLevel++;
-            Debug.Log("Speed upgraded! Current speed level: " + currentSpeedLevel);
+            currentUpgradeLevel++;
+            Debug.Log("Speed upgraded! Current speed level: " + currentUpgradeLevel);
         }
     }
 }

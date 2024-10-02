@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthUpgradeComponent : MonoBehaviour
 {
     private PlayerManager playerManager;
+    public int currentUpgradeLevel = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class HealthUpgradeComponent : MonoBehaviour
         {
             playerManager.maxHealth += healthUpgradeData.healthIncrease;
             playerManager.currentHealth = playerManager.maxHealth; // heal to full after the upgrade?
+            currentUpgradeLevel++;
             Debug.Log("Health upgraded by " + healthUpgradeData.healthIncrease + ". New Max Health: " + playerManager.maxHealth);
         }
         else

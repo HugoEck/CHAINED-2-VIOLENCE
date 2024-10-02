@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DamageUpgradeComponent : MonoBehaviour
 {
-    public DamageUpgradeSO damageUpgradeData; // Reference to Scriptable Object
-
+   // public DamageUpgradeSO damageUpgradeData; // Reference to Scriptable Object
+    public int currentUpgradeLevel = 0;
     public int baseDamage = 10;
 
     // Start is called before the first frame update
@@ -20,11 +20,12 @@ public class DamageUpgradeComponent : MonoBehaviour
         
     }
 
-    public void Upgrade()
+    public void Upgrade(DamageUpgradeSO damageUpgradeData)
     {
         if(damageUpgradeData != null)
         {
             baseDamage += damageUpgradeData.damageIncrease;
+            currentUpgradeLevel++;
             Debug.Log("Damage upgraded! New Base Damage: " + baseDamage);
         }
         else

@@ -1148,6 +1148,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 137244276}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &137244278 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1475132269744762794, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 137244276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &198365431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2170,7 +2182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d3da93ac34ba54791b2ae63e598a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageUpgradeData: {fileID: 11400000, guid: ae87daa745842624a8c7f23d830302bd, type: 2}
+  currentUpgradeLevel: 0
   baseDamage: 10
 --- !u!114 &318182175
 MonoBehaviour:
@@ -2184,6 +2196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d7257bf9aa3834f88eb501e170aeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentUpgradeLevel: 0
 --- !u!114 &318182177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2238,6 +2251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8885c52ee5f52148931989ac5f23187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentUpgradeLevel: 0
 --- !u!114 &318182180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2273,6 +2287,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   currentHealth: 0
+--- !u!114 &329958309 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1475132269744762794, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1940098252}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &331459179
 GameObject:
   m_ObjectHideFlags: 0
@@ -3178,6 +3204,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abce93ca8e2689945b16e32cb2c30a38, type: 3}
+--- !u!115 &531781813
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 7
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_Type: 0
+  m_ExecutionOrder: 0
+  m_ClassName: NetworkObject
+  m_Namespace: Unity.Netcode
+  m_AssemblyName: Unity.Netcode.Runtime
 --- !u!1001 &566694782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3658,6 +3699,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 2 Health Upgrade Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 3794728028828616749, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5052010084579846297, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3775,6 +3821,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 620687098}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &620687100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1475132269744762794, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 620687098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &638680670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3642524149550639101, guid: abce93ca8e2689945b16e32cb2c30a38,
@@ -4499,6 +4557,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867258587}
   m_Mesh: {fileID: -8803937527578110353, guid: bdf6d15c795180e4298b6b5081ff9bd7, type: 3}
+--- !u!114 &872972614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1475132269744762794, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 697654732}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &903052281
 GameObject:
   m_ObjectHideFlags: 0
@@ -4775,6 +4845,8 @@ GameObject:
   - component: {fileID: 927899841}
   - component: {fileID: 927899855}
   - component: {fileID: 927899856}
+  - component: {fileID: 927899859}
+  - component: {fileID: 927899860}
   - component: {fileID: 927899838}
   - component: {fileID: 927899837}
   - component: {fileID: 927899836}
@@ -5136,6 +5208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d7257bf9aa3834f88eb501e170aeba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentUpgradeLevel: 0
 --- !u!114 &927899852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5148,7 +5221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d3da93ac34ba54791b2ae63e598a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageUpgradeData: {fileID: 11400000, guid: ae87daa745842624a8c7f23d830302bd, type: 2}
+  currentUpgradeLevel: 0
   baseDamage: 10
 --- !u!114 &927899855
 MonoBehaviour:
@@ -5204,6 +5277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8885c52ee5f52148931989ac5f23187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentUpgradeLevel: 0
 --- !u!114 &927899858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5218,6 +5292,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   currentHealth: 0
+--- !u!114 &927899859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927899835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1177164924}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2780041556
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &927899860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927899835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 531781813}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3352482211
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &932881660
 GameObject:
   m_ObjectHideFlags: 0
@@ -6371,6 +6487,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094056386}
   m_CullTransparentMesh: 1
+--- !u!115 &1177164924
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 7
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_Type: 0
+  m_ExecutionOrder: 0
+  m_ClassName: NetworkObject
+  m_Namespace: Unity.Netcode
+  m_AssemblyName: Unity.Netcode.Runtime
 --- !u!1 &1226080949
 GameObject:
   m_ObjectHideFlags: 0
@@ -7081,6 +7212,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _otherPlayerChainJointTransform: {fileID: 2134690273}
+--- !u!114 &1399250077 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1475132269744762794, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1701157010}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1511381548
 GameObject:
   m_ObjectHideFlags: 0
@@ -7600,6 +7743,18 @@ Transform:
   - {fileID: 1903114036}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604323792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1475132269744762794, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1749685206}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1612324265
 GameObject:
   m_ObjectHideFlags: 0
@@ -7734,6 +7889,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Upgrades: {fileID: 1612324265}
   player2Upgrades: {fileID: 1786596705}
+  player1AttackLevelText: {fileID: 1604323792}
+  player2AttackLevelText: {fileID: 329958309}
+  player1HealthLevelText: {fileID: 137244278}
+  player2HealthLevelText: {fileID: 620687100}
+  player1SpeedLevelText: {fileID: 872972614}
+  player2SpeedLevelText: {fileID: 1399250077}
 --- !u!4 &1624659527
 Transform:
   m_ObjectHideFlags: 0
@@ -9555,6 +9716,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player 2 Damage Upgrade Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3794728028828616749, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5052010084579846297, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -17769,10 +17935,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 57684447}
     m_Modifications:
-    - target: {fileID: 1879989884491948662, guid: 1bbb3e0350475f04489b94b889f1d7e9,
+    - target: {fileID: 1475132269744762794, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 85
+      propertyPath: m_text
+      value: 'Current Level: 0'
       objectReference: {fileID: 0}
     - target: {fileID: 3794728028828616749, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -17783,16 +17949,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4464923412095372756, guid: 1bbb3e0350475f04489b94b889f1d7e9,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 4464923412095372756, guid: 1bbb3e0350475f04489b94b889f1d7e9,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5052010084579846297, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -17872,7 +18028,7 @@ PrefabInstance:
     - target: {fileID: 5052010084579846297, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -658
+      value: -1010
       objectReference: {fileID: 0}
     - target: {fileID: 5052010084579846297, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
