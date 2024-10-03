@@ -260,7 +260,7 @@ public class NPC_Customization : NetworkBehaviour
             behaviour.maxHealth = 2;
             behaviour.attackRange = 20;
             behaviour.speed = 3;
-            behaviour.damage = 2;
+            behaviour.attack = 2;
         }
     }
 

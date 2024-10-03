@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class BaseManager : MonoBehaviour
+using Unity.Netcode;
+using Unity.Netcode.Components;
+public class BaseManager : NetworkBehaviour
 {
 
     //Detta skript innehåller alla basvariabler samt metoder för alla andra managers.
@@ -10,7 +12,7 @@ public class BaseManager : MonoBehaviour
 
     public float maxHealth;
     public float currentHealth;
-    public float damage, defense, speed, attackSpeed;
+    public float attack, defense, speed, attackSpeed;
     public float attackRange;
     public float unitCost;
 
@@ -23,11 +25,20 @@ public class BaseManager : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public PlayerManager playerManager1;
     public PlayerManager playerManager2;
+    public Animator animator;
+    public string enemyID;
+    
+
 
     public virtual void Awake()
     {
-        player1 = GameObject.Find("Player_1");
-        player2 = GameObject.Find("Player_2");
+
+        //gameObject.AddComponent<NetworkObject>();
+        //gameObject.AddComponent<NetworkTransform>();
+        player1 = GameObject.FindGameObjectWithTag("Player1");
+        player2 = GameObject.FindGameObjectWithTag("Player2");
+        animator = gameObject.GetComponent<Animator>();
+
         navMeshAgent = GetComponent<NavMeshAgent>();
         playerManager1 = player1.GetComponent<PlayerManager>();
         playerManager2 = player2.GetComponent<PlayerManager>();
@@ -75,4 +86,5 @@ public class BaseManager : MonoBehaviour
             return playerManager2;
         }
     }
+
 }

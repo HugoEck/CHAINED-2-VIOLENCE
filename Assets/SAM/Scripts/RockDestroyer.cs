@@ -7,9 +7,6 @@ public class RockDestroyer : MonoBehaviour
 
     [HideInInspector] public float damage;
 
-    float currentTime = 0;
-    float timer = 5;
-
 
     private void Update()
     {

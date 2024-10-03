@@ -3,26 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RunnerManager : BaseManager
+public class PlebianManager : BaseManager
 {
 
     Node rootNode;
-    Material material;
+
+    private float evaluationInterval = 0.5f; 
+    private float timeSinceLastEvaluation = 0f; 
+    private float randomOffset; 
 
     void Start()
     {
-
+        enemyID = "Plebian";
+        animator.SetBool("Plebian_StartChasing", true);
         currentHealth = maxHealth;
         navMeshAgent.speed = speed;
         ConstructBT();
+
+        randomOffset = Random.Range(0f, evaluationInterval);
     }
 
     private void FixedUpdate()
     {
-        rootNode.Evaluate(this);
-        if (rootNode.nodeState == NodeState.FAILURE)
+        
+        timeSinceLastEvaluation += Time.fixedDeltaTime;
+
+        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
         {
-            SetColor(Color.red);
+            timeSinceLastEvaluation -= evaluationInterval;
+            rootNode.Evaluate(this);
+            randomOffset = Random.Range(0f, evaluationInterval);
         }
 
     }
@@ -43,9 +53,5 @@ public class RunnerManager : BaseManager
 
     }
 
-    public void SetColor(Color color)
-    {
-        material.color = color;
-    }
 
 }
