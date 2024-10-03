@@ -46,7 +46,11 @@ public class BaseManager : NetworkBehaviour
     }
     public virtual void DealDamageToEnemy(float damage)
     {
-        currentHealth -= damage;
+        if ( defense - damage < 0)
+        {
+            currentHealth = currentHealth + defense - damage;
+        }
+        
     }
 
     public virtual Transform CalculateClosestTarget()
