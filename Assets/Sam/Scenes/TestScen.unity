@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 173156590}
   - component: {fileID: 173156589}
   - component: {fileID: 173156588}
+  - component: {fileID: 173156595}
   - component: {fileID: 173156587}
   - component: {fileID: 173156593}
   - component: {fileID: 173156594}
@@ -274,6 +275,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!195 &173156588
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -406,6 +408,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &173156594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,10 +432,32 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  animator: {fileID: 0}
   rockPrefab: {fileID: 8638951405126928395, guid: 0132e2aa9964ece4d8f5550ac065fb3f,
     type: 3}
   throwPoint: {fileID: 1150328433}
   calculatedVelocity: {x: 0, y: 0, z: 0}
+--- !u!114 &173156595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173156586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 130907760
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &578253798
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,7 +612,7 @@ GameObject:
   - component: {fileID: 775815869}
   m_Layer: 0
   m_Name: Player_1
-  m_TagString: Enemy
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -756,7 +781,7 @@ GameObject:
   - component: {fileID: 1102680185}
   m_Layer: 0
   m_Name: Player_2
-  m_TagString: Untagged
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
