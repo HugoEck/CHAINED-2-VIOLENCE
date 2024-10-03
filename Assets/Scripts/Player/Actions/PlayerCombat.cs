@@ -7,7 +7,6 @@ public class PlayerCombat : MonoBehaviour
     public float attackDamage = 10f; // Damage dealt per attack
     public float abilityDamage = 50f; // Damage dealt by the ability
     public float attackRange = 2f; // The range within which the attack can hit
-    public float attackConeAngle = 45f; // Cone angle for the attack
     public GameObject sharpObject; // The object that becomes sharp
     public float sharpDuration = 2f; // Duration for which the object remains sharp
     public Material sharpMaterial; // Material for sharp state
@@ -74,19 +73,11 @@ public class PlayerCombat : MonoBehaviour
         {
             if (hitCollider.CompareTag("Enemy")) // Check if it is an enemy
             {
-                Vector3 directionToTarget = (hitCollider.transform.position - transform.position).normalized;
-                float angleToTarget = Vector3.Angle(transform.forward, directionToTarget);
-
-                // Check if the enemy is within the attack cone
-                if (angleToTarget < attackConeAngle / 2)
+                BaseManager enemy = hitCollider.GetComponent<BaseManager>();
+                if (enemy != null)
                 {
-                    // Perform attack
-                    BaseManager enemy = hitCollider.GetComponent<BaseManager>();
-                    if (enemy != null)
-                    {
-                        enemy.SetHealth(attackDamage); // Call TakeDamage on the enemy
-                        Debug.Log("Hit enemy: " + hitCollider.name); // Output debug message
-                    }
+                    enemy.SetHealth(attackDamage); // Call TakeDamage on the enemy
+                    Debug.Log("Hit enemy: " + hitCollider.name); // Output debug message
                 }
             }
         }
@@ -156,18 +147,10 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    // Visualize the attack range and cone in the Scene view
+    // Visualize the attack range in the Scene view
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-
-        // Draw cone for visualization
-        Vector3 forward = transform.forward * attackRange;
-        Vector3 leftBoundary = Quaternion.Euler(0, -attackConeAngle / 2, 0) * forward;
-        Vector3 rightBoundary = Quaternion.Euler(0, attackConeAngle / 2, 0) * forward;
-
-        Gizmos.DrawLine(transform.position, transform.position + leftBoundary);
-        Gizmos.DrawLine(transform.position, transform.position + rightBoundary);
     }
 }
