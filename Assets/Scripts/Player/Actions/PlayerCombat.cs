@@ -76,7 +76,7 @@ public class PlayerCombat : MonoBehaviour
                 BaseManager enemy = hitCollider.GetComponent<BaseManager>();
                 if (enemy != null)
                 {
-                    enemy.SetHealth(attackDamage); // Call TakeDamage on the enemy
+                    enemy.DealDamageToEnemy(attackDamage); // Call TakeDamage on the enemy
                     Debug.Log("Hit enemy: " + hitCollider.name); // Output debug message
                 }
             }

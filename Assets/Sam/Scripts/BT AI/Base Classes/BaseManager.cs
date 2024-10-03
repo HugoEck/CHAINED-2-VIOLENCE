@@ -44,7 +44,7 @@ public class BaseManager : NetworkBehaviour
         playerManager2 = player2.GetComponent<PlayerManager>();
 
     }
-    public virtual void SetHealth(float damage)
+    public virtual void DealDamageToEnemy(float damage)
     {
         currentHealth -= damage;
     }
