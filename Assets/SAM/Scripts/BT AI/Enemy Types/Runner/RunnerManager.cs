@@ -7,11 +7,16 @@ public class RunnerManager : BaseManager
 {
 
     Node rootNode;
-    Material material;
+    
+
+    private float evaluationInterval = 0.5f;
+    private float timeSinceLastEvaluation = 0f;
+    private float randomOffset;
 
     void Start()
     {
-
+        enemyID = "Runner";
+        animator.SetBool("Runner_StartChasing", true);
         currentHealth = maxHealth;
         navMeshAgent.speed = speed;
         ConstructBT();
@@ -19,10 +24,13 @@ public class RunnerManager : BaseManager
 
     private void FixedUpdate()
     {
-        rootNode.Evaluate(this);
-        if (rootNode.nodeState == NodeState.FAILURE)
+        timeSinceLastEvaluation += Time.fixedDeltaTime;
+
+        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
         {
-            SetColor(Color.red);
+            timeSinceLastEvaluation -= evaluationInterval;
+            rootNode.Evaluate(this);
+            randomOffset = Random.Range(0f, evaluationInterval);
         }
 
     }
@@ -43,9 +51,5 @@ public class RunnerManager : BaseManager
 
     }
 
-    public void SetColor(Color color)
-    {
-        material.color = color;
-    }
 
 }

@@ -8,14 +8,14 @@ public class PlebianManager : BaseManager
 
     Node rootNode;
 
-    //-----------------------DEBUG FÖR FPS-----------------------------
-
-    private float evaluationInterval = 1.0f; 
+    private float evaluationInterval = 0.5f; 
     private float timeSinceLastEvaluation = 0f; 
     private float randomOffset; 
 
     void Start()
     {
+        enemyID = "Plebian";
+        animator.SetBool("Plebian_StartChasing", true);
         currentHealth = maxHealth;
         navMeshAgent.speed = speed;
         ConstructBT();
@@ -25,7 +25,7 @@ public class PlebianManager : BaseManager
 
     private void FixedUpdate()
     {
-
+        
         timeSinceLastEvaluation += Time.fixedDeltaTime;
 
         if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)

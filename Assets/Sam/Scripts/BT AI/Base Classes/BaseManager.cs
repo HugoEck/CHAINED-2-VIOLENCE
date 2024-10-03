@@ -12,7 +12,7 @@ public class BaseManager : NetworkBehaviour
 
     public float maxHealth;
     public float currentHealth;
-    public float damage, defense, speed, attackSpeed;
+    public float attack, defense, speed, attackSpeed;
     public float attackRange;
     public float unitCost;
 
@@ -26,17 +26,18 @@ public class BaseManager : NetworkBehaviour
     public PlayerManager playerManager1;
     public PlayerManager playerManager2;
     public Animator animator;
+    public string enemyID;
     
 
 
     public virtual void Awake()
     {
 
-        gameObject.AddComponent<NetworkObject>();
-        gameObject.AddComponent<NetworkTransform>();
+        //gameObject.AddComponent<NetworkObject>();
+        //gameObject.AddComponent<NetworkTransform>();
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
-        //animator = gameObject.GetComponent<Animator>();
+        animator = gameObject.GetComponent<Animator>();
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         playerManager1 = player1.GetComponent<PlayerManager>();
@@ -85,4 +86,5 @@ public class BaseManager : NetworkBehaviour
             return playerManager2;
         }
     }
+
 }

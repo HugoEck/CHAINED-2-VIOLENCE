@@ -10,6 +10,8 @@ public class ChasePlayer : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
+        SetChaseAnimation(agent);
+       
         targetedPlayer = agent.CalculateClosestTarget();
         float distance = Vector3.Distance(agent.transform.position, targetedPlayer.transform.position);
         
@@ -42,5 +44,25 @@ public class ChasePlayer : Node
 
         // Smoothly rotate the agent towards the player
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navMeshAgent.angularSpeed);
+    }
+
+    public void SetChaseAnimation(BaseManager agent)
+    {
+        if (agent.enemyID=="Plebian")
+        {
+            agent.animator.SetBool("Plebian_Chase", true);
+            agent.animator.SetBool("Plebian_Attack", false);
+        }
+        else if (agent.enemyID == "Runner")
+        {
+            agent.animator.SetBool("Runner_Chase", true);
+            agent.animator.SetBool("Runner_Attack", false);
+        }
+        else if(agent.enemyID == "RockThrower")
+        {
+            agent.animator.SetBool("RockThrower_Chase", true);
+            agent.animator.SetBool("RockThrower_Attack", false);
+            agent.animator.SetBool("RockThrower_Idle", false);
+        }
     }
 }

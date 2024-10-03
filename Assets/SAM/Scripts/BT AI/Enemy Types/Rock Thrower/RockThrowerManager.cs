@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class RockThrowerManager : BaseManager
 {    
     Node rootNode;
-    Material material;
 
     [Header("ROCKTHROWER MANAGER")]
     public GameObject rockPrefab;
@@ -15,8 +14,14 @@ public class RockThrowerManager : BaseManager
     [Header("GE EJ VÄRDE")]
     public Vector3 calculatedVelocity;
 
+    private float evaluationInterval = 0.5f;
+    private float timeSinceLastEvaluation = 0f;
+    private float randomOffset;
+
     void Start()
     {
+        enemyID = "RockThrower";
+        animator.SetBool("RockThrower_StartChasing", true);
         currentHealth = maxHealth;
         navMeshAgent.speed = speed;
         ConstructBT();
@@ -24,11 +29,13 @@ public class RockThrowerManager : BaseManager
 
     private void FixedUpdate()
     {
-        rootNode.Evaluate(this);
+        timeSinceLastEvaluation += Time.fixedDeltaTime;
 
-        if (rootNode.nodeState == NodeState.FAILURE)
+        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
         {
-            SetColor(Color.red);
+            timeSinceLastEvaluation -= evaluationInterval;
+            rootNode.Evaluate(this);
+            randomOffset = Random.Range(0f, evaluationInterval);
         }
 
     }
@@ -53,8 +60,4 @@ public class RockThrowerManager : BaseManager
         calculatedVelocity = newVelocity;
     }
 
-    public void SetColor(Color color)
-    {
-        material.color = color;
-    }
 }
