@@ -41,12 +41,12 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        HandleInput();
-    }
+    //void Update()
+    //{
+    //    HandleInput();
+    //}
 
-    void HandleInput()
+    public void HandleInput()
     {
         // Handle attack input
         if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastAttackTime + attackCooldown)

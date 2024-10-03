@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -53,7 +55,7 @@ public class ThemeDataPair
     public NPC_Customization.NPCTheme theme;
     public ThemeData themeData;
 }
-public class NPC_Customization : MonoBehaviour
+public class NPC_Customization : NetworkBehaviour
 {
 
     [Header("NPC GameObjects")]
@@ -217,6 +219,18 @@ public class NPC_Customization : MonoBehaviour
     public void AddBehaviourToClass(GameObject enemy)
     {
         NavMeshAgent agent = enemy.AddComponent<NavMeshAgent>();
+        BoxCollider collider = enemy.AddComponent<BoxCollider>();
+        enemy.AddComponent<NetworkObject>();
+        NetworkTransform networkTransform = enemy.AddComponent<NetworkTransform>();
+        networkTransform.SyncRotAngleX = false;
+        networkTransform.SyncRotAngleZ = false;
+        networkTransform.SyncScaleX = false;
+        networkTransform.SyncScaleY = false;
+        networkTransform.SyncScaleZ = false;
+
+        collider.isTrigger = true;
+        enemy.tag = "Enemy";
+
         if (Class == NPCClass.Basic)
         {
             GoblinManager behaviour = enemy.AddComponent<GoblinManager>();

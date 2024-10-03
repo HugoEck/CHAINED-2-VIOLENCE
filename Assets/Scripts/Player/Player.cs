@@ -10,16 +10,19 @@ public class Player : NetworkBehaviour
     #region Player components
 
     private PlayerMovement _playerMovement;
+    private PlayerCombat _playerCombat;
 
     #endregion
 
     private bool _bIsPlayerMovementActivated = false; // Used to enable player movement when players spawn
+   
 
     void Start()
     {
         #region Instantiate components
 
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerCombat = GetComponent<PlayerCombat>();
 
         #endregion
     }
@@ -29,6 +32,7 @@ public class Player : NetworkBehaviour
         if (!IsOwner) return;
 
         UpdatePlayerMovement();
+        UpdatePlayerCombat();
     }
 
     #region PlayerMovement
@@ -39,6 +43,15 @@ public class Player : NetworkBehaviour
         {
             _playerMovement.MovePlayer();
         }
+    }
+
+    #endregion
+
+    #region
+    private void UpdatePlayerCombat()
+    {
+     
+            _playerCombat.HandleInput();     
     }
 
     #endregion
