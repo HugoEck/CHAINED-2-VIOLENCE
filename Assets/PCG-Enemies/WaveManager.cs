@@ -32,28 +32,32 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space) && currentWave < waves.Count)
-        //{
-        //    SpawnWave(waves[currentWave]);
-        //    text.text = "Current wave is: " + currentWave;
-        //    currentWave++;
-        //}
-
-        //Debug Wave
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && currentWave < waves.Count)
         {
-            Wave wave = new Wave();
-            wave.waveName = "testWave";
-            EnemyConfig enemy = new EnemyConfig();
-            enemy.enemyClass = NPC_Customization.NPCClass.RockThrower;
-            enemy.theme = NPC_Customization.NPCTheme.Roman;
-            enemy.waveSize = 10;
-            wave.enemyConfigs = new List<EnemyConfig>();
-            wave.enemyConfigs.Add(enemy);
-            SpawnWave(wave);
-            //text.text = "Current wave is: " + currentWave;
+            SpawnWave(waves[currentWave]);
+            text.text = "Current wave is: " + currentWave;
             currentWave++;
         }
+
+        //Debug Wave
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Wave wave = new Wave();
+        //    wave.waveName = "testWave";
+        //    EnemyConfig enemy = new EnemyConfig();
+
+        //    //Set enemy theme and class to debug here
+        //    enemy.enemyClass = NPC_Customization.NPCClass.RockThrower;
+        //    enemy.theme = NPC_Customization.NPCTheme.Roman;
+
+        //    enemy.waveSize = 10;
+        //    wave.enemyConfigs = new List<EnemyConfig>();
+        //    wave.enemyConfigs.Add(enemy);
+        //    SpawnWave(wave);
+        //    text.text = "Trying out " + enemy.theme.ToString() + " "+ enemy.enemyClass.ToString();
+        //}
+
+        //FPS writer
         //deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
         //float fps = 1.0f / deltaTime;
         //text.text = Mathf.Ceil(fps).ToString();
