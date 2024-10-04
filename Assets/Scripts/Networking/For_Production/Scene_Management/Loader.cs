@@ -13,7 +13,8 @@ public static class Loader
     {
         Main_Menu,
         MainScene,
-        ArnTestScene // FOR TESTING PURPOSES ONLY
+        ArnTestScene, // FOR TESTING PURPOSES ONLY
+        LobbyScene
     };
 
     private static Scene targetScene;
