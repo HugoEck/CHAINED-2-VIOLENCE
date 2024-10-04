@@ -6,8 +6,8 @@ using UnityEngine.Rendering;
 
 public class TrapManager : MonoBehaviour
 {
-    public float surfaceY = 0f;
-    public float spawnY = -15f;
+    private float surfaceY = 0f;
+    private float spawnY = -15f;
     public float riseSpeed = 15f;
     public float despawnSpeed = 10f;
 
