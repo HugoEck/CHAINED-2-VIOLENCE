@@ -116,7 +116,16 @@ public class itemAreaSpawner : MonoBehaviour
         {
             if (obj != null)
             {
-                obj.AddComponent<MoveDownwards>();
+                TrapManager trap = obj.GetComponent<TrapManager>();
+
+                if (trap != null)
+                {
+                    trap.DespawnTrap();
+                }
+                else
+                {
+                    obj.AddComponent<MoveDownwards>();
+                }
             }
         }
         spawnedObjects.Clear();
