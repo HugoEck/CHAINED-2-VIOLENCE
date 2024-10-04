@@ -35,8 +35,8 @@ public class WaveManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && currentWave < waves.Count)
         {
             SpawnWave(waves[currentWave]);
-            text.text = "Current wave is: " + currentWave;
             currentWave++;
+            text.text = "Current wave is: " + currentWave;
         }
 
         //Debug Wave

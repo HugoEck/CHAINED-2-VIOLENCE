@@ -7,9 +7,6 @@ public class RockDestroyer : MonoBehaviour
 
     [HideInInspector] public float damage;
 
-    float currentTime = 0;
-    float timer = 5;
-
 
     private void Update()
     {
@@ -23,9 +20,9 @@ public class RockDestroyer : MonoBehaviour
         {
             player.SetHealth(damage);
         }
-        if(collision.gameObject.tag != "Rock")
+        if(collision.gameObject.tag != "Rock" || collision.gameObject.tag != "Enemy")
         {
-        Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

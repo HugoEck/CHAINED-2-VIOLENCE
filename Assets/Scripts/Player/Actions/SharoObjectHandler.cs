@@ -20,7 +20,7 @@ public class SharpObjectHandler : MonoBehaviour
             BaseManager enemy = other.GetComponent<BaseManager>();
             if (enemy != null)
             {
-                enemy.SetHealth(damage); // Deal damage to the enemy
+                enemy.DealDamageToEnemy(damage); // Deal damage to the enemy
                 Debug.Log("Enemy hit by sharp object: " + other.name);
             }
         }
