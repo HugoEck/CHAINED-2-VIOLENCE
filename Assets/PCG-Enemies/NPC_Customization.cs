@@ -233,7 +233,7 @@ public class NPC_Customization : NetworkBehaviour
 
         if (Class == NPCClass.Basic)
         {
-            GoblinManager behaviour = enemy.AddComponent<GoblinManager>();
+            PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
             behaviour.speed = 3;
             behaviour.attackRange = 3;
             behaviour.maxHealth = 1;
