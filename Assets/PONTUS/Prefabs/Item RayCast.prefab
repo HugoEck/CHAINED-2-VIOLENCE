@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7594234868517049348
+--- !u!1 &8241081031660279880
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5752512945022354207}
-  - component: {fileID: 6155211124404778362}
+  - component: {fileID: 3073226942881793304}
+  - component: {fileID: 4026423117850174610}
   m_Layer: 0
-  m_Name: Item_Spreader
+  m_Name: Item RayCast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5752512945022354207
+  m_IsActive: 0
+--- !u!4 &3073226942881793304
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7594234868517049348}
+  m_GameObject: {fileID: 8241081031660279880}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6155211124404778362
+--- !u!114 &4026423117850174610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7594234868517049348}
+  m_GameObject: {fileID: 8241081031660279880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53772a654c9463d40a2b69bca564ca91, type: 3}
+  m_Script: {fileID: 11500000, guid: e6671ca3ec52b5d4da9dd2b677744412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToSpread: {fileID: 6746231873100724913, guid: 6206e6d1f5245ed4599bee9f9cb1b579,
-    type: 3}
-  numObjectsToSpawn: 30
-  itemXSpread: 45
-  itemYSpread: 0
-  itemZSpread: 45
+  raycastDistance: 100
+  overlapTestBoxSize: 100
+  spawnedObjectLayer:
+    serializedVersion: 2
+    m_Bits: 256
