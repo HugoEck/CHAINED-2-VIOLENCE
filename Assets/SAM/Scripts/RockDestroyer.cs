@@ -20,9 +20,9 @@ public class RockDestroyer : MonoBehaviour
         {
             player.SetHealth(damage);
         }
-        if(collision.gameObject.tag != "Rock")
+        if(collision.gameObject.tag != "Rock" || collision.gameObject.tag != "Enemy")
         {
-        Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }
