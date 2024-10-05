@@ -17,4 +17,17 @@ public class PlayerManager : MonoBehaviour
         currentHealth -= damage;
     }
 
+    //Used for upgrades
+    public void SetMaxHealth(float newMaxHealth)
+    {
+        maxHealth = newMaxHealth;
+        currentHealth = maxHealth;// heal to full when upgrading health
+        
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        Debug.Log("Player max health set to: " + maxHealth);
+    }
 }

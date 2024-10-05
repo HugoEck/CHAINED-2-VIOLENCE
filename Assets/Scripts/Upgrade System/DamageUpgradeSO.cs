@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DamageUpgrade", menuName = "Upgrades/Damage")]
 public class DamageUpgradeSO : ScriptableObject
 {
-    public int damageIncrease;
-    public int cost;
+    public float damageIncrease;
+    public int cost; //FIX LATER WHEN WE HAVE GOLD SCRIPT
 
     // Start is called before the first frame update
     void Start()

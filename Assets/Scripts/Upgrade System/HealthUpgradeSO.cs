@@ -6,8 +6,8 @@ using UnityEngine;
 public class HealthUpgradeSO : ScriptableObject
 {
     public int healthIncrease;
-    public int cost;
-    
+    public int cost;  //FIX LATER WHEN WE HAVE GOLD SCRIPT
+
     // Start is called before the first frame update
     void Start()
     {

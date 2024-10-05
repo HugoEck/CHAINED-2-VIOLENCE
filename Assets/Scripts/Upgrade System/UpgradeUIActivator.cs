@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
-/// fix so it works for both players with networking etc...
+/// CHANGE LATER SO IT WORKS WHEN A PLAYER WALKS INTO THE AREA OR ANY OF THE PLAYERS PRESSES E ON THE UPDATE OBJECT IN THE LOBBY.
 /// </summary>
 public class UpgradeUIActivator : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class UpgradeUIActivator : MonoBehaviour
     private void ToggleUpgradeUICanvas()
     {
         float distanceP1 = Vector3.Distance(player1.transform.position, transform.position);
-        float distanceP2 = Vector3.Distance(player2.transform.position, transform.position);
+        //float distanceP2 = Vector3.Distance(player2.transform.position, transform.position);
 
         if (distanceP1 <= interactionDistance)
         {
@@ -42,6 +43,4 @@ public class UpgradeUIActivator : MonoBehaviour
         }
 
     }
-
-
 }
