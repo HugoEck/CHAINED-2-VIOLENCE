@@ -78,7 +78,7 @@ public class Chained2ViolenceGameManager : NetworkBehaviour
     private void AssignClientToPlayer2(ulong clientId)
     {
         Player player2 = GameObject.FindGameObjectWithTag("Player2")?.GetComponent<Player>();
-
+        
         if (player2 != null)
         {
             NetworkObject player2Object = player2.GetComponent<NetworkObject>();
