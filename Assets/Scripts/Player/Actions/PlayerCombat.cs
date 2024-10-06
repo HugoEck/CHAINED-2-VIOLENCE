@@ -1,163 +1,47 @@
 using UnityEngine;
 
-public class PlayerCombat : MonoBehaviour
+public abstract class PlayerCombat : MonoBehaviour
 {
-    public float attackCooldown = 1f; // Cooldown time between attacks
-    public float abilityCooldown = 5f; // Cooldown time between abilities
-    public float attackDamage = 10f; // Damage dealt per attack
-    public float abilityDamage = 50f; // Damage dealt by the ability
-    public float attackRange = 2f; // The range within which the attack can hit
-    public GameObject sharpObject; // The object that becomes sharp
-    public float sharpDuration = 2f; // Duration for which the object remains sharp
-    public Material sharpMaterial; // Material for sharp state
-    public Material bluntMaterial; // Material for blunt state
+    public float attackCooldown = 1f;  // Cooldown between attacks
+    public float abilityCooldown = 5f; // Cooldown between abilities
+    public float attackRange = 2f;     // Range of attack
+    public float attackDamage = 10f;   // Damage per attack
 
-    private float lastAttackTime;
-    private float lastAbilityTime;
-    private bool isSharp = false; // Whether the object is currently sharp
-    private Collider sharpCollider; // Reference to the sharp object's collider
-    private SharpObjectHandler sharpHandler; // Reference to the sharp object's handler
+    protected float lastAttackTime;
+    protected float lastAbilityTime;
 
-    void Start()
+    // Virtual method for handling attacks, to be overridden by subclasses.
+    public virtual void Attack()
     {
-        if (sharpObject != null)
-        {
-            // Get the collider of the sharp object
-            sharpCollider = sharpObject.GetComponent<Collider>();
-            sharpHandler = sharpObject.GetComponent<SharpObjectHandler>();
-
-            if (sharpCollider != null)
-            {
-                sharpCollider.isTrigger = false; // Initially set to not sharp
-            }
-
-            if (sharpHandler != null)
-            {
-                sharpHandler.SetSharpness(false, 0); // Initially not sharp
-            }
-
-            // Set the initial material to blunt
-            SetObjectMaterial(bluntMaterial);
-        }
+        Debug.Log("Base Attack triggered.");
     }
 
-    //void Update()
-    //{
-    //    HandleInput();
-    //}
+    // Virtual method for handling abilities, to be overridden by subclasses.
+    public virtual void UseAbility()
+    {
+        Debug.Log("Base Ability triggered.");
+    }
 
+    // Method to handle player input for attacks and abilities.
     public void HandleInput()
     {
-        // Handle attack input
+        // Handle attack input (left mouse button)
         if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastAttackTime + attackCooldown)
         {
             Attack();
+            lastAttackTime = Time.time;
         }
 
-        // Handle ability input
+        // Handle ability input (right mouse button)
         if (Input.GetKeyDown(KeyCode.Mouse1) && Time.time > lastAbilityTime + abilityCooldown)
         {
             UseAbility();
-        }
-    }
-
-    void Attack()
-    {
-        lastAttackTime = Time.time;
-        Debug.Log("Attacking!"); // Optional: Show debug message
-
-        // Find all colliders within attack range
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
-
-        foreach (Collider hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Enemy")) // Check if it is an enemy
-            {
-                BaseManager enemy = hitCollider.GetComponent<BaseManager>();
-                if (enemy != null)
-                {
-                    enemy.DealDamageToEnemy(attackDamage); // Call TakeDamage on the enemy
-                    Debug.Log("Hit enemy: " + hitCollider.name); // Output debug message
-                }
-            }
-        }
-    }
-
-    void UseAbility()
-    {
-        if (sharpObject != null && !isSharp)
-        {
             lastAbilityTime = Time.time;
-            Debug.Log("Used ability! Object is now sharp!");
-
-            // Enable sharpness
-            EnableSharpness();
-
-            // Disable sharpness after a duration
-            Invoke("DisableSharpness", sharpDuration);
         }
     }
 
-    void EnableSharpness()
+    void Update()
     {
-        // Set the collider to trigger for sharp interaction
-        if (sharpCollider != null)
-        {
-            sharpCollider.isTrigger = true; // Enable trigger to hit enemies
-        }
-
-        if (sharpHandler != null)
-        {
-            sharpHandler.SetSharpness(true, abilityDamage); // Enable sharpness and set damage
-        }
-
-        // Change the material to indicate sharpness
-        SetObjectMaterial(sharpMaterial);
-
-        isSharp = true; // Mark as sharp
-    }
-
-    void DisableSharpness()
-    {
-        // Set the collider to non-trigger for blunt interaction
-        if (sharpCollider != null)
-        {
-            sharpCollider.isTrigger = false; // Disable trigger
-        }
-
-        if (sharpHandler != null)
-        {
-            sharpHandler.SetSharpness(false, 0); // Disable sharpness
-        }
-
-        // Change the material to indicate bluntness
-        SetObjectMaterial(bluntMaterial);
-
-        isSharp = false; // Mark as not sharp
-        Debug.Log("Sharpness disabled.");
-    }
-
-    void SetObjectMaterial(Material material)
-    {
-        // Set the object's material if the Renderer and Material are available
-        Renderer objectRenderer = sharpObject.GetComponent<Renderer>();
-        if (objectRenderer != null && material != null)
-        {
-            objectRenderer.material = material;
-        }
-    }
-
-    // Method to set the player's attack damage (used for upgrades)
-    public void SetAttackDamage(float newAttackDamage)
-    {
-        attackDamage = newAttackDamage;
-        Debug.Log("Player attack damage set to: " + attackDamage);
-    }
-
-    // Visualize the attack range in the Scene view
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        HandleInput();
     }
 }

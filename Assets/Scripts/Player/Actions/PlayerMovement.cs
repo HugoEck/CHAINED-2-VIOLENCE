@@ -1,6 +1,5 @@
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -22,18 +21,25 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
     private Vector2 _playerMoveDirection = Vector2.zero; // Direction on 2d plane (movement input)
     private Vector3 _isometricPlayerMoveDirection = Vector3.zero; // Adjust the player direction based on camera angle
 
-    public float WalkingSpeed => _walkingSpeed;
+    public float originalWalkingSpeed { get; private set; }
 
     private void Start()
     {
+
         _mainCameraReference = Camera.main;
         _playerRigidBody = GetComponent<Rigidbody>();
         _playerInput = GetComponent<PlayerInput>();
         _moveAction = _playerInput.actions.FindAction("PlayerMovementAction");
-
+        originalWalkingSpeed = _walkingSpeed;
     }
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            transform.position = transform.forward * 20f;
+        }
+
         _playerMoveDirection = _moveAction.ReadValue<Vector2>();
 
         float speed = _playerMoveDirection.magnitude;
@@ -43,16 +49,16 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
     #region Player Movement & Camera rotation
 
     #region Movement
-
-    // Used for upgrading the player movement speed thru the upgrade system.
-    public void SetWalkingSpeed(float newSpeed)
+    /// <summary>
+    /// Called from the rope script 
+    /// </summary>
+    public void SetPlayerWalkingSpeed(float newWalkSpeed)
     {
-        _walkingSpeed = newSpeed;
+        _walkingSpeed = newWalkSpeed;
     }
-
     public void MovePlayer()
     {
-             
+
         // Calculate the desired movement direction relative to the camera's perspective (isometric movement)
         _isometricPlayerMoveDirection = ProjectToXZPlane(_mainCameraReference.transform.right) * _playerMoveDirection.x +
                                 ProjectToXZPlane(_mainCameraReference.transform.forward) * _playerMoveDirection.y;
@@ -65,8 +71,12 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
 
             float playerSpeedDt = _walkingSpeed * Time.deltaTime;
 
-            // Ask the server to move the player
-            MovePlayerServerRpc(_isometricPlayerMoveDirection * playerSpeedDt);
+            Vector3 newVelocity = new Vector3(_isometricPlayerMoveDirection.x * playerSpeedDt, _playerRigidBody.velocity.y, _isometricPlayerMoveDirection.z * playerSpeedDt);
+
+            _playerRigidBody.velocity = newVelocity;
+
+            // CURRENTLY COMMENTED OUT BECAUSE THE CHAIN WAS CHANGED SO THE CLIENT DOESN'T HAVE TO ASK THE SERVER ANYMORE TO MOVE WITH NETWORK TRANSFORM, REMOVE LATER
+            //MovePlayerServerRpc(_isometricPlayerMoveDirection * playerSpeedDt);
         }
 
         RotatePlayerToCursor();
@@ -82,9 +92,8 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
         Vector3 newVelocity = new Vector3(moveDirection.x, _playerRigidBody.velocity.y, moveDirection.z);
 
         _playerRigidBody.velocity = newVelocity;
-        
     }
-    
+
     /// <summary>
     /// Get the XZ plane of the camera for handling isometric camera angle
     /// </summary>
