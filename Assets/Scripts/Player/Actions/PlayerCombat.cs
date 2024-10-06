@@ -44,4 +44,11 @@ public abstract class PlayerCombat : MonoBehaviour
     {
         HandleInput();
     }
+
+    // Method to set the player's attack damage (used for upgrades)
+    public void SetAttackDamage(float newAttackDamage)
+    {
+        attackDamage = newAttackDamage;
+        Debug.Log("Player attack damage set to: " + attackDamage);
+    }
 }

@@ -63,7 +63,7 @@ public class UpgradeManager : MonoBehaviour
 
         currentAttackDamage = player1Combat.attackDamage;
         currentMaxHealth = player1Manager.currentHealth;
-        currentSpeed = player1Movement.WalkingSpeed;
+        currentSpeed = player1Movement.originalWalkingSpeed;
     }
 
     // Upgrade Damage with Scriptable Object Data
@@ -137,7 +137,7 @@ public class UpgradeManager : MonoBehaviour
         if (speedUpgrade != null && currentSpeedLevel < MaxUpgradeLevel)
         {
             float newSpeed = currentSpeed + speedUpgrade.speedIncrease;
-            float maxAllowedSpeed = player1Movement.WalkingSpeed * MaxSpeedMultiplier;
+            float maxAllowedSpeed = player1Movement.originalWalkingSpeed * MaxSpeedMultiplier;
 
             if (newSpeed <= maxAllowedSpeed)
             {

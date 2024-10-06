@@ -107,6 +107,13 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
         // Normalize the vector to ensure consistent movement speed
         return cameraVector.normalized;
     }
+
+    // Used for upgrading the player movement speed thru the upgrade system.
+    public void SetWalkingSpeed(float newSpeed)
+    {
+        _walkingSpeed = newSpeed;
+    }
+
     #endregion
 
     ////////// ROTATION MIGHT NEED WORK IN FUTURE (USE INPUT SYSTEM INSTEAD AND MAYBE CALCULATE WITHOUT RAYCAST)
