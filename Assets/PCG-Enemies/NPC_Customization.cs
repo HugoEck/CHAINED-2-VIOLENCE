@@ -60,6 +60,7 @@ public class NPC_Customization : NetworkBehaviour
 
     [Header("NPC GameObjects")]
     [SerializeField] GameObject Rock;
+    [SerializeField] GameObject RagdollRoot;
 
 
     [SerializeField] private Dictionary<NPCTheme, ThemeData> themeDataDict;
@@ -146,7 +147,7 @@ public class NPC_Customization : NetworkBehaviour
     public void Randomize(NPCTheme npcTheme, NPCClass npcClass)
     {
         DestroyAssets();
-        
+
         Theme = npcTheme;
         Class = npcClass;
 
@@ -165,7 +166,7 @@ public class NPC_Customization : NetworkBehaviour
             // Instantiate body and set up animator
             if (bodies != null && bodies.Count > 0)
             {
-                
+
                 currentBody = InstantiateRandomAsset(bodies, bodyPoint);
 
                 currentAnimator = currentBody.GetComponent<Animator>();
@@ -173,6 +174,9 @@ public class NPC_Customization : NetworkBehaviour
                 {
                     currentAnimator.runtimeAnimatorController = animController;
                 }
+
+                
+
 
                 // Attach helmet
                 // Attach the helmet, weapon, cape, and shield as needed
@@ -297,6 +301,10 @@ public class NPC_Customization : NetworkBehaviour
         GameObject newAsset = Instantiate(assets[randomIndex], parentBone.position, parentBone.rotation, parentBone);
         return newAsset;
     }
+
+   
+
+
 
 
     private void DestroyAssets()

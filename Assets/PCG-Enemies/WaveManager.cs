@@ -82,7 +82,7 @@ public class WaveManager : MonoBehaviour
 
             Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
 
-            for (int i = 0; i < enemyConfig.waveSize; i++)
+            for (int i = 0; i < 1; i++)
             {
                 // Instantiate a new enemy
                 GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
