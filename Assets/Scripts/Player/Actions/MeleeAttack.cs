@@ -14,7 +14,7 @@ public class MeleeAttack : PlayerCombat
             BaseManager enemyManager = enemy.GetComponent<BaseManager>();
             if (enemyManager != null)
             {
-                enemyManager.SetHealth(attackDamage);
+                enemyManager.DealDamageToEnemy(attackDamage);
                 Debug.Log("Hit enemy: " + enemy.name);
             }
         }

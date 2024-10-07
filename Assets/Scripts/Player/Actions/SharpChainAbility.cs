@@ -90,7 +90,7 @@ public class SharpChainAbility : PlayerCombat
                 BaseManager enemy = collision.collider.GetComponent<BaseManager>();
                 if (enemy != null)
                 {
-                    enemy.SetHealth(sharpDamage);  // Apply sharp damage to the enemy
+                    enemy.DealDamageToEnemy(sharpDamage);  // Apply sharp damage to the enemy
                     Debug.Log("Dealt sharp damage to " + collision.collider.name);
                 }
             }

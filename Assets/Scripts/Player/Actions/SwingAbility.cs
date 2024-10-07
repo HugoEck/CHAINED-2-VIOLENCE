@@ -72,7 +72,7 @@ public class SwingAbility : PlayerCombat
                 BaseManager enemyManager = enemy.GetComponent<BaseManager>();
                 if (enemyManager != null)
                 {
-                    enemyManager.SetHealth(swingDamage);
+                    enemyManager.DealDamageToEnemy(swingDamage);
                     Debug.Log("Hit enemy during swing: " + enemy.name);
                 }
             }
