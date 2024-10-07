@@ -8,9 +8,9 @@ public class PlebianManager : BaseManager
 
     Node rootNode;
 
-    private float evaluationInterval = 0.5f; 
-    private float timeSinceLastEvaluation = 0f; 
-    private float randomOffset; 
+    private float evaluationInterval = 0.5f;
+    private float timeSinceLastEvaluation = 0f;
+    private float randomOffset;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class PlebianManager : BaseManager
 
     private void FixedUpdate()
     {
-        
+
         timeSinceLastEvaluation += Time.fixedDeltaTime;
 
         if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
@@ -34,7 +34,14 @@ public class PlebianManager : BaseManager
             rootNode.Evaluate(this);
             randomOffset = Random.Range(0f, evaluationInterval);
         }
-
+        if (startDeathTimer)
+        {
+            transform.GetComponentInParent<Animator>().enabled = false;
+            if (SetTimer(5))
+            {
+                isDead = true;
+            }
+        }
     }
 
     private void ConstructBT()

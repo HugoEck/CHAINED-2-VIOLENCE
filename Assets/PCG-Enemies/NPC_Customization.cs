@@ -175,7 +175,7 @@ public class NPC_Customization : NetworkBehaviour
                     currentAnimator.runtimeAnimatorController = animController;
                 }
 
-                currentAnimator.enabled = false;
+                
 
 
                 // Attach helmet

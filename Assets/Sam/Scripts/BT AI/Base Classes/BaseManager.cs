@@ -16,6 +16,9 @@ public class BaseManager : NetworkBehaviour
     public float attackRange;
     public float unitCost;
 
+    public bool isDead = false;
+    public bool startDeathTimer = false;
+
     private GameObject player1;
     private GameObject player2;
     private float lastAttackedTime;
@@ -89,6 +92,15 @@ public class BaseManager : NetworkBehaviour
         {
             return playerManager2;
         }
+    }
+
+    public bool SetTimer(float timer)
+    {
+        if(Time.deltaTime > timer)
+        {
+            return true;
+        }
+        return false;
     }
 
 }

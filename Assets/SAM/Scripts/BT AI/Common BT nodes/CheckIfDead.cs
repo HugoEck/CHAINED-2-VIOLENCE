@@ -12,7 +12,7 @@ public class CheckIfDead : Node
     {
         if (agent.currentHealth <= deadThreshold)
         {
-            
+            agent.startDeathTimer = true;
             return NodeState.SUCCESS;
         }
         else
