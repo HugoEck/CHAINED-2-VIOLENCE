@@ -658,6 +658,8 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   animator: {fileID: 0}
   enemyID: Plebian
+  activateDeathTimer: 0
+  agentIsDead: 0
 --- !u!195 &859918686
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -714,7 +716,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859918683}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e70e50549825064da1c5ef09c65e9c6, type: 3}
   m_Name: 
@@ -732,6 +734,8 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   animator: {fileID: 0}
   enemyID: 
+  activateDeathTimer: 0
+  agentIsDead: 0
 --- !u!114 &859918691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,7 +743,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859918683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 146c5923c8bc986499d0c816de6683ab, type: 3}
   m_Name: 
@@ -757,6 +761,8 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   animator: {fileID: 0}
   enemyID: 
+  activateDeathTimer: 0
+  agentIsDead: 0
   rockPrefab: {fileID: 8638951405126928395, guid: 0132e2aa9964ece4d8f5550ac065fb3f,
     type: 3}
   throwPoint: {fileID: 2126692761}
