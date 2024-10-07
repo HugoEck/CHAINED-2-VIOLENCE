@@ -23,7 +23,7 @@ public class SwingAbility : PlayerCombat
         anchorRb = GetComponent<Rigidbody>();
 
         // Freeze rotation for stability
-        anchorRb.constraints = RigidbodyConstraints.FreezeRotation;
+       // anchorRb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     // Override the UseAbility method to implement the swinging ability
@@ -42,6 +42,7 @@ public class SwingAbility : PlayerCombat
 
         // Freeze the anchor player's position during the swing
         anchorRb.isKinematic = true;
+       // anchorRb.mass = 1000;
 
         StartCoroutine(SwingOtherPlayer());
     }
@@ -81,6 +82,7 @@ public class SwingAbility : PlayerCombat
         }
 
         isSwinging = false;
+       // anchorRb.mass = 20;
         Debug.Log("Swing ended.");
 
         // Unfreeze the anchor player's position after the swing

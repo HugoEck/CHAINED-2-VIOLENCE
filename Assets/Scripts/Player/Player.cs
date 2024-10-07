@@ -50,7 +50,7 @@ public class Player : NetworkBehaviour
     #region
     private void UpdatePlayerCombat()
     {
-            _playerCombat.HandleInput();     
+        _playerCombat.HandleInput();
     }
 
     #endregion
