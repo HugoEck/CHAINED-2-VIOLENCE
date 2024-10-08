@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class TrapManager : MonoBehaviour
+public class TrampolineManager : MonoBehaviour
 {
-    private float surfaceY = 0f;
+    private float surfaceY = 5f;
     private float spawnY = -15f;
-    public float riseSpeed = 15f;
+    public float riseSpeed = 20f;
     public float despawnSpeed = 10f;
+
+    public float bounceForce = 800f;  // Force to push the player up
 
     public float minWaitTime;
     public float maxWaitTime;
@@ -89,9 +89,23 @@ public class TrapManager : MonoBehaviour
     }
 
     // This is called when N is pressed to start the despawn process
-    public void DespawnTrap()
+    public void DespawnTrampoline()
     {
         isDespawning = true;
         isMovingUp = false; // Ensure the trap starts moving down immediately
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isMovingUp && other.CompareTag("Player1") || other.CompareTag("Player2"))
+        {
+            Rigidbody playerRigidbody = other.GetComponent<Rigidbody>();
+
+            // If the player has a Rigidbody, apply a force upwards to simulate the bounce
+            if (playerRigidbody != null)
+            {
+                playerRigidbody.AddForce(Vector3.up * bounceForce);
+            }
+        }
     }
 }

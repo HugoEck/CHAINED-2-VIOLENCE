@@ -7,6 +7,14 @@ public class MoveUpwards : MonoBehaviour
     public float targetY = 0f;
     public float moveSpeed = 10f;
 
+    private WobbleEffect wobble;
+
+    private void Start()
+    {
+        wobble = gameObject.AddComponent<WobbleEffect>();
+        wobble.StartWobble();
+    }
+
     void Update()
     {
         if (transform.position.y < targetY)
@@ -22,6 +30,7 @@ public class MoveUpwards : MonoBehaviour
         }
         if (transform.position.y >= targetY)
         {
+            wobble.wobbleDuration = 1f;
             moveSpeed = 0f;
         }
     }

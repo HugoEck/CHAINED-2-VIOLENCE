@@ -117,10 +117,15 @@ public class itemAreaSpawner : MonoBehaviour
             if (obj != null)
             {
                 TrapManager trap = obj.GetComponent<TrapManager>();
+                TrampolineManager trampoline = obj.GetComponent<TrampolineManager>();
 
                 if (trap != null)
                 {
                     trap.DespawnTrap();
+                }
+                if (trampoline != null)
+                {
+                    trampoline.DespawnTrampoline();
                 }
                 else
                 {
