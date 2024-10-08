@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,14 +35,7 @@ public class PlebianManager : BaseManager
             rootNode.Evaluate(this);
             randomOffset = Random.Range(0f, evaluationInterval);
         }
-        if (startDeathTimer)
-        {
-            transform.GetComponentInParent<Animator>().enabled = false;
-            if (SetTimer(5))
-            {
-                isDead = true;
-            }
-        }
+
     }
 
     private void ConstructBT()
