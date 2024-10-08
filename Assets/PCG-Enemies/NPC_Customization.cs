@@ -234,6 +234,7 @@ public class NPC_Customization : NetworkBehaviour
 
         collider.isTrigger = true;
         enemy.tag = "Enemy";
+        enemy.layer = 9;
 
         if (Class == NPCClass.Basic)
         {
