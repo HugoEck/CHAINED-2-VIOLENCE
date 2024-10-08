@@ -89,6 +89,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1657510063471149551}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c74e6292bc286340b8504eed0a0a4b0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3980319450746778349}
   m_SourcePrefab: {fileID: 100100000, guid: 9c74e6292bc286340b8504eed0a0a4b0, type: 3}
 --- !u!1 &2903067851734826289 stripped
 GameObject:
@@ -108,12 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7865f8a880a5714cabc72f6d4ad145d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  segmentIndex: 0
-  collided: 0
-  lastPosition: {x: 0, y: 0, z: 0}
-  objectsThatCollideWithChain:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!54 &-8774006641336078854
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,3 +160,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.026905647, y: 0.018332217, z: 0.009080017}
   m_Center: {x: -0.0048736962, y: 0.00070392305, z: 0.00029544684}
+--- !u!114 &3980319450746778349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2903067851734826289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e8d14751a237c4e92cf40d14f1d17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLaserActive: 0
+  laserDuration: 3
+  laserDamage: 100
+  laserRange: 1

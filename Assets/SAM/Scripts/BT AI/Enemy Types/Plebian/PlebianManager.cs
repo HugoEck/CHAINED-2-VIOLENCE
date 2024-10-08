@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,9 @@ public class PlebianManager : BaseManager
 
     Node rootNode;
 
-    private float evaluationInterval = 0.5f; 
-    private float timeSinceLastEvaluation = 0f; 
-    private float randomOffset; 
+    private float evaluationInterval = 0.5f;
+    private float timeSinceLastEvaluation = 0f;
+    private float randomOffset;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class PlebianManager : BaseManager
 
     private void FixedUpdate()
     {
-        
+
         timeSinceLastEvaluation += Time.fixedDeltaTime;
 
         if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)

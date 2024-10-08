@@ -6,18 +6,18 @@ public class CheckIfDead : Node
 {
 
     private int deadThreshold = 0;
-    
+
 
     public override NodeState Evaluate(BaseManager agent)
     {
         if (agent.currentHealth <= deadThreshold)
         {
-            
+            agent.activateDeathTimer = true;
             return NodeState.SUCCESS;
         }
         else
         {
-            
+
             return NodeState.FAILURE;
         }
     }

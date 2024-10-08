@@ -16,9 +16,11 @@ public class BaseManager : NetworkBehaviour
     public float attackRange;
     public float unitCost;
 
+
     private GameObject player1;
     private GameObject player2;
     private float lastAttackedTime;
+    private float timer = 5f;
 
     [Header("GE EJ VÄRDE")]
 
@@ -27,7 +29,9 @@ public class BaseManager : NetworkBehaviour
     public PlayerManager playerManager2;
     public Animator animator;
     public string enemyID;
-    
+    [HideInInspector] public bool activateDeathTimer = false;
+    [HideInInspector] public bool agentIsDead = false;
+
 
 
     public virtual void Awake()
@@ -44,13 +48,27 @@ public class BaseManager : NetworkBehaviour
         playerManager2 = player2.GetComponent<PlayerManager>();
 
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            currentHealth = 0;
+        }
+        if (activateDeathTimer)
+        {
+            DeathTimer();
+        }
+
+    }
+
     public virtual void DealDamageToEnemy(float damage)
     {
-        if ( defense - damage < 0)
+        if (defense - damage < 0)
         {
             currentHealth = currentHealth + defense - damage;
         }
-        
+
     }
 
     public virtual Transform CalculateClosestTarget()
@@ -78,7 +96,7 @@ public class BaseManager : NetworkBehaviour
             return false;
         }
     }
- 
+
     public PlayerManager GetCorrectPlayerManager(Transform player)
     {
         if (player == player1)
@@ -90,5 +108,16 @@ public class BaseManager : NetworkBehaviour
             return playerManager2;
         }
     }
+
+    public virtual void DeathTimer()
+    {
+        timer -= Time.deltaTime;
+        if (timer < 0)
+        {
+            agentIsDead = true;
+        }
+    }
+
+
 
 }
