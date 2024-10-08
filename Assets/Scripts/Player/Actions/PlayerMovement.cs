@@ -1,11 +1,10 @@
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
 /// Script for handling player movement & rotation of camera
 /// </summary>
-public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
+public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 {
     [Header("Player Movement")]
     [SerializeField] private float _walkingSpeed = 200.0f;
@@ -74,24 +73,9 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
             Vector3 newVelocity = new Vector3(_isometricPlayerMoveDirection.x * playerSpeedDt, _playerRigidBody.velocity.y, _isometricPlayerMoveDirection.z * playerSpeedDt);
 
             _playerRigidBody.velocity = newVelocity;
-
-            // CURRENTLY COMMENTED OUT BECAUSE THE CHAIN WAS CHANGED SO THE CLIENT DOESN'T HAVE TO ASK THE SERVER ANYMORE TO MOVE WITH NETWORK TRANSFORM, REMOVE LATER
-            //MovePlayerServerRpc(_isometricPlayerMoveDirection * playerSpeedDt);
         }
 
         RotatePlayerToCursor();
-    }
-
-    /// <summary>
-    /// Update player movement on server
-    /// </summary>
-    /// <param name="moveDirection"></param>
-    [ServerRpc]
-    public void MovePlayerServerRpc(Vector3 moveDirection)
-    {
-        Vector3 newVelocity = new Vector3(moveDirection.x, _playerRigidBody.velocity.y, moveDirection.z);
-
-        _playerRigidBody.velocity = newVelocity;
     }
 
     /// <summary>
@@ -146,39 +130,17 @@ public class PlayerMovement : NetworkBehaviour ///// KIND OF PRODUCTION READY
             if (directionToLook != Vector3.zero)
             {
                 float playerRotationSpeedDt = _playerRotateSpeed * Time.deltaTime;
-                // Call the Server RPC to rotate the player
-                RotatePlayerServerRpc(directionToLook, playerRotationSpeedDt);
+
+                // Calculate the target rotation based on the direction the player should face
+                Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
+
+                // Smoothly interpolate the rotation based on _playerLookSpeed
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, playerRotationSpeedDt);
+
             }
         }
     }
 
-    /// <summary>
-    /// Perform the player rotations on the server
-    /// </summary>
-    /// <param name="directionToLook"></param>
-    [ServerRpc]
-    public void RotatePlayerServerRpc(Vector3 directionToLook, float playerRotateSpeed)
-    {
-        // Calculate the target rotation based on the direction the player should face
-        Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
-
-        // Smoothly interpolate the rotation based on _playerLookSpeed
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, playerRotateSpeed);
-
-        // Optionally, call a Client RPC to inform all clients of the new rotation
-        RotatePlayerClientRpc(transform.rotation);
-    }
-
-    /// <summary>
-    /// Update the rotation for all clients
-    /// </summary>
-    /// <param name="targetRotation"></param>
-    [ClientRpc]
-    private void RotatePlayerClientRpc(Quaternion targetRotation)
-    {
-        // Update rotation for other clients
-        transform.rotation = targetRotation;
-    }
     #endregion
 
     #endregion

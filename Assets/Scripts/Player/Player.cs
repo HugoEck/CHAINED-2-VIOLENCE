@@ -1,79 +1,88 @@
-using Unity.Netcode;
 using UnityEngine;
 
 /// <summary>
 /// This script handles updating all the player actions (i.e, movement, combat etc)
 /// </summary>
-public class Player : NetworkBehaviour 
+public class Player : MonoBehaviour 
 {
     // References for all player functionality (components) here
     #region Player components
 
     private PlayerMovement _playerMovement;
-    private PlayerCombat _playerCombat;
 
     #endregion
 
-    private bool _bIsPlayerMovementActivated = false; // Used to enable player movement when players spawn
-   
+    #region Player attributes
 
+    [Header("Player attributes")]
+    [SerializeField] private float _maxHealth = 10.0f;
+    public float _currentHealth { get; private set; }
+
+    #endregion
     void Start()
     {
         #region Instantiate components
 
         _playerMovement = GetComponent<PlayerMovement>();
-        _playerCombat = GetComponent<PlayerCombat>();
+
+        #endregion
+
+        #region Set attributes
+
+        _currentHealth = _maxHealth;
 
         #endregion
     }
     private void FixedUpdate()
-    {
-        // Only allow movement if this player is the owner
-        if (!IsOwner) return;
-
+    {  
         UpdatePlayerMovement();
         UpdatePlayerCombat();
     }
 
-    #region PlayerMovement
+    #region Player Movement
     private void UpdatePlayerMovement()
     {
-        // Allow movement only if player movement is activated
-        if (_bIsPlayerMovementActivated)
-        {
-            _playerMovement.MovePlayer();
-        }
+        if (_playerMovement == null) return;
+
+        _playerMovement.MovePlayer();
     }
 
     #endregion
 
-    #region
+    #region Player Combat
+
     private void UpdatePlayerCombat()
     {
-        _playerCombat.HandleInput();
+        
     }
 
     #endregion
 
-    #region Player Spawn
+    #region Player HP
 
-    /// <summary>
-    /// Only activate player movement after ownership has been properly transfered to other client
-    /// </summary>
-    public override void OnGainedOwnership()
+    public void SetHealth(float damage)
     {
-        base.OnGainedOwnership();
-        Debug.Log("Gained ownership, activating player movement.");
-        ActivatePlayerMovement();
+        _currentHealth -= damage;
+
+        Debug.Log(gameObject.tag + " took: " +  damage + " damage" + ", current health = " + _currentHealth);
     }
 
-    /// <summary>
-    /// Since the host takes ownership of both playerObjects at spawn, this method needs to be called in the playerSpawner script
-    /// to ensure that the host can only move the player 1 object until he looses ownership of player 2 when a client joins
-    /// </summary>
-    public void ActivatePlayerMovement() => _bIsPlayerMovementActivated = true;
- 
+    //Used for upgrades
+    public void SetMaxHealth(float newMaxHealth)
+    {
+        _maxHealth = newMaxHealth;
+        _currentHealth = _maxHealth;// heal to full when upgrading health
+
+        if (_currentHealth > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
+        }
+
+        Debug.Log("Player max health set to: " + _maxHealth);
+    }
+
     #endregion
+
 }
 
 

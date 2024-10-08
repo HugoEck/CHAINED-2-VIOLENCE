@@ -14,7 +14,7 @@ public class RockDestroyer : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        PlayerManager player = collision.gameObject.GetComponent<PlayerManager>();
+        Player player = collision.gameObject.GetComponent<Player>();
 
         if (player != null)
         {

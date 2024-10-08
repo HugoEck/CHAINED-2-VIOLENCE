@@ -11,8 +11,8 @@ public class UpgradeManager : MonoBehaviour
     private GameObject player1;
     private GameObject player2;
 
-    private PlayerManager player1Manager;
-    private PlayerManager player2Manager;
+    private Player player1Manager;
+    private Player player2Manager;
 
     private PlayerCombat player1Combat;
     private PlayerCombat player2Combat;
@@ -52,8 +52,8 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
 
-        player1Manager = player1.GetComponent<PlayerManager>();
-        player2Manager = player2.GetComponent<PlayerManager>();
+        player1Manager = player1.GetComponent<Player>();
+        player2Manager = player2.GetComponent<Player>();
 
         player1Combat = player1.GetComponent<PlayerCombat>();
         player2Combat = player2.GetComponent<PlayerCombat>();
@@ -62,7 +62,7 @@ public class UpgradeManager : MonoBehaviour
         player2Movement = player2.GetComponent<PlayerMovement>();
 
         currentAttackDamage = player1Combat.attackDamage;
-        currentMaxHealth = player1Manager.currentHealth;
+        currentMaxHealth = player1Manager._currentHealth;
         currentSpeed = player1Movement.originalWalkingSpeed;
     }
 

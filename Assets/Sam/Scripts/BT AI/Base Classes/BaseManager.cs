@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Unity.Netcode;
-using Unity.Netcode.Components;
-public class BaseManager : NetworkBehaviour
+
+public class BaseManager : MonoBehaviour
 {
 
     //Detta skript innehåller alla basvariabler samt metoder för alla andra managers.
@@ -25,8 +24,8 @@ public class BaseManager : NetworkBehaviour
     [Header("GE EJ VÄRDE")]
 
     public NavMeshAgent navMeshAgent;
-    public PlayerManager playerManager1;
-    public PlayerManager playerManager2;
+    public Player playerManager1;
+    public Player playerManager2;
     public Animator animator;
     public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
@@ -44,8 +43,8 @@ public class BaseManager : NetworkBehaviour
         animator = gameObject.GetComponent<Animator>();
 
         navMeshAgent = GetComponent<NavMeshAgent>();
-        playerManager1 = player1.GetComponent<PlayerManager>();
-        playerManager2 = player2.GetComponent<PlayerManager>();
+        playerManager1 = player1.GetComponent<Player>();
+        playerManager2 = player2.GetComponent<Player>();
 
     }
 
@@ -97,7 +96,7 @@ public class BaseManager : NetworkBehaviour
         }
     }
 
-    public PlayerManager GetCorrectPlayerManager(Transform player)
+    public Player GetCorrectPlayerManager(Transform player)
     {
         if (player == player1)
         {

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -20,12 +16,13 @@ public static class Loader
     private static Scene targetScene;
 
     /// <summary>
-    /// Load a scene over the network
+    /// Load a scene
     /// </summary>
     /// <param name="targetScene"></param>
-    public static void LoadNetwork(Scene targetScene)
+    public static void LoadScene(Scene targetScene)
     {
-        NetworkManager.Singleton.SceneManager.LoadScene(targetScene.ToString(), LoadSceneMode.Single);
+        SceneManager.LoadScene(targetScene.ToString());
+   
     }
 
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 
@@ -7,7 +6,7 @@ using UnityEngine;
 /// This class is for simulating the chain physics (PLACEHOLDER NAME ROPE, WILL BE CHAIN)
 /// </summary>
 [RequireComponent(typeof(LineRenderer))]
-public class Rope : NetworkBehaviour
+public class Rope : MonoBehaviour
 {
     [Header("Chain attributes")]
     [SerializeField] private int _iterations = 5;
@@ -282,7 +281,7 @@ public class Rope : NetworkBehaviour
             Vector3 directionToPlayer1 = (_points[_numberOfPointsAlongPath - 1] - _player1RigidBody.position).normalized; 
 
             // Apply forces proportionally to the calculated strengths in the correct directions
-            ApplyForceServerRpc(directionToPlayer1 * player2Force,
+            ApplyForceToPlayers(directionToPlayer1 * player2Force,
                                 directionToPlayer2 * player1Force);
 
             // Clamp player velocities so that they can't be flung too fast and break the physics simulation
@@ -297,25 +296,12 @@ public class Rope : NetworkBehaviour
         }
     }
 
-    /// <summary>
-    /// The client doesn't own this object but he should be able to send the force from stretching the rope to the host
-    /// </summary>
-    /// <param name="forceOnPlayer1"></param>
-    /// <param name="forceOnPlayer2"></param>
-    [ServerRpc(RequireOwnership = false)]
-    private void ApplyForceServerRpc(Vector3 forceOnPlayer1, Vector3 forceOnPlayer2)
+    private void ApplyForceToPlayers(Vector3 forceOnPlayer1, Vector3 forceOnPlayer2)
     {
         _player1RigidBody.AddForce(forceOnPlayer1);
         _player2RigidBody.AddForce(forceOnPlayer2);
 
-        ApplyForceClientRpc(forceOnPlayer1, forceOnPlayer2);
-    }
-
-    [ClientRpc]
-    private void ApplyForceClientRpc(Vector3 forceOnPlayer1, Vector3 forceOnPlayer2)
-    {
-        _player1RigidBody.AddForce(forceOnPlayer1);
-        _player2RigidBody.AddForce(forceOnPlayer2);
+        
     }
 
 

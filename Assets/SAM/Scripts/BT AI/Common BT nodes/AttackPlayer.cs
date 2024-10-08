@@ -11,7 +11,7 @@ public class AttackPlayer : Node
 
         targetedPlayer = agent.CalculateClosestTarget();
 
-        PlayerManager playerManager = agent.GetCorrectPlayerManager(targetedPlayer);
+        Player playerManager = agent.GetCorrectPlayerManager(targetedPlayer);
 
         if (agent.IsAttackAllowed())
         {
