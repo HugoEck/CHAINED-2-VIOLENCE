@@ -208,11 +208,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCreatorObject: {fileID: 4632680236013823668}
+  spawnPortal: {fileID: 159196, guid: 37e803394624a5c48ae5f13fd212ac0b, type: 3}
   spawnPoints:
   - {fileID: 2613381586043691743}
   - {fileID: 3105411163770950694}
   - {fileID: 7885201760334896150}
   - {fileID: 8911067387980996764}
+  - {fileID: 5628986361506649152}
+  - {fileID: 6833780000302994554}
+  - {fileID: 6997477974377158713}
+  - {fileID: 7033624348054255374}
+  text: {fileID: 0}
+  currentWave: 0
+  deltaTime: 0
 --- !u!1 &1450749157674591569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1114,7 @@ Transform:
   m_GameObject: {fileID: 4632680236013823668}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.4290957, y: -0.91000056, z: 3.453298}
+  m_LocalPosition: {x: 100, y: -0.91000056, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1126,27 +1134,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce9b51ee69aaf240a6e54a630101774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rock: {fileID: 4609290678756628542, guid: 476ac0833a9cee54f9dbff6ef3ba677e, type: 3}
+  RagdollRoot: {fileID: 5659094952200606518, guid: 502e51d2e4a967d4da75d6a26e6991ed,
+    type: 3}
   themeDataList:
   - theme: 0
     themeData:
       basicHelmets:
+      - {fileID: 8136832652560865188, guid: 16d50f13360767b479a6e89915c4c5e9, type: 3}
+      - {fileID: 228166863625420029, guid: 4a557c7b8eb74ff4ba719cc65718ce02, type: 3}
       - {fileID: 3809204435597344467, guid: 3c4afedb2aa035a428f380b431dd2239, type: 3}
+      - {fileID: 2122606721618969191, guid: b71e2c4e61ec547459f10c106918d38d, type: 3}
+      - {fileID: 2060344016263635709, guid: e78733a41d3ceec40b684c74888ce8c7, type: 3}
+      - {fileID: 3431901760779880862, guid: 017ecd191566d4f48803c32b2c9adb47, type: 3}
+      - {fileID: 3116084619702278769, guid: 3128509bf78d2974fbc8a11c4be32249, type: 3}
+      - {fileID: 5744760623573568159, guid: 2d780581fe2077944b120dd2b448c141, type: 3}
       - {fileID: 8911597869419545073, guid: 48b8a1dfa520b2947a7a7d1744f7cea3, type: 3}
+      - {fileID: 6495944052347765435, guid: a05a5c46ec844ef48b611c596ed704eb, type: 3}
+      - {fileID: 893520756208265855, guid: e66b48c3ddfef9d40a4b82b6692eb2e7, type: 3}
+      - {fileID: 6141416946674824814, guid: 3e48b12c26e5c8f45b1047892d4c93ce, type: 3}
+      - {fileID: 720640577284095019, guid: 7433ac09f8f7f1e42b66d53b832ca657, type: 3}
       basicCapes: []
       basicBodies:
-      - {fileID: 929796107206996346, guid: 6449e2b039b2ee7408ae1917a22b86ee, type: 3}
-      - {fileID: 7019067445343743068, guid: 96dcbf5202198d948ab62d7c70139824, type: 3}
-      basicWeapons:
-      - {fileID: 8487435932786721014, guid: e1018cd9923a8bd4ca17acc33976967c, type: 3}
-      - {fileID: 783026104044848977, guid: 12073530738e22e4aa112b732f4d0a86, type: 3}
-      basicShields:
-      - {fileID: 6985825494845418188, guid: e1d6ee186df0cb740aa1c80e74164b94, type: 3}
-      - {fileID: 4328516414427333798, guid: df33f47f7ced30746b0517db2c4af7e8, type: 3}
-      runnerHelmets: []
+      - {fileID: 7903918585482002123, guid: a0c4423a15a62f9419fc6240d00d9691, type: 3}
+      - {fileID: 389763022308372890, guid: 9cd99ac418d7fd542abfa0815faa3124, type: 3}
+      - {fileID: 436542855270459413, guid: 5b69e05b7cbc83945abc1da648e3caf7, type: 3}
+      - {fileID: 7238652122146233804, guid: 4669c4709d156d74c862c94d4c634c77, type: 3}
+      - {fileID: 6470161518881847931, guid: 6cf884474fefdca4d802405ba1a8415e, type: 3}
+      - {fileID: 3882103071029347944, guid: b03adb3eacbc46b40a45998bc38173c9, type: 3}
+      basicWeapons: []
+      basicShields: []
+      runnerHelmets:
+      - {fileID: 4895822798063340827, guid: 2d100d8d0b917564b891897d2ad0b77b, type: 3}
+      - {fileID: 7237590416500943158, guid: b9e6962016a9ae74c8f8fd188e1b1b2e, type: 3}
+      - {fileID: 2300072681672728094, guid: a40ea4a0f3a074a4e8bb578e15b52fa9, type: 3}
+      - {fileID: 3093988187645197924, guid: 2baa6f26a48d24742b55f3cd0f67567c, type: 3}
+      - {fileID: 8192587157554123910, guid: 50b6a34e27cd25348b021df56442f366, type: 3}
+      - {fileID: 2216755173373874202, guid: 97ef05e1bf12e4449aeeb65c85d9d36f, type: 3}
+      - {fileID: 3384407662855222205, guid: 82a4e92f1307e1042a7fc68f41ffbf0d, type: 3}
+      - {fileID: 1072109476992179027, guid: 98764d6f74fa89846a204e194a410cf3, type: 3}
       runnerCapes: []
-      runnerBodies: []
-      runnerWeapons: []
-      runnerShields: []
+      runnerBodies:
+      - {fileID: 7019067445343743068, guid: 96dcbf5202198d948ab62d7c70139824, type: 3}
+      - {fileID: 929796107206996346, guid: 6449e2b039b2ee7408ae1917a22b86ee, type: 3}
+      - {fileID: 5572286812958236185, guid: e77f73ad3ca370f40802215cdfa4f9ff, type: 3}
+      - {fileID: 5507706372722182100, guid: 1892e2b7ebdad0346b0ac7f3e0f55e33, type: 3}
+      runnerWeapons:
+      - {fileID: 2836573981829754960, guid: 40fe5114e1b7b184680717f868623884, type: 3}
+      - {fileID: 2702893461459134100, guid: 3ae6e1abb9097e04381f85ffa9d93a11, type: 3}
+      - {fileID: 2281732870259357092, guid: 431ec6dafbc34724788c5c6ff8c60aab, type: 3}
+      - {fileID: 8487435932786721014, guid: e1018cd9923a8bd4ca17acc33976967c, type: 3}
+      - {fileID: 8612453288589322726, guid: 7fc5e324cff6a704fa39dfe146ffa32c, type: 3}
+      - {fileID: 7021420225420658521, guid: cbc4765c873205a489d92bed70f3c8c7, type: 3}
+      - {fileID: 9199442243369390583, guid: 031b58f6572dbc24e8ee6b81f88f351e, type: 3}
+      - {fileID: 783026104044848977, guid: 12073530738e22e4aa112b732f4d0a86, type: 3}
+      runnerShields:
+      - {fileID: 4328516414427333798, guid: df33f47f7ced30746b0517db2c4af7e8, type: 3}
+      - {fileID: 9016359471717977719, guid: 2e1b0083399837042a3cac4a396d14df, type: 3}
+      - {fileID: 1499082280024966430, guid: e4fb4915c37c6f24a91b0219e538cee5, type: 3}
+      - {fileID: 6985825494845418188, guid: e1d6ee186df0cb740aa1c80e74164b94, type: 3}
       warriorHelmets: []
       warriorCapes: []
       warriorBodies: []
@@ -1162,10 +1208,32 @@ MonoBehaviour:
       chargerBodies: []
       chargerWeapons: []
       chargerShields: []
-      rockThrowerHelmets: []
+      rockThrowerHelmets:
+      - {fileID: 2060344016263635709, guid: e78733a41d3ceec40b684c74888ce8c7, type: 3}
+      - {fileID: 8136832652560865188, guid: 512f51405fd7b52489c9fe47dd18e5cb, type: 3}
+      - {fileID: 228166863625420029, guid: 5cccb546cd7073448b8cfefc42600929, type: 3}
+      - {fileID: 3809204435597344467, guid: 779d5c1048194134cb2db3487b45876a, type: 3}
+      - {fileID: 2122606721618969191, guid: f321584ff0d384246bf339181c0929e9, type: 3}
+      - {fileID: 2060344016263635709, guid: a05317c2288a0594cb013d28067e396c, type: 3}
+      - {fileID: 3431901760779880862, guid: 0523c8e7fab1cdd40b736a8e6bbf527f, type: 3}
+      - {fileID: 3116084619702278769, guid: d5f7742679601c94c94091978143b7fa, type: 3}
+      - {fileID: 5744760623573568159, guid: 9de8d9448467a8d489303242c8978273, type: 3}
+      - {fileID: 8911597869419545073, guid: d6a32ab6fd9010e4fa223e23ee104d74, type: 3}
+      - {fileID: 6495944052347765435, guid: 9851d2cf4071cae409df17806375758a, type: 3}
+      - {fileID: 893520756208265855, guid: 32faf06350cd1b548b80d4cf8b115ac6, type: 3}
+      - {fileID: 6141416946674824814, guid: 3689cfa4403788f4695cdb8f154b0802, type: 3}
+      - {fileID: 720640577284095019, guid: 205e2adddaf4abe4ab10e197b422caac, type: 3}
       rockThrowerCapes: []
-      rockThrowerBodies: []
-      rockThrowerWeapons: []
+      rockThrowerBodies:
+      - {fileID: 7903918585482002123, guid: d9082b4bef250be469f875a805d4e555, type: 3}
+      - {fileID: 389763022308372890, guid: c99b078158d1d0a44aecb17e2c37f060, type: 3}
+      - {fileID: 436542855270459413, guid: ca2b4edd19fd0964ba0abadcae3ce72c, type: 3}
+      - {fileID: 7238652122146233804, guid: 4b945e4f4b662484fb22dcb03dee9313, type: 3}
+      - {fileID: 6470161518881847931, guid: f9e8a05cc77da7c488e4c25255e2b1a5, type: 3}
+      - {fileID: 3882103071029347944, guid: df451cd65b6fd4146949a0908ccb28f1, type: 3}
+      - {fileID: 6914959729840062815, guid: 90882d29c9cb81b4286e0e573905bf4e, type: 3}
+      rockThrowerWeapons:
+      - {fileID: 4609290678756628542, guid: 8a8c275efdeb8b541aac9c89f0792c54, type: 3}
       rockThrowerShields: []
   - theme: 1
     themeData:
@@ -1810,7 +1878,42 @@ Transform:
   - {fileID: 6955356499032108794}
   - {fileID: 6935878667552548522}
   - {fileID: 9152216864444388675}
+  - {fileID: 4785373906948922327}
+  - {fileID: 385300809812979156}
+  - {fileID: 8767940013561746448}
+  - {fileID: 4297439277780564401}
   m_Father: {fileID: 872136154461703180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5628986361506649152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4785373906948922327}
+  m_Layer: 0
+  m_Name: Point (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4785373906948922327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5628986361506649152}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9323863, z: -0, w: 0.36146355}
+  m_LocalPosition: {x: -33.388714, y: 0, z: -30.466938}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1173323074306900599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5684332481823257927
 GameObject:
@@ -2169,6 +2272,37 @@ Transform:
   - {fileID: 4835453118894071227}
   m_Father: {fileID: 2213168912311559033}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6833780000302994554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 385300809812979156}
+  m_Layer: 0
+  m_Name: Point (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &385300809812979156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6833780000302994554}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9323863, z: -0, w: 0.36146355}
+  m_LocalPosition: {x: -29.9277, y: 0, z: 32.797768}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1173323074306900599}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6884967524601052651
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,6 +2334,37 @@ Transform:
   m_Children:
   - {fileID: 1047500351172082135}
   m_Father: {fileID: 4655406404482477757}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6997477974377158713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8767940013561746448}
+  m_Layer: 0
+  m_Name: Point (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8767940013561746448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6997477974377158713}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9323863, z: -0, w: 0.36146355}
+  m_LocalPosition: {x: 32.42842, y: 0, z: 29.590677}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1173323074306900599}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7028157202938034615
 GameObject:
@@ -2335,6 +2500,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0000038146973, y: 84.34789, z: -4.0967493}
     m_Extent: {x: 102.45618, y: 94.45724, z: 20.547234}
   m_DirtyAABB: 0
+--- !u!1 &7033624348054255374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4297439277780564401}
+  m_Layer: 0
+  m_Name: Point (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4297439277780564401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7033624348054255374}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9323863, z: -0, w: 0.36146355}
+  m_LocalPosition: {x: 31.815033, y: 0, z: -34.866093}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1173323074306900599}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7119754711966142388
 GameObject:
   m_ObjectHideFlags: 0

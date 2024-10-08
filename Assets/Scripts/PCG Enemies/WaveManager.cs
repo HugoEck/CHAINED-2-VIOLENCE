@@ -9,6 +9,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] GameObject enemyCreatorObject;
     NPC_Customization enemyCreator;
 
+    [SerializeField] GameObject spawnPortal;
+
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     List<Wave> waves = new List<Wave>();
     WaveData waveData = new WaveData();
@@ -70,9 +72,11 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SpawnWaveCoroutine(Wave wave)
     {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
         GameObject waveParent = new GameObject($"{wave.waveName} Army");
+
         waveParent.transform.position = spawnPoint.position; 
+        GameObject portal = Instantiate(spawnPortal, waveParent.transform);
 
         foreach (var enemyConfig in wave.enemyConfigs)
         {
@@ -96,7 +100,10 @@ public class WaveManager : MonoBehaviour
                 // Optionally yield return null to spread creation over frames
                 yield return null; // This will wait for one frame before continuing the loop
             }
+
         }
+        yield return new WaitForSeconds(3.0f);
+            Destroy(portal);
     }
 
 
