@@ -70,7 +70,9 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SpawnWaveCoroutine(Wave wave)
     {
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
         GameObject waveParent = new GameObject($"{wave.waveName} Army");
+        waveParent.transform.position = spawnPoint.position; 
 
         foreach (var enemyConfig in wave.enemyConfigs)
         {
@@ -80,7 +82,6 @@ public class WaveManager : MonoBehaviour
             //randomEnemy.transform.parent = waveParent.transform; // Set the parent for the base enemy
             randomEnemy.transform.position = new Vector3(100, 0, 100);
 
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
 
             for (int i = 0; i < enemyConfig.waveSize; i++)
             {
