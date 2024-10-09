@@ -16,4 +16,8 @@ public interface IInputInterface
 
     public bool GetBasicAttackInput_P2();
 
+    public bool GetAbilityAttackInput_P1();
+
+    public bool GetAbilityAttackInput_P2();
+
 }

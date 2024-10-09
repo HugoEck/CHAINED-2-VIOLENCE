@@ -61,6 +61,29 @@ public class GamepadInput : MonoBehaviour, IInputInterface
         return isPressed;
     }
 
+    public bool GetAbilityAttackInput_P1()
+    {
+        bool isPressed = false;
+
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned) return false;
+
+        isPressed = Input.GetButtonDown("Gamepad_Ability_Attack_P1");
+
+        return isPressed;
+    }
+
+    public bool GetAbilityAttackInput_P2()
+    {
+        bool isPressed = false;
+
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+        {
+            isPressed = Input.GetButtonDown("Gamepad_Ability_Attack_P1");
+        }
+
+        return isPressed;
+    }
+
     public bool AssignPlayer2()
     {
         bool isPressed = Input.GetButtonDown("Assign_P2");
