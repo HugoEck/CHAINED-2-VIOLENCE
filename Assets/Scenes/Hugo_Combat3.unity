@@ -220,6 +220,9 @@ GameObject:
   - component: {fileID: 169708823}
   - component: {fileID: 169708822}
   - component: {fileID: 169708820}
+  - component: {fileID: 169708833}
+  - component: {fileID: 169708832}
+  - component: {fileID: 169708831}
   m_Layer: 6
   m_Name: Player_2 (1)
   m_TagString: Player2
@@ -415,6 +418,59 @@ Transform:
   - {fileID: 1555875892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &169708831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169708817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e8d14751a237c4e92cf40d14f1d17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLaserActive: 0
+  laserDuration: 3
+  laserDamage: 10
+  laserRange: 2
+--- !u!114 &169708832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169708817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3e3f76aba9b534f9d783269dae0010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 1
+  abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
+  otherPlayer: {fileID: 0}
+  swingDuration: 3
+  swingForce: 500
+  swingDamage: 20
+  swingRadius: 5
+--- !u!114 &169708833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169708817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809bc2a90deeb2048bdb1d2972538a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 1
+  abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
 --- !u!1 &277880315
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +646,9 @@ GameObject:
   - component: {fileID: 539796562}
   - component: {fileID: 539796567}
   - component: {fileID: 539796565}
+  - component: {fileID: 539796576}
+  - component: {fileID: 539796575}
+  - component: {fileID: 539796574}
   m_Layer: 6
   m_Name: Player_1 (2)
   m_TagString: Player1
@@ -785,6 +844,59 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539796560}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &539796574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539796560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e8d14751a237c4e92cf40d14f1d17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLaserActive: 0
+  laserDuration: 3
+  laserDamage: 10
+  laserRange: 2
+--- !u!114 &539796575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539796560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3e3f76aba9b534f9d783269dae0010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 1
+  abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
+  otherPlayer: {fileID: 0}
+  swingDuration: 3
+  swingForce: 500
+  swingDamage: 20
+  swingRadius: 5
+--- !u!114 &539796576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539796560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809bc2a90deeb2048bdb1d2972538a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 1
+  abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
 --- !u!1001 &595685778
 PrefabInstance:
   m_ObjectHideFlags: 0
