@@ -43,7 +43,7 @@ public class WaveManager : MonoBehaviour
                 text.text = "Current wave is: " + currentWave;
                 currentWave++;
             }
-            yield return new WaitForSeconds(60f); // Wait for 60 seconds before spawning the next wave
+            yield return new WaitForSeconds(20f); // Wait for 60 seconds before spawning the next wave
         }
     }
 

@@ -12,15 +12,16 @@ public class RockDestroyer : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
-        Player player = collision.gameObject.GetComponent<Player>();
+        Player player = other.gameObject.GetComponent<Player>();
 
         if (player != null)
         {
             player.SetHealth(damage);
         }
-        if(collision.gameObject.tag != "Rock" || collision.gameObject.tag != "Enemy")
+        if (other.gameObject.tag != "Rock" || other.gameObject.tag != "Enemy")
         {
             Destroy(gameObject);
         }
