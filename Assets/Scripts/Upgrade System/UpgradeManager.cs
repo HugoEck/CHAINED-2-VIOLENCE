@@ -68,35 +68,47 @@ public class UpgradeManager : MonoBehaviour
 
     // Upgrade Damage with Scriptable Object Data
     public void UpgradeDamage(DamageUpgradeSO damageUpgrade)
+{
+    float initialAttackDamage = 10f; // You can adjust this to the real initial value if needed.
+
+    // Check if the damage upgrade is not null and the attack level hasn't reached the max limit.
+    if (damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
     {
-        float initialAttackDamage = 10f;
+        // Calculate the new attack damage based on the damage increase from the scriptable object.
+        float newAttackDamage = currentAttackDamage + damageUpgrade.damageIncrease;
 
-        if (damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
+        // Determine the maximum allowed attack damage based on the initial value and max multiplier.
+        float maxAllowedAttackDamage = initialAttackDamage * MaxAttackMultiplier;
+
+        // Ensure the new attack damage doesn't exceed the maximum allowed value.
+        if (newAttackDamage <= maxAllowedAttackDamage)
         {
-            float newAttackDamage = currentAttackDamage + damageUpgrade.damageIncrease;
-            float maxAllowedAttackDamage = initialAttackDamage * MaxAttackMultiplier;
+            // Update the current attack damage and increase the attack level.
+            currentAttackDamage = newAttackDamage;
+            currentAttackLevel++;
 
-            if (newAttackDamage <= maxAllowedAttackDamage)
-            {
-                currentAttackDamage = newAttackDamage;
-                currentAttackLevel++;
+            // Apply the new attack damage to both Player 1 and Player 2 using SetAttackDamage.
+            player1Combat.SetAttackDamage(currentAttackDamage);
+            player2Combat.SetAttackDamage(currentAttackDamage);
 
-                player1Combat.SetAttackDamage(currentAttackDamage);
-                player2Combat.SetAttackDamage(currentAttackDamage);
+            Debug.Log("Damage upgraded. New Attack Damage: " + currentAttackDamage);
 
-                Debug.Log("Damage upgraded. New Attack Damage: " + currentAttackDamage);
-                UpdateUpgradeLevelText();
-            }
-            else
-            {
-                Debug.LogWarning("Damage upgrade exceeds the maximum allowed limit.");
-            }
+            // Update the UI text to reflect the new attack level.
+            UpdateUpgradeLevelText();
         }
         else
         {
-            Debug.LogWarning("Maximum attack upgrade level reached.");
+            // Notify if the new damage exceeds the maximum allowed value.
+            Debug.LogWarning("Damage upgrade exceeds the maximum allowed limit.");
         }
     }
+    else
+    {
+        // Notify if the maximum upgrade level is reached.
+        Debug.LogWarning("Maximum attack upgrade level reached.");
+    }
+}
+
 
     //Upgrade Health with Scriptable Object Data
     public void UpgradeHealth(HealthUpgradeSO healthUpgrade)
