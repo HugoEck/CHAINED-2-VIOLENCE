@@ -30,11 +30,26 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         waveData.LoadWaves(waves);
+        StartCoroutine(SpawnWavesRegularly());
+    }
+
+    private IEnumerator SpawnWavesRegularly()
+    {
+        while (true)
+        {
+            if (currentWave < waves.Count)
+            {
+                SpawnWave(waves[currentWave]);
+                text.text = "Current wave is: " + currentWave;
+                currentWave++;
+            }
+            yield return new WaitForSeconds(60f); // Wait for 60 seconds before spawning the next wave
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && currentWave < waves.Count)
+        if (Input.GetKeyDown(KeyCode.L) && currentWave < waves.Count)
         {
             SpawnWave(waves[currentWave]);
             currentWave++;
