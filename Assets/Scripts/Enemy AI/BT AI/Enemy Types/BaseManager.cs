@@ -23,11 +23,11 @@ public class BaseManager : MonoBehaviour
 
     [Header("GE EJ VÄRDE")]
 
-    public NavMeshAgent navMeshAgent;
-    public Player playerManager1;
-    public Player playerManager2;
-    public Animator animator;
-    public string enemyID;
+    [HideInInspector] public NavMeshAgent navMeshAgent;
+    [HideInInspector] public Player playerManager1;
+    [HideInInspector] public Player playerManager2;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
 

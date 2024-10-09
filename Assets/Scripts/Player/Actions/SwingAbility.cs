@@ -12,6 +12,9 @@ public class SwingAbility : PlayerCombat
     private Rigidbody otherPlayerRb;   // Rigidbody of the other player
     private Rigidbody anchorRb;        // Rigidbody of this (anchor) player
 
+    public LayerMask enemyLayer;       // Layer for enemies (make sure enemies are on this layer)
+    public LayerMask playerLayer;      // Layer for players (including the swung player)
+
     void Start()
     {
         if (otherPlayer != null)
@@ -23,7 +26,7 @@ public class SwingAbility : PlayerCombat
         anchorRb = GetComponent<Rigidbody>();
 
         // Freeze rotation for stability
-       // anchorRb.constraints = RigidbodyConstraints.FreezeRotation;
+        // anchorRb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     // Override the UseAbility method to implement the swinging ability
@@ -42,7 +45,9 @@ public class SwingAbility : PlayerCombat
 
         // Freeze the anchor player's position during the swing
         anchorRb.isKinematic = true;
-       // anchorRb.mass = 1000;
+
+        // Disable collisions between the swung player and enemies
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
 
         StartCoroutine(SwingOtherPlayer());
     }
@@ -82,11 +87,13 @@ public class SwingAbility : PlayerCombat
         }
 
         isSwinging = false;
-       // anchorRb.mass = 20;
         Debug.Log("Swing ended.");
 
-        // Unfreeze the anchor player's position after the swing
+        // Re-enable the anchor player's position after the swing
         anchorRb.isKinematic = false;
+
+        // Re-enable collisions between the swung player and enemies
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
     }
 
     // Optional: Visualize the swing radius in the scene view for debugging.
