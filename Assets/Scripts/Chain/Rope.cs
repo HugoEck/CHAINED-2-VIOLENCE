@@ -285,8 +285,9 @@ public class Rope : MonoBehaviour
                                 directionToPlayer2 * player1Force);
 
             // Clamp player velocities so that they can't be flung too fast and break the physics simulation
+
             ClampVelocity(_player1RigidBody, _maxPlayerVelocity);
-            ClampVelocity(_player2RigidBody, _maxPlayerVelocity);
+            
         }
         else
         {

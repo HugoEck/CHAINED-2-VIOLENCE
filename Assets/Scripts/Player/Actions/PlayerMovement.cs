@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 {
     [Header("Player Movement")]
     [SerializeField] private float _walkingSpeed = 200.0f;
-    [SerializeField] private float _playerRotateSpeed = 5.0f;
+    [SerializeField] private float _playerRotateSpeedMouse = 5.0f;
+    [SerializeField] private float _playerRotateSpeedJoystick = 10.0f;
 
     private Camera _mainCameraReference;
 
@@ -55,12 +56,12 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     {
         _walkingSpeed = newWalkSpeed;
     }
-    public void MovePlayer()
+    public void MovePlayer(Vector2 movementInput)
     {
 
         // Calculate the desired movement direction relative to the camera's perspective (isometric movement)
-        _isometricPlayerMoveDirection = ProjectToXZPlane(_mainCameraReference.transform.right) * _playerMoveDirection.x +
-                                ProjectToXZPlane(_mainCameraReference.transform.forward) * _playerMoveDirection.y;
+        _isometricPlayerMoveDirection = ProjectToXZPlane(_mainCameraReference.transform.right) * movementInput.x +
+                                ProjectToXZPlane(_mainCameraReference.transform.forward) * movementInput.y;
 
         // Only move if there's input
         if (_isometricPlayerMoveDirection != Vector3.zero)
@@ -74,8 +75,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 
             _playerRigidBody.velocity = newVelocity;
         }
-
-        RotatePlayerToCursor();
     }
 
     /// <summary>
@@ -129,7 +128,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
             // Only rotate if there is a direction
             if (directionToLook != Vector3.zero)
             {
-                float playerRotationSpeedDt = _playerRotateSpeed * Time.deltaTime;
+                float playerRotationSpeedDt = _playerRotateSpeedMouse * Time.deltaTime;
 
                 // Calculate the target rotation based on the direction the player should face
                 Quaternion targetRotation = Quaternion.LookRotation(directionToLook);
@@ -138,6 +137,18 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, playerRotationSpeedDt);
 
             }
+        }
+    }
+
+    public void RotatePlayerWithJoystick(Vector2 joystickInput)
+    {
+        if (joystickInput != Vector2.zero)
+        {           
+            float angle = Mathf.Atan2(joystickInput.x, joystickInput.y) * Mathf.Rad2Deg + 45; // The 45 value is added for the misalignment in the joystick rotation (45 degrees)
+           
+            Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _playerRotateSpeedJoystick);
         }
     }
 
