@@ -34,6 +34,10 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     }
     private void Update()
     {
+        if(!_mainCameraReference)
+        {
+            _mainCameraReference = Camera.main;
+        }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
