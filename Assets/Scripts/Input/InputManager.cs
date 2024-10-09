@@ -110,7 +110,12 @@ public class InputManager : MonoBehaviour
 
     public void CheckActiveInput()
     {      
-        
+        if(Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+        {
+            currentInputType = InputType.KeyboardAndMouse;
+            return;
+        }
+
         if (IsGamepadActive())
         {
             if (currentInputType != InputType.Gamepad)
