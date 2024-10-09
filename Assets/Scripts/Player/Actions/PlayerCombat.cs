@@ -11,9 +11,12 @@ public abstract class PlayerCombat : MonoBehaviour
     protected float lastAttackTime;
     protected float lastAbilityTime;
 
+
+
     // Virtual method for handling attacks, to be overridden by subclasses.
     public virtual void Attack()
     {
+
         Debug.Log("Base Attack triggered.");
     }
 

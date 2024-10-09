@@ -1,85 +1,106 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class AnimationStateController : MonoBehaviour
 {
     private Animator _animator;
-    private PlayerInput _playerInput;
-    private InputAction _moveAction;
-
+    private PlayerMovement _playerMovement;
     private Camera _mainCamera;
+
+    private bool _bIsUsingBasicAttack = false;
+
+    private Player _player;
+
 
     void Start()
     {
         _animator = GetComponentInChildren<Animator>();
-        _playerInput = GetComponent<PlayerInput>();
+        _playerMovement = GetComponent<PlayerMovement>();
         _mainCamera = Camera.main;
 
-        if (_playerInput == null)
-        {
-            Debug.LogError("PlayerInput component is missing on the Player GameObject!");
-            return;
-        }
-
-        _moveAction = _playerInput.actions["PlayerMovementAction"];
+        _player = gameObject.GetComponent<Player>();
     }
 
     void Update()
     {
-        if (_moveAction == null)
+        if(_mainCamera == null)
         {
-            Debug.LogError("Input actions are not properly initialized.");
-            return;
+            _mainCamera = Camera.main;
         }
+ 
+        Vector2 movementInput = _playerMovement.GetMovementInput();
 
-        // Read movement input (WASD)
-        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
-        bool isMoving = moveInput.magnitude > 0;
+        Vector3 playerForward = transform.forward; 
+        Vector3 cameraForward = _mainCamera.transform.forward;
+        cameraForward.y = 0; 
 
-        // Update the "isMoving" parameter in the animator
+       
+        float forwardDot = Vector3.Dot(playerForward, cameraForward); 
+        float rightDot = Vector3.Dot(transform.right, cameraForward);
+
+        Vector2 adjustedMovementInput = AdjustMovementInputBasedOnFacing(movementInput, forwardDot, rightDot);
+
+        _animator.SetFloat("MovementX", adjustedMovementInput.x);
+        _animator.SetFloat("MovementY", adjustedMovementInput.y);
+
+        
+        bool isMoving = movementInput.magnitude > 0;
         _animator.SetBool("isMoving", isMoving);
 
-        if (!isMoving)
+        GetPlayerCombatInput();
+    }
+
+   
+    private Vector2 AdjustMovementInputBasedOnFacing(Vector2 movementInput, float forwardDot, float rightDot)
+    {
+        Vector2 adjustedMovement = movementInput;
+
+        
+        if (forwardDot < 0)
         {
-            // Reset movement parameters if not moving
-            _animator.SetFloat("MovementX", 0);
-            _animator.SetFloat("MovementY", 0);
-            return;
+            adjustedMovement.y = -movementInput.y;
         }
 
-        // Rotate the player towards the mouse position
-        Vector3 mousePosition = MouseWorldPosition();
-        if (mousePosition == Vector3.zero) return;
-
-        RotateTowardsMouse(mousePosition);
-
-        // Now, map WASD input to the player's local movement directions
-        float moveX = moveInput.x;  // A/D for left/right strafing
-        float moveY = moveInput.y;  // W/S for forward/backward
-
-        // Update the animator parameters for the Blend Tree
-        _animator.SetFloat("MovementX", moveX);   // Strafe left/right
-        _animator.SetFloat("MovementY", moveY);   // Forward/backward
-    }
-
-    private void RotateTowardsMouse(Vector3 mousePosition)
-    {
-        Vector3 directionToMouse = (mousePosition - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToMouse.x, 0, directionToMouse.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f); // Adjust rotation speed here
-    }
-
-    // function to get the mouse position in world space
-    private Vector3 MouseWorldPosition()
-    {
-        Vector3 mouseScreenPosition = Mouse.current.position.ReadValue();
-        Ray ray = _mainCamera.ScreenPointToRay(mouseScreenPosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        
+        if (rightDot > 0.5f)  
         {
-            return hitInfo.point;
+            adjustedMovement = new Vector2(movementInput.y, -movementInput.x);
+        }
+        else if (rightDot < -0.5f) 
+        {
+            adjustedMovement = new Vector2(-movementInput.y, movementInput.x); 
         }
 
-        return Vector3.zero;
+        return adjustedMovement;
     }
+    private void GetPlayerCombatInput()
+    {
+        if (_player._playerId == 1)
+        {
+            _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P1();
+
+            if (_bIsUsingBasicAttack)
+            {
+                _animator.SetBool("isAttacking", true);
+                Invoke("StopAttacking", 0.5f);  // Adjust the delay based on the attack animation duration
+            }
+        }
+        else if (_player._playerId == 2)
+        {
+            _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P2();
+
+            if (_bIsUsingBasicAttack)
+            {
+                _animator.SetBool("isAttacking", true);
+                Invoke("StopAttacking", 0.5f);  // Adjust the delay based on the attack animation duration
+            }
+        }
+    }
+
+    // Method to reset the isAttacking flag after the attack animation finishes
+    private void StopAttacking()
+    {
+        _animator.SetBool("isAttacking", false);
+    }
+
+
 }
