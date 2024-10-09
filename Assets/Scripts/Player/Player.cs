@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     private Vector2 _movementInput = Vector2.zero;
     private Vector2 _rotationInput = Vector2.zero;
     private bool _bIsUsingBasicAttack = false;
+    private bool _bIsUsingAbilityAttack = false;
 
     #endregion
     
@@ -119,19 +120,29 @@ public class Player : MonoBehaviour
         if (_playerId == 1)
         {
             _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P1();
+            _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P1();
 
             if (_bIsUsingBasicAttack)
             {
                 Debug.Log("Player 1 is using basic attack");
             }
+            else if(_bIsUsingAbilityAttack)
+            {
+                Debug.Log("Player 1 is using Ability");
+            }
         }
         else if (_playerId == 2)
         {
             _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P2();
+            _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P2();
 
             if (_bIsUsingBasicAttack)
             {
                 Debug.Log("Player 2 is using basic attack");
+            }
+            else if(_bIsUsingAbilityAttack)
+            {
+                Debug.Log("Player 2 is using Ability");
             }
         }
     }

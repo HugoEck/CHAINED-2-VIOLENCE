@@ -44,4 +44,20 @@ public class KeyboardAndMouse : MonoBehaviour, IInputInterface
         return false;
     }
 
+    public bool GetAbilityAttackInput_P1()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool GetAbilityAttackInput_P2()
+    {
+        return false;
+    }
 }
