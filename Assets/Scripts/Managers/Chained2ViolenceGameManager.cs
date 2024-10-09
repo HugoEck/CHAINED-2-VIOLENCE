@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 
@@ -8,22 +9,45 @@ public class Chained2ViolenceGameManager : MonoBehaviour
 {
     public static Chained2ViolenceGameManager Instance { get; private set; }
 
-    // Track if Player 1 has been assigned
-    private static bool isPlayer1Assigned = false;
+    private static bool bIsPlayer2Assigned = false;
 
+    private GameObject _player2GameObject;
     private void Awake()
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
+    
     private void Start()
     {
-        
+        _player2GameObject = GameObject.FindGameObjectWithTag("Player2");
+        _player2GameObject.GetComponent<Player>().enabled = false;
+    }
+    private void Update()
+    {
+        AssignPlayer2();
     }
     public void OnDestroy()
     {
         
+    }
+    public void AssignPlayer2()
+    {
+        if (bIsPlayer2Assigned) return;
+
+        bIsPlayer2Assigned = InputManager.Instance.AssignPlayer2();
+        if (bIsPlayer2Assigned)
+        {
+            _player2GameObject.GetComponent<Player>().enabled = true;
+            Debug.Log("Player 2 joined the game");
+        }
+    }
+    public bool BIsPlayer2Assigned
+    {
+        get
+        {
+            return bIsPlayer2Assigned;
+        }
     }
 
 }

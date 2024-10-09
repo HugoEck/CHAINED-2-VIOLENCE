@@ -62,7 +62,7 @@ public class UpgradeManager : MonoBehaviour
         player2Movement = player2.GetComponent<PlayerMovement>();
 
         currentAttackDamage = player1Combat.attackDamage;
-        currentMaxHealth = player1Manager._currentHealth;
+        currentMaxHealth = player1Manager.currentHealth;
         currentSpeed = player1Movement.originalWalkingSpeed;
     }
 
