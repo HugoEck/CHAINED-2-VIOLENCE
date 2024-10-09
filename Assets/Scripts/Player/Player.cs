@@ -19,7 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float _maxHealth = 10.0f;
     public float currentHealth { get; private set; }
 
-    private int _playerId;
+    public int _playerId {  get; private set; }
+
+    
 
     #endregion
 
