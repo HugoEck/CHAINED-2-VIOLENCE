@@ -610,6 +610,7 @@ GameObject:
   - component: {fileID: 160493156}
   - component: {fileID: 160493155}
   - component: {fileID: 160493154}
+  - component: {fileID: 160493165}
   m_Layer: 6
   m_Name: Player_1 (2)
   m_TagString: Player1
@@ -865,6 +866,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160493150}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &160493165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160493150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd144d9172a7c074a857b95d51ea14e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 1
+  abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
 --- !u!1001 &184391677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3001,6 +3018,7 @@ GameObject:
   - component: {fileID: 754972090}
   - component: {fileID: 754972089}
   - component: {fileID: 754972088}
+  - component: {fileID: 754972100}
   m_Layer: 6
   m_Name: Player_2 (1)
   m_TagString: Player2
@@ -3040,7 +3058,7 @@ MonoBehaviour:
   abilityCooldown: 5
   attackRange: 2
   attackDamage: 10
-  otherPlayer: {fileID: 0}
+  otherPlayer: {fileID: 160493151}
   swingDuration: 3
   swingSpeed: 200
   swingRadius: 5
@@ -3256,6 +3274,22 @@ Transform:
   - {fileID: 1749395837}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &754972100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754972086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd144d9172a7c074a857b95d51ea14e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 1
+  abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
 --- !u!1001 &767644976
 PrefabInstance:
   m_ObjectHideFlags: 0

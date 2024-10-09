@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     #region Player components
 
     private PlayerMovement _playerMovement;
+    private PlayerCombat _playerCombat;
 
     #endregion
 
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
         #region Instantiate components
 
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerCombat = GetComponent<PlayerCombat>();
 
         #endregion
 
@@ -126,10 +128,13 @@ public class Player : MonoBehaviour
 
             if (_bIsUsingBasicAttack)
             {
+                _playerCombat.Attack();
                 Debug.Log("Player 1 is using basic attack");
+                
             }
             else if(_bIsUsingAbilityAttack)
             {
+                _playerCombat.UseAbility();
                 Debug.Log("Player 1 is using Ability");
             }
         }
@@ -140,10 +145,12 @@ public class Player : MonoBehaviour
 
             if (_bIsUsingBasicAttack)
             {
+                _playerCombat.Attack();
                 Debug.Log("Player 2 is using basic attack");
             }
             else if(_bIsUsingAbilityAttack)
             {
+                _playerCombat.UseAbility();
                 Debug.Log("Player 2 is using Ability");
             }
         }

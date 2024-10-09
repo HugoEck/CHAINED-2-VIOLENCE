@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class PlayerCombat : MonoBehaviour
+public class PlayerCombat : MonoBehaviour
 {
     public float attackCooldown = 1f;  // Cooldown between attacks
     public float abilityCooldown = 5f; // Cooldown between abilities
@@ -10,6 +10,13 @@ public abstract class PlayerCombat : MonoBehaviour
 
     protected float lastAttackTime;
     protected float lastAbilityTime;
+
+    private SwingAbility swingAbility;
+
+    private void Start()
+    {
+        swingAbility = GetComponent<SwingAbility>();
+    }
 
     // Virtual method for handling attacks, to be overridden by subclasses.
     public virtual void Attack()
@@ -20,30 +27,31 @@ public abstract class PlayerCombat : MonoBehaviour
     // Virtual method for handling abilities, to be overridden by subclasses.
     public virtual void UseAbility()
     {
+        swingAbility.UseAbility();
         Debug.Log("Base Ability triggered.");
     }
 
     // Method to handle player input for attacks and abilities.
-    public void HandleInput()
-    {
-        // Handle attack input (left mouse button)
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastAttackTime + attackCooldown)
-        {
-            Attack();
-            lastAttackTime = Time.time;
-        }
-
-        // Handle ability input (right mouse button)
-        if (Input.GetKeyDown(KeyCode.Mouse1) && Time.time > lastAbilityTime + abilityCooldown)
-        {
-            UseAbility();
-            lastAbilityTime = Time.time;
-        }
-    }
+    //public void HandleInput()
+    //{
+    //    // Handle attack input (left mouse button)
+    //    if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastAttackTime + attackCooldown)
+    //    {
+    //        Attack();
+    //        lastAttackTime = Time.time;
+    //    }
+    //
+    //    // Handle ability input (right mouse button)
+    //    if (Input.GetKeyDown(KeyCode.Mouse1) && Time.time > lastAbilityTime + abilityCooldown)
+    //    {
+    //        UseAbility();
+    //        lastAbilityTime = Time.time;
+    //    }
+    //}
 
     void Update()
     {
-        HandleInput();
+      //  HandleInput();
     }
 
     // Method to set the player's attack damage (used for upgrades)
