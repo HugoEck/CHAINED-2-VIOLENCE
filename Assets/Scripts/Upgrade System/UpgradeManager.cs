@@ -101,7 +101,7 @@ public class UpgradeManager : MonoBehaviour
     //Upgrade Health with Scriptable Object Data
     public void UpgradeHealth(HealthUpgradeSO healthUpgrade)
     {
-        float initialMaxHealth = 100f; //Max hp so its not dependant on current health upgrade level
+        float initialMaxHealth = 100f;
 
         if (healthUpgrade != null && currentHealthLevel < MaxUpgradeLevel)
         {
@@ -113,11 +113,11 @@ public class UpgradeManager : MonoBehaviour
                 currentMaxHealth = newMaxHealth;
                 currentHealthLevel++;
 
-                // Update both players' health
                 player1Manager.SetMaxHealth(currentMaxHealth);
                 player2Manager.SetMaxHealth(currentMaxHealth);
 
                 Debug.Log("Health upgraded for both players! New Max Health: " + currentMaxHealth);
+
                 UpdateUpgradeLevelText();
             }
             else
@@ -130,6 +130,8 @@ public class UpgradeManager : MonoBehaviour
             Debug.LogWarning("Maximum health upgrade level reached.");
         }
     }
+
+
 
     // Upgrades Speed with Scriptable Object Data
     public void UpgradeSpeed(SpeedUpgradeSO speedUpgrade)
