@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         if(gameObject.tag == "Player1")
         {
             _playerId = 1;

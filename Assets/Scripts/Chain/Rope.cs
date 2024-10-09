@@ -48,9 +48,15 @@ public class Rope : MonoBehaviour
     private bool _pinStartPoint = true;
     private bool _pinEndPoint = true;
 
-   
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
+
         // Get the rigid body from the player object (parent), not the chain holder
         _player1RigidBody = _player1Attachment.GetComponentInParent<Rigidbody>();
         _player2RigidBody = _player2Attachment.GetComponentInParent<Rigidbody>();
@@ -90,6 +96,7 @@ public class Rope : MonoBehaviour
 
         // instantiate chain segments
         GenerateChain();
+
     }
 
     /// <summary>

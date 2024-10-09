@@ -5,7 +5,10 @@ using UnityEngine;
 /// </summary>
 public class ChainSegment : MonoBehaviour
 {
-    
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 }
 
 
