@@ -7,6 +7,7 @@ public class BaseManager : MonoBehaviour
 {
 
     //Detta skript innehåller alla basvariabler samt metoder för alla andra managers.
+    // OBS! LÄGG INTE TILL NÅGOT UTAN MIN TILLÅTELSE!
 
 
     public float maxHealth;
@@ -30,6 +31,8 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
+
+    
 
 
 
@@ -117,6 +120,6 @@ public class BaseManager : MonoBehaviour
         }
     }
 
-
+    
 
 }

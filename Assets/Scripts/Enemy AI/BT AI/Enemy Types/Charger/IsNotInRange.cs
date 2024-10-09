@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class NotAlreadyCharged : Node
+public class IsNotInRange : Node
 {
+    private float distance;
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        ChargerManager charger = agent as ChargerManager;
+        targetedPlayer = agent.CalculateClosestTarget();
+        distance = Vector3.Distance(agent.transform.position, targetedPlayer.position);
 
-        if (charger.hasAlreadyCharged == false)
+        if (distance > agent.attackRange)
         {
+
             return NodeState.SUCCESS;
         }
         else
         {
             return NodeState.FAILURE;
         }
-        
     }
 }
