@@ -62,8 +62,10 @@ public class UpgradeManager : MonoBehaviour
         player2Movement = player2.GetComponent<PlayerMovement>();
 
         currentAttackDamage = player1Combat.attackDamage;
-        currentMaxHealth = player1Manager.currentHealth;
-        currentSpeed = player1Movement.originalWalkingSpeed;
+        //currentMaxHealth = player1Manager.currentHealth;
+        currentMaxHealth = player1Manager.MaxHeatlh;
+        currentSpeed = player1Movement.WalkingSpeed;
+        //currentSpeed = player1Movement.originalWalkingSpeed;
     }
 
     // Upgrade Damage with Scriptable Object Data
@@ -113,12 +115,10 @@ public class UpgradeManager : MonoBehaviour
     //Upgrade Health with Scriptable Object Data
     public void UpgradeHealth(HealthUpgradeSO healthUpgrade)
     {
-        float initialMaxHealth = 100f;
-
         if (healthUpgrade != null && currentHealthLevel < MaxUpgradeLevel)
         {
             float newMaxHealth = currentMaxHealth + healthUpgrade.healthIncrease;
-            float maxAllowedHealth = initialMaxHealth * MaxHealthMultiplier;
+            float maxAllowedHealth = player1Manager.MaxHeatlh * MaxHealthMultiplier;
 
             if (newMaxHealth <= maxAllowedHealth)
             {
@@ -151,15 +151,15 @@ public class UpgradeManager : MonoBehaviour
         if (speedUpgrade != null && currentSpeedLevel < MaxUpgradeLevel)
         {
             float newSpeed = currentSpeed + speedUpgrade.speedIncrease;
-            float maxAllowedSpeed = player1Movement.originalWalkingSpeed * MaxSpeedMultiplier;
-
+            float maxAllowedSpeed = player1Movement.WalkingSpeed * MaxSpeedMultiplier;
+            //float maxAllowedSpeed = player1Movement.originalWalkingSpeed * MaxSpeedMultiplier;
             if (newSpeed <= maxAllowedSpeed)
             {
                 currentSpeed = newSpeed;
                 currentSpeedLevel++;
 
-                player1Movement.SetWalkingSpeed(currentSpeed);
-                player2Movement.SetWalkingSpeed(currentSpeed);
+                player1Movement.SetPlayerWalkingSpeed(currentSpeed);
+                player2Movement.SetPlayerWalkingSpeed(currentSpeed);
 
                 Debug.Log("Speed upgraded for both players! New Speed: " + currentSpeed);
                 UpdateUpgradeLevelText();

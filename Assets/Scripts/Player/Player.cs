@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     [Header("Player attributes")]
     [SerializeField] private float _maxHealth = 10.0f;
     public float currentHealth { get; private set; }
-
+    public float MaxHeatlh => _maxHealth;
     private int _playerId;
 
     #endregion
@@ -150,8 +150,8 @@ public class Player : MonoBehaviour
     //Used for upgrades
     public void SetMaxHealth(float newMaxHealth)
     {
-        _maxHealth = newMaxHealth;
-        currentHealth = _maxHealth;// heal to full when upgrading health
+        _maxHealth = Mathf.Max(_maxHealth, newMaxHealth); //dont override current max hp
+        currentHealth = _maxHealth;
 
         if (currentHealth > _maxHealth)
         {

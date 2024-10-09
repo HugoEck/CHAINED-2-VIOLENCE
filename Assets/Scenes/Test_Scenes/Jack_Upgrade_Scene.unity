@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4196,6 +4196,8 @@ GameObject:
   - component: {fileID: 1446530441}
   - component: {fileID: 1446530440}
   - component: {fileID: 1446530448}
+  - component: {fileID: 1446530450}
+  - component: {fileID: 1446530449}
   m_Layer: 6
   m_Name: Player_1 (2)
   m_TagString: Player1
@@ -4276,7 +4278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingSpeed: 550.2
+  _walkingSpeed: 400
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
 --- !u!114 &1446530443
@@ -4291,7 +4293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 40
 --- !u!54 &1446530444
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4408,8 +4410,30 @@ MonoBehaviour:
   abilityCooldown: 5
   attackRange: 2
   attackDamage: 10
-  lastAttackTime: 0
-  lastAbilityTime: 0
+--- !u!114 &1446530449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446530436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c1cf58b27c3ff4483f07b60324544a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1446530450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446530436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c19f920bcf148b43978d77f39e42bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1481567988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4651,6 +4675,8 @@ GameObject:
   - component: {fileID: 1579101367}
   - component: {fileID: 1579101366}
   - component: {fileID: 1579101375}
+  - component: {fileID: 1579101377}
+  - component: {fileID: 1579101376}
   m_Layer: 6
   m_Name: Player_2 (1)
   m_TagString: Player2
@@ -4728,7 +4754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 40
 --- !u!54 &1579101370
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4863,8 +4889,30 @@ MonoBehaviour:
   abilityCooldown: 5
   attackRange: 2
   attackDamage: 10
-  lastAttackTime: 0
-  lastAbilityTime: 0
+--- !u!114 &1579101376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579101363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c19f920bcf148b43978d77f39e42bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1579101377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579101363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c1cf58b27c3ff4483f07b60324544a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1596704654
 GameObject:
   m_ObjectHideFlags: 0
@@ -5649,7 +5697,7 @@ MonoBehaviour:
     m_MaxSpeed: 50
     m_AccelTime: 15
     m_DecelTime: 1
-    m_InputAxisName: Horizontal
+    m_InputAxisName: 0
     m_InputAxisValue: 0
     m_InvertInput: 1
     m_MinValue: -180

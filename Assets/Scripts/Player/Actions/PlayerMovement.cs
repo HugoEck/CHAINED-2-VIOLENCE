@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     private Vector3 _isometricPlayerMoveDirection = Vector3.zero; // Adjust the player direction based on camera angle
 
     public float originalWalkingSpeed { get; private set; }
+    public float WalkingSpeed => _walkingSpeed;
 
     private void Start()
     {
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     {
         _walkingSpeed = newWalkSpeed;
     }
+
     public void MovePlayer(Vector2 movementInput)
     {
 
@@ -92,10 +94,10 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     }
 
     // Used for upgrading the player movement speed thru the upgrade system.
-    public void SetWalkingSpeed(float newSpeed)
-    {
-        _walkingSpeed = newSpeed;
-    }
+    //public void SetWalkingSpeed(float newSpeed)
+    //{
+    //    _walkingSpeed = newSpeed;
+    //}
 
     #endregion
 
