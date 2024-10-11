@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     #region Player components
 
     private PlayerMovement _playerMovement;
+    private PlayerCombat _playerCombat;
 
     #endregion
 
@@ -18,7 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float _maxHealth = 10.0f;
     public float currentHealth { get; private set; }
 
-    private int _playerId;
+    public int _playerId {  get; private set; }
+
+    
 
     #endregion
 
@@ -27,11 +30,14 @@ public class Player : MonoBehaviour
     private Vector2 _movementInput = Vector2.zero;
     private Vector2 _rotationInput = Vector2.zero;
     private bool _bIsUsingBasicAttack = false;
+    private bool _bIsUsingAbilityAttack = false;
 
     #endregion
     
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         if(gameObject.tag == "Player1")
         {
             _playerId = 1;
@@ -46,6 +52,7 @@ public class Player : MonoBehaviour
         #region Instantiate components
 
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerCombat = GetComponent<PlayerCombat>();
 
         #endregion
 
@@ -119,19 +126,34 @@ public class Player : MonoBehaviour
         if (_playerId == 1)
         {
             _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P1();
+            _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P1();
 
             if (_bIsUsingBasicAttack)
             {
+                _playerCombat.Attack();
                 Debug.Log("Player 1 is using basic attack");
+                
+            }
+            else if(_bIsUsingAbilityAttack)
+            {
+                _playerCombat.UseAbility();
+                Debug.Log("Player 1 is using Ability");
             }
         }
         else if (_playerId == 2)
         {
             _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P2();
+            _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P2();
 
             if (_bIsUsingBasicAttack)
             {
+                _playerCombat.Attack();
                 Debug.Log("Player 2 is using basic attack");
+            }
+            else if(_bIsUsingAbilityAttack)
+            {
+                _playerCombat.UseAbility();
+                Debug.Log("Player 2 is using Ability");
             }
         }
     }

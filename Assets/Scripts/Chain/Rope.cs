@@ -48,9 +48,15 @@ public class Rope : MonoBehaviour
     private bool _pinStartPoint = true;
     private bool _pinEndPoint = true;
 
-   
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
+
         // Get the rigid body from the player object (parent), not the chain holder
         _player1RigidBody = _player1Attachment.GetComponentInParent<Rigidbody>();
         _player2RigidBody = _player2Attachment.GetComponentInParent<Rigidbody>();
@@ -90,8 +96,18 @@ public class Rope : MonoBehaviour
 
         // instantiate chain segments
         GenerateChain();
+        AssignTagToMidChainSegment();
     }
-
+    private void AssignTagToMidChainSegment()
+    {
+        for(int i = 0; i < _numberOfPointsAlongPath; ++i)
+        {
+            if(i == Mathf.FloorToInt(_numberOfPointsAlongPath / 2))
+            {
+                _chainLinks[i].tag = "MidChainSegment";
+            }
+        }
+    }
     /// <summary>
     /// Calculate the length of the path based on the vertex curve (check component on gameobject)
     /// </summary>

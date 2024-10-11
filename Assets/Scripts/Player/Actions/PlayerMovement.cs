@@ -20,29 +20,42 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 
     private Vector2 _playerMoveDirection = Vector2.zero; // Direction on 2d plane (movement input)
     private Vector3 _isometricPlayerMoveDirection = Vector3.zero; // Adjust the player direction based on camera angle
-
+    [SerializeField] private bool isPlayerOne = true;
     public float originalWalkingSpeed { get; private set; }
 
     private void Start()
     {
-
         _mainCameraReference = Camera.main;
         _playerRigidBody = GetComponent<Rigidbody>();
-        _playerInput = GetComponent<PlayerInput>();
-        _moveAction = _playerInput.actions.FindAction("PlayerMovementAction");
         originalWalkingSpeed = _walkingSpeed;
     }
     private void Update()
     {
+        if(!_mainCameraReference)
+        {
+            _mainCameraReference = Camera.main;
+        }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
             transform.position = transform.forward * 20f;
         }
 
-        _playerMoveDirection = _moveAction.ReadValue<Vector2>();
 
         float speed = _playerMoveDirection.magnitude;
+
+        // Get the movement input based on the player (Player 1 or Player 2)
+        if (isPlayerOne)
+        {
+            _playerMoveDirection = InputManager.Instance.GetMovementInput_P1();
+        }
+        else
+        {
+            _playerMoveDirection = InputManager.Instance.GetMovementInput_P2();
+        }
+
+        // Move the player based on the input
+        MovePlayer(_playerMoveDirection);
 
     }
 
@@ -55,6 +68,12 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     public void SetPlayerWalkingSpeed(float newWalkSpeed)
     {
         _walkingSpeed = newWalkSpeed;
+    }
+
+    public Vector2 GetMovementInput()
+    {
+        // Return the movement input for other scripts (such as the animation controller)
+        return _playerMoveDirection;
     }
     public void MovePlayer(Vector2 movementInput)
     {
@@ -90,6 +109,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         // Normalize the vector to ensure consistent movement speed
         return cameraVector.normalized;
     }
+
 
     // Used for upgrading the player movement speed thru the upgrade system.
     public void SetWalkingSpeed(float newSpeed)
