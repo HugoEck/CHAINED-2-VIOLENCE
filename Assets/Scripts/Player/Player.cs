@@ -97,6 +97,7 @@ public class Player : MonoBehaviour
         }
        
     }
+
     private void GetPlayerMovementInput()
     {
         if (_playerId == 1)
@@ -119,6 +120,11 @@ public class Player : MonoBehaviour
     private void UpdatePlayerCombat()
     {
         GetPlayerCombatInput();
+    }
+
+    public Vector2 GetMovementInput()
+    {
+        return _movementInput;
     }
 
     private void GetPlayerCombatInput()

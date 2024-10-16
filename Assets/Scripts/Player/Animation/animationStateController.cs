@@ -27,7 +27,7 @@ public class AnimationStateController : MonoBehaviour
             _mainCamera = Camera.main;
         }
  
-        Vector2 movementInput = _playerMovement.GetMovementInput();
+        Vector2 movementInput = _player.GetMovementInput();
 
         Vector3 playerForward = transform.forward; 
         Vector3 cameraForward = _mainCamera.transform.forward;
@@ -81,7 +81,7 @@ public class AnimationStateController : MonoBehaviour
             if (_bIsUsingBasicAttack)
             {
                 _animator.SetBool("isAttacking", true);
-                Invoke("StopAttacking", 0.5f);  // Adjust the delay based on the attack animation duration
+                Invoke("StopAttacking", 0.5f); 
             }
         }
         else if (_player._playerId == 2)
@@ -91,12 +91,11 @@ public class AnimationStateController : MonoBehaviour
             if (_bIsUsingBasicAttack)
             {
                 _animator.SetBool("isAttacking", true);
-                Invoke("StopAttacking", 0.5f);  // Adjust the delay based on the attack animation duration
+                Invoke("StopAttacking", 0.5f); 
             }
         }
     }
 
-    // Method to reset the isAttacking flag after the attack animation finishes
     private void StopAttacking()
     {
         _animator.SetBool("isAttacking", false);
