@@ -136,7 +136,7 @@ public class WaveManager : MonoBehaviour
         color.a = 0; // Start with fully transparent
         text.color = color;
 
-        text.font = (TMP_FontAsset)romanFont;
+        text.font = (TMP_FontAsset)GetFont();
 
         // Gradually increase alpha to 1
         float elapsedTime = 0;
@@ -177,6 +177,8 @@ public class WaveManager : MonoBehaviour
 
     private TMP_Asset GetFont()
     {
+        Debug.Log(waves[currentWave].waveName);
+
         if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Roman)
         {
             return romanFont;
@@ -197,6 +199,7 @@ public class WaveManager : MonoBehaviour
         {
             return westernFont;
         }
+        
 
 
 
