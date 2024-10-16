@@ -4,8 +4,14 @@ using TMPro;
 using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
-    
+    [Header("Fonts")]
+    public TMP_Asset romanFont;
+    public TMP_Asset scifiFont;
+    public TMP_Asset farmFont;
+    public TMP_Asset fantasyFont;
+    public TMP_Asset westernFont;
 
+    [Header(" ")]
     [SerializeField] GameObject enemyCreatorObject;
     NPC_Customization enemyCreator;
 
@@ -17,6 +23,7 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI text;
     public int currentWave = 0;
+    
 
 
     public float deltaTime;
@@ -29,6 +36,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        
         waveData.LoadWaves(waves);
         StartCoroutine(SpawnWavesRegularly());
     }
@@ -40,7 +48,7 @@ public class WaveManager : MonoBehaviour
             if (currentWave < waves.Count)
             {
                 SpawnWave(waves[currentWave]);
-                text.text = "Current wave is: " + currentWave;
+                text.text = "Wave " + currentWave;
                 currentWave++;
             }
             yield return new WaitForSeconds(20f); // Wait for 60 seconds before spawning the next wave
@@ -53,7 +61,8 @@ public class WaveManager : MonoBehaviour
         {
             SpawnWave(waves[currentWave]);
             currentWave++;
-            text.text = "Current wave is: " + currentWave;
+            text.text = "Wave " + currentWave;
+            StartCoroutine(FadeInText(1,3));
         }
 
         //Debug Wave
@@ -119,6 +128,80 @@ public class WaveManager : MonoBehaviour
         }
         yield return new WaitForSeconds(3.0f);
             Destroy(portal);
+    }
+
+    private IEnumerator FadeInText(float fadeDuration, float stayDuration)
+    {
+        Color color = text.color;
+        color.a = 0; // Start with fully transparent
+        text.color = color;
+
+        text.font = (TMP_FontAsset)romanFont;
+
+        // Gradually increase alpha to 1
+        float elapsedTime = 0;
+
+        while (elapsedTime < fadeDuration)
+        {
+            color.a = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
+            text.color = color;
+            elapsedTime += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        // Ensure the final alpha is set to 1
+        color.a = 1;
+        text.color = color;
+        elapsedTime = 0;
+
+        while (elapsedTime < stayDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        elapsedTime = 0;
+
+        while (elapsedTime < fadeDuration)
+        {
+            color.a = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
+            text.color = color;
+            elapsedTime += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        // Ensure the final alpha is set to 1
+        color.a = 0;
+        text.color = color;
+    }
+
+    private TMP_Asset GetFont()
+    {
+        if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Roman)
+        {
+            return romanFont;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.SciFi)
+        {
+            return scifiFont;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Farm)
+        {
+            return farmFont;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Fantasy)
+        {
+            return fantasyFont;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Mini)
+        {
+            return westernFont;
+        }
+
+
+
+
+        return romanFont;
     }
 
 
