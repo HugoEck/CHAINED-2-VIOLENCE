@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Script for handling player movement & rotation of camera
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     [SerializeField] private float _walkingSpeed = 200.0f;
     [SerializeField] private float _playerRotateSpeedMouse = 5.0f;
     [SerializeField] private float _playerRotateSpeedJoystick = 10.0f;
+
 
     private Camera _mainCameraReference;
 
@@ -22,6 +24,8 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     private Vector3 _isometricPlayerMoveDirection = Vector3.zero; // Adjust the player direction based on camera angle
     public float originalWalkingSpeed { get; private set; }
 
+    private Vector3 _externalForce = Vector3.zero;
+    
     private void Start()
     {
         _mainCameraReference = Camera.main;
@@ -42,9 +46,22 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     /// <summary>
     /// Called from the rope script 
     /// </summary>
-    public void SetPlayerWalkingSpeed(float newWalkSpeed)
+    public void SetPlayerVelocity(Vector3 velocity)
     {
-        _walkingSpeed = newWalkSpeed;
+        _playerRigidBody.velocity = velocity;
+    }
+    public void AddPlayerVelocity(Vector3 velocity)
+    {
+        _playerRigidBody.AddForce(velocity);
+    }
+
+    private Vector3 _lastExternalForce = Vector3.zero; // New field to store last external force
+    private float _forceDamping = 2f; // Damping factor for smoothing
+
+    public void ApplyExternalForce(Vector3 force)
+    {
+        // Smoothly transition to the new external force
+        _lastExternalForce = Vector3.Lerp(_lastExternalForce, force, Time.deltaTime * _forceDamping);
     }
 
     public Vector2 GetMovementInput()
@@ -54,10 +71,9 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     }
     public void MovePlayer(Vector2 movementInput)
     {
-
         // Calculate the desired movement direction relative to the camera's perspective (isometric movement)
         _isometricPlayerMoveDirection = ProjectToXZPlane(_mainCameraReference.transform.right) * movementInput.x +
-                                ProjectToXZPlane(_mainCameraReference.transform.forward) * movementInput.y;
+                                         ProjectToXZPlane(_mainCameraReference.transform.forward) * movementInput.y;
 
         // Only move if there's input
         if (_isometricPlayerMoveDirection != Vector3.zero)
@@ -67,11 +83,22 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 
             float playerSpeedDt = _walkingSpeed * Time.deltaTime;
 
-            Vector3 newVelocity = new Vector3(_isometricPlayerMoveDirection.x * playerSpeedDt, _playerRigidBody.velocity.y, _isometricPlayerMoveDirection.z * playerSpeedDt);
+            Vector3 newVelocity = new Vector3(
+                _isometricPlayerMoveDirection.x * playerSpeedDt,
+                _playerRigidBody.velocity.y, // Keep the current vertical velocity
+                _isometricPlayerMoveDirection.z * playerSpeedDt
+            );
 
-            _playerRigidBody.velocity = newVelocity;
+            // Use the last external force instead of the direct external force
+            Vector3 totalMovement = newVelocity + (_lastExternalForce * Time.deltaTime);
+
+            // Lerp between the last frame's velocity and the new calculated total movement velocity
+            float lerpFactor = 0.1f; // Adjust this value for how quickly you want to blend
+            _playerRigidBody.velocity = Vector3.Lerp(_playerRigidBody.velocity, totalMovement, lerpFactor);
         }
     }
+
+
 
     /// <summary>
     /// Get the XZ plane of the camera for handling isometric camera angle
