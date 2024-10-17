@@ -1160,6 +1160,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arena
       objectReference: {fileID: 0}
+    - target: {fileID: 3566390031902043909, guid: b64ab1cab3031dd49865cc044d66262b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ef4cffe27496f31439ee8fc24a09238b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -6239948685223243551, guid: b64ab1cab3031dd49865cc044d66262b, type: 3}
@@ -1169,6 +1174,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1083629445}
+    - targetCorrespondingSourceObject: {fileID: 3779745573541866595, guid: b64ab1cab3031dd49865cc044d66262b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1083629449}
   m_SourcePrefab: {fileID: 100100000, guid: b64ab1cab3031dd49865cc044d66262b, type: 3}
 --- !u!1 &325876544
 GameObject:
@@ -3416,6 +3425,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.37317464, y: 0.006881682, z: 0.37317464}
   m_Center: {x: 0.01199562, y: -0.003388131, z: 0.00045215336}
+--- !u!114 &1083629449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083629441}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fbd2c1f23bcb84cb4f443666a9643a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: ef4cffe27496f31439ee8fc24a09238b, type: 2}
 --- !u!1 &1169552093
 GameObject:
   m_ObjectHideFlags: 0
