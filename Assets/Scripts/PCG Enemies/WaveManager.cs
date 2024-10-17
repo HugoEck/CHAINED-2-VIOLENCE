@@ -14,6 +14,10 @@ public class WaveManager : MonoBehaviour
     [Header(" ")]
     [SerializeField] GameObject enemyCreatorObject;
     NPC_Customization enemyCreator;
+    public static int ActiveEnemies = 0;
+
+    private float targetTime = 20;
+    private float timer = 0;
 
     [SerializeField] GameObject spawnPortal;
 
@@ -23,7 +27,7 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI text;
     public int currentWave = 0;
-    
+
 
 
     public float deltaTime;
@@ -36,7 +40,6 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        
         waveData.LoadWaves(waves);
         StartCoroutine(SpawnWavesRegularly());
     }
@@ -57,12 +60,19 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
+        timer += Time.deltaTime;
+        if(ActiveEnemies == 0 || timer > targetTime)
+        {
+            currentWave++;
+            timer = 0;
+            SpawnWave(waves[currentWave]);
+        }
+
+        //Debug spawner
         if (Input.GetKeyDown(KeyCode.L) && currentWave < waves.Count)
         {
             SpawnWave(waves[currentWave]);
             currentWave++;
-            text.text = "Wave " + currentWave;
-            StartCoroutine(FadeInText(1,3));
         }
 
         //Debug Wave
@@ -91,19 +101,21 @@ public class WaveManager : MonoBehaviour
 
     public void SpawnWave(Wave wave)
     {
+        text.text = "Wave " + currentWave;
+        StartCoroutine(FadeInText(1, 3));
         StartCoroutine(SpawnWaveCoroutine(wave));
     }
 
     private IEnumerator SpawnWaveCoroutine(Wave wave)
     {
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
         GameObject waveParent = new GameObject($"{wave.waveName} Army");
-
-        waveParent.transform.position = spawnPoint.position; 
-        GameObject portal = Instantiate(spawnPortal, waveParent.transform);
+        GameObject portal = null;
+           
 
         foreach (var enemyConfig in wave.enemyConfigs)
         {
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+            portal = Instantiate(spawnPortal, spawnPoint.transform);
             // Randomize and create the base enemy
             enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass);
             GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
@@ -115,6 +127,8 @@ public class WaveManager : MonoBehaviour
             {
                 // Instantiate a new enemy
                 GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
+                ActiveEnemies++;
+
                 newEnemy.name = $"{enemyConfig.enemyClass} enemy {i + 1}";
                 newEnemy.transform.parent = waveParent.transform; // Set the parent for the new enemy
 
@@ -127,7 +141,10 @@ public class WaveManager : MonoBehaviour
 
         }
         yield return new WaitForSeconds(3.0f);
+        if (portal != null)
+        {
             Destroy(portal);
+        }
     }
 
     private IEnumerator FadeInText(float fadeDuration, float stayDuration)
@@ -199,7 +216,7 @@ public class WaveManager : MonoBehaviour
         {
             return westernFont;
         }
-        
+
 
 
 

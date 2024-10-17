@@ -221,7 +221,11 @@ public class NPC_Customization : MonoBehaviour
     public void AddBehaviourToClass(GameObject enemy)
     {
         NavMeshAgent agent = enemy.AddComponent<NavMeshAgent>();
-        BoxCollider collider = enemy.AddComponent<BoxCollider>();     
+        agent.baseOffset = 0.1f;
+        BoxCollider collider = enemy.AddComponent<BoxCollider>();
+        
+
+        Physics.SyncTransforms();
 
         collider.isTrigger = true;
         enemy.tag = "Enemy";
