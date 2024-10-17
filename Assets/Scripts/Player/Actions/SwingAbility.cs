@@ -52,8 +52,15 @@ public class SwingAbility : PlayerCombat
     {
         float elapsedTime = 0f;
         float currentAngle = 0f;  // Angle to control the swing position
-
         Vector3 swingCenter = transform.position; // The anchor player's position
+
+        // Get the current position of the other player
+        Vector3 initialPosition = otherPlayer.position;
+
+        // Calculate the initial angle based on the current position of the swung player
+        float offsetX = initialPosition.x - swingCenter.x;
+        float offsetZ = initialPosition.z - swingCenter.z;
+        currentAngle = Mathf.Atan2(offsetZ, offsetX) * Mathf.Rad2Deg; // Get angle in degrees
 
         while (elapsedTime < swingDuration)
         {
@@ -71,7 +78,7 @@ public class SwingAbility : PlayerCombat
             // Calculate the new position based on the angle and fixed radius
             Vector3 newSwingPosition = new Vector3(
                 swingCenter.x + swingRadius * Mathf.Cos(angleInRadians),
-                otherPlayer.position.y,  // Keep the player's current height
+                initialPosition.y,  // Keep the player's current height
                 swingCenter.z + swingRadius * Mathf.Sin(angleInRadians)
             );
 
@@ -79,7 +86,7 @@ public class SwingAbility : PlayerCombat
             otherPlayerRb.MovePosition(newSwingPosition);
 
             // Detect enemies in the swing radius and apply damage
-            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, swingRadius);
+            Collider[] hitEnemies = Physics.OverlapSphere(swingCenter, swingRadius);
             foreach (Collider enemy in hitEnemies)
             {
                 BaseManager enemyManager = enemy.GetComponent<BaseManager>();
@@ -102,6 +109,7 @@ public class SwingAbility : PlayerCombat
         // Unset kinematic mode for the anchor player so they can move again
         anchorRb.isKinematic = false;
     }
+
 
     // Optional: Visualize the swing radius in the scene view for debugging.
     private void OnDrawGizmosSelected()
