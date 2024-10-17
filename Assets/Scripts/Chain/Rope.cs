@@ -215,103 +215,103 @@ public class Rope : MonoBehaviour
             ConstrainConnections();
         }
 
-        DragOtherPlayer();
+        //DragOtherPlayer();
     }
 
     /// <summary>
     /// Apply a pulling force through the rope and into both players when the rope is "stretched"
     /// </summary>
-    private void DragOtherPlayer()
-    {
-        // Calculate the distance between the two players
-        float currentRopeLength = Vector3.Distance(_points[0], _points[_points.Length - 1]);
+    //private void DragOtherPlayer()
+    //{
+    //    // Calculate the distance between the two players
+    //    float currentRopeLength = Vector3.Distance(_points[0], _points[_points.Length - 1]);
 
-        // Get the rigidbody states
-        bool isPlayer1Kinematic = _player1RigidBody.isKinematic;
-        bool isPlayer2Kinematic = _player2RigidBody.isKinematic;
+    //    // Get the rigidbody states
+    //    bool isPlayer1Kinematic = _player1RigidBody.isKinematic;
+    //    bool isPlayer2Kinematic = _player2RigidBody.isKinematic;
 
-        // If both players are not kinematic, apply forces based on speed and mass
-        float massPlayer1 = _player1RigidBody.mass;
-        float massPlayer2 = _player2RigidBody.mass;
+    //    // If both players are not kinematic, apply forces based on speed and mass
+    //    float massPlayer1 = _player1RigidBody.mass;
+    //    float massPlayer2 = _player2RigidBody.mass;
 
-        // Get the speeds of the players
-        float player1Speed = _player1RigidBody.velocity.magnitude; // Speed of Player1
-        float player2Speed = _player2RigidBody.velocity.magnitude; // Speed of Player2
+    //    // Get the speeds of the players
+    //    float player1Speed = _player1RigidBody.velocity.magnitude; // Speed of Player1
+    //    float player2Speed = _player2RigidBody.velocity.magnitude; // Speed of Player2
 
-        // Calculate base pulling force based on mass and speed
-        float baseForcePlayer1 = massPlayer1 * player1Speed * _chainForceMultiplier; // Adjust forceMultiplier for scaling
-        float baseForcePlayer2 = massPlayer2 * player2Speed * _chainForceMultiplier; // Adjust forceMultiplier for scaling
+    //    // Calculate base pulling force based on mass and speed
+    //    float baseForcePlayer1 = massPlayer1 * player1Speed * _chainForceMultiplier; // Adjust forceMultiplier for scaling
+    //    float baseForcePlayer2 = massPlayer2 * player2Speed * _chainForceMultiplier; // Adjust forceMultiplier for scaling
 
-        // Calculate total force for each player
-        float totalForce = baseForcePlayer1 + baseForcePlayer2;
+    //    // Calculate total force for each player
+    //    float totalForce = baseForcePlayer1 + baseForcePlayer2;
 
-        // Calculate individual forces as a percentage of total force
-        float player1Force = baseForcePlayer1 / totalForce;
-        float player2Force = baseForcePlayer2 / totalForce;
+    //    // Calculate individual forces as a percentage of total force
+    //    float player1Force = baseForcePlayer1 / totalForce;
+    //    float player2Force = baseForcePlayer2 / totalForce;
 
-        // This variable is used so that the players never "not" pull eachother ensuring that no infinite stretching happens
-        const float minimumForce = 10f; // Adjust as necessary
+    //    // This variable is used so that the players never "not" pull eachother ensuring that no infinite stretching happens
+    //    const float minimumForce = 10f; // Adjust as necessary
 
-        // If the rope is stretched, apply forces and adjust player speeds
-        if (currentRopeLength > _maxRopeLength)
-        {
-            player1Force = Mathf.Max(player1Force * totalForce, minimumForce);
-            player2Force = Mathf.Max(player2Force * totalForce, minimumForce);
+    //    // If the rope is stretched, apply forces and adjust player speeds
+    //    if (currentRopeLength > _maxRopeLength)
+    //    {
+    //        player1Force = Mathf.Max(player1Force * totalForce, minimumForce);
+    //        player2Force = Mathf.Max(player2Force * totalForce, minimumForce);
 
             
-            float ropeStretch = currentRopeLength - _maxRopeLength;
-            float stretchFactor = Mathf.Clamp01(ropeStretch / 2.0f); // Max stretch impact
+    //        float ropeStretch = currentRopeLength - _maxRopeLength;
+    //        float stretchFactor = Mathf.Clamp01(ropeStretch / 2.0f); // Max stretch impact
 
-            // Player 1 - Calculate movement direction relative to the rope
-            Vector3 directionToRopeStart = (_player2Attachment.position - _player1Attachment.position).normalized;
-            float dotProductPlayer1 = Vector3.Dot(_player1RigidBody.velocity.normalized, directionToRopeStart);
+    //        // Player 1 - Calculate movement direction relative to the rope
+    //        Vector3 directionToRopeStart = (_player2Attachment.position - _player1Attachment.position).normalized;
+    //        float dotProductPlayer1 = Vector3.Dot(_player1RigidBody.velocity.normalized, directionToRopeStart);
 
-            // Adjust Player1's speed based on direction of movement relative to the rope
-            if (dotProductPlayer1 < 0) // Player 1 is moving away from the rope and stretching it 
-            {
-                float newWalkingSpeed1 = _player1Movement.originalWalkingSpeed * Mathf.Lerp(1f, 0.0f, stretchFactor);
-                _player1Movement.SetPlayerWalkingSpeed(newWalkingSpeed1);
-            }
-            else // Player 1 is moving towards slack, allow normal speed
-            {
-                _player1Movement.SetPlayerWalkingSpeed(_player1Movement.originalWalkingSpeed);
-            }
+    //        // Adjust Player1's speed based on direction of movement relative to the rope
+    //        if (dotProductPlayer1 < 0) // Player 1 is moving away from the rope and stretching it 
+    //        {
+    //            float newWalkingSpeed1 = _player1Movement.originalWalkingSpeed * Mathf.Lerp(1f, 0.0f, stretchFactor);
+    //            _player1Movement.SetPlayerVelocity(newWalkingSpeed1);
+    //        }
+    //        else // Player 1 is moving towards slack, allow normal speed
+    //        {
+    //            _player1Movement.SetPlayerVelocity(_player1Movement.originalWalkingSpeed);
+    //        }
 
-            // Player 2 - Calculate movement direction relative to the rope
-            Vector3 directionToRopeEnd = (_player1Attachment.position - _player2Attachment.position).normalized;
-            float dotProductPlayer2 = Vector3.Dot(_player2RigidBody.velocity.normalized, directionToRopeEnd);
+    //        // Player 2 - Calculate movement direction relative to the rope
+    //        Vector3 directionToRopeEnd = (_player1Attachment.position - _player2Attachment.position).normalized;
+    //        float dotProductPlayer2 = Vector3.Dot(_player2RigidBody.velocity.normalized, directionToRopeEnd);
 
-            // Adjust Player2's speed based on direction of movement relative to the rope
-            if (dotProductPlayer2 < 0) // Player 2 is moving away from the rope and stretching it 
-            {
-                float newWalkingSpeed2 = _player2Movement.originalWalkingSpeed * Mathf.Lerp(1f, 0.0f, stretchFactor);
-                _player2Movement.SetPlayerWalkingSpeed(newWalkingSpeed2);
-            }
-            else // Player 2 is moving towards slack, allow normal speed
-            {
-                _player2Movement.SetPlayerWalkingSpeed(_player2Movement.originalWalkingSpeed);
-            }
+    //        // Adjust Player2's speed based on direction of movement relative to the rope
+    //        if (dotProductPlayer2 < 0) // Player 2 is moving away from the rope and stretching it 
+    //        {
+    //            float newWalkingSpeed2 = _player2Movement.originalWalkingSpeed * Mathf.Lerp(1f, 0.0f, stretchFactor);
+    //            _player2Movement.SetPlayerVelocity(newWalkingSpeed2);
+    //        }
+    //        else // Player 2 is moving towards slack, allow normal speed
+    //        {
+    //            _player2Movement.SetPlayerVelocity(_player2Movement.originalWalkingSpeed);
+    //        }
 
-            // Directions towards the players
-            Vector3 directionToPlayer2 = (_points[0] - _player2RigidBody.position).normalized; 
-            Vector3 directionToPlayer1 = (_points[_numberOfPointsAlongPath - 1] - _player1RigidBody.position).normalized; 
+    //        // Directions towards the players
+    //        Vector3 directionToPlayer2 = (_points[0] - _player2RigidBody.position).normalized; 
+    //        Vector3 directionToPlayer1 = (_points[_numberOfPointsAlongPath - 1] - _player1RigidBody.position).normalized; 
 
-            // Apply forces proportionally to the calculated strengths in the correct directions
-            ApplyForceToPlayers(directionToPlayer1 * player2Force,
-                                directionToPlayer2 * player1Force);
+    //        // Apply forces proportionally to the calculated strengths in the correct directions
+    //        ApplyForceToPlayers(directionToPlayer1 * player2Force,
+    //                            directionToPlayer2 * player1Force);
 
-            // Clamp player velocities so that they can't be flung too fast and break the physics simulation
+    //        // Clamp player velocities so that they can't be flung too fast and break the physics simulation
 
-            ClampVelocity(_player1RigidBody, _maxPlayerVelocity);
+    //        ClampVelocity(_player1RigidBody, _maxPlayerVelocity);
             
-        }
-        else
-        {
-            // If the rope is not stretched, set normal walking speed
-            _player1Movement.SetPlayerWalkingSpeed(_player1Movement.originalWalkingSpeed);
-            _player2Movement.SetPlayerWalkingSpeed(_player2Movement.originalWalkingSpeed);
-        }
-    }
+    //    }
+    //    else
+    //    {
+    //        // If the rope is not stretched, set normal walking speed
+    //        _player1Movement.SetPlayerVelocity(_player1Movement.originalWalkingSpeed);
+    //        _player2Movement.SetPlayerVelocity(_player2Movement.originalWalkingSpeed);
+    //    }
+    //}
 
     private void ApplyForceToPlayers(Vector3 forceOnPlayer1, Vector3 forceOnPlayer2)
     {

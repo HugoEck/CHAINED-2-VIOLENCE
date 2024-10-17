@@ -5,10 +5,17 @@ using UnityEngine;
 /// </summary>
 public class ChainSegment : MonoBehaviour
 {
+    private Rigidbody _chainSegmentRigidBody;
+
     private void Awake()
     {
+        _chainSegmentRigidBody = GetComponent<Rigidbody>();
+
+        _chainSegmentRigidBody.solverIterations = 50;
+
         DontDestroyOnLoad(gameObject);
     }
+
 }
 
 
