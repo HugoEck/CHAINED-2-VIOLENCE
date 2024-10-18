@@ -23,7 +23,7 @@ public class RockThrowerManager : BaseManager
         enemyID = "RockThrower";
         animator.SetBool("RockThrower_StartChasing", true);
         currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
+        navigation.maxSpeed = speed;
         ConstructBT();
     }
 

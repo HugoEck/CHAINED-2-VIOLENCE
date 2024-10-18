@@ -25,7 +25,7 @@ public class BaseManager : MonoBehaviour
 
     [Header("GE EJ VÄRDE")]
 
-    [HideInInspector] public NavMeshAgent navMeshAgent;
+    //[HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public AIPath navigation;
 
 
@@ -49,7 +49,7 @@ public class BaseManager : MonoBehaviour
         player2 = GameObject.FindGameObjectWithTag("Player2");
         animator = gameObject.GetComponent<Animator>();
 
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        //navMeshAgent = GetComponent<NavMeshAgent>();
         navigation = GetComponent<AIPath>();
 
 

@@ -25,7 +25,8 @@ public class ChargerManager : BaseManager
         enemyID = "Charger";
         //animator.SetBool("Plebian_StartChasing", true);
         currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
+        //navMeshAgent.speed = speed;
+        navigation.maxSpeed = speed;
         ConstructBT();
 
         randomOffset = Random.Range(0f, evaluationInterval);

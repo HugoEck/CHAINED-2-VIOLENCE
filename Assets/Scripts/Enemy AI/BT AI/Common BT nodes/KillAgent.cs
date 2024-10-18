@@ -11,7 +11,9 @@ public class KillAgent : Node
     {
         WaveManager.ActiveEnemies--;
         agent.animator.enabled = false;
-        agent.navMeshAgent.isStopped = true;
+
+        agent.navigation.isStopped = true;
+        //agent.navMeshAgent.isStopped = true;
 
         
 

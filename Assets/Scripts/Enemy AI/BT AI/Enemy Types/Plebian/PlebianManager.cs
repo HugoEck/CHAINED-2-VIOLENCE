@@ -12,16 +12,21 @@ public class PlebianManager : BaseManager
     private float evaluationInterval = 0.5f;
     private float timeSinceLastEvaluation = 0f;
     private float randomOffset;
+    Rigidbody rb;
 
     void Start()
     {
         enemyID = "Plebian";
         animator.SetBool("Plebian_StartChasing", true);
         currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
+        navigation.maxSpeed = speed;
+        //navMeshAgent.speed = speed;
         ConstructBT();
 
         randomOffset = Random.Range(0f, evaluationInterval);
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+
     }
 
     private void FixedUpdate()
