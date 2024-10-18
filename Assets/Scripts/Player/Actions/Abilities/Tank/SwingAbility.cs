@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class SwingAbility : PlayerCombat
+public class SwingAbility : MonoBehaviour, IAbility
 {
+    public static bool BIsPlayerCurrentlySwinging = false;
+
     public Transform otherPlayer;      // Reference to the other player being swung
     public float swingDuration = 3f;   // Duration of the swing
     public float swingSpeed = 200f;    // Speed of the swing (degrees per second)
@@ -27,9 +29,9 @@ public class SwingAbility : PlayerCombat
         anchorRb = GetComponent<Rigidbody>();
     }
 
-    public override void UseAbility()
+    public void UseAbility()
     {
-        if (!isSwinging && otherPlayer != null)
+        if (!isSwinging && otherPlayer != null && !BIsPlayerCurrentlySwinging)
         {
             StartSwing();
         }
@@ -37,7 +39,7 @@ public class SwingAbility : PlayerCombat
 
     void StartSwing()
     {
-
+        BIsPlayerCurrentlySwinging = true;
         swingRadius = AdjustChainLength.currentChainLength;
 
         isSwinging = true;
@@ -116,6 +118,8 @@ public class SwingAbility : PlayerCombat
         // Unset kinematic mode for both players so they can move again
         anchorRb.isKinematic = false;
         otherPlayerRb.isKinematic = false;
+
+        BIsPlayerCurrentlySwinging = false;
     }
 
     // Optional: Visualize the swing radius in the scene view for debugging.

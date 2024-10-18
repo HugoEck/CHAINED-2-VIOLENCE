@@ -1,7 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class handles all the ultimate abilites (updating and synchronizing player inputs to use them)
+/// </summary>
+
+[RequireComponent(typeof(LaserChain))]
 public class UltimateAbilityManager : MonoBehaviour
 {
     private enum UltimateAbilities
@@ -9,13 +13,14 @@ public class UltimateAbilityManager : MonoBehaviour
         LaserChain
     }
 
-    public static UltimateAbilityManager instance { get; private set; }
-
     private UltimateAbilities currentUltimateAbility = UltimateAbilities.LaserChain;
 
     [Header("Ultimate attributes")]
     [SerializeField] private int _timeForOtherPlayerToUseUltimate = 3;
 
+    public static UltimateAbilityManager instance { get; private set; }    
+    
+    [HideInInspector]
     public bool _bIsBothPlayersUsingUltimate = false;
 
     private bool _bIsPlayer1UsingUltimateAbility = false;
@@ -49,16 +54,20 @@ public class UltimateAbilityManager : MonoBehaviour
         _laserChain = GetComponent<LaserChain>();
     }
 
+    /// <summary>
+    /// Update the current Ultimate ability that is being used
+    /// </summary>
     private void Update()
     {
         switch (currentUltimateAbility)
         {
             case UltimateAbilities.LaserChain:
-                _laserChain.UpdateLaserAbility();
+                _laserChain.UpdateUltimateAttack();
                 break;
         }
     }
 
+    
     public void UseUltimateAbility()
     {
         switch (currentUltimateAbility)
@@ -69,6 +78,9 @@ public class UltimateAbilityManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Use the current Ultimate ability for the players (Called from Player script)
+    /// </summary>
     public void UseUltimateAbilityPlayer1()
     {
         _bIsPlayer1UsingUltimateAbility = true;
@@ -89,6 +101,9 @@ public class UltimateAbilityManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Use the current Ultimate ability for the players (Called from Player script)
+    /// </summary>
     public void UseUltimateAbilityPlayer2()
     {
         _bIsPlayer2UsingUltimateAbility = true;
@@ -109,6 +124,10 @@ public class UltimateAbilityManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Waits x seconds for player 1 to activate ultimate, otherwise it won't activate
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator WaitForPlayer1ToUseAbility()
     {
         yield return new WaitForSeconds(_timeForOtherPlayerToUseUltimate);
@@ -120,6 +139,10 @@ public class UltimateAbilityManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Waits x seconds for player 2 to activate ultimate, otherwise it won't activate
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator WaitForPlayer2ToUseAbility()
     {
         yield return new WaitForSeconds(_timeForOtherPlayerToUseUltimate);
@@ -131,7 +154,9 @@ public class UltimateAbilityManager : MonoBehaviour
         }
     }
 
-    // Reset ultimate ability state for both players
+    /// <summary>
+    /// Reset ultimate ability state for both players
+    /// </summary>
     private void ResetUltimateStates()
     {
         _bIsPlayer1UsingUltimateAbility = false;

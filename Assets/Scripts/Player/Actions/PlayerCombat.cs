@@ -2,6 +2,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+[RequireComponent(typeof(SwingAbility))]
 public class PlayerCombat : MonoBehaviour
 {
     private enum PlayerClass
@@ -12,7 +14,7 @@ public class PlayerCombat : MonoBehaviour
         Ranged
     };
 
-    
+    PlayerClass currentPlayerClass = PlayerClass.Tank;
 
     public float attackCooldown = 1f;  // Cooldown between attacks
     public float abilityCooldown = 5f; // Cooldown between abilities
@@ -22,23 +24,42 @@ public class PlayerCombat : MonoBehaviour
     protected float lastAttackTime;
     protected float lastAbilityTime;
 
+    #region Ability components
+
     private SwingAbility swingAbility;
 
-    PlayerClass currentPlayerClass = PlayerClass.Meele;
+    #endregion
 
     private void Start()
     {
         swingAbility = GetComponent<SwingAbility>();
     }
 
-    // Virtual method for handling attacks, to be overridden by subclasses.
-    public virtual void Attack()
-    {
+    /// <summary>
+    /// This method is used for basic attacks (Called in Player script)
+    /// </summary>
+    public void UseBaseAttack()
+    {       
+        // Find all enemies within the attack range
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
+        foreach (Collider enemy in hitEnemies)
+        {
+            BaseManager enemyManager = enemy.GetComponent<BaseManager>();
+            if (enemyManager != null)
+            {
+                enemyManager.DealDamageToEnemy(attackDamage);
+                Debug.Log("Hit enemy: " + enemy.name);
+            }
+        }
+
         Debug.Log("Base Attack triggered.");
+
     }
 
-    // Virtual method for handling abilities, to be overridden by subclasses.
-    public virtual void UseAbility()
+    /// <summary>
+    /// This method uses the ability that the player has for its class (Called in Player script)
+    /// </summary>
+    public void UseAbility()
     {
         switch (currentPlayerClass)
         {
@@ -62,15 +83,6 @@ public class PlayerCombat : MonoBehaviour
                 break;
 
         }
-
-        swingAbility.UseAbility();
-        Debug.Log("Base Ability triggered.");
-    }
-
-
-    void Update()
-    {
-      //  HandleInput();
     }
 
     // Method to set the player's attack damage (used for upgrades)

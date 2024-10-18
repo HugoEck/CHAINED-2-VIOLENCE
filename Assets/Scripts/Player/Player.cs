@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
 
             if (_bIsUsingBasicAttack)
             {
-                _playerCombat.Attack();
+                _playerCombat.UseBaseAttack();
                 Debug.Log("Player 1 is using basic attack");
                 
             }
@@ -161,7 +161,7 @@ public class Player : MonoBehaviour
 
             if (_bIsUsingBasicAttack)
             {
-                _playerCombat.Attack();
+                _playerCombat.UseBaseAttack();
                 Debug.Log("Player 2 is using basic attack");
             }
             else if(_bIsUsingAbilityAttack)

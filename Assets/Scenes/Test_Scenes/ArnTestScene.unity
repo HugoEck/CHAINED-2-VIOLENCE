@@ -793,10 +793,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e8d14751a237c4e92cf40d14f1d17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLaserActive: 0
-  laserDuration: 3
-  laserDamage: 10
-  laserRange: 2
+  _laserActiveDuration: 10
+  _laserChainCooldown: 20
 --- !u!114 &183960631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1746,7 +1744,6 @@ GameObject:
   - component: {fileID: 782233284}
   - component: {fileID: 782233285}
   - component: {fileID: 782233286}
-  - component: {fileID: 782233287}
   m_Layer: 6
   m_Name: Player_2
   m_TagString: Player2
@@ -1971,10 +1968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3e3f76aba9b534f9d783269dae0010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 1
-  abilityCooldown: 5
-  attackRange: 2
-  attackDamage: 10
   otherPlayer: {fileID: 1774812172}
   swingDuration: 3
   swingSpeed: 200
@@ -2017,22 +2010,6 @@ MonoBehaviour:
   filter: 1
   m_SourceCollider: {fileID: 782233278}
   m_DistanceField: {fileID: 0}
---- !u!114 &782233287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782233266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e8d14751a237c4e92cf40d14f1d17e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLaserActive: 0
-  laserDuration: 3
-  laserDamage: 10
-  laserRange: 2
 --- !u!1 &789541744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,52 +2347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _otherPlayerChainJointTransform: {fileID: 240794609}
---- !u!1 &1479360338
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1479360340}
-  - component: {fileID: 1479360339}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1479360339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479360338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1479360340
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479360338}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1658187976
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,7 +2412,6 @@ GameObject:
   - component: {fileID: 1774812175}
   - component: {fileID: 1774812176}
   - component: {fileID: 1774812177}
-  - component: {fileID: 1774812178}
   m_Layer: 6
   m_Name: Player_1 (1)
   m_TagString: Player1
@@ -2706,10 +2636,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3e3f76aba9b534f9d783269dae0010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 1
-  abilityCooldown: 5
-  attackRange: 2
-  attackDamage: 10
   otherPlayer: {fileID: 782233267}
   swingDuration: 3
   swingSpeed: 200
@@ -2752,22 +2678,52 @@ MonoBehaviour:
   filter: 1
   m_SourceCollider: {fileID: 1774812169}
   m_DistanceField: {fileID: 0}
---- !u!114 &1774812178
+--- !u!1 &1838837946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1838837948}
+  - component: {fileID: 1838837947}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1838837947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774812158}
+  m_GameObject: {fileID: 1838837946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e8d14751a237c4e92cf40d14f1d17e, type: 3}
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLaserActive: 0
-  laserDuration: 3
-  laserDamage: 10
-  laserRange: 2
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1838837948
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838837946}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1901221257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3590,4 +3546,4 @@ SceneRoots:
   - {fileID: 1994015625}
   - {fileID: 2147198735}
   - {fileID: 183960632}
-  - {fileID: 1479360340}
+  - {fileID: 1838837948}

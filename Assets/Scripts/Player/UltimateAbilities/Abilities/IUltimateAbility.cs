@@ -5,4 +5,7 @@ using UnityEngine;
 public interface IUltimateAbility
 {
     public void UseUltimate();
+    public void Activate();
+    public void Deactivate();
+    public void UpdateUltimateAttack();
 }
