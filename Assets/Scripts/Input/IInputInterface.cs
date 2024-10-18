@@ -20,4 +20,8 @@ public interface IInputInterface
 
     public bool GetAbilityAttackInput_P2();
 
+    public bool GetUltimateAttackInput_P1();
+
+    public bool GetUltimateAttackInput_P2();
+
 }

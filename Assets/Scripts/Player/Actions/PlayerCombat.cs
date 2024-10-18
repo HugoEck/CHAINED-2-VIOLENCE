@@ -1,8 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerCombat : MonoBehaviour
 {
+    private enum PlayerClass
+    {
+        Tank,
+        Meele,
+        Support,
+        Ranged
+    };
+
+    
+
     public float attackCooldown = 1f;  // Cooldown between attacks
     public float abilityCooldown = 5f; // Cooldown between abilities
     public float attackRange = 2f;     // Range of attack
@@ -12,6 +23,8 @@ public class PlayerCombat : MonoBehaviour
     protected float lastAbilityTime;
 
     private SwingAbility swingAbility;
+
+    PlayerClass currentPlayerClass = PlayerClass.Meele;
 
     private void Start()
     {
@@ -27,27 +40,33 @@ public class PlayerCombat : MonoBehaviour
     // Virtual method for handling abilities, to be overridden by subclasses.
     public virtual void UseAbility()
     {
+        switch (currentPlayerClass)
+        {
+
+            case PlayerClass.Meele:            
+
+                break;
+
+            case PlayerClass.Support:
+
+                break;
+
+            case PlayerClass.Ranged:
+
+                break;
+
+            case PlayerClass.Tank:
+
+                swingAbility.UseAbility();
+
+                break;
+
+        }
+
         swingAbility.UseAbility();
         Debug.Log("Base Ability triggered.");
     }
 
-    // Method to handle player input for attacks and abilities.
-    //public void HandleInput()
-    //{
-    //    // Handle attack input (left mouse button)
-    //    if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > lastAttackTime + attackCooldown)
-    //    {
-    //        Attack();
-    //        lastAttackTime = Time.time;
-    //    }
-    //
-    //    // Handle ability input (right mouse button)
-    //    if (Input.GetKeyDown(KeyCode.Mouse1) && Time.time > lastAbilityTime + abilityCooldown)
-    //    {
-    //        UseAbility();
-    //        lastAbilityTime = Time.time;
-    //    }
-    //}
 
     void Update()
     {

@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     private Vector2 _rotationInput = Vector2.zero;
     private bool _bIsUsingBasicAttack = false;
     private bool _bIsUsingAbilityAttack = false;
+    private bool _bIsUsingUltimateAttack = false;
 
     #endregion
     
@@ -133,6 +134,7 @@ public class Player : MonoBehaviour
         {
             _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P1();
             _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P1();
+            _bIsUsingUltimateAttack = InputManager.Instance.GetUltimateAttackInput_P1();
 
             if (_bIsUsingBasicAttack)
             {
@@ -145,11 +147,17 @@ public class Player : MonoBehaviour
                 _playerCombat.UseAbility();
                 Debug.Log("Player 1 is using Ability");
             }
+            else if(_bIsUsingUltimateAttack)
+            {
+                UltimateAbilityManager.instance.UseUltimateAbilityPlayer1();
+                Debug.Log("Player 1 is using Ultimate ability");
+            }
         }
         else if (_playerId == 2)
         {
             _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P2();
             _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P2();
+            _bIsUsingUltimateAttack = InputManager.Instance.GetUltimateAttackInput_P2();
 
             if (_bIsUsingBasicAttack)
             {
@@ -160,6 +168,11 @@ public class Player : MonoBehaviour
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 2 is using Ability");
+            }
+            else if(_bIsUsingUltimateAttack)
+            {
+                UltimateAbilityManager.instance.UseUltimateAbilityPlayer2();
+                Debug.Log("Player 2 is using Ultimate ability");
             }
         }
     }

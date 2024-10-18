@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LaserChain : MonoBehaviour
+public class LaserChain : MonoBehaviour, IUltimateAbility
 {
     public bool isLaserActive = false;  // Flag to activate the laser
     public float laserDuration = 3.0f;  // Duration for how long the laser stays active
@@ -8,23 +8,6 @@ public class LaserChain : MonoBehaviour
     public float laserRange = 2.0f;     // Range of the laser (like a melee attack range)
 
     private float laserTimer;
-
-    private void Update()
-    {
-        if (isLaserActive)
-        {
-            // Handle laser timer
-            laserTimer -= Time.deltaTime;
-            if (laserTimer <= 0)
-            {
-                DeactivateLaser();
-            }
-            else
-            {
-                PerformLaserAttack();
-            }
-        }
-    }
 
     // Call this method to activate the laser on this chain segment
     public void ActivateLaser()
@@ -41,6 +24,7 @@ public class LaserChain : MonoBehaviour
         isLaserActive = false;
         Debug.Log("Laser Deactivated on Chain Segment.");
         SpawnAbilityChainSegments.instance.DeactivateLaserChainSegments();
+        UltimateAbilityManager.instance._bIsBothPlayersUsingUltimate = false;
     }
 
     // Similar to the Melee Attack, find all enemies in range and deal damage
@@ -67,5 +51,27 @@ public class LaserChain : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, laserRange);
+    }
+
+    public void UseUltimate()
+    {
+        ActivateLaser();
+
+    }
+    public void UpdateLaserAbility()
+    {
+        if (isLaserActive)
+        {
+            // Handle laser timer
+            laserTimer -= Time.deltaTime;
+            if (laserTimer <= 0)
+            {
+                DeactivateLaser();
+            }
+            else
+            {
+                PerformLaserAttack();
+            }
+        }
     }
 }
