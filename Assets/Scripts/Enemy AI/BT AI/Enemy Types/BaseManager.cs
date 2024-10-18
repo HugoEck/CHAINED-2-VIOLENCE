@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,9 @@ public class BaseManager : MonoBehaviour
     [Header("GE EJ VÄRDE")]
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
+    [HideInInspector] public AIPath navigation;
+
+
     [HideInInspector] public Player playerManager1;
     [HideInInspector] public Player playerManager2;
     [HideInInspector] public Animator animator;
@@ -46,6 +50,9 @@ public class BaseManager : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
 
         navMeshAgent = GetComponent<NavMeshAgent>();
+        navigation = GetComponent<AIPath>();
+
+
         playerManager1 = player1.GetComponent<Player>();
         playerManager2 = player2.GetComponent<Player>();
 
