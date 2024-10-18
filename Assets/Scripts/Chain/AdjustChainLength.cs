@@ -15,6 +15,8 @@ public class AdjustChainLength : MonoBehaviour
 
     ObiRopeCursor cursor;
     ObiRope rope;
+
+    public static float currentChainLength;
     void Start()
     {
         cursor = GetComponentInChildren<ObiRopeCursor>();
@@ -27,7 +29,7 @@ public class AdjustChainLength : MonoBehaviour
     /// </summary>
     void Update()
     {
-       
+        currentChainLength = rope.restLength;
         if (Input.GetKeyDown(KeyCode.H))
         {
             IncreaseRopeLength(1);
@@ -61,5 +63,10 @@ public class AdjustChainLength : MonoBehaviour
             Debug.Log("Chain is max length");
         }
     }
-    
+    public float ReturnCurrentChainLength()
+    {
+        currentChainLength = rope.restLength;
+
+        return currentChainLength;
+    }
 }
