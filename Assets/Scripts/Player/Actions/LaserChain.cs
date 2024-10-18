@@ -32,6 +32,7 @@ public class LaserChain : MonoBehaviour
         isLaserActive = true;
         laserTimer = laserDuration;
         Debug.Log("Laser Activated on Chain Segment!");
+        SpawnAbilityChainSegments.instance.SpawnLaserChainSegments();
     }
 
     // Call this method to deactivate the laser
@@ -39,6 +40,7 @@ public class LaserChain : MonoBehaviour
     {
         isLaserActive = false;
         Debug.Log("Laser Deactivated on Chain Segment.");
+        SpawnAbilityChainSegments.instance.DeactivateLaserChainSegments();
     }
 
     // Similar to the Melee Attack, find all enemies in range and deal damage
@@ -46,6 +48,7 @@ public class LaserChain : MonoBehaviour
     {
         Debug.Log("Performing Laser Attack!");
 
+        SpawnAbilityChainSegments.instance.UpdateLaserChainSegments();
         // Find all enemies within the laser's range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, laserRange);
         foreach (Collider enemy in hitEnemies)
