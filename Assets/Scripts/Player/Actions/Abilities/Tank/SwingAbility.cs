@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class SwingAbility : PlayerCombat
+public class SwingAbility : MonoBehaviour, IAbility
 {
+    public static bool BIsPlayerCurrentlySwinging = false;
+
     public Transform otherPlayer;      // Reference to the other player being swung
     public float swingDuration = 3f;   // Duration of the swing
     public float swingSpeed = 200f;    // Speed of the swing (degrees per second)
@@ -27,9 +29,9 @@ public class SwingAbility : PlayerCombat
         anchorRb = GetComponent<Rigidbody>();
     }
 
-    public override void UseAbility()
+    public void UseAbility()
     {
-        if (!isSwinging && otherPlayer != null)
+        if (!isSwinging && otherPlayer != null && !BIsPlayerCurrentlySwinging)
         {
             StartSwing();
         }
@@ -37,10 +39,14 @@ public class SwingAbility : PlayerCombat
 
     void StartSwing()
     {
+        BIsPlayerCurrentlySwinging = true;
+        swingRadius = AdjustChainLength.currentChainLength;
+
         isSwinging = true;
 
-        // Set the anchor player to be kinematic to prevent movement during the swing
+        // Set both players to be kinematic to prevent normal physics movement during the swing
         anchorRb.isKinematic = true;
+        otherPlayerRb.isKinematic = true;
 
         // Disable collisions between the swung player and enemies
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
@@ -64,10 +70,10 @@ public class SwingAbility : PlayerCombat
 
         while (elapsedTime < swingDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.fixedDeltaTime;  // Use FixedUpdate timing for smooth physics movement
 
             // Calculate the angle to move the swung player in a circular path
-            currentAngle += swingSpeed * Time.deltaTime;
+            currentAngle += swingSpeed * Time.fixedDeltaTime;
 
             // Ensure the angle stays within 360 degrees
             if (currentAngle >= 360f) currentAngle -= 360f;
@@ -82,8 +88,11 @@ public class SwingAbility : PlayerCombat
                 swingCenter.z + swingRadius * Mathf.Sin(angleInRadians)
             );
 
-            // Move the swung player to the new calculated position
-            otherPlayerRb.MovePosition(newSwingPosition);
+            // Update the position of the swung player directly
+            otherPlayer.position = newSwingPosition;  // Directly set the Rigidbody's position
+
+            // Optional: Rotate the swung player to face the direction of the swing
+            otherPlayer.rotation = Quaternion.LookRotation(newSwingPosition - swingCenter);
 
             // Detect enemies in the swing radius and apply damage
             Collider[] hitEnemies = Physics.OverlapSphere(swingCenter, swingRadius);
@@ -97,7 +106,7 @@ public class SwingAbility : PlayerCombat
                 }
             }
 
-            yield return null;
+            yield return new WaitForFixedUpdate();  // Use FixedUpdate timing
         }
 
         isSwinging = false;
@@ -106,10 +115,12 @@ public class SwingAbility : PlayerCombat
         // Re-enable collisions between the swung player and enemies
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
 
-        // Unset kinematic mode for the anchor player so they can move again
+        // Unset kinematic mode for both players so they can move again
         anchorRb.isKinematic = false;
-    }
+        otherPlayerRb.isKinematic = false;
 
+        BIsPlayerCurrentlySwinging = false;
+    }
 
     // Optional: Visualize the swing radius in the scene view for debugging.
     private void OnDrawGizmosSelected()
@@ -118,3 +129,4 @@ public class SwingAbility : PlayerCombat
         Gizmos.DrawWireSphere(transform.position, swingRadius);
     }
 }
+

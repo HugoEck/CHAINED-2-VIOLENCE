@@ -60,4 +60,21 @@ public class KeyboardAndMouse : MonoBehaviour, IInputInterface
     {
         return false;
     }
+
+    public bool GetUltimateAttackInput_P1()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool GetUltimateAttackInput_P2()
+    {
+        return false;
+    }
 }

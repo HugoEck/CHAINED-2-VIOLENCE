@@ -126,6 +126,29 @@ public class InputManager : MonoBehaviour
         return _gamepadInput.GetAbilityAttackInput_P2();
     }
 
+    public bool GetUltimateAttackInput_P1()
+    {
+
+        CheckActiveInput();
+
+        if (currentInputType == InputType.Gamepad)
+        {
+            return _gamepadInput.GetUltimateAttackInput_P1();
+        }
+        else if (currentInputType == InputType.KeyboardAndMouse)
+        {
+            return _keyboardAndMouse.GetUltimateAttackInput_P1();
+        }
+
+        return false;
+    }
+
+    public bool GetUltimateAttackInput_P2()
+    {
+
+        return _gamepadInput.GetUltimateAttackInput_P2();
+    }
+
 
     #endregion
     #region Check Active Input
