@@ -990,11 +990,19 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 630983133}
+      addedObject: {fileID: 630983134}
     - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 630983134}
+      addedObject: {fileID: 630983138}
+    - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 630983137}
+    - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 630983136}
   m_SourcePrefab: {fileID: 100100000, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
 --- !u!1 &630983127 stripped
 GameObject:
@@ -1008,28 +1016,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 630983126}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &630983133
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630983127}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &630983134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,7 +1036,6 @@ MonoBehaviour:
   attackSpeed: 4
   attackRange: 20
   unitCost: 0
-  navMeshAgent: {fileID: 0}
   navigation: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
@@ -1062,6 +1047,90 @@ MonoBehaviour:
     type: 3}
   throwPoint: {fileID: 1197989616}
   calculatedVelocity: {x: 0, y: 0, z: 0}
+--- !u!114 &630983136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630983127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}
+--- !u!114 &630983137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630983127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 1
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 0
+  enableRotation: 1
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &630983138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630983127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1001 &702823651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1338,11 +1407,19 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 702823655}
+      addedObject: {fileID: 702823654}
     - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 702823654}
+      addedObject: {fileID: 702823659}
+    - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 702823658}
+    - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 702823657}
   m_SourcePrefab: {fileID: 100100000, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
 --- !u!1 &702823652 stripped
 GameObject:
@@ -1376,7 +1453,6 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 3
   unitCost: 0
-  navMeshAgent: {fileID: 0}
   navigation: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
@@ -1384,28 +1460,90 @@ MonoBehaviour:
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
---- !u!195 &702823655
-NavMeshAgent:
+--- !u!114 &702823657
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702823652}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}
+--- !u!114 &702823658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702823652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 1
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 0
+  enableRotation: 1
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &702823659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702823652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &775815861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,11 +2235,19 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 859918686}
+      addedObject: {fileID: 859918685}
     - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 859918685}
+      addedObject: {fileID: 859918692}
+    - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 859918691}
+    - targetCorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 859918690}
   m_SourcePrefab: {fileID: 100100000, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
 --- !u!1 &859918683 stripped
 GameObject:
@@ -2129,7 +2275,6 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 2.5
   unitCost: 1
-  navMeshAgent: {fileID: 0}
   navigation: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
@@ -2137,34 +2282,96 @@ MonoBehaviour:
   enemyID: Plebian
   activateDeathTimer: 0
   agentIsDead: 0
---- !u!195 &859918686
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859918683}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!4 &859918688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4958464907473990, guid: 12c4abf4689be7e489107ccb6010bcba,
     type: 3}
   m_PrefabInstance: {fileID: 859918682}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &859918690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859918683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}
+--- !u!114 &859918691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859918683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 1
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 0
+  enableRotation: 1
+  autoRepath:
+    mode: 2
+    interval: 0.5
+    sensitivity: 10
+    maximumInterval: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &859918692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859918683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1001 &864160392
 PrefabInstance:
   m_ObjectHideFlags: 0

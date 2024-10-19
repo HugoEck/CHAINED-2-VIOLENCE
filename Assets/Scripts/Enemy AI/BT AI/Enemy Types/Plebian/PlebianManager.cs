@@ -18,7 +18,7 @@ public class PlebianManager : BaseManager
         enemyID = "Plebian";
         animator.SetBool("Plebian_StartChasing", true);
         currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
+        navigation.maxSpeed = speed;
         ConstructBT();
 
         randomOffset = Random.Range(0f, evaluationInterval);

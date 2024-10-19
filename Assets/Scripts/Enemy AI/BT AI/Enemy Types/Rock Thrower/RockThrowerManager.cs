@@ -12,7 +12,7 @@ public class RockThrowerManager : BaseManager
     public Transform throwPoint;
 
     [Header("GE EJ VÄRDE")]
-    public Vector3 calculatedVelocity;
+    [HideInInspector]  public Vector3 calculatedVelocity;
 
     private float evaluationInterval = 0.5f;
     private float timeSinceLastEvaluation = 0f;
@@ -23,7 +23,7 @@ public class RockThrowerManager : BaseManager
         enemyID = "RockThrower";
         animator.SetBool("RockThrower_StartChasing", true);
         currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
+        navigation.maxSpeed = speed;
         ConstructBT();
     }
 

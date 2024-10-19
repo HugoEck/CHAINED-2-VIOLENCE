@@ -17,16 +17,20 @@ public class ChasePlayer : Node
         
         if (distance > agent.attackRange)
         {
-            agent.navMeshAgent.isStopped = false;
-            agent.navMeshAgent.SetDestination(targetedPlayer.position);
+            agent.navigation.isStopped = false;
+            agent.navigation.destination = targetedPlayer.position;
+
+            //agent.navMeshAgent.isStopped = false;
+            //agent.navMeshAgent.SetDestination(targetedPlayer.position);
             
             return NodeState.RUNNING;
         }
         
         else //Denna kan aldrig bli true eftersom att PlayerInRange hinner bli true före.
         {
+            agent.navigation.isStopped = true;
+            //agent.navMeshAgent.isStopped = true;
 
-            agent.navMeshAgent.isStopped = true;
             RotateTowardsPlayer(agent, targetedPlayer);
             return NodeState.SUCCESS;
         }
@@ -43,7 +47,7 @@ public class ChasePlayer : Node
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
         // Smoothly rotate the agent towards the player
-        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navMeshAgent.angularSpeed);
+        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
     }
 
     public void SetChaseAnimation(BaseManager agent)

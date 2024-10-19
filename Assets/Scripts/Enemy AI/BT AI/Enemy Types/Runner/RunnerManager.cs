@@ -18,7 +18,7 @@ public class RunnerManager : BaseManager
         enemyID = "Runner";
         animator.SetBool("Runner_StartChasing", true);
         currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
+        navigation.maxSpeed = speed;
         ConstructBT();
     }
 
