@@ -91,5 +91,26 @@ public class GamepadInput : MonoBehaviour, IInputInterface
         return isPressed;
     }
 
+    public bool GetUltimateAttackInput_P1()
+    {
+        bool isPressed = false;
 
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned) return false;
+
+        isPressed = Input.GetButtonDown("Gamepad_Ultimate_Attack_P1");
+
+        return isPressed;
+    }
+
+    public bool GetUltimateAttackInput_P2()
+    {
+        bool isPressed = false;
+
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+        {
+            isPressed = Input.GetButtonDown("Gamepad_Ultimate_Attack_P2");
+        }
+
+        return isPressed;
+    }
 }
