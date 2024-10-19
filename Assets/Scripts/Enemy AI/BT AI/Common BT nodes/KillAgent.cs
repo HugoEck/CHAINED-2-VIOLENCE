@@ -15,7 +15,7 @@ public class KillAgent : Node
         agent.navigation.isStopped = true;
         //agent.navMeshAgent.isStopped = true;
 
-        
+        agent.rb.constraints = RigidbodyConstraints.None;
 
         if (agent.agentIsDead)
         {

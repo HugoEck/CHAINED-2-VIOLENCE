@@ -36,25 +36,28 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
 
-    
+    [HideInInspector] public CapsuleCollider c_collider;
+    [HideInInspector] public Rigidbody rb;
+
+
 
 
 
     public virtual void Awake()
     {
 
-        //gameObject.AddComponent<NetworkObject>();
-        //gameObject.AddComponent<NetworkTransform>();
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
+
         animator = gameObject.GetComponent<Animator>();
-
-        //navMeshAgent = GetComponent<NavMeshAgent>();
         navigation = GetComponent<AIPath>();
-
 
         playerManager1 = player1.GetComponent<Player>();
         playerManager2 = player2.GetComponent<Player>();
+
+        c_collider = GetComponent<CapsuleCollider>();
+        rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 
     }
 
