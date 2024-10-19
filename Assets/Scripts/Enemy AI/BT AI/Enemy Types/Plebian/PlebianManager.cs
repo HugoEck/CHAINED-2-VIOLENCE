@@ -13,12 +13,25 @@ public class PlebianManager : BaseManager
     private float timeSinceLastEvaluation = 0f;
     private float randomOffset;
 
+    private CapsuleCollider c_collider;
+    private Rigidbody rb;
+
     void Start()
     {
         enemyID = "Plebian";
         animator.SetBool("Plebian_StartChasing", true);
         currentHealth = maxHealth;
         navigation.maxSpeed = speed;
+
+        c_collider = GetComponent<CapsuleCollider>();
+        c_collider.center = new Vector3 (0, 1, 0);
+        c_collider.radius = 0.5f;
+        c_collider.height = 2;
+
+        rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        
+
         ConstructBT();
 
         randomOffset = Random.Range(0f, evaluationInterval);
