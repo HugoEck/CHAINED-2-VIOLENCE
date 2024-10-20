@@ -14,6 +14,9 @@ public class ChargeToChain : Node
 
         if (charger.hasAlreadyCharged == false)
         {
+            agent.animator.SetBool("Charger_Sprint", true);
+            agent.animator.SetBool("Charger_Prepare", false);
+
             charger.activateChargingTimer = true;
             agent.navigation.isStopped = true;
             Vector3 direction = (charger.chainPosition - charger.lastSavedPosition).normalized;

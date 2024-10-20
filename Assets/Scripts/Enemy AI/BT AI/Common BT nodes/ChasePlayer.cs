@@ -68,5 +68,11 @@ public class ChasePlayer : Node
             agent.animator.SetBool("RockThrower_Attack", false);
             agent.animator.SetBool("RockThrower_Idle", false);
         }
+        else if(agent.enemyID == "Charger")
+        {
+            agent.animator.SetBool("Charger_Chase", true);
+            agent.animator.SetBool("Charger_Attack", false);
+            agent.animator.SetBool("Charger_Sprint", false);
+        }
     }
 }

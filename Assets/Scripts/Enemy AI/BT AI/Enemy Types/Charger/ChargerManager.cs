@@ -28,7 +28,8 @@ public class ChargerManager : BaseManager
     void Start()
     {
         enemyID = "Charger";
-        //animator.SetBool("Plebian_StartChasing", true);
+        
+        animator.SetBool("Charger_StartChasing", true);
 
         LoadStats();
         

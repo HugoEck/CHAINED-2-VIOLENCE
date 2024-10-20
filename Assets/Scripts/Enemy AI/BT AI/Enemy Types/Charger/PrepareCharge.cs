@@ -12,7 +12,10 @@ public class PrepareCharge : Node
 
         if (charger.prepareChargeComplete == false)
         {
-            Debug.Log("STOP!!!");
+            agent.animator.SetBool("Charger_Prepare", true);
+            agent.animator.SetBool("Charger_Chase", false);
+
+
             charger.activatePrepareChargeTimer = true;
             agent.navigation.isStopped = true;
 
