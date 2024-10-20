@@ -8,8 +8,10 @@ public class BaseManager : MonoBehaviour
 {
 
     //Detta skript innehåller alla basvariabler samt metoder för alla andra managers.
-    // OBS! LÄGG INTE TILL NÅGOT UTAN MIN TILLÅTELSE!
 
+    //----------------------------------------------------------------------------------------
+    // OBS! NI FÅR VARKEN LÄGGA TILL ELLER ÄNDRA VARIABLER/METODER I DETTA SKRIPT UTAN MIN TILLÅTELSE!
+    //----------------------------------------------------------------------------------------
 
     public float maxHealth;
     public float currentHealth;
@@ -25,7 +27,6 @@ public class BaseManager : MonoBehaviour
 
     [Header("GE EJ VÄRDE")]
 
-    //[HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public AIPath navigation;
 
 
@@ -56,6 +57,10 @@ public class BaseManager : MonoBehaviour
         playerManager2 = player2.GetComponent<Player>();
 
         c_collider = GetComponent<CapsuleCollider>();
+        c_collider.center = new Vector3(0, 1, 0);
+        c_collider.radius = 0.5f;
+        c_collider.height = 2;
+
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 

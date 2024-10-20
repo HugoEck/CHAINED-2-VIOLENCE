@@ -41,30 +41,11 @@ public class ChargerManager : BaseManager
     private void ConstructBT()
     {
 
-        CheckIfDead checkIfDead = new CheckIfDead();
-        KillAgent killAgent = new KillAgent();
-        PlayerInRange playerInRange = new PlayerInRange();
-        AttackPlayer attackPlayer = new AttackPlayer();
-        ChasePlayer chasePlayer = new ChasePlayer();
-
-        Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
-        Sequence attack = new Sequence(new List<Node> { playerInRange, attackPlayer });
-
-        rootNode = new Selector(new List<Node>() { isDead, attack, chasePlayer });
+        
 
     }
 
-    public void FixedEvaluate()
-    {
-        timeSinceLastEvaluation += Time.fixedDeltaTime;
-
-        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
-        {
-            timeSinceLastEvaluation -= evaluationInterval;
-            rootNode.Evaluate(this);
-            randomOffset = Random.Range(0f, evaluationInterval);
-        }
-    }
+    
 
 
 }

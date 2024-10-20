@@ -18,16 +18,9 @@ public class PlebianManager : BaseManager
     {
         enemyID = "Plebian";
         animator.SetBool("Plebian_StartChasing", true);
-        currentHealth = maxHealth;
-        navigation.maxSpeed = speed;
 
-        c_collider.center = new Vector3 (0, 1, 0);
-        c_collider.radius = 0.5f;
-        c_collider.height = 2;
-
-        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        LoadStats();
         
-
         ConstructBT();
 
         randomOffset = Random.Range(0f, evaluationInterval);
@@ -37,7 +30,7 @@ public class PlebianManager : BaseManager
     {
 
         FixedEvaluate();
-
+        
     }
 
     private void ConstructBT()
@@ -66,5 +59,12 @@ public class PlebianManager : BaseManager
             rootNode.Evaluate(this);
             randomOffset = Random.Range(0f, evaluationInterval);
         }
+    }
+
+    private void LoadStats()
+    {
+        currentHealth = maxHealth;
+        navigation.maxSpeed = speed;
+        
     }
 }

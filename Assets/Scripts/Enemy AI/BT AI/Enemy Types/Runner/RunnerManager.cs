@@ -21,10 +21,6 @@ public class RunnerManager : BaseManager
         currentHealth = maxHealth;
         navigation.maxSpeed = speed;
 
-        c_collider.center = new Vector3(0, 1, 0);
-        c_collider.radius = 0.5f;
-        c_collider.height = 2;
-
         ConstructBT();
     }
 
