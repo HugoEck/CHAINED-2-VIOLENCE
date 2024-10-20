@@ -36,6 +36,15 @@ public class AdjustChainLength : MonoBehaviour
         }
             
     }
+
+    /// <summary>
+    /// Increase the chain length by a predefined amount (used for UI buttons).
+    /// </summary>
+    //public void ChainUpgradeFromButton()
+    //{
+    //    Debug.Log("CHAIN UPGRÁDED IN CHAIN SCRIPT"); // Add a debug for chain lengthening
+    //    IncreaseRopeLength(1); // Default 1 unit to lengthen
+    //}
     /// <summary>
     /// call this in the upgrade system for the chain
     /// </summary>

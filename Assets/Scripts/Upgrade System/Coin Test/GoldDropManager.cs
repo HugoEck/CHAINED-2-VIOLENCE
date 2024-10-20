@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class GoldDropManager : MonoBehaviour
 {
-    public ObjectPool goldPool;
-    [SerializeField] float dropChance = 0.2f; //20% chance to drop gold for now.
+    [SerializeField] private float dropChance = 0.2f; // = 20% chance to drop
+    [SerializeField] private int goldAmount = 0;
 
-    public void HandleEnemyDefeated(Vector3 enemyPostion)
+    public void HandleEnemyDefeated(Vector3 enemyPosition)
     {
         if (Random.value <= dropChance)
         {
-            GameObject gold = goldPool.GetObject();
-            gold.transform.position = enemyPostion; // Spawn the gold at enemy pos
+            goldAmount += 1;
+            Debug.Log("Gold dropped at: " + enemyPosition + ". Total gold: " + goldAmount);
         }
     }
 
-    public void ReturnGold(GameObject gold)
-    { 
-        goldPool.ReturnObject(gold);
+    public int GetGoldAmount()
+    {
+        return goldAmount;
     }
 }

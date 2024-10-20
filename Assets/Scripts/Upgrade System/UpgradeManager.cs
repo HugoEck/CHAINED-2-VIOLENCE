@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Obi;
 /// <summary>
 /// UpgradeManager used for handling player upgrades. The upgrades are shared.
 /// Add gold script to upgrades, clean up code.
@@ -28,17 +29,22 @@ public class UpgradeManager : MonoBehaviour
     private int currentAttackLevel = 0;
     private int currentHealthLevel = 0;
     private int currentSpeedLevel = 0;
+    private int currentChainLevel = 0;
     private const int MaxUpgradeLevel = 10;
 
     // Upgrade caps -- % increase from base stat.
     private const float MaxAttackMultiplier = 1.3f;
     private const float MaxHealthMultiplier = 1.5f;
     private const float MaxSpeedMultiplier = 1.3f;
+    
+    //CHAIN UPGRADE
+    private AdjustChainLength adjustChainLength;
 
     #region TextMeshPro
     public TMP_Text attackLevelText;
     public TMP_Text healthLevelText;
     public TMP_Text speedLevelText;
+    public TMP_Text chainLevelText;
     #endregion
 
     void Start()
@@ -61,6 +67,12 @@ public class UpgradeManager : MonoBehaviour
         player1Movement = player1.GetComponent<PlayerMovement>();
         player2Movement = player2.GetComponent<PlayerMovement>();
 
+        GameObject chainObject = GameObject.Find("Obi_Chain");
+        if (chainObject != null)
+        {
+            adjustChainLength = chainObject.GetComponent<AdjustChainLength>();
+        }
+
         currentAttackDamage = player1Combat.attackDamage;
         currentMaxHealth = player1Manager.currentHealth;
         currentSpeed = player1Movement.originalWalkingSpeed;
@@ -68,47 +80,36 @@ public class UpgradeManager : MonoBehaviour
 
     // Upgrade Damage with Scriptable Object Data
     public void UpgradeDamage(DamageUpgradeSO damageUpgrade)
-{
-    float initialAttackDamage = 10f; // You can adjust this to the real initial value if needed.
-
-    // Check if the damage upgrade is not null and the attack level hasn't reached the max limit.
-    if (damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
     {
-        // Calculate the new attack damage based on the damage increase from the scriptable object.
-        float newAttackDamage = currentAttackDamage + damageUpgrade.damageIncrease;
+        float initialAttackDamage = 10f; // You can adjust this to the real initial value if needed.
 
-        // Determine the maximum allowed attack damage based on the initial value and max multiplier.
-        float maxAllowedAttackDamage = initialAttackDamage * MaxAttackMultiplier;
-
-        // Ensure the new attack damage doesn't exceed the maximum allowed value.
-        if (newAttackDamage <= maxAllowedAttackDamage)
+        // Check if the damage upgrade is not null and the attack level hasn't reached the max limit.
+        if (damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
         {
-            // Update the current attack damage and increase the attack level.
-            currentAttackDamage = newAttackDamage;
-            currentAttackLevel++;
+            // Calculate the new attack damage based on the damage increase from the scriptable object.
+            float newAttackDamage = currentAttackDamage + damageUpgrade.damageIncrease;
 
-            // Apply the new attack damage to both Player 1 and Player 2 using SetAttackDamage.
-            player1Combat.SetAttackDamage(currentAttackDamage);
-            player2Combat.SetAttackDamage(currentAttackDamage);
+            // Determine the maximum allowed attack damage based on the initial value and max multiplier.
+            float maxAllowedAttackDamage = initialAttackDamage * MaxAttackMultiplier;
 
-            Debug.Log("Damage upgraded. New Attack Damage: " + currentAttackDamage);
+            // Ensure the new attack damage doesn't exceed the maximum allowed value.
+            if (newAttackDamage <= maxAllowedAttackDamage)
+            {
+                // Update the current attack damage and increase the attack level.
+                currentAttackDamage = newAttackDamage;
+                currentAttackLevel++;
 
-            // Update the UI text to reflect the new attack level.
-            UpdateUpgradeLevelText();
-        }
-        else
-        {
-            // Notify if the new damage exceeds the maximum allowed value.
-            Debug.LogWarning("Damage upgrade exceeds the maximum allowed limit.");
+                // Apply the new attack damage to both Player 1 and Player 2 using SetAttackDamage.
+                player1Combat.SetAttackDamage(currentAttackDamage);
+                player2Combat.SetAttackDamage(currentAttackDamage);
+
+                Debug.Log("Damage upgraded. New Attack Damage: " + currentAttackDamage);
+
+                // Update the UI text to reflect the new attack level.
+                UpdateUpgradeLevelText();
+            }
         }
     }
-    else
-    {
-        // Notify if the maximum upgrade level is reached.
-        Debug.LogWarning("Maximum attack upgrade level reached.");
-    }
-}
-
 
     //Upgrade Health with Scriptable Object Data
     public void UpgradeHealth(HealthUpgradeSO healthUpgrade)
@@ -143,8 +144,6 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-
-
     // Upgrades Speed with Scriptable Object Data
     public void UpgradeSpeed(SpeedUpgradeSO speedUpgrade)
     {
@@ -175,6 +174,29 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+    // Chain Upgrades
+    public void UpgradeChain(int amountsOfUnits)
+    {
+        if (adjustChainLength == null)
+        {
+            Debug.LogError("Chain reference missing");
+            return;
+        }
+
+        if (currentChainLevel < AdjustChainLength.AMOUNT_OF_UPGRADES)
+        {
+            adjustChainLength.IncreaseRopeLength(amountsOfUnits);
+            currentChainLevel++;
+            Debug.Log("Chain upgraded - New Chain Length: " + adjustChainLength.ReturnCurrentChainLength());
+
+            UpdateUpgradeLevelText();
+        }
+        else
+        {
+            Debug.LogWarning("Maximum chain upgrade level reached");
+        }
+    }
+
     private void UpdateUpgradeLevelText()
     {
         if (attackLevelText != null)
@@ -190,6 +212,11 @@ public class UpgradeManager : MonoBehaviour
         if (speedLevelText != null)
         {
             speedLevelText.text = "Speed Level: " + currentSpeedLevel.ToString();
+        }
+
+        if (chainLevelText != null)
+        {
+            chainLevelText.text = "Chain Level: " + currentChainLevel.ToString(); // Update the chain upgrade level
         }
     }
 }
