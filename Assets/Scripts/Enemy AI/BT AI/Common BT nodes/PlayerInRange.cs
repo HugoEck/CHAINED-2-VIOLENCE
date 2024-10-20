@@ -15,7 +15,6 @@ public class PlayerInRange : Node
         if (distance <= agent.attackRange)
         {
             agent.navigation.isStopped = true;
-            //agent.navMeshAgent.isStopped = true;
             RotateTowardsPlayer(agent, targetedPlayer);
             return NodeState.SUCCESS;
         }
@@ -27,13 +26,8 @@ public class PlayerInRange : Node
 
     private void RotateTowardsPlayer(BaseManager agent, Transform targetedPlayer)
     {
-        // Calculate the direction from the agent to the player
         Vector3 direction = (targetedPlayer.position - agent.transform.position).normalized;
-
-        // Calculate the target rotation to face the player
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-
-        // Smoothly rotate the agent towards the player
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
     }
 

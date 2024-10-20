@@ -20,8 +20,7 @@ public class BaseManager : MonoBehaviour
     public float unitCost;
 
 
-    private GameObject player1;
-    private GameObject player2;
+
     private float lastAttackedTime;
     private float timer = 5f;
 
@@ -29,7 +28,8 @@ public class BaseManager : MonoBehaviour
 
     [HideInInspector] public AIPath navigation;
 
-
+    [HideInInspector] public GameObject player1;
+    [HideInInspector] public GameObject player2;
     [HideInInspector] public Player playerManager1;
     [HideInInspector] public Player playerManager2;
     [HideInInspector] public Animator animator;

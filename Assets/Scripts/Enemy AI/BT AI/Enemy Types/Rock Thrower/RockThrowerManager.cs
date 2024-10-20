@@ -14,9 +14,7 @@ public class RockThrowerManager : BaseManager
     [Header("GE EJ VÄRDE")]
     [HideInInspector]  public Vector3 calculatedVelocity;
 
-    private float evaluationInterval = 0.5f;
-    private float timeSinceLastEvaluation = 0f;
-    private float randomOffset;
+
 
 
     void Start()
