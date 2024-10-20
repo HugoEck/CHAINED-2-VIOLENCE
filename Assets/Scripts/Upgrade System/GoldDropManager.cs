@@ -43,6 +43,15 @@ public class GoldDropManager : MonoBehaviour
         return goldAmount;
     }
 
+    public void SpendGold(int amount)
+    {
+        if(goldAmount >= amount)
+        {
+            goldAmount -= amount;
+            UpdateGoldCounterText();
+        }
+    }
+
     private void UpdateGoldCounterText()
     {
         if (goldCounterText != null)

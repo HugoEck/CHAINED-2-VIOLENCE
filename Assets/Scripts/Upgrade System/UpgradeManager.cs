@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Obi;
+using System.Runtime.CompilerServices;
 /// <summary>
 /// UpgradeManager used for handling player upgrades. The upgrades are shared.
-/// Add gold script to upgrades, clean up code.
+/// Clean up code.
 /// </summary>
 public class UpgradeManager : MonoBehaviour
 {
@@ -31,12 +32,13 @@ public class UpgradeManager : MonoBehaviour
     private int currentSpeedLevel = 0;
     private int currentChainLevel = 0;
     private const int MaxUpgradeLevel = 10;
+    [SerializeField] public int UpgradeCostIncrease = 20;
 
     // Upgrade caps -- % increase from base stat.
-    private const float MaxAttackMultiplier = 1.3f;
-    private const float MaxHealthMultiplier = 1.5f;
-    private const float MaxSpeedMultiplier = 1.3f;
-    
+    [SerializeField] private float MaxAttackMultiplier = 1.3f;
+    [SerializeField] private float MaxHealthMultiplier = 1.5f;
+    [SerializeField] private float MaxSpeedMultiplier = 1.3f;
+
     //CHAIN UPGRADE
     private AdjustChainLength adjustChainLength;
 
@@ -81,31 +83,27 @@ public class UpgradeManager : MonoBehaviour
     // Upgrade Damage with Scriptable Object Data
     public void UpgradeDamage(DamageUpgradeSO damageUpgrade)
     {
-        float initialAttackDamage = 10f; // You can adjust this to the real initial value if needed.
+        float initialAttackDamage = 10f; //match with damage from script or get reference later on
 
-        // Check if the damage upgrade is not null and the attack level hasn't reached the max limit.
-        if (damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
+        int upgradeCost = CalculateUpgradeCost(currentAttackLevel);
+
+        if (GoldDropManager.Instance.GetGoldAmount() >= upgradeCost && damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
         {
-            // Calculate the new attack damage based on the damage increase from the scriptable object.
             float newAttackDamage = currentAttackDamage + damageUpgrade.damageIncrease;
 
-            // Determine the maximum allowed attack damage based on the initial value and max multiplier.
             float maxAllowedAttackDamage = initialAttackDamage * MaxAttackMultiplier;
 
-            // Ensure the new attack damage doesn't exceed the maximum allowed value.
             if (newAttackDamage <= maxAllowedAttackDamage)
             {
-                // Update the current attack damage and increase the attack level.
                 currentAttackDamage = newAttackDamage;
                 currentAttackLevel++;
-
-                // Apply the new attack damage to both Player 1 and Player 2 using SetAttackDamage.
+                
                 player1Combat.SetAttackDamage(currentAttackDamage);
                 player2Combat.SetAttackDamage(currentAttackDamage);
 
                 Debug.Log("Damage upgraded. New Attack Damage: " + currentAttackDamage);
 
-                // Update the UI text to reflect the new attack level.
+                GoldDropManager.Instance.SpendGold(upgradeCost);
                 UpdateUpgradeLevelText();
             }
         }
@@ -115,8 +113,8 @@ public class UpgradeManager : MonoBehaviour
     public void UpgradeHealth(HealthUpgradeSO healthUpgrade)
     {
         float initialMaxHealth = 100f;
-
-        if (healthUpgrade != null && currentHealthLevel < MaxUpgradeLevel)
+        int upgradeCost = CalculateUpgradeCost(currentHealthLevel);
+        if (GoldDropManager.Instance.GetGoldAmount() >= upgradeCost && healthUpgrade != null && currentHealthLevel < MaxUpgradeLevel)
         {
             float newMaxHealth = currentMaxHealth + healthUpgrade.healthIncrease;
             float maxAllowedHealth = initialMaxHealth * MaxHealthMultiplier;
@@ -131,6 +129,7 @@ public class UpgradeManager : MonoBehaviour
 
                 Debug.Log("Health upgraded for both players! New Max Health: " + currentMaxHealth);
 
+                GoldDropManager.Instance.SpendGold(upgradeCost);
                 UpdateUpgradeLevelText();
             }
             else
@@ -147,7 +146,9 @@ public class UpgradeManager : MonoBehaviour
     // Upgrades Speed with Scriptable Object Data
     public void UpgradeSpeed(SpeedUpgradeSO speedUpgrade)
     {
-        if (speedUpgrade != null && currentSpeedLevel < MaxUpgradeLevel)
+        int upgradeCost = CalculateUpgradeCost(currentSpeedLevel);
+
+        if (GoldDropManager.Instance.GetGoldAmount() >= upgradeCost && speedUpgrade != null && currentSpeedLevel < MaxUpgradeLevel)
         {
             float newSpeed = currentSpeed + speedUpgrade.speedIncrease;
             float maxAllowedSpeed = player1Movement.originalWalkingSpeed * MaxSpeedMultiplier;
@@ -161,6 +162,7 @@ public class UpgradeManager : MonoBehaviour
                 player2Movement.SetWalkingSpeed(currentSpeed);
 
                 Debug.Log("Speed upgraded for both players! New Speed: " + currentSpeed);
+                GoldDropManager.Instance.SpendGold(upgradeCost);
                 UpdateUpgradeLevelText();
             }
             else
@@ -177,24 +179,31 @@ public class UpgradeManager : MonoBehaviour
     // Chain Upgrades
     public void UpgradeChain(int amountsOfUnits)
     {
+        int upgradeCost = CalculateUpgradeCost(currentChainLevel);
+
         if (adjustChainLength == null)
         {
             Debug.LogError("Chain reference missing");
             return;
         }
 
-        if (currentChainLevel < AdjustChainLength.AMOUNT_OF_UPGRADES)
+        if (GoldDropManager.Instance.GetGoldAmount() >= upgradeCost && currentChainLevel < AdjustChainLength.AMOUNT_OF_UPGRADES)
         {
             adjustChainLength.IncreaseRopeLength(amountsOfUnits);
             currentChainLevel++;
             Debug.Log("Chain upgraded - New Chain Length: " + adjustChainLength.ReturnCurrentChainLength());
 
+            GoldDropManager.Instance.SpendGold(upgradeCost);
             UpdateUpgradeLevelText();
         }
         else
         {
             Debug.LogWarning("Maximum chain upgrade level reached");
         }
+    }
+    private int CalculateUpgradeCost(int currentLevel)
+    {
+        return (currentLevel + 1) * UpgradeCostIncrease;
     }
 
     private void UpdateUpgradeLevelText()
