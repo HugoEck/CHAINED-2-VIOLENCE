@@ -47,13 +47,8 @@ public class PrepareCharge : Node
 
     private void RotateTowardsChain(BaseManager agent, Vector3 chainPosition)
     {
-        // Calculate the direction from the agent to the player
         Vector3 direction = (chainPosition - agent.transform.position).normalized;
-
-        // Calculate the target rotation to face the player
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-
-        // Smoothly rotate the agent towards the player
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
     }
 }
