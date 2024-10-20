@@ -36,14 +36,7 @@ public class PlebianManager : BaseManager
     private void FixedUpdate()
     {
 
-        timeSinceLastEvaluation += Time.fixedDeltaTime;
-
-        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
-        {
-            timeSinceLastEvaluation -= evaluationInterval;
-            rootNode.Evaluate(this);
-            randomOffset = Random.Range(0f, evaluationInterval);
-        }
+        FixedEvaluate();
 
     }
 
@@ -63,5 +56,15 @@ public class PlebianManager : BaseManager
 
     }
 
+    public void FixedEvaluate()
+    {
+        timeSinceLastEvaluation += Time.fixedDeltaTime;
 
+        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
+        {
+            timeSinceLastEvaluation -= evaluationInterval;
+            rootNode.Evaluate(this);
+            randomOffset = Random.Range(0f, evaluationInterval);
+        }
+    }
 }

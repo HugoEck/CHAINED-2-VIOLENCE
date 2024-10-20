@@ -34,8 +34,8 @@ public class ChargerManager : BaseManager
     private void FixedUpdate()
     {
 
-        FixedEvaluate();
-
+        
+        rootNode.Evaluate(this);
     }
 
     private void ConstructBT()

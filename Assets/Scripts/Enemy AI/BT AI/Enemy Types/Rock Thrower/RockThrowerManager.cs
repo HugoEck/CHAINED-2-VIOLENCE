@@ -37,14 +37,7 @@ public class RockThrowerManager : BaseManager
 
     private void FixedUpdate()
     {
-        timeSinceLastEvaluation += Time.fixedDeltaTime;
-
-        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
-        {
-            timeSinceLastEvaluation -= evaluationInterval;
-            rootNode.Evaluate(this);
-            randomOffset = Random.Range(0f, evaluationInterval);
-        }
+        rootNode.Evaluate(this);
 
     }
     private void ConstructBT()
