@@ -18,15 +18,27 @@ public class RunnerManager : BaseManager
     {
         enemyID = "Runner";
         animator.SetBool("Runner_StartChasing", true);
-        currentHealth = maxHealth;
-        navigation.maxSpeed = speed;
 
+        LoadStats();
         ConstructBT();
     }
 
     private void FixedUpdate()
     {
         FixedEvaluate();
+
+    }
+
+    private void LoadStats()
+    {
+        maxHealth = 1;
+        currentHealth = maxHealth;
+        attack = 2;
+        defense = 0;
+        navigation.maxSpeed = 6;
+        attackSpeed = 1;
+        attackRange = 3f;
+        unitCost = 2;
 
     }
 

@@ -61,7 +61,7 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if(ActiveEnemies == 0 || timer > targetTime)
+        if(/*ActiveEnemies == 0 ||*/ timer > targetTime)
         {
             currentWave++;
             timer = 0;

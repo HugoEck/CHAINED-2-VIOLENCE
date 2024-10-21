@@ -8,8 +8,8 @@ public class RockThrowerManager : BaseManager
     Node rootNode;
 
     [Header("ROCKTHROWER MANAGER")]
-    public GameObject rockPrefab;
-    public Transform throwPoint;
+    [HideInInspector] public GameObject rockPrefab;
+    [HideInInspector] public Transform throwPoint;
 
     [Header("GE EJ VÄRDE")]
     [HideInInspector]  public Vector3 calculatedVelocity;
@@ -21,8 +21,8 @@ public class RockThrowerManager : BaseManager
     {
         enemyID = "RockThrower";
         animator.SetBool("RockThrower_StartChasing", true);
-        currentHealth = maxHealth;
-        navigation.maxSpeed = speed;
+
+        LoadStats();
 
         ConstructBT();
     }
@@ -30,6 +30,19 @@ public class RockThrowerManager : BaseManager
     private void FixedUpdate()
     {
         rootNode.Evaluate(this);
+
+    }
+
+    private void LoadStats()
+    {
+        maxHealth = 10;
+        currentHealth = maxHealth;
+        attack = 4;
+        defense = 0;
+        navigation.maxSpeed = 3;
+        attackSpeed = 4;
+        attackRange = 20;
+        unitCost = 5;
 
     }
     private void ConstructBT()
