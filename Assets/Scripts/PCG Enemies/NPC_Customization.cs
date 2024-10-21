@@ -235,7 +235,7 @@ public class NPC_Customization : MonoBehaviour
         enemy.tag = "Enemy";
         enemy.layer = 9;
 
-        
+
         Rigidbody[] rigidbodies = enemy.GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody rbs in rigidbodies)
         {
@@ -258,12 +258,12 @@ public class NPC_Customization : MonoBehaviour
             behaviour.navigation.maxSpeed = 1;
 
         }
-        if (Class == NPCClass.Runner)
+        else if (Class == NPCClass.Runner)
         {
             RunnerManager behaviour = enemy.AddComponent<RunnerManager>();
 
         }
-        if (Class == NPCClass.RockThrower)
+        else if (Class == NPCClass.RockThrower)
         {
             RockThrowerManager behaviour = enemy.AddComponent<RockThrowerManager>();
 
@@ -273,6 +273,11 @@ public class NPC_Customization : MonoBehaviour
 
             behaviour.throwPoint = throwPoint.transform;
             behaviour.rockPrefab = Rock;
+        }
+        else if (Class == NPCClass.Charger)
+        {
+            ChargerManager behaviour = enemy.AddComponent<ChargerManager>();
+
         }
     }
 
@@ -310,7 +315,7 @@ public class NPC_Customization : MonoBehaviour
         return newAsset;
     }
 
-    
+
 
 
 

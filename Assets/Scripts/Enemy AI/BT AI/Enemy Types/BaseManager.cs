@@ -1,3 +1,4 @@
+using Obi;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -154,10 +155,16 @@ public class BaseManager : MonoBehaviour
             }
             c_collider.enabled = true;
             rb.isKinematic = false;
+            
         }
         else
         {
+            AIPath aiPath = GetComponent<AIPath>();
+            AIDestinationSetter destinationSetter = GetComponent<AIDestinationSetter>();
+            ObiCollider obiCollider = GetComponent<ObiCollider>();
+            ObiRigidbody obiRb = GetComponent<ObiRigidbody>();
             Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+            SimpleSmoothModifier smoothing = GetComponent<SimpleSmoothModifier>();
             foreach (Rigidbody rbs in rigidbodies)
             {
                 rbs.isKinematic = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
@@ -168,8 +175,13 @@ public class BaseManager : MonoBehaviour
                     capsule1.enabled = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
                 }
             }
-            c_collider.enabled = false;
-            rb.isKinematic = true;
+            //c_collider.enabled = false;
+            //rb.isKinematic = true;
+            obiCollider.enabled = false;
+            obiRb.enabled = false;
+            aiPath.enabled = false;
+            smoothing.enabled = false;
+            destinationSetter.enabled = false;
         }
     }
 }

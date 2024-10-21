@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour
     NPC_Customization enemyCreator;
     public static int ActiveEnemies = 0;
 
-    private float targetTime = 20;
+    private float targetTime = 50;
     private float timer = 0;
 
     [SerializeField] GameObject spawnPortal;
