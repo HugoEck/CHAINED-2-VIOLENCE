@@ -1,3 +1,5 @@
+using Obi;
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -173,7 +175,7 @@ public class NPC_Customization : MonoBehaviour
                     currentAnimator.runtimeAnimatorController = animController;
                 }
 
-                
+
 
 
                 // Attach helmet
@@ -220,30 +222,46 @@ public class NPC_Customization : MonoBehaviour
 
     public void AddBehaviourToClass(GameObject enemy)
     {
-        NavMeshAgent agent = enemy.AddComponent<NavMeshAgent>();
-        agent.baseOffset = 0.1f;
-        BoxCollider collider = enemy.AddComponent<BoxCollider>();
-        
+        AIPath agent = enemy.AddComponent<AIPath>();
+        AIDestinationSetter destinationSetter = enemy.AddComponent<AIDestinationSetter>();
+        CapsuleCollider capsule = enemy.AddComponent<CapsuleCollider>();
+        Rigidbody rb = enemy.AddComponent<Rigidbody>();
+        ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
+        SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
+        BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
+        //Physics.SyncTransforms();
 
-        Physics.SyncTransforms();
-
-        collider.isTrigger = true;
+        triggerCollider.isTrigger = true;
         enemy.tag = "Enemy";
         enemy.layer = 9;
+
+        
+        Rigidbody[] rigidbodies = enemy.GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody rbs in rigidbodies)
+        {
+            rbs.isKinematic = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+            rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        }
+        Collider[] capsuleColliders = enemy.GetComponentsInChildren<Collider>();
+        foreach (Collider capsule1 in capsuleColliders)
+        {
+            capsule1.enabled = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+        }
+        capsule.enabled = true;
+        rb.isKinematic = false;
+
 
         if (Class == NPCClass.Basic)
         {
             PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
-            behaviour.speed = 3;
-            behaviour.attackRange = 3;
-            behaviour.maxHealth = 1;
+
+            behaviour.navigation.maxSpeed = 1;
+
         }
         if (Class == NPCClass.Runner)
         {
             RunnerManager behaviour = enemy.AddComponent<RunnerManager>();
-            behaviour.speed = 6;
-            behaviour.attackRange = 3;
-            behaviour.maxHealth = 1;
+
         }
         if (Class == NPCClass.RockThrower)
         {
@@ -255,12 +273,6 @@ public class NPC_Customization : MonoBehaviour
 
             behaviour.throwPoint = throwPoint.transform;
             behaviour.rockPrefab = Rock;
-
-            behaviour.attackSpeed = 3;
-            behaviour.maxHealth = 2;
-            behaviour.attackRange = 20;
-            behaviour.speed = 3;
-            behaviour.attack = 2;
         }
     }
 
@@ -298,7 +310,7 @@ public class NPC_Customization : MonoBehaviour
         return newAsset;
     }
 
-   
+    
 
 
 

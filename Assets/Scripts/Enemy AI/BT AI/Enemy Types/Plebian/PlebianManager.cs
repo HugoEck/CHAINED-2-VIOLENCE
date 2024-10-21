@@ -13,6 +13,8 @@ public class PlebianManager : BaseManager
     private float timeSinceLastEvaluation = 0f;
     private float randomOffset;
 
+    
+
 
     void Start()
     {
@@ -30,7 +32,8 @@ public class PlebianManager : BaseManager
     {
 
         FixedEvaluate();
-        
+
+
     }
 
     private void ConstructBT()
@@ -63,8 +66,14 @@ public class PlebianManager : BaseManager
 
     private void LoadStats()
     {
+        maxHealth = 1;
         currentHealth = maxHealth;
-        navigation.maxSpeed = speed;
+        attack = 1;
+        defense = 0;
+        navigation.maxSpeed = 3;
+        attackSpeed = 1;
+        attackRange = 2.5f;
+        unitCost = 1;
         
     }
 }
