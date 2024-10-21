@@ -47,6 +47,7 @@ public class UpgradeManager : MonoBehaviour
     public TMP_Text healthLevelText;
     public TMP_Text speedLevelText;
     public TMP_Text chainLevelText;
+    public TMP_Text notEnoughGoldText;
     #endregion
 
     void Start()
@@ -107,6 +108,13 @@ public class UpgradeManager : MonoBehaviour
                 UpdateUpgradeLevelText();
             }
         }
+        else
+        {
+            if (notEnoughGoldText != null)
+            {
+                StartCoroutine(ShowNotEnoughGoldMessage());
+            }
+        }
     }
 
     //Upgrade Health with Scriptable Object Data
@@ -131,6 +139,10 @@ public class UpgradeManager : MonoBehaviour
 
                 GoldDropManager.Instance.SpendGold(upgradeCost);
                 UpdateUpgradeLevelText();
+                if (notEnoughGoldText != null)
+                {
+                    notEnoughGoldText.text = "";
+                }
             }
             else
             {
@@ -140,6 +152,10 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Maximum health upgrade level reached.");
+            if (notEnoughGoldText != null)
+            {
+                StartCoroutine(ShowNotEnoughGoldMessage());
+            }
         }
     }
 
@@ -164,6 +180,10 @@ public class UpgradeManager : MonoBehaviour
                 Debug.Log("Speed upgraded for both players! New Speed: " + currentSpeed);
                 GoldDropManager.Instance.SpendGold(upgradeCost);
                 UpdateUpgradeLevelText();
+                if (notEnoughGoldText != null)
+                {
+                    notEnoughGoldText.text = "";
+                }
             }
             else
             {
@@ -173,6 +193,10 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Maximum speed upgrade level reached.");
+            if (notEnoughGoldText != null)
+            {
+                StartCoroutine(ShowNotEnoughGoldMessage());
+            }
         }
     }
 
@@ -195,16 +219,40 @@ public class UpgradeManager : MonoBehaviour
 
             GoldDropManager.Instance.SpendGold(upgradeCost);
             UpdateUpgradeLevelText();
+            if (notEnoughGoldText != null)
+            {
+                notEnoughGoldText.text = "";
+            }
         }
         else
         {
             Debug.LogWarning("Maximum chain upgrade level reached");
+            if (notEnoughGoldText != null)
+            {
+                StartCoroutine(ShowNotEnoughGoldMessage());
+            }
         }
     }
     private int CalculateUpgradeCost(int currentLevel)
     {
         return (currentLevel + 1) * UpgradeCostIncrease;
     }
+
+    private IEnumerator ShowNotEnoughGoldMessage()
+    {
+        if (notEnoughGoldText != null)
+        {
+            notEnoughGoldText.text = "Not enough gold!";
+        }
+
+        yield return new WaitForSeconds(2f); // Wait for 2 sec
+
+        if (notEnoughGoldText != null)
+        {
+            notEnoughGoldText.text = "";
+        }
+    }
+
 
     private void UpdateUpgradeLevelText()
     {
@@ -225,7 +273,7 @@ public class UpgradeManager : MonoBehaviour
 
         if (chainLevelText != null)
         {
-            chainLevelText.text = "Chain Level: " + currentChainLevel.ToString(); // Update the chain upgrade level
+            chainLevelText.text = "Chain Level: " + currentChainLevel.ToString();
         }
     }
 }
