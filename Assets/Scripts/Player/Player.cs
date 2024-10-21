@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
     private PlayerMovement _playerMovement;
     private PlayerCombat _playerCombat;
+    private ShieldAbility _shieldAbility;
 
     #endregion
 
@@ -54,6 +55,9 @@ public class Player : MonoBehaviour
 
         _playerMovement = GetComponent<PlayerMovement>();
         _playerCombat = GetComponent<PlayerCombat>();
+        _shieldAbility = GetComponent<ShieldAbility>(); // Get reference to the ShieldAbility
+
+        currentHealth = _maxHealth;
 
         #endregion
 
@@ -183,9 +187,16 @@ public class Player : MonoBehaviour
 
     public void SetHealth(float damage)
     {
-        currentHealth -= damage;
+        // Check if the shield is active and absorb damage first
+        if (_shieldAbility != null && _shieldAbility.IsShieldActive())
+        {
+            _shieldAbility.AbsorbDamage(damage);
+            if (_shieldAbility.IsShieldActive()) return; // If the shield still has health, don't reduce player's health
+        }
 
-        Debug.Log(gameObject.tag + " took: " +  damage + " damage" + ", current health = " + currentHealth);
+        // If no shield or the shield is broken, apply damage to the player
+        currentHealth -= damage;
+        Debug.Log(gameObject.tag + " took: " + damage + " damage" + ", current health = " + currentHealth);
     }
 
     //Used for upgrades
