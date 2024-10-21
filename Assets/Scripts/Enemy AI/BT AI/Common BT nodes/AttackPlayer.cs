@@ -38,7 +38,7 @@ public class AttackPlayer : Node
         {
             agent.animator.SetBool("Charger_Chase", false);
             agent.animator.SetBool("Charger_Attack", true);
-            agent.animator.SetBool("Plebian_Sprint", false);
+            agent.animator.SetBool("Charger_Sprint", false);
         }
         
     }

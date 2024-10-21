@@ -14,6 +14,10 @@ public class ChargerManager : BaseManager
 
     public float chargingRange;
     public float chargingSpeed;
+    private float chargingDamage;
+    private bool SprintDamageAllowed = false;
+    private bool CD_AlreadyAppliedP1 = false;
+    private bool CD_AlreadyAppliedP2 = false;
 
     [Header("GE EJ VÄRDE")]
 
@@ -22,8 +26,13 @@ public class ChargerManager : BaseManager
     [HideInInspector] public bool activatePrepareChargeTimer = false;
     [HideInInspector] public bool activateChargingTimer = false;
     [HideInInspector] public bool prepareChargeComplete = false;
+
+  
     [HideInInspector] public Vector3 chainPosition;
     [HideInInspector] public Vector3 lastSavedPosition;
+
+    
+
 
     void Start()
     {
@@ -58,6 +67,7 @@ public class ChargerManager : BaseManager
     private void LoadStats()
     {
         currentHealth = maxHealth;
+        chargingDamage = 10f;
         navigation.maxSpeed = speed;
         navigation.radius = 0.75f;
         c_collider.center = new Vector3(0, 0.5f, 0);
@@ -79,15 +89,39 @@ public class ChargerManager : BaseManager
 
     public void ChargingTimer()
     {
+        SprintDamageAllowed = true;
         chargeTimer -= Time.deltaTime;
         if (chargeTimer < 0)
         {
+            SprintDamageAllowed = false;
             hasAlreadyCharged = true;
             activateChargingTimer = false;
             
         }
     }
 
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (SprintDamageAllowed && collision.gameObject.CompareTag("Player1") && CD_AlreadyAppliedP1 == false )
+        {
+            Debug.Log("P1 took Damage!");
+            CD_AlreadyAppliedP1 = true;
+            playerManager1.SetHealth(chargingDamage);
+
+        }
+        else if (SprintDamageAllowed && collision.gameObject.CompareTag("Player2") && CD_AlreadyAppliedP2 == false )
+        {
+            Debug.Log("P2 took Damage!");
+            CD_AlreadyAppliedP2 = true;
+            playerManager2.SetHealth(chargingDamage);
+
+        }
+        else if (collision.gameObject.CompareTag("Misc"))
+        {
+            //Spawna partikelexplosion för förstört objekt
+            //Destroy(collision.gameObject);
+        }
+    }
     private void ConstructBT()
     {
         CheckIfDead checkIfDead = new CheckIfDead();
