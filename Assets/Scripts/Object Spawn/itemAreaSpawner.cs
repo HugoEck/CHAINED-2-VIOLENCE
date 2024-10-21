@@ -32,8 +32,6 @@ public class itemAreaSpawner : MonoBehaviour
     // Size of the box for overlap check
     public float overlapTestBoxSize = 1f;
 
-
-
     private void Update()
     {
         if (cooldownTimer > 0)
