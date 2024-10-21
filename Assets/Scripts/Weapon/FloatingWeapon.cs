@@ -16,7 +16,7 @@ public class FloatingWeapon : MonoBehaviour
 
     void Update()
     {
-        // Rotate the weapon
+
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
 
         // Floating effect
