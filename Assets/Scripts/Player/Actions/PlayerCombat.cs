@@ -9,12 +9,12 @@ public class PlayerCombat : MonoBehaviour
     private enum PlayerClass
     {
         Tank,
-        Meele,
+        Melee,
         Support,
         Ranged
     };
 
-    PlayerClass currentPlayerClass = PlayerClass.Tank;
+    [SerializeField] PlayerClass currentPlayerClass;
 
     public float attackCooldown = 1f;  // Cooldown between attacks
     public float abilityCooldown = 5f; // Cooldown between abilities
@@ -27,12 +27,14 @@ public class PlayerCombat : MonoBehaviour
     #region Ability components
 
     private SwingAbility swingAbility;
+    private Projectile projectile; 
 
     #endregion
 
     private void Start()
     {
         swingAbility = GetComponent<SwingAbility>();
+        projectile = GetComponent<Projectile>();
     }
 
     /// <summary>
@@ -64,7 +66,7 @@ public class PlayerCombat : MonoBehaviour
         switch (currentPlayerClass)
         {
 
-            case PlayerClass.Meele:            
+            case PlayerClass.Melee:            
 
                 break;
 
@@ -73,6 +75,8 @@ public class PlayerCombat : MonoBehaviour
                 break;
 
             case PlayerClass.Ranged:
+
+                projectile.UseAbility();
 
                 break;
 
