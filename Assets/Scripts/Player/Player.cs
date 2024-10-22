@@ -215,19 +215,42 @@ public class Player : MonoBehaviour
     /// </summary>
     private void HandleKnockout()
     {
-        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;
+        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;    
 
-        if(currentHealth <= 0)
+        if(Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
         {
-            if (playersDefeated == 2)
+            if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
-                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
-                return;
+                _bIsPlayerDisabled = true;
+                playersDefeated++;
+            }
+            else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
+            {
+                _bIsPlayerDisabled = true;
+                playersDefeated++;
             }
 
-            playersDefeated++;
+            if (playersDefeated == 2)
+            {                
+                playersDefeated = 0;
+                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+            }
         }
+        else
+        {
 
+            if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
+            {
+                _bIsPlayerDisabled = true;
+                playersDefeated++;
+            }
+
+            if (playersDefeated == 1)
+            {                
+                playersDefeated = 0;
+                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);             
+            }
+        }
         
     }
 
@@ -288,9 +311,7 @@ public class Player : MonoBehaviour
             _bIsPlayerDisabled = true;
         }
         else if(state == Chained2ViolenceGameManager.GameState.Playing)
-        {
-            StartCoroutine(DisablePlayerMovementTmp());
-
+        {           
             _bIsPlayerDisabled = false;
         }
     }
