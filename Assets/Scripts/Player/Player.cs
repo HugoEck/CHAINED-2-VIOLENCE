@@ -89,6 +89,8 @@ public class Player : MonoBehaviour
         GetPlayerMovementInput();
              
         UpdatePlayerCombat();
+
+        HandleKnockout();
     }
     #region Player Movement
     private void UpdatePlayerMovement()
@@ -203,6 +205,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void HandleKnockout()
     {
+        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;
+
         if(currentHealth <= 0)
         {
             if (playersDefeated == 2)
