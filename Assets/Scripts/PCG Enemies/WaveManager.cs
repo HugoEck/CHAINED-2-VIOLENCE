@@ -10,6 +10,7 @@ public class WaveManager : MonoBehaviour
     public TMP_Asset farmFont;
     public TMP_Asset fantasyFont;
     public TMP_Asset westernFont;
+    public TMP_Asset pirateFont;
 
     [Header(" ")]
     [SerializeField] GameObject enemyCreatorObject;
