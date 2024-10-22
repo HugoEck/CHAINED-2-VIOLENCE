@@ -3,9 +3,6 @@ using UnityEngine.SceneManagement; // You need this for scene loading
 
 public class ArenaSceneLoader : MonoBehaviour
 {
-    // Public variable to store the name of the scene you want to load
-    public string newSceneName;
-
     // This function will be triggered when something enters the trigger zone
     private void OnTriggerEnter(Collider other)
     {
