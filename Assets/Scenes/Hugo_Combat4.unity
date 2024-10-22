@@ -811,7 +811,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxShieldHealth: 20
-  shieldVisualPrefab: {fileID: 0}
+  shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
+    type: 3}
   otherPlayer: {fileID: 1750005624}
 --- !u!1 &350337381
 GameObject:
@@ -3985,6 +3986,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a6ffe22acfa21449b647f5c233e080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSceneState: 0
+  currentGameState: 0
+  currentLobbyState: 0
 --- !u!4 &1481110331
 Transform:
   m_ObjectHideFlags: 0
@@ -4612,52 +4616,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 22026383}
   m_SourcePrefab: {fileID: 100100000, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
---- !u!1 &1581808717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1581808719}
-  - component: {fileID: 1581808718}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1581808718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581808717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1581808719
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581808717}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1588002183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4138511184629900, guid: 32eb347f03c37014080d0c1fba9fae61,
@@ -5092,7 +5050,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxShieldHealth: 20
-  shieldVisualPrefab: {fileID: 0}
+  shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
+    type: 3}
   otherPlayer: {fileID: 255205314}
 --- !u!1 &1787199105
 GameObject:
@@ -5997,6 +5956,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 595685778}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1983102414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1983102416}
+  - component: {fileID: 1983102415}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1983102415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983102414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1983102416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983102414}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2013477749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18654,4 +18659,4 @@ SceneRoots:
   - {fileID: 1799551673}
   - {fileID: 2013477749}
   - {fileID: 1034750512}
-  - {fileID: 1581808719}
+  - {fileID: 1983102416}
