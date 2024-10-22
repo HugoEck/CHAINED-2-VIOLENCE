@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -37,6 +38,8 @@ public class Player : MonoBehaviour
     private bool _bIsUsingUltimateAttack = false;
 
     #endregion
+
+    private bool _bIsPlayerDisabled = false;
 
     private static int playersDefeated = 0;
     
@@ -80,13 +83,19 @@ public class Player : MonoBehaviour
         Chained2ViolenceGameManager.Instance.OnGameStateChanged += Chained2ViolenceGameManagerOnGameStateChanged;
         Chained2ViolenceGameManager.Instance.OnLobbyStateChanged += Chained2ViolenceGameManagerOnLobbyStateChanged;
         Chained2ViolenceGameManager.Instance.OnSceneStateChanged += Chained2ViolenceGameManagerOnSceneStateChanged;
+
+        StartCoroutine(DisablePlayerMovementTmp());
     }
     private void FixedUpdate()
-    {  
+    {
+        if (_bIsPlayerDisabled) return;
+
         UpdatePlayerMovement();      
     }
     private void Update()
     {
+        if (_bIsPlayerDisabled) return;
+
         GetPlayerMovementInput();
              
         UpdatePlayerCombat();
@@ -272,15 +281,17 @@ public class Player : MonoBehaviour
 
     private void Chained2ViolenceGameManagerOnGameStateChanged(Chained2ViolenceGameManager.GameState state)
     {
-        if(state == Chained2ViolenceGameManager.GameState.Paused || state == Chained2ViolenceGameManager.GameState.GameOver)
+        
+
+        if (state == Chained2ViolenceGameManager.GameState.Paused || state == Chained2ViolenceGameManager.GameState.GameOver)
         {
-            _playerMovement.enabled = false;
-            _playerCombat.enabled = false;
+            _bIsPlayerDisabled = true;
         }
         else if(state == Chained2ViolenceGameManager.GameState.Playing)
         {
-            _playerMovement.enabled = true;
-            _playerCombat.enabled = true;
+            StartCoroutine(DisablePlayerMovementTmp());
+
+            _bIsPlayerDisabled = false;
         }
     }
 
@@ -288,22 +299,28 @@ public class Player : MonoBehaviour
     {
         if (state == Chained2ViolenceGameManager.LobbyState.Paused)
         {
-            _playerMovement.enabled = false;
-            _playerCombat.enabled = false;
+            _bIsPlayerDisabled = true;
         }
         else if (state == Chained2ViolenceGameManager.LobbyState.Playing)
         {
-            _playerMovement.enabled = true;
-            _playerCombat.enabled = true;
+
+            _bIsPlayerDisabled = false;
         }
     }
 
     private void Chained2ViolenceGameManagerOnSceneStateChanged(Chained2ViolenceGameManager.SceneState state)
     {
-        _playerMovement.enabled = true;
-        _playerCombat.enabled = true;
+             
     }
 
+    private IEnumerator DisablePlayerMovementTmp()
+    {
+        _bIsPlayerDisabled = true;
+
+        yield return new WaitForSeconds(1);
+
+        _bIsPlayerDisabled = false;
+    }
     #endregion
 }
 
