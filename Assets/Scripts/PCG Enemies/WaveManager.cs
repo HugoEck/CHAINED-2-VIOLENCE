@@ -11,6 +11,7 @@ public class WaveManager : MonoBehaviour
     public TMP_Asset fantasyFont;
     public TMP_Asset westernFont;
     public TMP_Asset pirateFont;
+   
 
     [Header(" ")]
     [SerializeField] GameObject enemyCreatorObject;
@@ -217,11 +218,6 @@ public class WaveManager : MonoBehaviour
         {
             return westernFont;
         }
-
-
-
-
-
         return romanFont;
     }
 
