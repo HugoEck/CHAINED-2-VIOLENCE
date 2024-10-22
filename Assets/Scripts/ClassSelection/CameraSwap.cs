@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ClassCameraSwap : MonoBehaviour
+public class CameraSwap : MonoBehaviour
 {
     public Camera mainCamera;       // Reference to the main camera
     public Camera alternateCamera;  // Reference to the alternate camera
