@@ -8,7 +8,7 @@ public static class Loader
     public enum Scene
     {
         Main_Menu,
-        MainScene,
+        Arena,
         ArnTestScene, // FOR TESTING PURPOSES ONLY
         LobbyScene
     };
