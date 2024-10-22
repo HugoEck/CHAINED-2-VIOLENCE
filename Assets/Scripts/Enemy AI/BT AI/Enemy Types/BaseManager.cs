@@ -1,6 +1,8 @@
+using Obi;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -46,6 +48,14 @@ public class BaseManager : MonoBehaviour
 
     public virtual void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        c_collider = GetComponent<CapsuleCollider>();
+        c_collider.center = new Vector3(0, 1, 0);
+        c_collider.radius = 0.5f;
+        c_collider.height = 2;
+
+        ToggleRagdoll(false);
 
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
@@ -56,13 +66,6 @@ public class BaseManager : MonoBehaviour
         playerManager1 = player1.GetComponent<Player>();
         playerManager2 = player2.GetComponent<Player>();
 
-        c_collider = GetComponent<CapsuleCollider>();
-        c_collider.center = new Vector3(0, 1, 0);
-        c_collider.radius = 0.5f;
-        c_collider.height = 2;
-
-        rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
 
     }
 
@@ -135,6 +138,53 @@ public class BaseManager : MonoBehaviour
         }
     }
 
+    public virtual void ToggleRagdoll(bool enabled)
+    {
+        if (!enabled)
+        {
+            Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+            foreach (Rigidbody rbs in rigidbodies)
+            {
+                rbs.isKinematic = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+            }
+            Collider[] capsuleColliders = GetComponentsInChildren<Collider>();
+            foreach (Collider capsule1 in capsuleColliders)
+            {
+                capsule1.enabled = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+            }
+            c_collider.enabled = true;
+            rb.isKinematic = false;
+            
+        }
+        else
+        {
+            AIPath aiPath = GetComponent<AIPath>();
+            AIDestinationSetter destinationSetter = GetComponent<AIDestinationSetter>();
+            ObiCollider obiCollider = GetComponent<ObiCollider>();
+            ObiRigidbody obiRb = GetComponent<ObiRigidbody>();
+            Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+            SimpleSmoothModifier smoothing = GetComponent<SimpleSmoothModifier>();
+            foreach (Rigidbody rbs in rigidbodies)
+            {
+                rbs.isKinematic = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                rbs.constraints = RigidbodyConstraints.None;
+                Collider[] capsuleColliders = GetComponentsInChildren<Collider>();
+                foreach (Collider capsule1 in capsuleColliders)
+                {
+                    capsule1.enabled = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                }
+            }
+            //c_collider.enabled = false;
+            //rb.isKinematic = true;
+            obiCollider.enabled = false;
+            obiRb.enabled = false;
+            aiPath.enabled = false;
+            smoothing.enabled = false;
+            destinationSetter.enabled = false;
+        }
+    }
+}
+
     
 
-}

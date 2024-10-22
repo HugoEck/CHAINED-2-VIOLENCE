@@ -66,14 +66,25 @@ public class ChargerManager : BaseManager
 
     private void LoadStats()
     {
-        currentHealth = maxHealth;
+        
         chargingDamage = 10f;
         navigation.maxSpeed = speed;
+        chargingRange = 20f;
+        chargingSpeed = 20f;
         navigation.radius = 0.75f;
         c_collider.center = new Vector3(0, 0.5f, 0);
         c_collider.radius = 0.75f;
         c_collider.height = 3;
         transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+
+        maxHealth = 10;
+        currentHealth = maxHealth;
+        attack = 5;
+        defense = 1;
+        navigation.maxSpeed = 6;
+        attackSpeed = 1.5f;
+        attackRange = 4f;
+        unitCost = 50;
 
     }
     public void PrepareChargeTimer()
