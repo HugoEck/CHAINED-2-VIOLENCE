@@ -115,8 +115,7 @@ public class WaveManager : MonoBehaviour
 
         foreach (var enemyConfig in wave.enemyConfigs)
         {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
-            portal = Instantiate(spawnPortal, spawnPoint.transform);
+            //portal = Instantiate(spawnPortal, spawnPoint.transform);
             // Randomize and create the base enemy
             enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass);
             GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
@@ -126,6 +125,7 @@ public class WaveManager : MonoBehaviour
 
             for (int i = 0; i < enemyConfig.waveSize; i++)
             {
+                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
                 // Instantiate a new enemy
                 GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
                 ActiveEnemies++;
