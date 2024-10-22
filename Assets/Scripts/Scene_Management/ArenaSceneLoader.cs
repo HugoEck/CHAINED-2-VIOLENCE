@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; // You need this for scene loading
 
-public class SceneLoader : MonoBehaviour
+public class ArenaSceneLoader : MonoBehaviour
 {
     // Public variable to store the name of the scene you want to load
     public string newSceneName;
