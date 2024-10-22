@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShaderScript : MonoBehaviour
 {
-
+    public WaveManager waveManager;
 
     public Material[] newMaterials;
     public Material[] activeMaterials;
@@ -14,6 +14,10 @@ public class ShaderScript : MonoBehaviour
     public Material[] romanMaterials;
     private List<Material> allMaterials = new List<Material>();
     private Coroutine dissolveCoroutine;
+
+    private bool hasChangedToRoman = false;
+    private bool hasChangedToFarm = false;
+    private bool hasChangedToPirate = false;
 
     // Define the Y-level dissolve ranges for each arena
     private Dictionary<Material[], Vector2> materialYRanges = new Dictionary<Material[], Vector2>();
@@ -34,17 +38,21 @@ public class ShaderScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        Debug.Log(waveManager.currentWave);
+        if (waveManager.currentWave == 1 && !hasChangedToRoman)
         {
             ChangeArena(romanMaterials, -0.1f, 0.2f);
+            hasChangedToRoman = true;
         }
-        if (Input.GetKeyDown(KeyCode.F))
+        if (waveManager.currentWave == 6 && !hasChangedToFarm)
         {
             ChangeArena(farmMaterials, 0.7f, -0.2f);
+            hasChangedToFarm = true;
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (waveManager.currentWave == 11 && !hasChangedToPirate)
         {
             ChangeArena(pirateMaterials, 25f, -10f);
+            hasChangedToPirate = true;
         }
     }
     public void ChangeArena(Material[] desiredArena, float stopY, float startY)
@@ -112,5 +120,29 @@ public class ShaderScript : MonoBehaviour
         {
             arenaMaterials[i].SetVector("_DissolveOffest", targetOffsets[i]);
         }
+    }
+
+    private void OnDisable()
+    {
+        ResetMaterials();
+    }
+
+    private void ResetMaterials()
+    {
+        // Reset active materials to a default state
+        if (activeMaterials != null && activeMaterials.Length > 0)
+        {
+            foreach (var material in activeMaterials)
+            {
+                // Reset each material to its default values
+                // You may want to store the default values somewhere or reset them here
+                material.SetVector("_DissolveOffest", new Vector3(0, -20, 0)); // Example reset
+            }
+        }
+
+        // Optionally reset your change flags
+        hasChangedToRoman = false;
+        hasChangedToFarm = false;
+        hasChangedToPirate = false;
     }
 }

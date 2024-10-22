@@ -198,6 +198,11 @@ public class NPC_Customization : MonoBehaviour
                     if (rHandBone != null)
                     {
                         currentWeapon = InstantiateRandomAsset(weapons, rHandBone);
+                        if(Theme == NPCTheme.Pirate)
+                        {
+                            currentWeapon.transform.localScale *= 100;
+                        }
+                            currentWeapon.transform.rotation = Quaternion.Euler(90, 0, -3);
                     }
                 }
 
@@ -216,6 +221,7 @@ public class NPC_Customization : MonoBehaviour
                     if (lHandBone != null)
                     {
                         currentShield = InstantiateRandomAsset(shields, lHandBone);
+                        currentShield.transform.rotation = Quaternion.Euler(0, -150, -95);
                     }
                 }
             }
