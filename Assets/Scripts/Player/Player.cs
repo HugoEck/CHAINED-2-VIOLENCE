@@ -190,13 +190,29 @@ public class Player : MonoBehaviour
         // Check if the shield is active and absorb damage first
         if (_shieldAbility != null && _shieldAbility.IsShieldActive())
         {
-            _shieldAbility.AbsorbDamage(damage);
-            if (_shieldAbility.IsShieldActive()) return; // If the shield still has health, don't reduce player's health
+            // Absorb the damage with the shield
+            float remainingDamage = _shieldAbility.AbsorbDamage(damage);
+
+            // If the shield completely absorbed the damage, exit the function
+            if (remainingDamage <= 0)
+            {
+                Debug.Log("Shield absorbed all the damage.");
+                return;
+            }
+
+            // If the shield breaks and there's leftover damage, apply it to the player's health
+            damage = remainingDamage;
         }
 
-        // If no shield or the shield is broken, apply damage to the player
+        // Apply the remaining damage to the player's health
         currentHealth -= damage;
-        Debug.Log(gameObject.tag + " took: " + damage + " damage" + ", current health = " + currentHealth);
+        Debug.Log(gameObject.tag + " took: " + damage + " damage, current health = " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            // Handle player's death here if needed
+            Debug.Log(gameObject.tag + " has died.");
+        }
     }
 
     //Used for upgrades
