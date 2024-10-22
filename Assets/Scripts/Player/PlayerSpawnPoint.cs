@@ -23,10 +23,10 @@ public class PlayerSpawnPoint : MonoBehaviour
     {
         if (PlayerParent != null && _spawnPoint != null)
         {
-            // Set the PlayerParent's position to the spawn point (global position)
+            // Move the PlayerParent to the spawn point
             PlayerParent.transform.position = _spawnPoint.transform.position;
 
-            // All children will now stay in the same relative positions to PlayerParent.
+            // All children will automatically maintain their relative positions to the PlayerParent.
         }
         else
         {
@@ -34,4 +34,5 @@ public class PlayerSpawnPoint : MonoBehaviour
         }
     }
 }
+
 

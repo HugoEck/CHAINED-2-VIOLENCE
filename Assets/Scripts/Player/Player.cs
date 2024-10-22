@@ -40,10 +40,7 @@ public class Player : MonoBehaviour
     private static int playersDefeated = 0;
     
     private void Awake()
-    {
-        
-        DontDestroyOnLoad(gameObject);
-
+    {          
         if(gameObject.tag == "Player1")
         {
             _playerId = 1;
