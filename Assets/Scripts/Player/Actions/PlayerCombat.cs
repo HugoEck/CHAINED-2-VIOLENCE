@@ -27,7 +27,8 @@ public class PlayerCombat : MonoBehaviour
     #region Ability components
 
     private SwingAbility swingAbility;
-    private Projectile projectile; 
+    private Projectile projectile;
+    private ShieldAbility shieldAbility;
 
     #endregion
 
@@ -35,6 +36,7 @@ public class PlayerCombat : MonoBehaviour
     {
         swingAbility = GetComponent<SwingAbility>();
         projectile = GetComponent<Projectile>();
+        shieldAbility = GetComponent<ShieldAbility>();
     }
 
     /// <summary>
@@ -71,6 +73,8 @@ public class PlayerCombat : MonoBehaviour
                 break;
 
             case PlayerClass.Support:
+
+                shieldAbility.UseAbility();
 
                 break;
 

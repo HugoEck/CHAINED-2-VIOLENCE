@@ -4,6 +4,7 @@ public class Projectile : MonoBehaviour, IAbility
 {
     public GameObject projectilePrefab;  // Reference to the projectile prefab
     public Transform firePoint;          // The point from where the projectile is shot (usually the player's position)
+    public Transform playerDirection;    // A reference to the transform representing the player's forward direction (e.g., the cube in front of the player)
     public float projectileSpeed = 20f;  // Speed of the projectile
 
     public void UseAbility()
@@ -13,23 +14,9 @@ public class Projectile : MonoBehaviour, IAbility
 
     void Shoot()
     {
-        // Shooting logic
-        Vector3 mousePosition = Input.mousePosition;
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        RaycastHit hit;
-
-        Vector3 targetPosition;
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPosition = hit.point;  // Get the hit point
-        }
-        else
-        {
-            targetPosition = ray.GetPoint(1000);  // Shoot towards a distant point
-        }
-
-        Vector3 direction = targetPosition - firePoint.position;
-        direction.Normalize();  // Normalize the direction to make it a unit vector
+        // Use the forward direction of the player or the cube object to determine the shooting direction
+        Vector3 direction = playerDirection.forward;
+        direction.Normalize();  // Ensure the direction is a unit vector
 
         // Instantiate the projectile at the fire point's position
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 1.0f, Quaternion.identity);
