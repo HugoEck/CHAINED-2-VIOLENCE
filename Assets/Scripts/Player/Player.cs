@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
@@ -34,9 +36,12 @@ public class Player : MonoBehaviour
     private bool _bIsUsingUltimateAttack = false;
 
     #endregion
+
+    private static int playersDefeated = 0;
     
     private void Awake()
     {
+        
         DontDestroyOnLoad(gameObject);
 
         if(gameObject.tag == "Player1")
@@ -48,6 +53,14 @@ public class Player : MonoBehaviour
             _playerId = 2;
         }
     }
+
+    private void OnDestroy()
+    {
+        Chained2ViolenceGameManager.Instance.OnGameStateChanged -= Chained2ViolenceGameManagerOnGameStateChanged;
+        Chained2ViolenceGameManager.Instance.OnLobbyStateChanged -= Chained2ViolenceGameManagerOnLobbyStateChanged;
+        Chained2ViolenceGameManager.Instance.OnSceneStateChanged -= Chained2ViolenceGameManagerOnSceneStateChanged;
+    }
+
     void Start()
     {
         #region Instantiate components
@@ -62,6 +75,10 @@ public class Player : MonoBehaviour
         currentHealth = _maxHealth;
 
         #endregion
+
+        Chained2ViolenceGameManager.Instance.OnGameStateChanged += Chained2ViolenceGameManagerOnGameStateChanged;
+        Chained2ViolenceGameManager.Instance.OnLobbyStateChanged += Chained2ViolenceGameManagerOnLobbyStateChanged;
+        Chained2ViolenceGameManager.Instance.OnSceneStateChanged += Chained2ViolenceGameManagerOnSceneStateChanged;
     }
     private void FixedUpdate()
     {  
@@ -181,6 +198,25 @@ public class Player : MonoBehaviour
 
     #region Player HP
 
+    /// <summary>
+    /// MAYBE SEPERATE SCRIPT FOR HANDLING PLAYER DEFEAT
+    /// </summary>
+    private void HandleKnockout()
+    {
+        if(currentHealth <= 0)
+        {
+            if (playersDefeated == 2)
+            {
+                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+                return;
+            }
+
+            playersDefeated++;
+        }
+
+        
+    }
+
     public void SetHealth(float damage)
     {
         currentHealth -= damage;
@@ -204,6 +240,43 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Events
+
+    private void Chained2ViolenceGameManagerOnGameStateChanged(Chained2ViolenceGameManager.GameState state)
+    {
+        if(state == Chained2ViolenceGameManager.GameState.Paused || state == Chained2ViolenceGameManager.GameState.GameOver)
+        {
+            _playerMovement.enabled = false;
+            _playerCombat.enabled = false;
+        }
+        else if(state == Chained2ViolenceGameManager.GameState.Playing)
+        {
+            _playerMovement.enabled = true;
+            _playerCombat.enabled = true;
+        }
+    }
+
+    private void Chained2ViolenceGameManagerOnLobbyStateChanged(Chained2ViolenceGameManager.LobbyState state)
+    {
+        if (state == Chained2ViolenceGameManager.LobbyState.Paused)
+        {
+            _playerMovement.enabled = false;
+            _playerCombat.enabled = false;
+        }
+        else if (state == Chained2ViolenceGameManager.LobbyState.Playing)
+        {
+            _playerMovement.enabled = true;
+            _playerCombat.enabled = true;
+        }
+    }
+
+    private void Chained2ViolenceGameManagerOnSceneStateChanged(Chained2ViolenceGameManager.SceneState state)
+    {
+        _playerMovement.enabled = true;
+        _playerCombat.enabled = true;
+    }
+
+    #endregion
 }
 
 
