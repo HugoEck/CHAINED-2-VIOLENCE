@@ -6,7 +6,7 @@ using Obi;
 using System.Runtime.CompilerServices;
 /// <summary>
 /// UpgradeManager used for handling player upgrades. The upgrades are shared.
-/// Clean up code.
+/// Clean up code. REMOVED SCRIPTABLE OBJECTS..
 /// </summary>
 public class UpgradeManager : MonoBehaviour
 {
@@ -27,6 +27,11 @@ public class UpgradeManager : MonoBehaviour
     private float currentMaxHealth;
     private float currentSpeed;
 
+    private HealthUpgrade healthUpgrade;
+    private DamageUpgrade damageUpgrade;
+    private SpeedUpgrade speedUpgrade;
+    private ChainUpgrade chainUpgrade;
+
     private int currentAttackLevel = 0;
     private int currentHealthLevel = 0;
     private int currentSpeedLevel = 0;
@@ -37,7 +42,12 @@ public class UpgradeManager : MonoBehaviour
     // Upgrade caps -- % increase from base stat.
     [SerializeField] private float MaxAttackMultiplier = 1.3f;
     [SerializeField] private float MaxHealthMultiplier = 1.5f;
-    [SerializeField] private float MaxSpeedMultiplier = 1.3f;
+    [SerializeField] private float MaxSpeedMultiplier = 2.0f; //1.3f;
+
+    // Upgrade Increment Values (instead of ScriptableObject)
+    [SerializeField] private float attackDamageIncrease = 1f;  // Default damage increase per level
+    [SerializeField] private int healthIncrease = 20;       // Default health increase per level
+    [SerializeField] private float speedIncrease = 20f;
 
     //CHAIN UPGRADE
     private AdjustChainLength adjustChainLength;
@@ -79,160 +89,42 @@ public class UpgradeManager : MonoBehaviour
         currentAttackDamage = player1Combat.attackDamage;
         currentMaxHealth = player1Manager.currentHealth;
         currentSpeed = player1Movement.originalWalkingSpeed;
-    }
 
-    // Upgrade Damage with Scriptable Object Data
-    public void UpgradeDamage(DamageUpgradeSO damageUpgrade)
+        // Initialize the upgrade systems
+        healthUpgrade = new HealthUpgrade(player1Manager, player2Manager, healthIncrease, MaxHealthMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
+        damageUpgrade = new DamageUpgrade(player1Manager, player2Manager, player1Combat, player2Combat, attackDamageIncrease, MaxAttackMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
+        speedUpgrade = new SpeedUpgrade(player1Movement, player2Movement, speedIncrease, 1000f, MaxSpeedMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
+        
+        // Initialize chain upgrade
+        if (adjustChainLength != null)
+        {
+            chainUpgrade = new ChainUpgrade(adjustChainLength, 1, AdjustChainLength.AMOUNT_OF_UPGRADES, UpgradeCostIncrease);
+        }
+    }
+    public void UpgradeHealth()
     {
-        float initialAttackDamage = 10f; //match with damage from script or get reference later on
-
-        int upgradeCost = CalculateUpgradeCost(currentAttackLevel);
-
-        if (GoldDropManager.Instance.GetGoldAmount() >= upgradeCost && damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
-        {
-            float newAttackDamage = currentAttackDamage + damageUpgrade.damageIncrease;
-
-            float maxAllowedAttackDamage = initialAttackDamage * MaxAttackMultiplier;
-
-            if (newAttackDamage <= maxAllowedAttackDamage)
-            {
-                currentAttackDamage = newAttackDamage;
-                currentAttackLevel++;
-                
-                player1Combat.SetAttackDamage(currentAttackDamage);
-                player2Combat.SetAttackDamage(currentAttackDamage);
-
-                Debug.Log("Damage upgraded. New Attack Damage: " + currentAttackDamage);
-
-                GoldDropManager.Instance.SpendGold(upgradeCost);
-                UpdateUpgradeLevelText();
-            }
-        }
-        else
-        {
-            if (notEnoughGoldText != null)
-            {
-                StartCoroutine(ShowNotEnoughGoldMessage());
-            }
-        }
+        healthUpgrade.Upgrade();
+        UpdateUpgradeLevelText();
     }
 
-    //Upgrade Health with Scriptable Object Data
-    public void UpgradeHealth(HealthUpgradeSO healthUpgrade)
+    public void UpgradeDamage()
     {
-        float initialMaxHealth = 100f;
-        int upgradeCost = CalculateUpgradeCost(currentHealthLevel);
-        if (GoldDropManager.Instance.GetGoldAmount() >= upgradeCost && healthUpgrade != null && currentHealthLevel < MaxUpgradeLevel)
-        {
-            float newMaxHealth = currentMaxHealth + healthUpgrade.healthIncrease;
-            float maxAllowedHealth = initialMaxHealth * MaxHealthMultiplier;
-
-            if (newMaxHealth <= maxAllowedHealth)
-            {
-                currentMaxHealth = newMaxHealth;
-                currentHealthLevel++;
-
-                player1Manager.SetMaxHealth(currentMaxHealth);
-                player2Manager.SetMaxHealth(currentMaxHealth);
-
-                Debug.Log("Health upgraded for both players! New Max Health: " + currentMaxHealth);
-
-                GoldDropManager.Instance.SpendGold(upgradeCost);
-                UpdateUpgradeLevelText();
-                if (notEnoughGoldText != null)
-                {
-                    notEnoughGoldText.text = "";
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Health upgrade exceeds the maximum allowed limit.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Maximum health upgrade level reached.");
-            if (notEnoughGoldText != null)
-            {
-                StartCoroutine(ShowNotEnoughGoldMessage());
-            }
-        }
+        damageUpgrade.Upgrade();
+        UpdateUpgradeLevelText();
     }
 
-    // Upgrades Speed with Scriptable Object Data
-    public void UpgradeSpeed(SpeedUpgradeSO speedUpgrade)
+    public void UpgradeSpeed()
     {
-        int upgradeCost = CalculateUpgradeCost(currentSpeedLevel);
-
-        if (GoldDropManager.Instance.GetGoldAmount() >= upgradeCost && speedUpgrade != null && currentSpeedLevel < MaxUpgradeLevel)
-        {
-            float newSpeed = currentSpeed + speedUpgrade.speedIncrease;
-            float maxAllowedSpeed = player1Movement.originalWalkingSpeed * MaxSpeedMultiplier;
-
-            if (newSpeed <= maxAllowedSpeed)
-            {
-                currentSpeed = newSpeed;
-                currentSpeedLevel++;
-
-                player1Movement.SetWalkingSpeed(currentSpeed);
-                player2Movement.SetWalkingSpeed(currentSpeed);
-
-                Debug.Log("Speed upgraded for both players! New Speed: " + currentSpeed);
-                GoldDropManager.Instance.SpendGold(upgradeCost);
-                UpdateUpgradeLevelText();
-                if (notEnoughGoldText != null)
-                {
-                    notEnoughGoldText.text = "";
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Speed upgrade exceeds the maximum allowed limit.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Maximum speed upgrade level reached.");
-            if (notEnoughGoldText != null)
-            {
-                StartCoroutine(ShowNotEnoughGoldMessage());
-            }
-        }
+        speedUpgrade.Upgrade();
+        UpdateUpgradeLevelText();
     }
 
-    // Chain Upgrades
-    public void UpgradeChain(int amountsOfUnits)
+    public void UpgradeChain()
     {
-        int upgradeCost = CalculateUpgradeCost(currentChainLevel);
-
-        if (adjustChainLength == null)
-        {
-            Debug.LogError("Chain reference missing");
-            return;
-        }
-
-        if (GoldDropManager.Instance.GetGoldAmount() >= upgradeCost && currentChainLevel < AdjustChainLength.AMOUNT_OF_UPGRADES)
-        {
-            adjustChainLength.IncreaseRopeLength(amountsOfUnits);
-            currentChainLevel++;
-            Debug.Log("Chain upgraded - New Chain Length: " + adjustChainLength.ReturnCurrentChainLength());
-
-            GoldDropManager.Instance.SpendGold(upgradeCost);
-            UpdateUpgradeLevelText();
-            if (notEnoughGoldText != null)
-            {
-                notEnoughGoldText.text = "";
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Maximum chain upgrade level reached");
-            if (notEnoughGoldText != null)
-            {
-                StartCoroutine(ShowNotEnoughGoldMessage());
-            }
-        }
+        chainUpgrade.Upgrade();
+        UpdateUpgradeLevelText();
     }
+
     private int CalculateUpgradeCost(int currentLevel)
     {
         return (currentLevel + 1) * UpgradeCostIncrease;
@@ -258,22 +150,22 @@ public class UpgradeManager : MonoBehaviour
     {
         if (attackLevelText != null)
         {
-            attackLevelText.text = "Attack Level: " + currentAttackLevel.ToString();
+            attackLevelText.text = "Attack Level: " + damageUpgrade.currentLevel.ToString();
         }
 
         if (healthLevelText != null)
         {
-            healthLevelText.text = "Health Level: " + currentHealthLevel.ToString();
+            healthLevelText.text = "Health Level: " + healthUpgrade.currentLevel.ToString();
         }
 
         if (speedLevelText != null)
         {
-            speedLevelText.text = "Speed Level: " + currentSpeedLevel.ToString();
+            speedLevelText.text = "Speed Level: " + speedUpgrade.currentLevel.ToString();
         }
 
         if (chainLevelText != null)
         {
-            chainLevelText.text = "Chain Level: " + currentChainLevel.ToString();
+            chainLevelText.text = "Chain Level: " + chainUpgrade.currentLevel.ToString();
         }
     }
 }

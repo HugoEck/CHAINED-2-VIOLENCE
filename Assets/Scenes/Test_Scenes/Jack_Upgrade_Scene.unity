@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1154,7 +1154,7 @@ PrefabInstance:
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -1180,12 +1180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 11400000, guid: ae87daa745842624a8c7f23d830302bd,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: DamageUpgradeSO, Assembly-CSharp
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5052010084579846297, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -1854,7 +1853,7 @@ PrefabInstance:
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -1880,12 +1879,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 11400000, guid: 1b408dd75797e2a4d9c8bd1c1808e8ff,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: HealthUpgradeSO, Assembly-CSharp
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5052010084579846297, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -2114,6 +2112,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 665322393}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &665329104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665329106}
+  - component: {fileID: 665329105}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &665329105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665329104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &665329106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665329104}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &681311584
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,7 +2454,7 @@ PrefabInstance:
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -2594,7 +2638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropChance: 1
-  goldAmount: 100
+  goldAmount: 100000
   goldCounterText: {fileID: 292663604}
 --- !u!4 &835337943
 Transform:
@@ -3114,6 +3158,9 @@ MonoBehaviour:
   MaxAttackMultiplier: 1.3
   MaxHealthMultiplier: 1.5
   MaxSpeedMultiplier: 1.3
+  attackDamageIncrease: 1
+  healthIncrease: 20
+  speedIncrease: 20
   attackLevelText: {fileID: 384471207}
   healthLevelText: {fileID: 646854493}
   speedLevelText: {fileID: 1699287241}
@@ -5830,7 +5877,7 @@ PrefabInstance:
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -5856,12 +5903,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 11400000, guid: c42cebbc1297cd64fb539f8f44b48626,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 4377493879439782905, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: SpeedUpgradeSO, Assembly-CSharp
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5002201692875626063, guid: 1bbb3e0350475f04489b94b889f1d7e9,
         type: 3}
@@ -6924,52 +6970,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066150197}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2082610177
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2082610179}
-  - component: {fileID: 2082610178}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2082610178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2082610177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &2082610179
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2082610177}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2084941180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19319,4 +19319,4 @@ SceneRoots:
   - {fileID: 1683650544}
   - {fileID: 1913904269}
   - {fileID: 1806514828}
-  - {fileID: 2082610179}
+  - {fileID: 665329106}

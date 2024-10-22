@@ -121,6 +121,11 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         _walkingSpeed = newSpeed;
     }
 
+    // Used for upgrades.
+    public float GetWalkingSpeed()
+    {
+        return _walkingSpeed;
+    }
     #endregion
 
     ////////// ROTATION MIGHT NEED WORK IN FUTURE (USE INPUT SYSTEM INSTEAD AND MAYBE CALCULATE WITHOUT RAYCAST)
