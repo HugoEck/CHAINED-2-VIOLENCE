@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class itemAreaSpawner : MonoBehaviour
 {
+    #region Variables
     // Array of objects that can be spawned
     public GameObject[] itemsToPickFrom;
 
@@ -31,8 +32,7 @@ public class itemAreaSpawner : MonoBehaviour
 
     // Size of the box for overlap check
     public float overlapTestBoxSize = 1f;
-
-
+    #endregion
 
     private void Update()
     {
@@ -74,40 +74,45 @@ public class itemAreaSpawner : MonoBehaviour
 
     bool SpreadItem()
     {
-        // Generate a random position within the spread
-        Vector3 randPosition = new Vector3(
-            Random.Range(-itemXSpread, itemXSpread),
-            spawnpointY,
-            Random.Range(-itemZSpread, itemZSpread)) + transform.position;
+        int maxAttempts = 5;  // Maximum number of attempts to find a valid position
+        int attempt = 0;
 
-        // Pick a random item from the array
-        int randomIndex = Random.Range(0, itemsToPickFrom.Length);
-        GameObject itemToSpread = itemsToPickFrom[randomIndex];
-
-        // Perform overlap check using an overlap box
-        Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
-        Collider[] collidersInsideOverlapBox = new Collider[10];
-        int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(randPosition, overlapTestBoxScale, collidersInsideOverlapBox, Quaternion.identity, spawnedObjectLayer);
-
-        // Only spawn if no other objects are found at the position
-        if (numberOfCollidersFound == 0)
+        if (attempt < maxAttempts)
         {
-            // Instantiate the item at the calculated position
-            GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
+            attempt++;
 
-            spawnedObjects.Add(clone);
+            // Generate a random position within the spread
+            Vector3 randPosition = new Vector3(
+                Random.Range(-itemXSpread, itemXSpread),
+                0f,  // Surface Y-position
+                Random.Range(-itemZSpread, itemZSpread)) + transform.position;
 
-            // Optionally, add the MoveUpwards script to move the object upwards
-            clone.AddComponent<MoveUpwards>();
+            // Pick a random item from the array
+            int randomIndex = Random.Range(0, itemsToPickFrom.Length);
+            GameObject itemToSpread = itemsToPickFrom[randomIndex];
 
-            return true;  // Successfully spawned an item
+            // Perform overlap check using an overlap box
+            Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
+            Collider[] collidersInsideOverlapBox = new Collider[10];
+            int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(randPosition, overlapTestBoxScale, collidersInsideOverlapBox, Quaternion.identity, spawnedObjectLayer);
+
+            // If no collisions, spawn the object
+            if (numberOfCollidersFound == 0)
+            {
+                GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
+                spawnedObjects.Add(clone);
+
+                #region Spawn UnderGround
+                // clone.AddComponent<MoveUpwards>();  // If needed for objects to move up
+                #endregion
+
+                return true;  // Successfully spawned an item
+            }
         }
-        else
-        {
-            // Overlap detected, skip spawning for this round
-            Debug.Log("Overlap detected, skipping spawn at position: " + randPosition);
-            return false;  // Failed to spawn due to overlap
-        }
+
+        // If all attempts failed, return false
+        Debug.Log("Failed to find a valid spawn position after " + maxAttempts + " attempts.");
+        return false;  // Failed to spawn due to overlap
     }
 
     void DespawnObjects()
@@ -118,9 +123,11 @@ public class itemAreaSpawner : MonoBehaviour
             {
                 TrapManager trap = obj.GetComponent<TrapManager>();
                 TrampolineManager trampoline = obj.GetComponent<TrampolineManager>();
+                ObjectShader objectShader = obj.GetComponent<ObjectShader>();
 
                 if (trap != null)
                 {
+                    objectShader.StartDespawn();
                     trap.DespawnTrap();
                 }
                 if (trampoline != null)
@@ -129,7 +136,8 @@ public class itemAreaSpawner : MonoBehaviour
                 }
                 else
                 {
-                    obj.AddComponent<MoveDownwards>();
+                    //obj.AddComponent<MoveDownwards>();
+                    objectShader.StartDespawn();
                 }
             }
         }
