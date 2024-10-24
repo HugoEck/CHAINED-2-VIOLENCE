@@ -19,6 +19,10 @@ public class ShaderScript : MonoBehaviour
     private bool hasChangedToFarm = false;
     private bool hasChangedToPirate = false;
 
+    float initialOffsetsPirate = -10f;
+    float initialOffsetsFarm = -0.2f;
+    float initialOffsetsRoman = -0.1f;
+
     // Define the Y-level dissolve ranges for each arena
     private Dictionary<Material[], Vector2> materialYRanges = new Dictionary<Material[], Vector2>();
 
@@ -38,20 +42,20 @@ public class ShaderScript : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(waveManager.currentWave);
-        if (waveManager.currentWave == 1 && !hasChangedToRoman)
+        Debug.Log(WaveManager.currentWave);
+        if (WaveManager.currentWave == 1 && !hasChangedToRoman)
         {
-            ChangeArena(romanMaterials, -0.1f, 0.2f);
+            ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f);
             hasChangedToRoman = true;
         }
-        if (waveManager.currentWave == 6 && !hasChangedToFarm)
+        if (WaveManager.currentWave == 6 && !hasChangedToFarm)
         {
-            ChangeArena(farmMaterials, 0.7f, -0.2f);
+            ChangeArena(farmMaterials, 0.7f, initialOffsetsFarm);
             hasChangedToFarm = true;
         }
-        if (waveManager.currentWave == 11 && !hasChangedToPirate)
+        if (WaveManager.currentWave == 11 && !hasChangedToPirate)
         {
-            ChangeArena(pirateMaterials, 25f, -10f);
+            ChangeArena(pirateMaterials, 25f, initialOffsetsPirate);
             hasChangedToPirate = true;
         }
     }
@@ -132,11 +136,20 @@ public class ShaderScript : MonoBehaviour
         // Reset active materials to a default state
         if (activeMaterials != null && activeMaterials.Length > 0)
         {
-            foreach (var material in activeMaterials)
+            for (int i = 0; i < activeMaterials.Length; i++)
             {
-                // Reset each material to its default values
-                // You may want to store the default values somewhere or reset them here
-                material.SetVector("_DissolveOffest", new Vector3(0, -20, 0)); // Example reset
+                if (activeMaterials == pirateMaterials)
+                {
+                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0,initialOffsetsPirate,0));
+                }
+                else if (activeMaterials == farmMaterials)
+                {
+                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsFarm,0));
+                }
+                else if (activeMaterials == romanMaterials)
+                {
+                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsRoman,0));
+                }
             }
         }
 

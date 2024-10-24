@@ -28,7 +28,7 @@ public class WaveManager : MonoBehaviour
     WaveData waveData = new WaveData();
 
     [SerializeField] TextMeshProUGUI text;
-    public int currentWave = 0;
+    public static int currentWave = 0;
 
 
 
