@@ -15,7 +15,7 @@ public class KillAgent : Node
         {
             if (GoldDropManager.Instance != null)
             {
-                GoldDropManager.Instance.HandleEnemyDefeated();
+                GoldDropManager.Instance.DropGold();
             }
 
             GameObject.Destroy(agent.gameObject);

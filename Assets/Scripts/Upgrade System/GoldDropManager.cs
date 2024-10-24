@@ -28,7 +28,17 @@ public class GoldDropManager : MonoBehaviour
         UpdateGoldCounterText();
     }
 
-    public void HandleEnemyDefeated()
+    // For Sam AI so enemy can drop different golds?
+    public void AddGold(float amount)
+    {
+        int roundedAmount = Mathf.RoundToInt(amount);
+        goldAmount += roundedAmount;
+
+        UpdateGoldCounterText();
+    }
+
+    // Old method? Use new the 1 for Sam
+    public void DropGold()
     {
         if (Random.value <= dropChance)
         {

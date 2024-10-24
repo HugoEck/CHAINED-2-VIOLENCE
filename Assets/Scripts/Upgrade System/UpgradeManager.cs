@@ -4,14 +4,18 @@ using TMPro;
 using UnityEngine;
 using Obi;
 using System.Runtime.CompilerServices;
+
 /// <summary>
-/// UpgradeManager used for handling player upgrades. The upgrades are shared.
-/// Clean up code. REMOVED SCRIPTABLE OBJECTS..
+/// Upgrade manager, all variables are shared between the players. Manages the upgrades.
 /// </summary>
 public class UpgradeManager : MonoBehaviour
 {
+    public static UpgradeManager Instance { get; private set; }
+    #region References
     private GameObject player1;
     private GameObject player2;
+
+    private AdjustChainLength adjustChainLength;
 
     private Player player1Manager;
     private Player player2Manager;
@@ -22,43 +26,46 @@ public class UpgradeManager : MonoBehaviour
     private PlayerMovement player1Movement;
     private PlayerMovement player2Movement;
 
-    // Initial Stats
-    private float currentAttackDamage;
-    private float currentMaxHealth;
-    private float currentSpeed;
-
     private HealthUpgrade healthUpgrade;
     private DamageUpgrade damageUpgrade;
     private SpeedUpgrade speedUpgrade;
     private ChainUpgrade chainUpgrade;
+    #endregion
 
-    private int currentAttackLevel = 0;
-    private int currentHealthLevel = 0;
-    private int currentSpeedLevel = 0;
-    private int currentChainLevel = 0;
-    private const int MaxUpgradeLevel = 10;
+    [SerializeField] private int MaxUpgradeLevel = 10;
     [SerializeField] public int UpgradeCostIncrease = 20;
 
-    // Upgrade caps -- % increase from base stat.
-    [SerializeField] private float MaxAttackMultiplier = 1.3f;
-    [SerializeField] private float MaxHealthMultiplier = 1.5f;
-    [SerializeField] private float MaxSpeedMultiplier = 2.0f; //1.3f;
-
-    // Upgrade Increment Values (instead of ScriptableObject)
-    [SerializeField] private float attackDamageIncrease = 1f;  // Default damage increase per level
-    [SerializeField] private int healthIncrease = 20;       // Default health increase per level
+    // How much to increase the upgrade with.
+    [SerializeField] private float attackDamageIncrease = 1f;
+    [SerializeField] private int healthIncrease = 20;
     [SerializeField] private float speedIncrease = 20f;
 
-    //CHAIN UPGRADE
-    private AdjustChainLength adjustChainLength;
-
+    // Upgrade cap, % increase from the base value.
+    [SerializeField] private float MaxAttackMultiplier = 1.3f;
+    [SerializeField] private float MaxHealthMultiplier = 1.5f;
+    [SerializeField] private float MaxSpeedMultiplier = 1.3f;
     #region TextMeshPro
     public TMP_Text attackLevelText;
     public TMP_Text healthLevelText;
     public TMP_Text speedLevelText;
     public TMP_Text chainLevelText;
     public TMP_Text notEnoughGoldText;
+    public TMP_Text maxUpgradeReachedText;
     #endregion
+
+    private void Awake()
+    {
+        // Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -73,10 +80,8 @@ public class UpgradeManager : MonoBehaviour
 
         player1Manager = player1.GetComponent<Player>();
         player2Manager = player2.GetComponent<Player>();
-
         player1Combat = player1.GetComponent<PlayerCombat>();
         player2Combat = player2.GetComponent<PlayerCombat>();
-
         player1Movement = player1.GetComponent<PlayerMovement>();
         player2Movement = player2.GetComponent<PlayerMovement>();
 
@@ -86,16 +91,10 @@ public class UpgradeManager : MonoBehaviour
             adjustChainLength = chainObject.GetComponent<AdjustChainLength>();
         }
 
-        currentAttackDamage = player1Combat.attackDamage;
-        currentMaxHealth = player1Manager.currentHealth;
-        currentSpeed = player1Movement.originalWalkingSpeed;
-
-        // Initialize the upgrade systems
         healthUpgrade = new HealthUpgrade(player1Manager, player2Manager, healthIncrease, MaxHealthMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
-        damageUpgrade = new DamageUpgrade(player1Manager, player2Manager, player1Combat, player2Combat, attackDamageIncrease, MaxAttackMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
-        speedUpgrade = new SpeedUpgrade(player1Movement, player2Movement, speedIncrease, 1000f, MaxSpeedMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
-        
-        // Initialize chain upgrade
+        damageUpgrade = new DamageUpgrade(player1Combat, player2Combat, attackDamageIncrease, MaxAttackMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
+        speedUpgrade = new SpeedUpgrade(player1Movement, player2Movement, speedIncrease, MaxSpeedMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
+       
         if (adjustChainLength != null)
         {
             chainUpgrade = new ChainUpgrade(adjustChainLength, 1, AdjustChainLength.AMOUNT_OF_UPGRADES, UpgradeCostIncrease);
@@ -125,27 +124,7 @@ public class UpgradeManager : MonoBehaviour
         UpdateUpgradeLevelText();
     }
 
-    private int CalculateUpgradeCost(int currentLevel)
-    {
-        return (currentLevel + 1) * UpgradeCostIncrease;
-    }
-
-    private IEnumerator ShowNotEnoughGoldMessage()
-    {
-        if (notEnoughGoldText != null)
-        {
-            notEnoughGoldText.text = "Not enough gold!";
-        }
-
-        yield return new WaitForSeconds(2f); // Wait for 2 sec
-
-        if (notEnoughGoldText != null)
-        {
-            notEnoughGoldText.text = "";
-        }
-    }
-
-
+    #region Text UI Updates
     private void UpdateUpgradeLevelText()
     {
         if (attackLevelText != null)
@@ -168,4 +147,35 @@ public class UpgradeManager : MonoBehaviour
             chainLevelText.text = "Chain Level: " + chainUpgrade.currentLevel.ToString();
         }
     }
+
+    public IEnumerator ShowNotEnoughGoldMessage()
+    {
+        if (notEnoughGoldText != null)
+        {
+            notEnoughGoldText.text = "Not enough gold!";
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        if (notEnoughGoldText != null)
+        {
+            notEnoughGoldText.text = "";
+        }
+    }
+
+    public IEnumerator ShowMaxUpgradeReachedMessage()
+    {
+        if (maxUpgradeReachedText != null)
+        {
+            maxUpgradeReachedText.text = "Max upgrade reached!";
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        if (maxUpgradeReachedText != null)
+        {
+            maxUpgradeReachedText.text = "";
+        }
+    }
+    #endregion
 }
