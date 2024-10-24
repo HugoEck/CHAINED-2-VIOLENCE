@@ -1,12 +1,14 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Chained2ViolenceGameManager;
 
 
 [RequireComponent(typeof(SwingAbility))]
 public class PlayerCombat : MonoBehaviour
 {
-    private enum PlayerClass
+    public enum PlayerClass
     {
         Tank,
         Melee,
@@ -14,7 +16,8 @@ public class PlayerCombat : MonoBehaviour
         Ranged
     };
 
-    [SerializeField] PlayerClass currentPlayerClass;
+    public PlayerClass currentPlayerClass { get; private set; }
+    public event Action<PlayerClass> OnPlayerClassChanged;
 
     public float attackCooldown = 1f;  // Cooldown between attacks
     public float abilityCooldown = 5f; // Cooldown between abilities
@@ -34,6 +37,20 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+        int playerId = gameObject.GetComponent<Player>()._playerId;
+
+        if(Chained2ViolenceGameManager.Instance.currentSceneState == SceneState.ArenaScene)
+        {
+            if(playerId == 1)
+            {
+                currentPlayerClass = ClassManager._currentPlayer1Class;
+            }
+            else if(playerId == 2)
+            {
+                currentPlayerClass = ClassManager._currentPlayer2Class;
+            }
+        }
+
         swingAbility = GetComponent<SwingAbility>();
         projectile = GetComponent<Projectile>();
         shieldAbility = GetComponent<ShieldAbility>();
@@ -98,5 +115,12 @@ public class PlayerCombat : MonoBehaviour
     {
         attackDamage = newAttackDamage;
         Debug.Log("Player attack damage set to: " + attackDamage);
+    }
+
+    public void SetCurrentPlayerClass(PlayerClass newPlayerClass)
+    {
+        currentPlayerClass = newPlayerClass;
+
+        OnPlayerClassChanged?.Invoke(newPlayerClass);
     }
 }
