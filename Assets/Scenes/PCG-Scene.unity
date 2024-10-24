@@ -297,52 +297,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563564154}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
---- !u!1 &113901989
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 113901991}
-  - component: {fileID: 113901990}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &113901990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113901989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &113901991
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 113901989}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &135901811
 GameObject:
   m_ObjectHideFlags: 0
@@ -4924,6 +4878,7 @@ MonoBehaviour:
   pirateMaterials: []
   farmMaterials: []
   romanMaterials: []
+  westernMaterials: []
 --- !u!1 &1158820615
 GameObject:
   m_ObjectHideFlags: 0
@@ -6621,6 +6576,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1805062694}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1833586545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1833586547}
+  - component: {fileID: 1833586546}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1833586546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833586545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1833586547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833586545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1839018551
 GameObject:
   m_ObjectHideFlags: 0
@@ -8229,35 +8230,158 @@ PrefabInstance:
       propertyPath: m_Name
       value: PCG Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5033486037224418378, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: westernMaterials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5033486037224418378, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: westernMaterials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 060f90451b7b2944c8bfde683c571c28, type: 2}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
-      propertyPath: themeDataList.Array.data[1].themeData.runnerBodies.Array.data[0]
+      propertyPath: themeDataList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].theme
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.basicBodies.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.runnerBodies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.chargerBodies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.runnerWeapons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.basicBodies.Array.data[0]
       value: 
-      objectReference: {fileID: 1674885529865632, guid: 60390d8da7d34944f902f45a8087a306,
+      objectReference: {fileID: 1982717084546966, guid: e5366d2a3368f2d428627e464027c46e,
         type: 3}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
-      propertyPath: themeDataList.Array.data[1].themeData.runnerBodies.Array.data[1]
+      propertyPath: themeDataList.Array.data[3].themeData.basicBodies.Array.data[1]
       value: 
-      objectReference: {fileID: 1019791486663424, guid: 8db2f96ebe9a0e94db6e78624a91fcfc,
+      objectReference: {fileID: 1152108102776072, guid: b0c6f6ef00a6ac74c8839e3f4378de25,
         type: 3}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
-      propertyPath: themeDataList.Array.data[1].themeData.runnerBodies.Array.data[2]
+      propertyPath: themeDataList.Array.data[3].themeData.basicBodies.Array.data[2]
       value: 
-      objectReference: {fileID: 1160220439793846, guid: 4867bdb16cd429844b74908f995eab0c,
+      objectReference: {fileID: 1357940588895338, guid: 1b11fad8b6cc4ba479139506547d06b1,
         type: 3}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
-      propertyPath: themeDataList.Array.data[1].themeData.runnerBodies.Array.data[3]
+      propertyPath: themeDataList.Array.data[3].themeData.basicBodies.Array.data[3]
       value: 
-      objectReference: {fileID: 1350103588185370, guid: 5b29920d388bba2498444189e9058aa6,
+      objectReference: {fileID: 1447239715599880, guid: 2850924d04952634f8cd3d86abbe09e9,
         type: 3}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
-      propertyPath: themeDataList.Array.data[1].themeData.runnerBodies.Array.data[4]
+      propertyPath: themeDataList.Array.data[3].themeData.basicBodies.Array.data[4]
       value: 
-      objectReference: {fileID: 1660164172697688, guid: 2990a1bc40606a7469da3738df7d0c08,
+      objectReference: {fileID: 1593236879946318, guid: 8172df0df756a4a4dbe3c38d5317b8eb,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.runnerBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1447239715599880, guid: 2068f3098df889b43a0fe2aab598e87c,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.runnerBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1989699233034326, guid: 3d82de0bd583261438a6d137728af77f,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.runnerBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 1593236879946318, guid: 446ac003f8b531e4da409c693b060dca,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.chargerBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1923928492321678, guid: 175154bd5264cf34092a685a11543e89,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.chargerBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1663791807979802, guid: 0cf07adce3571bf46a6ee52dbd5f7509,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.runnerWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1909035667600302, guid: 5ec03b9e0ae8f6c45942b3488752aa0b,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.runnerWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 1294210970984720, guid: 05c19dcfcf62f664bbf886ab76fab815,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.runnerWeapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 1825929685975018, guid: 638cad375cee5074b98548aada759593,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.rockThrowerBodies.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.rockThrowerBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1982717084546966, guid: e5366d2a3368f2d428627e464027c46e,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.rockThrowerBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1152108102776072, guid: b0c6f6ef00a6ac74c8839e3f4378de25,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.rockThrowerBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 1357940588895338, guid: 1b11fad8b6cc4ba479139506547d06b1,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.rockThrowerBodies.Array.data[3]
+      value: 
+      objectReference: {fileID: 1447239715599880, guid: 2850924d04952634f8cd3d86abbe09e9,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.rockThrowerBodies.Array.data[4]
+      value: 
+      objectReference: {fileID: 1593236879946318, guid: 8172df0df756a4a4dbe3c38d5317b8eb,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17976,4 +18100,4 @@ SceneRoots:
   - {fileID: 931360419}
   - {fileID: 787229184}
   - {fileID: 1158820617}
-  - {fileID: 113901991}
+  - {fileID: 1833586547}

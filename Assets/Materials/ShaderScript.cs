@@ -12,16 +12,19 @@ public class ShaderScript : MonoBehaviour
     public Material[] pirateMaterials;
     public Material[] farmMaterials;
     public Material[] romanMaterials;
+    public Material[] westernMaterials;
     private List<Material> allMaterials = new List<Material>();
     private Coroutine dissolveCoroutine;
 
     private bool hasChangedToRoman = false;
     private bool hasChangedToFarm = false;
     private bool hasChangedToPirate = false;
+    private bool hasChangedToWestern = false;
 
     float initialOffsetsPirate = -10f;
     float initialOffsetsFarm = -0.2f;
     float initialOffsetsRoman = -0.1f;
+    float initialOffsetsWestern = -1.2f;
 
     // Define the Y-level dissolve ranges for each arena
     private Dictionary<Material[], Vector2> materialYRanges = new Dictionary<Material[], Vector2>();
@@ -33,11 +36,13 @@ public class ShaderScript : MonoBehaviour
         allMaterials.AddRange(pirateMaterials);
         allMaterials.AddRange(farmMaterials);
         allMaterials.AddRange(romanMaterials);
+        allMaterials.AddRange(westernMaterials);
 
         // Define the Y dissolve ranges for each material set
-        materialYRanges.Add(pirateMaterials, new Vector2(25f, -10f));  // Pirate Y range: 25 to -10
-        materialYRanges.Add(farmMaterials, new Vector2(1f, -1.5f));    // Farm Y range (example): 1 to -0.5
-        materialYRanges.Add(romanMaterials, new Vector2(0.2f, -0.1f)); // Roman Y range: 0.2 to -0.1
+        materialYRanges.Add(pirateMaterials, new Vector2(25f, initialOffsetsPirate));  // Pirate Y range: 25 to -10
+        materialYRanges.Add(farmMaterials, new Vector2(1f, initialOffsetsFarm));    // Farm Y range (example): 1 to -0.5
+        materialYRanges.Add(romanMaterials, new Vector2(0.2f, initialOffsetsRoman)); // Roman Y range: 0.2 to -0.1
+        materialYRanges.Add(westernMaterials, new Vector2(25, initialOffsetsWestern)); // Roman Y range: 0.2 to -0.1
     }
 
     private void Update()
@@ -58,6 +63,11 @@ public class ShaderScript : MonoBehaviour
             ChangeArena(pirateMaterials, 25f, initialOffsetsPirate);
             hasChangedToPirate = true;
         }
+        if (WaveManager.currentWave == 16 && !hasChangedToWestern)
+        {
+            ChangeArena(westernMaterials, 25f, initialOffsetsWestern);
+            hasChangedToWestern = true;
+        }
     }
     public void ChangeArena(Material[] desiredArena, float stopY, float startY)
     {
@@ -65,7 +75,7 @@ public class ShaderScript : MonoBehaviour
         {
             StopCoroutine(dissolveCoroutine);
         }
-
+        
         dissolveCoroutine = StartCoroutine(HandleArenaTransition(desiredArena, stopY, startY));
     }
 
@@ -150,6 +160,10 @@ public class ShaderScript : MonoBehaviour
                 {
                     activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsRoman,0));
                 }
+                else if (activeMaterials == westernMaterials)
+                {
+                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsWestern,0));
+                }
             }
         }
 
@@ -157,5 +171,6 @@ public class ShaderScript : MonoBehaviour
         hasChangedToRoman = false;
         hasChangedToFarm = false;
         hasChangedToPirate = false;
+        hasChangedToWestern = false;
     }
 }

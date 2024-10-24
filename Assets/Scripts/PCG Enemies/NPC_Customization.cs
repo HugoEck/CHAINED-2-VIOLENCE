@@ -81,7 +81,9 @@ public class NPC_Customization : MonoBehaviour
         SciFi,
         Farm,
         Mini,
-        Pirate
+        Pirate,
+        Cowboys,
+        Indians
         //Add more Themes here
     };
 
