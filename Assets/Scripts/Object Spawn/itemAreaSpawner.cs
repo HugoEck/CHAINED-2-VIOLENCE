@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,42 +16,32 @@ public class itemAreaSpawner : MonoBehaviour
     // Max objects that can be spawned at the time
     public int numObjectsToSpawn;
 
+    // Size of the box for overlap check
+    public float overlapTestBoxSize = 1f;
     // The spread of objects around the map
     public float itemXSpread;
     public float itemYSpread;
     public float itemZSpread;
-
-    // Spawnpoint, below the ground
-    private float spawnpointY = -15f;
-
-    // Timer to make sure the right amount of objects are spawned, so you can't spam objects
-    private float cooldownTime = 3f;
     private float cooldownTimer = 0f;
 
     // Layer that is to be checked for overlaps
     public LayerMask spawnedObjectLayer;
+    public WaveManager waveManager;
 
-    // Size of the box for overlap check
-    public float overlapTestBoxSize = 1f;
+    private bool itemsSpawnedForWave1 = false;
+    private bool itemsSpawnedForWave6 = false;
+    private bool itemsSpawnedForWave11 = false;
+    private bool isDespawning = false;
+
     #endregion
 
     private void Update()
     {
-        if (cooldownTimer > 0)
-        {
-            cooldownTimer -= Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.Space) && cooldownTimer <= 0f)
-        {
-            SpawnItems();
-            cooldownTimer = cooldownTime;
-
-        }
-
+        SpawnWithWaves();
+        
         if (Input.GetKeyDown(KeyCode.N))
         {
-            DespawnObjects();
+            //WaveManager.currentWave++;
         }
     }
 
@@ -109,9 +100,6 @@ public class itemAreaSpawner : MonoBehaviour
                 return true;  // Successfully spawned an item
             }
         }
-
-        // If all attempts failed, return false
-        Debug.Log("Failed to find a valid spawn position after " + maxAttempts + " attempts.");
         return false;  // Failed to spawn due to overlap
     }
 
@@ -142,5 +130,67 @@ public class itemAreaSpawner : MonoBehaviour
             }
         }
         spawnedObjects.Clear();
+    }
+    private void SpawnWithWaves()
+    {
+        if (waveManager != null)
+        {
+            // Wave 1 - Spawn items directly
+            if (WaveManager.currentWave == 1 && !itemsSpawnedForWave1)
+            {
+                SpawnItems();
+                itemsSpawnedForWave1 = true;
+            }
+
+            // Wave 6 - Despawn, wait for the cooldown, then spawn new items
+            if (WaveManager.currentWave == 6 && !itemsSpawnedForWave6)
+            {
+                // Start despawning phase if not already in progress
+                if (!isDespawning)
+                {
+                    DespawnObjects();
+                    isDespawning = true; // Set despawning flag
+                    cooldownTimer = 5f; // Reset cooldown timer for waiting period
+                }
+                else
+                {
+                    // Wait for the cooldown before spawning new items
+                    cooldownTimer -= Time.deltaTime;
+                    //Debug.Log("Cooldown Timer: " + cooldownTimer);
+                    if (cooldownTimer <= 0)
+                    {
+                        // Spawn new items once cooldown is over
+                        SpawnItems();
+                        itemsSpawnedForWave6 = true; // Mark items for wave 6 as spawned
+                        isDespawning = false; // Reset the despawning flag
+                    }
+                }
+            }
+
+            // Wave 11 - Same logic as wave 6
+            if (WaveManager.currentWave == 11 && !itemsSpawnedForWave11)
+            {
+                // Start despawning phase if not already in progress
+                if (!isDespawning)
+                {
+                    DespawnObjects();
+                    isDespawning = true; // Set despawning flag
+                    cooldownTimer = 5f; // Reset cooldown timer for waiting period
+                }
+                else
+                {
+                    // Wait for the cooldown before spawning new items
+                    cooldownTimer -= Time.deltaTime;
+                    //Debug.Log("Cooldown Timer: " + cooldownTimer);
+                    if (cooldownTimer <= 0)
+                    {
+                        // Spawn new items once cooldown is over
+                        SpawnItems();
+                        itemsSpawnedForWave11 = true; // Mark items for wave 11 as spawned
+                        isDespawning = false; // Reset the despawning flag
+                    }
+                }
+            }
+        }
     }
 }
