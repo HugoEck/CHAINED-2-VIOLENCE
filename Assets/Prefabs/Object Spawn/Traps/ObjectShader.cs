@@ -73,7 +73,7 @@ public class ObjectShader : MonoBehaviour
 
         // Ensure the final Y value is set
         dissolveMaterial.SetVector("_DissolveOffest", targetOffset);  // Corrected name
-        Debug.Log("Dissolve complete!");
+        //Debug.Log("Dissolve complete!");
 
         // Destroy the object if it's a despawn action
         if (destroyOnComplete)
