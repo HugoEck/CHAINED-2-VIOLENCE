@@ -1,3 +1,5 @@
+using Obi;
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -57,7 +59,9 @@ public class NPC_Customization : MonoBehaviour
 {
 
     [Header("NPC GameObjects")]
-    [SerializeField] GameObject Rock;
+    [SerializeField] GameObject RomanRock;
+    [SerializeField] GameObject PirateRock;
+    [SerializeField] GameObject FarmRock;
     [SerializeField] GameObject RagdollRoot;
 
 
@@ -76,7 +80,10 @@ public class NPC_Customization : MonoBehaviour
         Fantasy,
         SciFi,
         Farm,
-        Mini
+        Mini,
+        Pirate,
+        Cowboys,
+        Indians
         //Add more Themes here
     };
 
@@ -173,7 +180,7 @@ public class NPC_Customization : MonoBehaviour
                     currentAnimator.runtimeAnimatorController = animController;
                 }
 
-                
+
 
 
                 // Attach helmet
@@ -193,6 +200,11 @@ public class NPC_Customization : MonoBehaviour
                     if (rHandBone != null)
                     {
                         currentWeapon = InstantiateRandomAsset(weapons, rHandBone);
+                        if(Theme == NPCTheme.Pirate)
+                        {
+                            currentWeapon.transform.localScale *= 100;
+                        }
+                            currentWeapon.transform.rotation = Quaternion.Euler(90, 0, -3);
                     }
                 }
 
@@ -211,6 +223,7 @@ public class NPC_Customization : MonoBehaviour
                     if (lHandBone != null)
                     {
                         currentShield = InstantiateRandomAsset(shields, lHandBone);
+                        currentShield.transform.rotation = Quaternion.Euler(0, -150, -95);
                     }
                 }
             }
@@ -220,32 +233,48 @@ public class NPC_Customization : MonoBehaviour
 
     public void AddBehaviourToClass(GameObject enemy)
     {
-        NavMeshAgent agent = enemy.AddComponent<NavMeshAgent>();
-        agent.baseOffset = 0.1f;
-        BoxCollider collider = enemy.AddComponent<BoxCollider>();
-        
+        AIPath agent = enemy.AddComponent<AIPath>();
+        AIDestinationSetter destinationSetter = enemy.AddComponent<AIDestinationSetter>();
+        CapsuleCollider capsule = enemy.AddComponent<CapsuleCollider>();
+        Rigidbody rb = enemy.AddComponent<Rigidbody>();
+        ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
+        SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
+        BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
+        //Physics.SyncTransforms();
 
-        Physics.SyncTransforms();
-
-        collider.isTrigger = true;
+        triggerCollider.isTrigger = true;
         enemy.tag = "Enemy";
         enemy.layer = 9;
+
+
+        Rigidbody[] rigidbodies = enemy.GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody rbs in rigidbodies)
+        {
+            rbs.isKinematic = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+            rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        }
+        Collider[] capsuleColliders = enemy.GetComponentsInChildren<Collider>();
+        foreach (Collider capsule1 in capsuleColliders)
+        {
+            capsule1.enabled = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+        }
+        capsule.enabled = true;
+        rb.isKinematic = false;
+
 
         if (Class == NPCClass.Basic)
         {
             PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
-            behaviour.speed = 3;
-            behaviour.attackRange = 3;
-            behaviour.maxHealth = 1;
+
+            behaviour.navigation.maxSpeed = 1;
+
         }
-        if (Class == NPCClass.Runner)
+        else if (Class == NPCClass.Runner)
         {
             RunnerManager behaviour = enemy.AddComponent<RunnerManager>();
-            behaviour.speed = 6;
-            behaviour.attackRange = 3;
-            behaviour.maxHealth = 1;
+
         }
-        if (Class == NPCClass.RockThrower)
+        else if (Class == NPCClass.RockThrower)
         {
             RockThrowerManager behaviour = enemy.AddComponent<RockThrowerManager>();
 
@@ -253,14 +282,26 @@ public class NPC_Customization : MonoBehaviour
             throwPoint.transform.SetParent(enemy.transform, false);
             throwPoint.transform.localPosition = new Vector3(0.5f, 2, 1);
 
+            if(Theme == NPCTheme.Roman)
+            {
             behaviour.throwPoint = throwPoint.transform;
-            behaviour.rockPrefab = Rock;
+            behaviour.rockPrefab = RomanRock;
+            }
+            else if (Theme == NPCTheme.Pirate)
+            {
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = PirateRock;
+            }
+            else if (Theme == NPCTheme.Farm)
+            {
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = FarmRock;
+            }
+        }
+        else if (Class == NPCClass.Charger)
+        {
+            ChargerManager behaviour = enemy.AddComponent<ChargerManager>();
 
-            behaviour.attackSpeed = 3;
-            behaviour.maxHealth = 2;
-            behaviour.attackRange = 20;
-            behaviour.speed = 3;
-            behaviour.attack = 2;
         }
     }
 
@@ -298,7 +339,7 @@ public class NPC_Customization : MonoBehaviour
         return newAsset;
     }
 
-   
+
 
 
 

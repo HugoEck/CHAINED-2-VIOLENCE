@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class itemAreaSpawner : MonoBehaviour
 {
+    #region Variables
     // Array of objects that can be spawned
     public GameObject[] itemsToPickFrom;
 
@@ -14,43 +16,32 @@ public class itemAreaSpawner : MonoBehaviour
     // Max objects that can be spawned at the time
     public int numObjectsToSpawn;
 
+    // Size of the box for overlap check
+    public float overlapTestBoxSize = 1f;
     // The spread of objects around the map
     public float itemXSpread;
     public float itemYSpread;
     public float itemZSpread;
-
-    // Spawnpoint, below the ground
-    private float spawnpointY = -15f;
-
-    // Timer to make sure the right amount of objects are spawned, so you can't spam objects
-    private float cooldownTime = 3f;
     private float cooldownTimer = 0f;
 
     // Layer that is to be checked for overlaps
     public LayerMask spawnedObjectLayer;
+    public WaveManager waveManager;
 
-    // Size of the box for overlap check
-    public float overlapTestBoxSize = 1f;
+    private bool itemsSpawnedForWave1 = false;
+    private bool itemsSpawnedForWave6 = false;
+    private bool itemsSpawnedForWave11 = false;
+    private bool isDespawning = false;
 
-
+    #endregion
 
     private void Update()
     {
-        if (cooldownTimer > 0)
-        {
-            cooldownTimer -= Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.Space) && cooldownTimer <= 0f)
-        {
-            SpawnItems();
-            cooldownTimer = cooldownTime;
-
-        }
-
+        SpawnWithWaves();
+        
         if (Input.GetKeyDown(KeyCode.N))
         {
-            DespawnObjects();
+            //WaveManager.currentWave++;
         }
     }
 
@@ -74,40 +65,42 @@ public class itemAreaSpawner : MonoBehaviour
 
     bool SpreadItem()
     {
-        // Generate a random position within the spread
-        Vector3 randPosition = new Vector3(
-            Random.Range(-itemXSpread, itemXSpread),
-            spawnpointY,
-            Random.Range(-itemZSpread, itemZSpread)) + transform.position;
+        int maxAttempts = 5;  // Maximum number of attempts to find a valid position
+        int attempt = 0;
 
-        // Pick a random item from the array
-        int randomIndex = Random.Range(0, itemsToPickFrom.Length);
-        GameObject itemToSpread = itemsToPickFrom[randomIndex];
-
-        // Perform overlap check using an overlap box
-        Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
-        Collider[] collidersInsideOverlapBox = new Collider[10];
-        int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(randPosition, overlapTestBoxScale, collidersInsideOverlapBox, Quaternion.identity, spawnedObjectLayer);
-
-        // Only spawn if no other objects are found at the position
-        if (numberOfCollidersFound == 0)
+        if (attempt < maxAttempts)
         {
-            // Instantiate the item at the calculated position
-            GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
+            attempt++;
 
-            spawnedObjects.Add(clone);
+            // Generate a random position within the spread
+            Vector3 randPosition = new Vector3(
+                Random.Range(-itemXSpread, itemXSpread),
+                0f,  // Surface Y-position
+                Random.Range(-itemZSpread, itemZSpread)) + transform.position;
 
-            // Optionally, add the MoveUpwards script to move the object upwards
-            clone.AddComponent<MoveUpwards>();
+            // Pick a random item from the array
+            int randomIndex = Random.Range(0, itemsToPickFrom.Length);
+            GameObject itemToSpread = itemsToPickFrom[randomIndex];
 
-            return true;  // Successfully spawned an item
+            // Perform overlap check using an overlap box
+            Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
+            Collider[] collidersInsideOverlapBox = new Collider[10];
+            int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(randPosition, overlapTestBoxScale, collidersInsideOverlapBox, Quaternion.identity, spawnedObjectLayer);
+
+            // If no collisions, spawn the object
+            if (numberOfCollidersFound == 0)
+            {
+                GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
+                spawnedObjects.Add(clone);
+
+                #region Spawn UnderGround
+                // clone.AddComponent<MoveUpwards>();  // If needed for objects to move up
+                #endregion
+
+                return true;  // Successfully spawned an item
+            }
         }
-        else
-        {
-            // Overlap detected, skip spawning for this round
-            Debug.Log("Overlap detected, skipping spawn at position: " + randPosition);
-            return false;  // Failed to spawn due to overlap
-        }
+        return false;  // Failed to spawn due to overlap
     }
 
     void DespawnObjects()
@@ -118,9 +111,11 @@ public class itemAreaSpawner : MonoBehaviour
             {
                 TrapManager trap = obj.GetComponent<TrapManager>();
                 TrampolineManager trampoline = obj.GetComponent<TrampolineManager>();
+                ObjectShader objectShader = obj.GetComponent<ObjectShader>();
 
                 if (trap != null)
                 {
+                    objectShader.StartDespawn();
                     trap.DespawnTrap();
                 }
                 if (trampoline != null)
@@ -129,10 +124,73 @@ public class itemAreaSpawner : MonoBehaviour
                 }
                 else
                 {
-                    obj.AddComponent<MoveDownwards>();
+                    //obj.AddComponent<MoveDownwards>();
+                    objectShader.StartDespawn();
                 }
             }
         }
         spawnedObjects.Clear();
+    }
+    private void SpawnWithWaves()
+    {
+        if (waveManager != null)
+        {
+            // Wave 1 - Spawn items directly
+            if (WaveManager.currentWave == 1 && !itemsSpawnedForWave1)
+            {
+                SpawnItems();
+                itemsSpawnedForWave1 = true;
+            }
+
+            // Wave 6 - Despawn, wait for the cooldown, then spawn new items
+            if (WaveManager.currentWave == 6 && !itemsSpawnedForWave6)
+            {
+                // Start despawning phase if not already in progress
+                if (!isDespawning)
+                {
+                    DespawnObjects();
+                    isDespawning = true; // Set despawning flag
+                    cooldownTimer = 5f; // Reset cooldown timer for waiting period
+                }
+                else
+                {
+                    // Wait for the cooldown before spawning new items
+                    cooldownTimer -= Time.deltaTime;
+                    //Debug.Log("Cooldown Timer: " + cooldownTimer);
+                    if (cooldownTimer <= 0)
+                    {
+                        // Spawn new items once cooldown is over
+                        SpawnItems();
+                        itemsSpawnedForWave6 = true; // Mark items for wave 6 as spawned
+                        isDespawning = false; // Reset the despawning flag
+                    }
+                }
+            }
+
+            // Wave 11 - Same logic as wave 6
+            if (WaveManager.currentWave == 11 && !itemsSpawnedForWave11)
+            {
+                // Start despawning phase if not already in progress
+                if (!isDespawning)
+                {
+                    DespawnObjects();
+                    isDespawning = true; // Set despawning flag
+                    cooldownTimer = 5f; // Reset cooldown timer for waiting period
+                }
+                else
+                {
+                    // Wait for the cooldown before spawning new items
+                    cooldownTimer -= Time.deltaTime;
+                    //Debug.Log("Cooldown Timer: " + cooldownTimer);
+                    if (cooldownTimer <= 0)
+                    {
+                        // Spawn new items once cooldown is over
+                        SpawnItems();
+                        itemsSpawnedForWave11 = true; // Mark items for wave 11 as spawned
+                        isDespawning = false; // Reset the despawning flag
+                    }
+                }
+            }
+        }
     }
 }

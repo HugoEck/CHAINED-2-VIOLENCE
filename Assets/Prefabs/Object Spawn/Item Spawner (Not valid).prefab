@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5917399708158488775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6904486958350006726}
+  - component: {fileID: 4063313747683957456}
+  m_Layer: 0
+  m_Name: Item Spawner (Not valid)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6904486958350006726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5917399708158488775}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4063313747683957456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5917399708158488775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53772a654c9463d40a2b69bca564ca91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToPickFrom:
+  - {fileID: 1833758746571175651, guid: ed9bbcb366badc44abcf3f6ed793a50d, type: 3}
+  - {fileID: 7981063632941157584, guid: 9234e05926f54e740882fc4cb3c904d2, type: 3}
+  - {fileID: 8069750076735145532, guid: fe1c4366e77e1b740968ab634ae883bb, type: 3}
+  - {fileID: 4495637541287041551, guid: 374edf06b87058b4eb21e20ee69ce2dd, type: 3}
+  - {fileID: 1980398563486944521, guid: b4c0e3b5a2512ab429c9c1f7c9f769b0, type: 3}
+  - {fileID: 5815203133834099868, guid: 5c3aa53818c8f6443ade845b84fbeefc, type: 3}
+  - {fileID: 4793064779417787695, guid: 8eb36f3de01c08d4581f5f0aa3a0384b, type: 3}
+  - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
+  - {fileID: 6810822671076020267, guid: 5b8a2577c6fe74e4ebf99f3a9a5d106e, type: 3}
+  - {fileID: 5318324823612231208, guid: a711611cf74924842a0e76eeb36d214c, type: 3}
+  - {fileID: 2996170586046491066, guid: 838ef2d27cf10cc4cbcdc3fb85e304b3, type: 3}
+  - {fileID: 371760280927858361, guid: 985e5069eaee7ad41b6db56249d3f71d, type: 3}
+  spawnedObjects: []
+  numObjectsToSpawn: 30
+  itemXSpread: 38
+  itemYSpread: 0
+  itemZSpread: 38
+  spawnedObjectLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  overlapTestBoxSize: 10

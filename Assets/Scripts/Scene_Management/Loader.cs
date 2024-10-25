@@ -8,7 +8,7 @@ public static class Loader
     public enum Scene
     {
         Main_Menu,
-        MainScene,
+        Arena,
         ArnTestScene, // FOR TESTING PURPOSES ONLY
         LobbyScene
     };
@@ -22,7 +22,6 @@ public static class Loader
     public static void LoadScene(Scene targetScene)
     {
         SceneManager.LoadScene(targetScene.ToString());
-   
     }
 
 }

@@ -13,12 +13,16 @@ public class PlebianManager : BaseManager
     private float timeSinceLastEvaluation = 0f;
     private float randomOffset;
 
+    
+
+
     void Start()
     {
         enemyID = "Plebian";
         animator.SetBool("Plebian_StartChasing", true);
-        currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
+
+        LoadStats();
+        
         ConstructBT();
 
         randomOffset = Random.Range(0f, evaluationInterval);
@@ -27,14 +31,8 @@ public class PlebianManager : BaseManager
     private void FixedUpdate()
     {
 
-        timeSinceLastEvaluation += Time.fixedDeltaTime;
+        FixedEvaluate();
 
-        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
-        {
-            timeSinceLastEvaluation -= evaluationInterval;
-            rootNode.Evaluate(this);
-            randomOffset = Random.Range(0f, evaluationInterval);
-        }
 
     }
 
@@ -54,5 +52,28 @@ public class PlebianManager : BaseManager
 
     }
 
+    public void FixedEvaluate()
+    {
+        timeSinceLastEvaluation += Time.fixedDeltaTime;
 
+        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
+        {
+            timeSinceLastEvaluation -= evaluationInterval;
+            rootNode.Evaluate(this);
+            randomOffset = Random.Range(0f, evaluationInterval);
+        }
+    }
+
+    private void LoadStats()
+    {
+        maxHealth = 1;
+        currentHealth = maxHealth;
+        attack = 1;
+        defense = 0;
+        navigation.maxSpeed = 3;
+        attackSpeed = 1;
+        attackRange = 2.5f;
+        unitCost = 1;
+        
+    }
 }

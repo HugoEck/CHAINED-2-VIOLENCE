@@ -5,15 +5,22 @@ using UnityEngine;
 /// </summary>
 public class LaserChainSegment : MonoBehaviour
 {
+
+    [Header("Layers to collide with")]
+    [SerializeField] private LayerMask _layersToCollideWith;
+     
     [Header("Laser segment attributes")]
     [SerializeField] private float _laserChainDamage;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Enemy")
+        if (((1 << other.gameObject.layer) & _layersToCollideWith) != 0)
         {
             BaseManager enemyManager = other.GetComponent<BaseManager>();
-            enemyManager.DealDamageToEnemy(_laserChainDamage);
+            if (enemyManager != null)
+            {
+                enemyManager.DealDamageToEnemy(_laserChainDamage);
+            }
         }
     }
 }

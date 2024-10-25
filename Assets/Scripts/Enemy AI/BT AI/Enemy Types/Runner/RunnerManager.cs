@@ -13,25 +13,32 @@ public class RunnerManager : BaseManager
     private float timeSinceLastEvaluation = 0f;
     private float randomOffset;
 
+
     void Start()
     {
         enemyID = "Runner";
         animator.SetBool("Runner_StartChasing", true);
-        currentHealth = maxHealth;
-        navMeshAgent.speed = speed;
+
+        LoadStats();
         ConstructBT();
     }
 
     private void FixedUpdate()
     {
-        timeSinceLastEvaluation += Time.fixedDeltaTime;
+        FixedEvaluate();
 
-        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
-        {
-            timeSinceLastEvaluation -= evaluationInterval;
-            rootNode.Evaluate(this);
-            randomOffset = Random.Range(0f, evaluationInterval);
-        }
+    }
+
+    private void LoadStats()
+    {
+        maxHealth = 1;
+        currentHealth = maxHealth;
+        attack = 2;
+        defense = 0;
+        navigation.maxSpeed = 6;
+        attackSpeed = 1;
+        attackRange = 3f;
+        unitCost = 2;
 
     }
 
@@ -51,5 +58,15 @@ public class RunnerManager : BaseManager
 
     }
 
+    public void FixedEvaluate()
+    {
+        timeSinceLastEvaluation += Time.fixedDeltaTime;
 
+        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
+        {
+            timeSinceLastEvaluation -= evaluationInterval;
+            rootNode.Evaluate(this);
+            randomOffset = Random.Range(0f, evaluationInterval);
+        }
+    }
 }
