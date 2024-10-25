@@ -43,7 +43,7 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         waveData.LoadWaves(waves);
-        StartCoroutine(SpawnWavesRegularly());
+        //StartCoroutine(SpawnWavesRegularly());
     }
 
     private IEnumerator SpawnWavesRegularly()
@@ -63,7 +63,7 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if(/*ActiveEnemies == 0 ||*/ timer > targetTime)
+        if(ActiveEnemies == 0 || timer > targetTime)
         {
             currentWave++;
             timer = 0;
@@ -75,6 +75,7 @@ public class WaveManager : MonoBehaviour
         {
             SpawnWave(waves[currentWave]);
             currentWave++;
+            timer = 0;
         }
 
         //Debug Wave

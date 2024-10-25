@@ -22,7 +22,7 @@ public class ShaderScript : MonoBehaviour
     private bool hasChangedToWestern = false;
 
     float initialOffsetsPirate = -10f;
-    float initialOffsetsFarm = -0.2f;
+    float initialOffsetsFarm = -0.3f;
     float initialOffsetsRoman = -0.1f;
     float initialOffsetsWestern = -1.2f;
 
@@ -40,7 +40,7 @@ public class ShaderScript : MonoBehaviour
 
         // Define the Y dissolve ranges for each material set
         materialYRanges.Add(pirateMaterials, new Vector2(25f, initialOffsetsPirate));  // Pirate Y range: 25 to -10
-        materialYRanges.Add(farmMaterials, new Vector2(1f, initialOffsetsFarm));    // Farm Y range (example): 1 to -0.5
+        materialYRanges.Add(farmMaterials, new Vector2(10f, initialOffsetsFarm));    // Farm Y range (example): 1 to -0.5
         materialYRanges.Add(romanMaterials, new Vector2(0.2f, initialOffsetsRoman)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(westernMaterials, new Vector2(25, initialOffsetsWestern)); // Roman Y range: 0.2 to -0.1
     }
@@ -55,7 +55,7 @@ public class ShaderScript : MonoBehaviour
         }
         if (WaveManager.currentWave == 6 && !hasChangedToFarm)
         {
-            ChangeArena(farmMaterials, 0.7f, initialOffsetsFarm);
+            ChangeArena(farmMaterials, 10f, initialOffsetsFarm);
             hasChangedToFarm = true;
         }
         if (WaveManager.currentWave == 11 && !hasChangedToPirate)
@@ -96,7 +96,7 @@ public class ShaderScript : MonoBehaviour
 
     private IEnumerator DissolveArena(Material[] arenaMaterials, bool dissolveOut)
     {
-        float duration = 3f;
+        float duration = 6f;
         float timeElapsed = 0f;
 
         // Get the Y range for the arena (target range)
