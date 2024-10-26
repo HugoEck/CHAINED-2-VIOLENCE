@@ -19,8 +19,8 @@ public class DamageUpgrade : UpgradeBase
 
     public override void Upgrade()
     {
-        float initialAttackDamage = 10f; //Set to same value as player damage when game is started, put this in playerCombat.
-
+        //float initialAttackDamage = 10f; //Set to same value as player damage when game is started, put this in playerCombat.
+        float initialAttackDamage = player1Combat.InitialAttackDamage;
         #region TMP
         if (currentLevel >= maxLevel)
         {

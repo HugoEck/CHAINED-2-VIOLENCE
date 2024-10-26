@@ -19,7 +19,8 @@ public class HealthUpgrade : UpgradeBase
 
     public override void Upgrade()
     {
-        float initialMaxHealth = 100f; //Give player a max health?
+        //float initialMaxHealth = 100f; //Give player a max health?
+        float initialMaxHealth = player1.InitialMaxHealth;
 
         #region TMP
         if (currentLevel >= maxLevel)
@@ -46,7 +47,7 @@ public class HealthUpgrade : UpgradeBase
             currentLevel++;
 
             GoldDropManager.Instance.SpendGold(CalculateUpgradeCost());
-            Debug.Log("Health upgraded - health: " + newMaxHealth);
+            Debug.Log("Health upgraded - health: " + newMaxHealth + "current hp = " + player1.currentHealth);
         }
         else
         {

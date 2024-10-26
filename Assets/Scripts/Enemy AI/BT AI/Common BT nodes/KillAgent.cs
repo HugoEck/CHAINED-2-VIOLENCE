@@ -20,6 +20,11 @@ public class KillAgent : Node
         
         if (agent.agentIsDead)
         {
+            if (GoldDropManager.Instance != null)
+            {
+                GoldDropManager.Instance.DropGold();
+            }
+
             GameObject.Destroy(agent.gameObject);
         }
 

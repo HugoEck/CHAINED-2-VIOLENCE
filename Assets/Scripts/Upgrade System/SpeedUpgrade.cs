@@ -20,8 +20,8 @@ public class SpeedUpgrade : UpgradeBase
 
     public override void Upgrade()
     {
-        float initialSpeed = 1000f; //Set to same value as starting movement speed.. //Put this in playermovement.
-
+        //float initialSpeed = 1000f; //Set to same value as starting movement speed.. //Put this in playermovement.
+        float initialSpeed = player1Movement.originalWalkingSpeed;
         #region TMP
         if (currentLevel >= maxLevel)
         {
