@@ -9,7 +9,7 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
     [SerializeField] private float _laserActiveDuration = 10.0f;
     [SerializeField] private float _laserChainCooldown = 20.0f;
 
-    private bool _bIsLaserActive = false;  // Flag to activate the laser
+    private bool _bIsLaserActive = false;  
     private bool _bCanUseLaserChain = true;
     
     private float _laserTimer;
