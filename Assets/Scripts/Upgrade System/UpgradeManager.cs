@@ -103,24 +103,28 @@ public class UpgradeManager : MonoBehaviour
     public void UpgradeHealth()
     {
         healthUpgrade.Upgrade();
+        UpgradeGameData.Instance.PlayerHealth = player1Manager.currentHealth;
         UpdateUpgradeLevelText();
     }
 
     public void UpgradeDamage()
     {
         damageUpgrade.Upgrade();
+        UpgradeGameData.Instance.PlayerAttack = player1Combat.attackDamage;
         UpdateUpgradeLevelText();
     }
 
     public void UpgradeSpeed()
     {
         speedUpgrade.Upgrade();
+        UpgradeGameData.Instance.PlayerSpeed = player1Movement.GetWalkingSpeed();
         UpdateUpgradeLevelText();
     }
 
     public void UpgradeChain()
     {
         chainUpgrade.Upgrade();
+        UpgradeGameData.Instance.ChainLength = adjustChainLength.ReturnCurrentChainLength();
         UpdateUpgradeLevelText();
     }
 

@@ -78,4 +78,13 @@ public class AdjustChainLength : MonoBehaviour
 
         return currentChainLength;
     }
+
+    // Current use: Transfer chain length between the scenes.
+    public void SetInitialChainLength(float length)
+    {
+        cursor.ChangeLength(length - rope.restLength);
+
+        Debug.Log("chain initialized to length: " + rope.restLength);
+    }
+
 }
