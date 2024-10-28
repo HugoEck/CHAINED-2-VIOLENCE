@@ -42,6 +42,15 @@ public class PlayerCombat : MonoBehaviour
         int playerId = gameObject.GetComponent<Player>()._playerId;
         InitialAttackDamage = attackDamage;
 
+        if (playerId == 1)
+        {
+            attackDamage = StatsTransfer.Player1AttackDamage > 0 ? StatsTransfer.Player1AttackDamage : attackDamage;
+        }
+        else if (playerId == 2)
+        {
+            attackDamage = StatsTransfer.Player2AttackDamage > 0 ? StatsTransfer.Player2AttackDamage : attackDamage;
+        }
+
         // Set the player classes to the saved player class in the class manager. This is because player objects are destroyed between scenes
         if (playerId == 1)
         {

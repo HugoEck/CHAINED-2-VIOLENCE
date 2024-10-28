@@ -21,7 +21,11 @@ public class AdjustChainLength : MonoBehaviour
     {
         cursor = GetComponentInChildren<ObiRopeCursor>();
         rope = cursor.GetComponent<ObiRope>();
-        
+
+        if (StatsTransfer.CurrentChainLength > 0)
+        {
+            SetInitialChainLength(StatsTransfer.CurrentChainLength);
+        }
     }
 
     /// <summary>

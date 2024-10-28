@@ -103,28 +103,60 @@ public class UpgradeManager : MonoBehaviour
     public void UpgradeHealth()
     {
         healthUpgrade.Upgrade();
-        UpgradeGameData.Instance.PlayerHealth = player1Manager.currentHealth;
+
+        if (player1Manager != null)
+        {
+            StatsTransfer.Player1Health = player1Manager.currentHealth;
+            StatsTransfer.Player1MaxHealth = player1Manager.GetMaxHealth();
+        }
+
+        if (player2Manager != null)
+        {
+            StatsTransfer.Player2Health = player2Manager.currentHealth;
+            StatsTransfer.Player2MaxHealth = player2Manager.GetMaxHealth();
+        }
+
         UpdateUpgradeLevelText();
     }
 
     public void UpgradeDamage()
     {
         damageUpgrade.Upgrade();
-        UpgradeGameData.Instance.PlayerAttack = player1Combat.attackDamage;
+
+        if (player1Combat != null)
+        {
+            StatsTransfer.Player1AttackDamage = player1Combat.attackDamage;
+        }
+
+        if (player2Combat != null)
+        {
+            StatsTransfer.Player2AttackDamage = player2Combat.attackDamage;
+        }
+
         UpdateUpgradeLevelText();
     }
 
     public void UpgradeSpeed()
     {
         speedUpgrade.Upgrade();
-        UpgradeGameData.Instance.PlayerSpeed = player1Movement.GetWalkingSpeed();
+
+        if (player1Movement != null)
+        {
+            StatsTransfer.Player1WalkingSpeed = player1Movement.GetWalkingSpeed();
+        }
+
+        if (player2Movement != null)
+        {
+            StatsTransfer.Player2WalkingSpeed = player2Movement.GetWalkingSpeed();
+        }
+
         UpdateUpgradeLevelText();
     }
+
 
     public void UpgradeChain()
     {
         chainUpgrade.Upgrade();
-        UpgradeGameData.Instance.ChainLength = adjustChainLength.ReturnCurrentChainLength();
         UpdateUpgradeLevelText();
     }
 

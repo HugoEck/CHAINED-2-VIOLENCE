@@ -70,14 +70,27 @@ public class Player : MonoBehaviour
         _playerCombat = GetComponent<PlayerCombat>();
         _shieldAbility = GetComponent<ShieldAbility>(); // Get reference to the ShieldAbility
 
-        currentHealth = _maxHealth;
-        InitialMaxHealth = _maxHealth;
+        //InitialMaxHealth = _maxHealth;
+
         #endregion
 
         #region Set attributes
 
-        currentHealth = _maxHealth;
+        // Retrieve and set max health from StatsTransfer
+        if (_playerId == 1)
+        {
+            _maxHealth = StatsTransfer.Player1MaxHealth > 0 ? StatsTransfer.Player1MaxHealth : _maxHealth;
+            Debug.Log("Current health in new scene: " + currentHealth);
+            currentHealth = StatsTransfer.Player1Health > 0 ? StatsTransfer.Player1Health : _maxHealth;
+        }
+        else if (_playerId == 2)
+        {
+            _maxHealth = StatsTransfer.Player2MaxHealth > 0 ? StatsTransfer.Player2MaxHealth : _maxHealth;
+            currentHealth = StatsTransfer.Player2Health > 0 ? StatsTransfer.Player2Health : _maxHealth;
+        }
 
+        InitialMaxHealth = _maxHealth;
+        //currentHealth = _maxHealth;
         #endregion
 
         Chained2ViolenceGameManager.Instance.OnGameStateChanged += Chained2ViolenceGameManagerOnGameStateChanged;
@@ -296,6 +309,11 @@ public class Player : MonoBehaviour
         }
 
         Debug.Log("Player max health set to: " + _maxHealth);
+    }
+
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
     }
 
     #endregion

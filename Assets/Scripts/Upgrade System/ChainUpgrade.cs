@@ -34,7 +34,7 @@ public class ChainUpgrade : UpgradeBase
             adjustChainLength.IncreaseRopeLength(lengthIncreasePerUpgrade);
             currentLevel++;
             GoldDropManager.Instance.SpendGold(CalculateUpgradeCost());
-
+            StatsTransfer.CurrentChainLength = adjustChainLength.ReturnCurrentChainLength();
             Debug.Log("Chain upgraded - New Chain Length: " + adjustChainLength.ReturnCurrentChainLength());
         }
         else
