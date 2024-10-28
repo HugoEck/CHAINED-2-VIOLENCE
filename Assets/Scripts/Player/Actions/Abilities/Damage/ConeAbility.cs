@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ConeAbility : MonoBehaviour, IAbility
 {
-    public float coneRange = 5f;          // Range of the cone
-    public float coneAngle = 45f;         // Angle of the cone in degrees
+    public float coneRange = 10f;          // Range of the cone
+    public float coneAngle = 90f;         // Angle of the cone in degrees
     public float coneDamage = 50f;        // Damage dealt to enemies in the cone
 
     public void UseAbility()

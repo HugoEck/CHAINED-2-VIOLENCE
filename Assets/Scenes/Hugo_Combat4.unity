@@ -363,6 +363,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  checkWhichPlayerManager: {fileID: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -514,6 +515,7 @@ GameObject:
   - component: {fileID: 255205315}
   - component: {fileID: 255205328}
   - component: {fileID: 255205329}
+  - component: {fileID: 255205330}
   m_Layer: 6
   m_Name: Player_2
   m_TagString: Player2
@@ -813,6 +815,21 @@ MonoBehaviour:
   maxShieldHealth: 20
   shieldVisualPrefab: {fileID: 0}
   otherPlayer: {fileID: 1750005624}
+--- !u!114 &255205330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255205314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b10ebf198b4d93b4f8b4515719c71a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coneRange: 10
+  coneAngle: 90
+  coneDamage: 50
 --- !u!1 &350337381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,6 +2668,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  checkWhichPlayerManager: {fileID: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -2946,6 +2964,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  checkWhichPlayerManager: {fileID: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -2992,6 +3011,52 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1103538202}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1162195599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1162195601}
+  - component: {fileID: 1162195600}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1162195600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162195599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1162195601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162195599}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1169804492 stripped
 Transform:
@@ -3779,6 +3844,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  checkWhichPlayerManager: {fileID: 0}
   animator: {fileID: 0}
   enemyID: Plebian
   activateDeathTimer: 0
@@ -3985,6 +4051,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a6ffe22acfa21449b647f5c233e080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSceneState: 0
+  currentGameState: 0
+  currentLobbyState: 0
 --- !u!4 &1481110331
 Transform:
   m_ObjectHideFlags: 0
@@ -4612,52 +4681,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 22026383}
   m_SourcePrefab: {fileID: 100100000, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
---- !u!1 &1581808717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1581808719}
-  - component: {fileID: 1581808718}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1581808718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581808717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1581808719
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581808717}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1588002183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4138511184629900, guid: 32eb347f03c37014080d0c1fba9fae61,
@@ -4795,6 +4818,7 @@ GameObject:
   - component: {fileID: 1750005626}
   - component: {fileID: 1750005638}
   - component: {fileID: 1750005639}
+  - component: {fileID: 1750005640}
   m_Layer: 6
   m_Name: Player_1 (1)
   m_TagString: Player1
@@ -5094,6 +5118,21 @@ MonoBehaviour:
   maxShieldHealth: 20
   shieldVisualPrefab: {fileID: 0}
   otherPlayer: {fileID: 255205314}
+--- !u!114 &1750005640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750005624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b10ebf198b4d93b4f8b4515719c71a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coneRange: 5
+  coneAngle: 45
+  coneDamage: 50
 --- !u!1 &1787199105
 GameObject:
   m_ObjectHideFlags: 0
@@ -18654,4 +18693,4 @@ SceneRoots:
   - {fileID: 1799551673}
   - {fileID: 2013477749}
   - {fileID: 1034750512}
-  - {fileID: 1581808719}
+  - {fileID: 1162195601}
