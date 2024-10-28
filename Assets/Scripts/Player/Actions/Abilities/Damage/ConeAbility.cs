@@ -6,8 +6,23 @@ public class ConeAbility : MonoBehaviour, IAbility
     public float coneAngle = 90f;         // Angle of the cone in degrees
     public float coneDamage = 50f;        // Damage dealt to enemies in the cone
 
+    public GameObject attackVisualPrefab; // Reference to the visual effect asset
+
     public void UseAbility()
     {
+        // Play the visual effect
+        if (attackVisualPrefab != null)
+        {
+            GameObject attackVisual = Instantiate(
+                attackVisualPrefab,
+                transform.position,
+                Quaternion.LookRotation(transform.forward)
+            );
+
+            // Optional: Destroy the effect after a short duration to clean up
+            Destroy(attackVisual, 2f);  // Adjust time as needed for effect duration
+        }
+
         // Find all enemies within the range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, coneRange);
 
