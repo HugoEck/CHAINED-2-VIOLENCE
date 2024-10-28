@@ -363,6 +363,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  checkWhichPlayerManager: {fileID: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -384,6 +385,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1544833610}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &145244520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 145244522}
+  - component: {fileID: 145244521}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &145244521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145244520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &145244522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145244520}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &149732943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,6 +2699,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  checkWhichPlayerManager: {fileID: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -2947,6 +2995,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  checkWhichPlayerManager: {fileID: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -3780,6 +3829,7 @@ MonoBehaviour:
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
+  checkWhichPlayerManager: {fileID: 0}
   animator: {fileID: 0}
   enemyID: Plebian
   activateDeathTimer: 0
@@ -4753,6 +4803,7 @@ GameObject:
   - component: {fileID: 1750005626}
   - component: {fileID: 1750005638}
   - component: {fileID: 1750005639}
+  - component: {fileID: 1750005640}
   m_Layer: 6
   m_Name: Player_1 (1)
   m_TagString: Player1
@@ -5053,6 +5104,22 @@ MonoBehaviour:
   shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
     type: 3}
   otherPlayer: {fileID: 255205314}
+--- !u!114 &1750005640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750005624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b10ebf198b4d93b4f8b4515719c71a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coneRange: 10
+  coneAngle: 90
+  coneDamage: 50
+  attackVisualPrefab: {fileID: 0}
 --- !u!1 &1787199105
 GameObject:
   m_ObjectHideFlags: 0
@@ -5956,52 +6023,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 595685778}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1983102414
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1983102416}
-  - component: {fileID: 1983102415}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1983102415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1983102414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1983102416
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1983102414}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2013477749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18659,4 +18680,4 @@ SceneRoots:
   - {fileID: 1799551673}
   - {fileID: 2013477749}
   - {fileID: 1034750512}
-  - {fileID: 1983102416}
+  - {fileID: 145244522}
