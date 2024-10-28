@@ -385,52 +385,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1544833610}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &145244520
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 145244522}
-  - component: {fileID: 145244521}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &145244521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145244520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &145244522
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145244520}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &149732943
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +593,7 @@ MonoBehaviour:
   abilityCooldown: 5
   attackRange: 2
   attackDamage: 10
+  coneAngle: 120
 --- !u!114 &255205319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2379,6 +2334,52 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &926168891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 926168893}
+  - component: {fileID: 926168892}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &926168892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926168891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &926168893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926168891}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &930481533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4900,6 +4901,7 @@ MonoBehaviour:
   abilityCooldown: 5
   attackRange: 2
   attackDamage: 10
+  coneAngle: 120
 --- !u!114 &1750005630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5083,10 +5085,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2069301f64bcc4d8e4aa76866ea7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8430580474095380351, guid: e9d4644974641b04e88340a2ee92c946,
+  projectilePrefab: {fileID: 1834646129351440, guid: 5599f31b19e20c94ca2378f95f7646b2,
     type: 3}
   firePoint: {fileID: 1750005625}
-  playerDirection: {fileID: 698571848}
+  playerDirection: {fileID: 1750005625}
   projectileSpeed: 20
 --- !u!114 &1750005639
 MonoBehaviour:
@@ -5119,7 +5121,8 @@ MonoBehaviour:
   coneRange: 10
   coneAngle: 90
   coneDamage: 50
-  attackVisualPrefab: {fileID: 0}
+  attackVisualPrefab: {fileID: 1201505000128532, guid: ba1ddd059de115f44b44ff52413832aa,
+    type: 3}
 --- !u!1 &1787199105
 GameObject:
   m_ObjectHideFlags: 0
@@ -18680,4 +18683,4 @@ SceneRoots:
   - {fileID: 1799551673}
   - {fileID: 2013477749}
   - {fileID: 1034750512}
-  - {fileID: 145244522}
+  - {fileID: 926168893}
