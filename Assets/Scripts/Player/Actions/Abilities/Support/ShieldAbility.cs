@@ -32,6 +32,9 @@ public class ShieldAbility : MonoBehaviour, IAbility
         if (shieldVisualPrefab != null)
         {
             activeShieldVisual = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity, transform);
+
+            // Adjust the local position after instantiation to move it to the correct height
+            activeShieldVisual.transform.localPosition = new Vector3(0, -3.0f, 0); // Adjust Y value as needed
         }
 
         Debug.Log(gameObject.name + " Shield Activated. Max Shield Health: " + maxShieldHealth);
@@ -99,7 +102,9 @@ public class ShieldAbility : MonoBehaviour, IAbility
         // Optional: If you want the shield to follow the player’s movement
         if (isShieldActive && activeShieldVisual != null)
         {
-            activeShieldVisual.transform.position = transform.position;
+            // Apply an offset to the shield's position relative to the player
+            Vector3 offset = new Vector3(0, -1.0f, 0); // Adjust Y value as needed
+            activeShieldVisual.transform.position = transform.position + offset;
         }
     }
 }

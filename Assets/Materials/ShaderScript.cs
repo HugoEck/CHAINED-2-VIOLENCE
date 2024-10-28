@@ -13,6 +13,7 @@ public class ShaderScript : MonoBehaviour
     public Material[] farmMaterials;
     public Material[] romanMaterials;
     public Material[] westernMaterials;
+    public Material[] fantasyMaterials;
     private List<Material> allMaterials = new List<Material>();
     private Coroutine dissolveCoroutine;
 
@@ -20,11 +21,13 @@ public class ShaderScript : MonoBehaviour
     private bool hasChangedToFarm = false;
     private bool hasChangedToPirate = false;
     private bool hasChangedToWestern = false;
+    private bool hasChangedToFantasy = false;
 
     float initialOffsetsPirate = -10f;
     float initialOffsetsFarm = -0.3f;
     float initialOffsetsRoman = -0.1f;
     float initialOffsetsWestern = -1.2f;
+    float initialOffsetsFantasy = -6.2f;
 
     // Define the Y-level dissolve ranges for each arena
     private Dictionary<Material[], Vector2> materialYRanges = new Dictionary<Material[], Vector2>();
@@ -37,12 +40,14 @@ public class ShaderScript : MonoBehaviour
         allMaterials.AddRange(farmMaterials);
         allMaterials.AddRange(romanMaterials);
         allMaterials.AddRange(westernMaterials);
+        allMaterials.AddRange(fantasyMaterials);
 
         // Define the Y dissolve ranges for each material set
         materialYRanges.Add(pirateMaterials, new Vector2(25f, initialOffsetsPirate));  // Pirate Y range: 25 to -10
         materialYRanges.Add(farmMaterials, new Vector2(10f, initialOffsetsFarm));    // Farm Y range (example): 1 to -0.5
         materialYRanges.Add(romanMaterials, new Vector2(0.2f, initialOffsetsRoman)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(westernMaterials, new Vector2(25, initialOffsetsWestern)); // Roman Y range: 0.2 to -0.1
+        materialYRanges.Add(fantasyMaterials, new Vector2(25f, initialOffsetsFantasy)); // Roman Y range: 0.2 to -0.1
     }
 
     private void Update()
@@ -53,10 +58,10 @@ public class ShaderScript : MonoBehaviour
             ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f);
             hasChangedToRoman = true;
         }
-        if (WaveManager.currentWave == 6 && !hasChangedToFarm)
+        if (WaveManager.currentWave == 6 && !hasChangedToFantasy)
         {
-            ChangeArena(farmMaterials, 10f, initialOffsetsFarm);
-            hasChangedToFarm = true;
+            ChangeArena(fantasyMaterials, 25f, initialOffsetsFantasy);
+            hasChangedToFantasy = true;
         }
         if (WaveManager.currentWave == 11 && !hasChangedToPirate)
         {
@@ -172,5 +177,6 @@ public class ShaderScript : MonoBehaviour
         hasChangedToFarm = false;
         hasChangedToPirate = false;
         hasChangedToWestern = false;
+        hasChangedToFantasy = false;
     }
 }

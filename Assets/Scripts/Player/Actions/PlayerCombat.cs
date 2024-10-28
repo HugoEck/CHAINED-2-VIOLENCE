@@ -34,6 +34,7 @@ public class PlayerCombat : MonoBehaviour
     private SwingAbility swingAbility;
     private Projectile projectile;
     private ShieldAbility shieldAbility;
+    private ConeAbility coneAbility;
 
     #endregion
 
@@ -64,6 +65,7 @@ public class PlayerCombat : MonoBehaviour
         swingAbility = GetComponent<SwingAbility>();
         projectile = GetComponent<Projectile>();
         shieldAbility = GetComponent<ShieldAbility>();
+        coneAbility = GetComponent<ConeAbility>();
     }
 
     /// <summary>
@@ -95,7 +97,9 @@ public class PlayerCombat : MonoBehaviour
         switch (currentPlayerClass)
         {
 
-            case PlayerClass.Melee:            
+            case PlayerClass.Melee:
+
+                coneAbility.UseAbility();
 
                 break;
 
