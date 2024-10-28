@@ -16,14 +16,16 @@ public class WeaponPickup : MonoBehaviour
         if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
             WeaponManager weaponManager = other.GetComponent<WeaponManager>();
-            if (weaponManager != null)
+
+            if (weaponManager != null && !weaponManager.hasWeapon)
             {
                 weaponManager.PickupWeapon(weaponId);
 
-                // Notify the WeaponPlacer that the spawn point is now free
-                weaponPlacer.WeaponPickedUp(spawnPoint);
+                // Notify WeaponSpawner to free the spawn point
+                WeaponSpawner spawner = FindObjectOfType<WeaponSpawner>();
+                spawner.WeaponPickedUp(transform);  // Pass the weapon's current spawn point
 
-                Destroy(gameObject);  
+                Destroy(gameObject);  // Destroy the weapon after pickup
             }
         }
     }
