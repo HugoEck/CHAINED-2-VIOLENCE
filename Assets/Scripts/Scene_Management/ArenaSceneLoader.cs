@@ -18,6 +18,5 @@ public class ArenaSceneLoader : MonoBehaviour
     void LoadNewScene()
     {
         Loader.LoadScene(Loader.Scene.Arena);
-        Chained2ViolenceGameManager.Instance.UpdateSceneState(Chained2ViolenceGameManager.SceneState.ArenaScene);
     }
 }

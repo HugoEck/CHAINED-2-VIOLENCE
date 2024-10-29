@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 
 public class TrapManager : MonoBehaviour
 {
-    #region Variables
     private float surfaceY = -0.3f;
     private float spawnY = -15f;
     public float riseSpeed = 15f;
@@ -21,9 +20,6 @@ public class TrapManager : MonoBehaviour
     private bool waitingAbove = false;
     private bool waitingBelow = false;
 
-    public float trapDamage = 1f;
-    #endregion
-
     void Start()
     {
         // Start the trap below the surface
@@ -36,101 +32,66 @@ public class TrapManager : MonoBehaviour
         {
             if (!isDespawning)
             {
-                Movement();
-            }
-            else
-            {
-                DespawnTrap();
-            }
-        }
-    }
-
-    #region Moving up/down
-    private void Movement()
-    {
-        if (!isDespawning)
-        {
-            if (waitingAbove || waitingBelow)
-            {
-                // Trap is waiting above or below, decrease the timer
-                timer -= Time.deltaTime;
-                if (timer <= 0f)
+                if (waitingAbove || waitingBelow)
                 {
-                    waitingAbove = false;
-                    waitingBelow = false;
+                    // Trap is waiting above or below, decrease the timer
+                    timer -= Time.deltaTime;
+                    if (timer <= 0f)
+                    {
+                        waitingAbove = false;
+                        waitingBelow = false;
+                    }
                 }
-            }
-            else if (isMovingUp)
-            {
-                // Rising towards the surface
-                if (transform.position.y < surfaceY)
+                else if (isMovingUp)
                 {
-                    transform.position += Vector3.up * riseSpeed * Time.deltaTime;
+                    // Rising towards the surface
+                    if (transform.position.y < surfaceY)
+                    {
+                        transform.position += Vector3.up * riseSpeed * Time.deltaTime;
+                    }
+                    else
+                    {
+                        // Once above the surface, wait for a random time
+                        isMovingUp = false;
+                        waitingAbove = true;
+                        timer = Random.Range(minWaitTime, maxWaitTime);
+                    }
                 }
                 else
                 {
-                    // Once above the surface, wait for a random time
-                    isMovingUp = false;
-                    waitingAbove = true;
-                    timer = Random.Range(minWaitTime, maxWaitTime);
+                    // Sinking back to the spawn position
+                    if (transform.position.y > spawnY)
+                    {
+                        transform.position += Vector3.down * riseSpeed * Time.deltaTime;
+                    }
+                    else
+                    {
+                        // Once below the surface, wait for a random time
+                        isMovingUp = true;
+                        waitingBelow = true;
+                        timer = Random.Range(minWaitTime, maxWaitTime);
+                    }
                 }
             }
             else
             {
-                // Sinking back to the spawn position
+                // Despawning logic: Move down to spawnY before despawning
                 if (transform.position.y > spawnY)
                 {
-                    transform.position += Vector3.down * riseSpeed * Time.deltaTime;
+                    transform.position += Vector3.down * despawnSpeed * Time.deltaTime;
                 }
                 else
                 {
-                    // Once below the surface, wait for a random time
-                    isMovingUp = true;
-                    waitingBelow = true;
-                    timer = Random.Range(minWaitTime, maxWaitTime);
+                    Destroy(gameObject);
                 }
             }
         }
     }
-    #endregion
 
-    #region Despawn
+    // This is called when N is pressed to start the despawn process
     public void DespawnTrap()
     {
         isDespawning = true;
         isMovingUp = false; // Ensure the trap starts moving down immediately
-
-        if (transform.position.y > spawnY)
-        {
-            transform.position += Vector3.down * despawnSpeed * Time.deltaTime;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
-    #endregion
-
-    #region Deal Damage
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision detected with: " + collision.gameObject.name);
-
-        if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
-        {
-            Player player = collision.gameObject.GetComponent<Player>();
-
-            if (player != null)
-            {
-                Debug.Log("Current health " +  player.name + " is " + player.currentHealth);
-                player.SetHealth(trapDamage);
-                Debug.Log(collision.gameObject.tag + " hit by trap. Dealt " + trapDamage + " damage. Current health: " + player.currentHealth);
-            }
-            else
-            {
-                Debug.Log("No Player component found on " + collision.gameObject.name);
-            }
-        }
-    }
-    #endregion
 }

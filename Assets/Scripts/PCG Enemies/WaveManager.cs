@@ -10,8 +10,6 @@ public class WaveManager : MonoBehaviour
     public TMP_Asset farmFont;
     public TMP_Asset fantasyFont;
     public TMP_Asset westernFont;
-    public TMP_Asset pirateFont;
-   
 
     [Header(" ")]
     [SerializeField] GameObject enemyCreatorObject;
@@ -28,7 +26,7 @@ public class WaveManager : MonoBehaviour
     WaveData waveData = new WaveData();
 
     [SerializeField] TextMeshProUGUI text;
-    public static int currentWave = 0;
+    public int currentWave = 0;
 
 
 
@@ -43,7 +41,7 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         waveData.LoadWaves(waves);
-        //StartCoroutine(SpawnWavesRegularly());
+        StartCoroutine(SpawnWavesRegularly());
     }
 
     private IEnumerator SpawnWavesRegularly()
@@ -63,7 +61,7 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if(ActiveEnemies == 0 || timer > targetTime)
+        if(/*ActiveEnemies == 0 ||*/ timer > targetTime)
         {
             currentWave++;
             timer = 0;
@@ -75,7 +73,6 @@ public class WaveManager : MonoBehaviour
         {
             SpawnWave(waves[currentWave]);
             currentWave++;
-            timer = 0;
         }
 
         //Debug Wave
@@ -117,7 +114,8 @@ public class WaveManager : MonoBehaviour
 
         foreach (var enemyConfig in wave.enemyConfigs)
         {
-            //portal = Instantiate(spawnPortal, spawnPoint.transform);
+            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+            portal = Instantiate(spawnPortal, spawnPoint.transform);
             // Randomize and create the base enemy
             enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass);
             GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
@@ -127,7 +125,6 @@ public class WaveManager : MonoBehaviour
 
             for (int i = 0; i < enemyConfig.waveSize; i++)
             {
-                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
                 // Instantiate a new enemy
                 GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
                 ActiveEnemies++;
@@ -219,6 +216,11 @@ public class WaveManager : MonoBehaviour
         {
             return westernFont;
         }
+
+
+
+
+
         return romanFont;
     }
 
