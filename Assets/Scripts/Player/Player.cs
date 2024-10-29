@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
 
     private PlayerMovement _playerMovement;
     private PlayerCombat _playerCombat;
+    private ShieldAbility _shieldAbility;
 
     #endregion
 
@@ -37,13 +39,12 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    private bool _bIsPlayerDisabled = false;
+
     private static int playersDefeated = 0;
     
     private void Awake()
-    {
-        
-        DontDestroyOnLoad(gameObject);
-
+    {          
         if(gameObject.tag == "Player1")
         {
             _playerId = 1;
@@ -67,6 +68,9 @@ public class Player : MonoBehaviour
 
         _playerMovement = GetComponent<PlayerMovement>();
         _playerCombat = GetComponent<PlayerCombat>();
+        _shieldAbility = GetComponent<ShieldAbility>(); // Get reference to the ShieldAbility
+
+        currentHealth = _maxHealth;
 
         #endregion
 
@@ -79,13 +83,19 @@ public class Player : MonoBehaviour
         Chained2ViolenceGameManager.Instance.OnGameStateChanged += Chained2ViolenceGameManagerOnGameStateChanged;
         Chained2ViolenceGameManager.Instance.OnLobbyStateChanged += Chained2ViolenceGameManagerOnLobbyStateChanged;
         Chained2ViolenceGameManager.Instance.OnSceneStateChanged += Chained2ViolenceGameManagerOnSceneStateChanged;
+
+        StartCoroutine(DisablePlayerMovementTmp());
     }
     private void FixedUpdate()
-    {  
+    {
+        if (_bIsPlayerDisabled) return;
+
         UpdatePlayerMovement();      
     }
     private void Update()
     {
+        if (_bIsPlayerDisabled) return;
+
         GetPlayerMovementInput();
              
         UpdatePlayerCombat();
@@ -205,27 +215,73 @@ public class Player : MonoBehaviour
     /// </summary>
     private void HandleKnockout()
     {
-        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;
+        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;    
 
-        if(currentHealth <= 0)
+        if(Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
         {
-            if (playersDefeated == 2)
+            if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
-                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
-                return;
+                _bIsPlayerDisabled = true;
+                playersDefeated++;
+            }
+            else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
+            {
+                _bIsPlayerDisabled = true;
+                playersDefeated++;
             }
 
-            playersDefeated++;
+            if (playersDefeated == 2)
+            {                
+                playersDefeated = 0;
+                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+            }
         }
+        else
+        {
 
+            if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
+            {
+                _bIsPlayerDisabled = true;
+                playersDefeated++;
+            }
+
+            if (playersDefeated == 1)
+            {                
+                playersDefeated = 0;
+                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);             
+            }
+        }
         
     }
 
     public void SetHealth(float damage)
     {
-        currentHealth -= damage;
+        // Check if the shield is active and absorb damage first
+        if (_shieldAbility != null && _shieldAbility.IsShieldActive())
+        {
+            // Absorb the damage with the shield
+            float remainingDamage = _shieldAbility.AbsorbDamage(damage);
 
-        Debug.Log(gameObject.tag + " took: " +  damage + " damage" + ", current health = " + currentHealth);
+            // If the shield completely absorbed the damage, exit the function
+            if (remainingDamage <= 0)
+            {
+                Debug.Log("Shield absorbed all the damage.");
+                return;
+            }
+
+            // If the shield breaks and there's leftover damage, apply it to the player's health
+            damage = remainingDamage;
+        }
+
+        // Apply the remaining damage to the player's health
+        currentHealth -= damage;
+        Debug.Log(gameObject.tag + " took: " + damage + " damage, current health = " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            // Handle player's death here if needed
+            Debug.Log(gameObject.tag + " has died.");
+        }
     }
 
     //Used for upgrades
@@ -248,15 +304,15 @@ public class Player : MonoBehaviour
 
     private void Chained2ViolenceGameManagerOnGameStateChanged(Chained2ViolenceGameManager.GameState state)
     {
-        if(state == Chained2ViolenceGameManager.GameState.Paused || state == Chained2ViolenceGameManager.GameState.GameOver)
+        
+
+        if (state == Chained2ViolenceGameManager.GameState.Paused || state == Chained2ViolenceGameManager.GameState.GameOver)
         {
-            _playerMovement.enabled = false;
-            _playerCombat.enabled = false;
+            _bIsPlayerDisabled = true;
         }
         else if(state == Chained2ViolenceGameManager.GameState.Playing)
-        {
-            _playerMovement.enabled = true;
-            _playerCombat.enabled = true;
+        {           
+            _bIsPlayerDisabled = false;
         }
     }
 
@@ -264,22 +320,28 @@ public class Player : MonoBehaviour
     {
         if (state == Chained2ViolenceGameManager.LobbyState.Paused)
         {
-            _playerMovement.enabled = false;
-            _playerCombat.enabled = false;
+            _bIsPlayerDisabled = true;
         }
         else if (state == Chained2ViolenceGameManager.LobbyState.Playing)
         {
-            _playerMovement.enabled = true;
-            _playerCombat.enabled = true;
+
+            _bIsPlayerDisabled = false;
         }
     }
 
     private void Chained2ViolenceGameManagerOnSceneStateChanged(Chained2ViolenceGameManager.SceneState state)
     {
-        _playerMovement.enabled = true;
-        _playerCombat.enabled = true;
+             
     }
 
+    private IEnumerator DisablePlayerMovementTmp()
+    {
+        _bIsPlayerDisabled = true;
+
+        yield return new WaitForSeconds(1);
+
+        _bIsPlayerDisabled = false;
+    }
     #endregion
 }
 

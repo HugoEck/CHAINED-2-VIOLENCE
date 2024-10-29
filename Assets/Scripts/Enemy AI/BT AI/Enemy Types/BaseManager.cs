@@ -34,6 +34,8 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public GameObject player2;
     [HideInInspector] public Player playerManager1;
     [HideInInspector] public Player playerManager2;
+
+    public Player checkWhichPlayerManager;
     [HideInInspector] public Animator animator;
     [HideInInspector] public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
@@ -97,9 +99,13 @@ public class BaseManager : MonoBehaviour
         {
             return player1.transform;
         }
-        else
+        else if((Vector3.Distance(this.transform.position, player2.transform.position) < Vector3.Distance(this.transform.position, player1.transform.position)))
         {
             return player2.transform;
+        }
+        else
+        {
+            return null;
         }
     }
 
@@ -119,7 +125,7 @@ public class BaseManager : MonoBehaviour
 
     public Player GetCorrectPlayerManager(Transform player)
     {
-        if (player == player1)
+        if (player == player1.transform)
         {
             return playerManager1;
         }

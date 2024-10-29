@@ -59,7 +59,9 @@ public class NPC_Customization : MonoBehaviour
 {
 
     [Header("NPC GameObjects")]
-    [SerializeField] GameObject Rock;
+    [SerializeField] GameObject RomanRock;
+    [SerializeField] GameObject PirateRock;
+    [SerializeField] GameObject FarmRock;
     [SerializeField] GameObject RagdollRoot;
 
 
@@ -78,7 +80,10 @@ public class NPC_Customization : MonoBehaviour
         Fantasy,
         SciFi,
         Farm,
-        Mini
+        Mini,
+        Pirate,
+        Cowboys,
+        Indians
         //Add more Themes here
     };
 
@@ -195,6 +200,11 @@ public class NPC_Customization : MonoBehaviour
                     if (rHandBone != null)
                     {
                         currentWeapon = InstantiateRandomAsset(weapons, rHandBone);
+                        if(Theme == NPCTheme.Pirate)
+                        {
+                            currentWeapon.transform.localScale *= 100;
+                        }
+                            currentWeapon.transform.rotation = Quaternion.Euler(90, 0, -3);
                     }
                 }
 
@@ -213,6 +223,7 @@ public class NPC_Customization : MonoBehaviour
                     if (lHandBone != null)
                     {
                         currentShield = InstantiateRandomAsset(shields, lHandBone);
+                        currentShield.transform.rotation = Quaternion.Euler(0, -150, -95);
                     }
                 }
             }
@@ -271,8 +282,21 @@ public class NPC_Customization : MonoBehaviour
             throwPoint.transform.SetParent(enemy.transform, false);
             throwPoint.transform.localPosition = new Vector3(0.5f, 2, 1);
 
+            if(Theme == NPCTheme.Roman)
+            {
             behaviour.throwPoint = throwPoint.transform;
-            behaviour.rockPrefab = Rock;
+            behaviour.rockPrefab = RomanRock;
+            }
+            else if (Theme == NPCTheme.Pirate)
+            {
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = PirateRock;
+            }
+            else if (Theme == NPCTheme.Farm)
+            {
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = FarmRock;
+            }
         }
         else if (Class == NPCClass.Charger)
         {
