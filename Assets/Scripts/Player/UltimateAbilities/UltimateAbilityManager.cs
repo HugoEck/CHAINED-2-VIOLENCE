@@ -15,7 +15,7 @@ public class UltimateAbilityManager : MonoBehaviour
         ElectricChain
     }
 
-    private UltimateAbilities currentUltimateAbility = UltimateAbilities.ElectricChain;
+    private UltimateAbilities currentUltimateAbility = UltimateAbilities.LaserChain;
 
     [Header("Ultimate attributes")]
     [SerializeField] private int _timeForOtherPlayerToUseUltimate = 3;
