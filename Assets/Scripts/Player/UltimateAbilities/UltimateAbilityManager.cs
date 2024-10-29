@@ -7,15 +7,17 @@ using UnityEngine;
 
 [RequireComponent(typeof(LaserChain))]
 [RequireComponent(typeof(ElectricChain))]
+[RequireComponent(typeof(FireChain))]
 public class UltimateAbilityManager : MonoBehaviour
 {
     private enum UltimateAbilities
     {
         LaserChain,
-        ElectricChain
+        ElectricChain,
+        FireChain
     }
 
-    private UltimateAbilities currentUltimateAbility = UltimateAbilities.LaserChain;
+    private UltimateAbilities currentUltimateAbility = UltimateAbilities.FireChain;
 
     [Header("Ultimate attributes")]
     [SerializeField] private int _timeForOtherPlayerToUseUltimate = 3;
@@ -36,6 +38,7 @@ public class UltimateAbilityManager : MonoBehaviour
 
     private LaserChain _laserChain;
     private ElectricChain _electricChain;
+    private FireChain _fireChain;
 
     #endregion
 
@@ -56,6 +59,7 @@ public class UltimateAbilityManager : MonoBehaviour
     {
         _laserChain = GetComponent<LaserChain>();
         _electricChain = GetComponent<ElectricChain>();
+        _fireChain = GetComponent<FireChain>();
     }
 
     /// <summary>
@@ -72,8 +76,15 @@ public class UltimateAbilityManager : MonoBehaviour
 
             case UltimateAbilities.ElectricChain:
                 _electricChain.UpdateUltimateAttack();
-              
+
                 break;
+
+            case UltimateAbilities.FireChain:
+
+                _fireChain.UpdateUltimateAttack();
+
+                break;
+                            
         }
     }
 
@@ -88,6 +99,10 @@ public class UltimateAbilityManager : MonoBehaviour
 
             case UltimateAbilities.ElectricChain:
                 _electricChain.UseUltimate();
+                break;
+
+            case UltimateAbilities.FireChain:
+                _fireChain.UseUltimate();
                 break;
         }
     }

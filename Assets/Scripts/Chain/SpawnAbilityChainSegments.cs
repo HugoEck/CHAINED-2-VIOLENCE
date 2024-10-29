@@ -12,6 +12,7 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     [Header("Laser chain segment prefab")]
     [SerializeField] private GameObject _laserSegment;
     [SerializeField] private GameObject _electricSegment;
+    [SerializeField] private GameObject _fireSegment;
 
     private ObiActor _chain;
 
@@ -19,6 +20,7 @@ public class SpawnAbilityChainSegments : MonoBehaviour
 
     private List<GameObject> _pooledLaserChainSegments;
     private List<GameObject> _pooledElectricChainSegments;
+    private List<GameObject> _pooledFireChainSegments;
 
     private void Awake()
     {
@@ -38,7 +40,81 @@ public class SpawnAbilityChainSegments : MonoBehaviour
 
         InstantiateLaserChainSegments();
         InstantiateElectricChainSegments();
+        InstantiateFireChainSegments();
     }
+
+    #region Fire Chain
+
+    /// <summary>
+    /// This method is called when you want to spawn all the fire chain segments
+    /// </summary>
+    public void SpawnFireChainSegments()
+    {
+        for (int i = 0; i < _chain.activeParticleCount; i++)
+        {
+            if (!_pooledFireChainSegments[i].activeInHierarchy)
+            {
+                // Update the position before setting the object active
+                _pooledFireChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
+
+                // Now activate the object
+                _pooledFireChainSegments[i].SetActive(true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// This method is called to update the position of all the fire chain segments
+    /// </summary>
+    public void UpdateFireChainSegments()
+    {
+        for (int i = 0; i < _chain.activeParticleCount; i++)
+        {
+            if (_pooledFireChainSegments[i].activeInHierarchy)
+            {
+                _pooledFireChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
+            }
+        }
+    }
+
+    /// <summary>
+    /// This method is called to set all the active fire chain segments to inactive
+    /// </summary>
+    public void DeactivateFireChainSegments()
+    {
+        for (int i = 0; i < _chain.activeParticleCount; i++)
+        {
+            if (_pooledFireChainSegments[i].activeInHierarchy)
+            {
+                _pooledFireChainSegments[i].SetActive(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// This method instantiates the fire chain segment object pool
+    /// </summary>
+    private void InstantiateFireChainSegments()
+    {
+        GameObject fireChainParent = new GameObject("Fire_Chain_Segments");
+
+        // Initialize the object pool list
+        _pooledFireChainSegments = new List<GameObject>();
+
+        GameObject tmpFireChain;
+
+        for (int i = 0; i < AMOUNT_OF_OBJECTS_TO_POOL; i++)
+        {
+            tmpFireChain = Instantiate(_fireSegment);
+            tmpFireChain.SetActive(false);
+
+            tmpFireChain.transform.SetParent(fireChainParent.transform);
+
+            _pooledFireChainSegments.Add(tmpFireChain);
+        }
+    }
+
+    #endregion
 
     #region Electric Chain
 
