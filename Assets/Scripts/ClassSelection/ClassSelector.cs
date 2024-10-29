@@ -53,24 +53,32 @@ public class ClassSelector : MonoBehaviour
             return;
         }
 
-        // Iterate over each child under Classes and enable the matching class model
-        foreach (Transform classTransform in classesParent)
-        {
-            bool shouldEnable = classTransform.name == newClass.ToString();
-            classTransform.gameObject.SetActive(shouldEnable);
-
-            Debug.Log($"Setting {classTransform.name} to {(shouldEnable ? "enabled" : "disabled")}");
-        }
+        bool hasClassBeenSet = false;
 
         // Update the player's current class in ClassManager
-        if (player == player1)
+        if (player == player1 && newClass != ClassManager._currentPlayer2Class)
         {
-            ClassManager._currentPlayer1Class = newClass;
+            player.GetComponent<PlayerCombat>().SetCurrentPlayerClass(newClass);
+            hasClassBeenSet = true;
+            
         }
-        else if (player == player2)
+        else if (player == player2 && newClass != ClassManager._currentPlayer1Class)
         {
-            ClassManager._currentPlayer2Class = newClass;
+            player.GetComponent<PlayerCombat>().SetCurrentPlayerClass(newClass);
+            hasClassBeenSet = true;
         }
+
+        if(hasClassBeenSet)
+        {
+            // Iterate over each child under Classes and enable the matching class model
+            foreach (Transform classTransform in classesParent)
+            {
+                bool shouldEnable = classTransform.name == newClass.ToString();
+                classTransform.gameObject.SetActive(shouldEnable);
+
+                Debug.Log($"Setting {classTransform.name} to {(shouldEnable ? "enabled" : "disabled")}");
+            }
+        }     
 
         // Hide UI prompt after switching
         HideClassPrompt();
