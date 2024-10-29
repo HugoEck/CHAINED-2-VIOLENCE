@@ -3,12 +3,11 @@ using UnityEngine;
 public class WeaponPickup : MonoBehaviour
 {
     public int weaponId;
-    public Transform spawnPoint;  // Reference to the spawn point where this weapon was placed
-    private WeaponSpawner weaponPlacer;  // Reference to the WeaponPlacer script
+    private WeaponSpawner weaponSpawner;
 
     private void Start()
     {
-        weaponPlacer = FindObjectOfType<WeaponSpawner>();  // Get reference to WeaponPlacer in the scene
+        weaponSpawner = FindObjectOfType<WeaponSpawner>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,12 +19,8 @@ public class WeaponPickup : MonoBehaviour
             if (weaponManager != null && !weaponManager.hasWeapon)
             {
                 weaponManager.PickupWeapon(weaponId);
-
-                // Notify WeaponSpawner to free the spawn point
-                WeaponSpawner spawner = FindObjectOfType<WeaponSpawner>();
-                spawner.WeaponPickedUp(transform);  // Pass the weapon's current spawn point
-
-                Destroy(gameObject);  // Destroy the weapon after pickup
+                weaponSpawner.WeaponPickedUp(transform);
+                Destroy(gameObject);
             }
         }
     }

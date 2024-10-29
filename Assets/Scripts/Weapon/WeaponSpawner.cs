@@ -4,73 +4,57 @@ using UnityEngine;
 
 public class WeaponSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject farmWeaponsPrefab;  // Reference to the Farm_Weapons prefab containing all weapons
-    [SerializeField] private Transform[] spawnPoints;  // Array of predefined spawn points in the scene
-    public float respawnTime = 10f;  // Adjust the respawn time here
+    [SerializeField] private GameObject farmWeaponsPrefab;
+    [SerializeField] private Transform[] spawnPoints;       
+    [SerializeField] private float respawnTime = 10f;   
 
-    private List<GameObject> weaponPrefabs = new List<GameObject>();  // List to hold each weapon prefab as a separate object
-    private bool[] spawnPointOccupied;  // Track which spawn points are occupied
+    private List<GameObject> weaponPrefabs = new List<GameObject>();
+    private bool[] spawnPointOccupied;
 
     private void Start()
     {
-        // Initialize the occupied array
         spawnPointOccupied = new bool[spawnPoints.Length];
 
-        // Load each child of farmWeaponsPrefab as a separate weapon prefab
+
         foreach (Transform weapon in farmWeaponsPrefab.transform)
         {
             weaponPrefabs.Add(weapon.gameObject);
         }
 
-        // Place initial weapons in the scene
-        InitialPlaceWeapons();
-
-        // Start the respawn loop
+        PlaceInitialWeapons();
         StartCoroutine(RespawnWeapons());
     }
 
-    private void InitialPlaceWeapons()
+    private void PlaceInitialWeapons()
     {
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            // Pick a random weapon from the weaponPrefabs list
-            GameObject randomWeaponPrefab = weaponPrefabs[Random.Range(0, weaponPrefabs.Count)];
+            SpawnWeaponAt(i);
+        }
+    }
 
-            // Instantiate a copy of the weapon at the spawn point
-            GameObject newWeapon = Instantiate(randomWeaponPrefab, spawnPoints[i].position, Quaternion.identity);
+    private void SpawnWeaponAt(int spawnIndex)
+    {
+        if (!spawnPointOccupied[spawnIndex])
+        {
+            GameObject randomWeaponPrefab = weaponPrefabs[Random.Range(0, weaponPrefabs.Count)];
+            GameObject newWeapon = Instantiate(randomWeaponPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);
             newWeapon.SetActive(true);
 
-            // Mark the spawn point as occupied
-            spawnPointOccupied[i] = true;
+            spawnPointOccupied[spawnIndex] = true;
         }
     }
 
     private IEnumerator RespawnWeapons()
     {
-        while (true)  // Continuously check for free spawn points
+        while (true)
         {
-            yield return new WaitForSeconds(respawnTime);  // Wait for the specified respawn time
+            yield return new WaitForSeconds(respawnTime);
+            int freeSpawnIndex = GetFreeSpawnPoint();
 
-            int spawnIndex = GetFreeSpawnPoint();
-            if (spawnIndex != -1)  // If a free spawn point is found
+            if (freeSpawnIndex != -1)
             {
-                Transform spawnPoint = spawnPoints[spawnIndex];
-
-                // Pick a random weapon from the weaponPrefabs list
-                GameObject randomWeaponPrefab = weaponPrefabs[Random.Range(0, weaponPrefabs.Count)];
-
-                // Instantiate a new instance of the selected weapon at the spawn point
-                GameObject newWeapon = Instantiate(randomWeaponPrefab, spawnPoint.position, Quaternion.identity);
-                newWeapon.SetActive(true);
-
-                // Mark the spawn point as occupied
-                spawnPointOccupied[spawnIndex] = true;
-
-                Debug.Log("Spawned individual weapon: " + randomWeaponPrefab.name + " at " + spawnPoint.name);
-            }
-            else
-            {
-                Debug.LogWarning("No free spawn points available for spawning new weapons.");
+                SpawnWeaponAt(freeSpawnIndex);
             }
         }
     }
@@ -79,25 +63,21 @@ public class WeaponSpawner : MonoBehaviour
     {
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            if (!spawnPointOccupied[i])  // If the spawn point is not occupied
-            {
-                return i;  // Return the index of the free spawn point
-            }
+            if (!spawnPointOccupied[i]) return i;
         }
-        return -1;  // No free spawn points available
+        return -1;
     }
 
-    // Call this when a weapon is picked up to free the spawn point
     public void WeaponPickedUp(Transform weaponTransform)
     {
-        // Find the spawn point corresponding to the weapon's position
+        float thresholdDistance = 0.5f;
+
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            if (spawnPoints[i].position == weaponTransform.position)
+            if (Vector3.Distance(spawnPoints[i].position, weaponTransform.position) < thresholdDistance)
             {
-                spawnPointOccupied[i] = false;  // Mark the spawn point as free
-                Debug.Log("Spawn point freed: " + spawnPoints[i].name);
-                break;
+                spawnPointOccupied[i] = false;
+                return;
             }
         }
     }
