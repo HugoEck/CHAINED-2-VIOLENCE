@@ -8,6 +8,10 @@ public class MidSegmentPosition : MonoBehaviour
     [SerializeField] private GameObject _player1;
     [SerializeField] private GameObject _player2;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     void Update()
     {       
         Vector3 player1Position = _player1.transform.position;
