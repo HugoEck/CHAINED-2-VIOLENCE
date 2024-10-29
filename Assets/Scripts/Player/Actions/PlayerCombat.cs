@@ -10,8 +10,9 @@ public class PlayerCombat : MonoBehaviour
 {
     public enum PlayerClass
     {
+        Default,
         Tank,
-        Melee,
+        Warrior,
         Support,
         Ranged
     };
@@ -85,7 +86,7 @@ public class PlayerCombat : MonoBehaviour
         switch (currentPlayerClass)
         {
 
-            case PlayerClass.Melee:
+            case PlayerClass.Warrior:
 
                 coneAbility.UseAbility();
 
