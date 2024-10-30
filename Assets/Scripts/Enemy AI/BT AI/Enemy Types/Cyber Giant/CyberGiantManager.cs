@@ -6,6 +6,8 @@ public class CyberGiantManager : BaseManager
 {
     //[HideInInspector]
     public float minimumBombDistance;
+    [HideInInspector] public float bombPoint;
+    [HideInInspector] public 
 
     private void Start()
     {

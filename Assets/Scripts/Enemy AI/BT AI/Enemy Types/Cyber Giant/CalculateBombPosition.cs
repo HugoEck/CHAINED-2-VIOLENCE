@@ -10,8 +10,6 @@ public class CalculateBombPosition : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        CyberGiantManager cg = agent as CyberGiantManager;
-
 
         agent.targetedPlayer = agent.CalculateClosestTarget();
         playerLastPosition = agent.targetedPlayer;
