@@ -3,6 +3,7 @@ using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -44,8 +45,7 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public CapsuleCollider c_collider;
     [HideInInspector] public Rigidbody rb;
 
-
-
+    ParticleSystem[] bloodSplatter;
 
 
     public virtual void Awake()
@@ -71,6 +71,8 @@ public class BaseManager : MonoBehaviour
 
     }
 
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
@@ -88,6 +90,16 @@ public class BaseManager : MonoBehaviour
     {
         if (defense - damage < 0)
         {
+            if (transform.childCount > 0)
+            {
+
+                bloodSplatter = GetComponentsInChildren<ParticleSystem>();
+                foreach (ParticleSystem particles in bloodSplatter)
+                {
+                    Debug.Log("Found a particle system");
+                    particles.Play();
+                }
+            }
             currentHealth = currentHealth + defense - damage;
         }
 
@@ -99,7 +111,7 @@ public class BaseManager : MonoBehaviour
         {
             return player1.transform;
         }
-        else if((Vector3.Distance(this.transform.position, player2.transform.position) < Vector3.Distance(this.transform.position, player1.transform.position)))
+        else if ((Vector3.Distance(this.transform.position, player2.transform.position) < Vector3.Distance(this.transform.position, player1.transform.position)))
         {
             return player2.transform;
         }
@@ -161,7 +173,7 @@ public class BaseManager : MonoBehaviour
             }
             c_collider.enabled = true;
             rb.isKinematic = false;
-            
+
         }
         else
         {
@@ -192,5 +204,5 @@ public class BaseManager : MonoBehaviour
     }
 }
 
-    
+
 

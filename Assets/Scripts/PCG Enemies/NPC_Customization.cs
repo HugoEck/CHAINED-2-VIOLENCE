@@ -63,6 +63,7 @@ public class NPC_Customization : MonoBehaviour
     [SerializeField] GameObject PirateRock;
     [SerializeField] GameObject FarmRock;
     [SerializeField] GameObject RagdollRoot;
+    [SerializeField] GameObject bloodSplatter;
 
 
     [SerializeField] private Dictionary<NPCTheme, ThemeData> themeDataDict;
@@ -241,6 +242,8 @@ public class NPC_Customization : MonoBehaviour
         ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
         SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
         BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
+
+        GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
         //Physics.SyncTransforms();
 
         triggerCollider.isTrigger = true;
