@@ -36,8 +36,6 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public Player playerManager2;
     [HideInInspector] public Transform targetedPlayer;
     [HideInInspector] public Vector3 chainPosition;
-
-    public Player checkWhichPlayerManager;
     [HideInInspector] public Animator animator;
     [HideInInspector] public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
@@ -52,9 +50,9 @@ public class BaseManager : MonoBehaviour
 
     public virtual void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponentInChildren<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-        c_collider = GetComponent<CapsuleCollider>();
+        c_collider = GetComponentInChildren<CapsuleCollider>();
         c_collider.center = new Vector3(0, 1, 0);
         c_collider.radius = 0.5f;
         c_collider.height = 2;

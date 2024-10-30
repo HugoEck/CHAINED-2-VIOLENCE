@@ -18,9 +18,9 @@ public class ThrowRock : Node
 
             GameObject rock = GameObject.Instantiate(rockThrower.rockPrefab, rockThrower.throwPoint.position, rockThrower.throwPoint.rotation);
             Rigidbody rb = rock.GetComponent<Rigidbody>();
-            RockDestroyer rd = rock.GetComponent<RockDestroyer>();
+            DestroyRock dr = rock.GetComponent<DestroyRock>();
 
-            rd.damage = agent.attack;
+            dr.damage = agent.attack;
             rb.velocity = rockThrower.calculatedVelocity;
         }
         else
