@@ -8,7 +8,7 @@ public class FireChain : MonoBehaviour, IUltimateAbility
     [SerializeField] private float _fireChainActiveDuration = 10.0f;
     [SerializeField] private float _fireChainCooldown = 20.0f;
 
-    private bool _bIsFireChainActive = false;
+    public static bool _bIsFireChainActive = false;
     private bool _bCanUseFireChain = true;
 
     private float _fireChainTimer;

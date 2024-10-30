@@ -2,22 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireChainSegment : MonoBehaviour
+/// <summary>
+/// This script handles how long the ground fire will be active and spreads the fire 
+/// </summary>
+public class GroundFire : MonoBehaviour
 {
-    [Header("Layers to collide with")]
-    [SerializeField] private LayerMask _layersToCollideWith;
-
-    [Header("Fire Segment attributes")]
-    [SerializeField] private float _fireDamage;
-    [SerializeField] private float _fireActiveDuration;
-
-    [Header("Fire particles")]
     [SerializeField] private GameObject _fireParticles;
+
+    [SerializeField] private float _groundFireActiveDuration;  
+
+    private float _groundFireActiveTimer;
+
+    [HideInInspector]
+    public bool bIsGroundFireActive = true;
+
+    private FireChainSegment _fireChainSegment;
+
+    private void Start()
+    {
+        _fireChainSegment = FindObjectOfType<FireChainSegment>();
+
+        _groundFireActiveTimer = _groundFireActiveDuration;
+    }
+
+    /// <summary>
+    /// This method is called from the SpawnGroundFire class
+    /// </summary>
+    public void UpdateGroundFire()
+    {
+        _groundFireActiveTimer -= Time.deltaTime;
+
+        if (_groundFireActiveTimer <= 0)
+        {
+            bIsGroundFireActive = false;          
+            return;
+        }
+    }
+    
+    private void OnEnable()
+    {
+        bIsGroundFireActive = true;
+        _groundFireActiveTimer = _groundFireActiveDuration;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the collided object's layer is within the specified layers to collide with
-        if (((1 << other.gameObject.layer) & _layersToCollideWith) != 0)
+        string layerNameToCompare = "Enemy";
+
+        int layerToCompare = LayerMask.NameToLayer(layerNameToCompare);
+
+        if (other.gameObject.layer == layerToCompare)
         {
             Transform fire = ObjectHierarchyHelper.FindChildWithTag(other.gameObject, "Fire");
 
@@ -36,12 +70,12 @@ public class FireChainSegment : MonoBehaviour
 
                 // Add the ElectricitySpread component to the new child GameObject
                 FireSpread newFire = fireObject.AddComponent<FireSpread>();
-                newFire._fireDamage = _fireDamage;
-                newFire._fireActiveDuration = _fireActiveDuration;
+                newFire._fireDamage =  _fireChainSegment.GetFireDamage;
+                newFire._fireActiveDuration = _fireChainSegment.GetFireActiveDuration;
 
                 // Instantiate the electricity particles and set it as a child of electricityObject
                 GameObject particlesInstance = Instantiate(_fireParticles, fireObject.transform);
-                newFire._fireParticles = particlesInstance;
+                newFire._fireParticles = _fireParticles;
 
                 // Get the ParticleSystem component
                 ParticleSystem particleSystem = particlesInstance.GetComponent<ParticleSystem>();
@@ -104,15 +138,8 @@ public class FireChainSegment : MonoBehaviour
                 {
                     Debug.LogWarning("No MeshRenderer or SkinnedMeshRenderer found in the hierarchy.");
                 }
+
             }
         }
-    }  
-    public float GetFireDamage 
-    { 
-        get { return _fireDamage; } 
-    }
-    public float GetFireActiveDuration
-    {
-        get { return _fireActiveDuration; }
     }
 }
