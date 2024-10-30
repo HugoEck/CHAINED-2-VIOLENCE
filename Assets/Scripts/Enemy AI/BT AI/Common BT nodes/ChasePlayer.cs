@@ -12,13 +12,13 @@ public class ChasePlayer : Node
     {
         SetChaseAnimation(agent);
        
-        targetedPlayer = agent.CalculateClosestTarget();
-        float distance = Vector3.Distance(agent.transform.position, targetedPlayer.transform.position);
+        agent.targetedPlayer = agent.CalculateClosestTarget();
+        float distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
         
         if (distance > agent.attackRange)
         {
             agent.navigation.isStopped = false;
-            agent.navigation.destination = targetedPlayer.position;
+            agent.navigation.destination = agent.targetedPlayer.position;
 
             //agent.navMeshAgent.isStopped = false;
             //agent.navMeshAgent.SetDestination(targetedPlayer.position);
@@ -31,7 +31,7 @@ public class ChasePlayer : Node
             agent.navigation.isStopped = true;
             //agent.navMeshAgent.isStopped = true;
 
-            RotateTowardsPlayer(agent, targetedPlayer);
+            RotateTowardsPlayer(agent, agent.targetedPlayer);
             return NodeState.SUCCESS;
         }
 

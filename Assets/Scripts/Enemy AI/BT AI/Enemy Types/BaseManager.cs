@@ -34,6 +34,8 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public GameObject player2;
     [HideInInspector] public Player playerManager1;
     [HideInInspector] public Player playerManager2;
+    [HideInInspector] public Transform targetedPlayer;
+    [HideInInspector] public Vector3 chainPosition;
 
     public Player checkWhichPlayerManager;
     [HideInInspector] public Animator animator;
@@ -133,6 +135,16 @@ public class BaseManager : MonoBehaviour
         {
             return playerManager2;
         }
+    }
+
+    public Vector3 CalculateChainPosition()
+    {
+
+        Vector3 p1Position = player1.transform.position;
+        Vector3 p2Position = player2.transform.position;
+        Vector3 midPoint = (p1Position + p2Position) / 2;
+        midPoint.y = 0;
+        return midPoint;
     }
 
     public virtual void DeathTimer()

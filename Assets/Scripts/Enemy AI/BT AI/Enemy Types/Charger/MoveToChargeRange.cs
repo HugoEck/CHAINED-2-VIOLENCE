@@ -11,15 +11,15 @@ public class MoveToChargeRange : Node
 
         ChargerManager charger = agent as ChargerManager;
 
-        targetedPlayer = agent.CalculateClosestTarget();
-        float distance = Vector3.Distance(agent.transform.position, targetedPlayer.transform.position);
+        agent.targetedPlayer = agent.CalculateClosestTarget();
+        float distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
 
         if (distance > charger.chargingRange && charger.isAlreadyCharging == false)
         {
             agent.animator.SetBool("Charger_Chase", true);
 
             agent.navigation.isStopped = false;
-            agent.navigation.destination = targetedPlayer.position;
+            agent.navigation.destination = agent.targetedPlayer.position;
 
             return NodeState.RUNNING;
         }

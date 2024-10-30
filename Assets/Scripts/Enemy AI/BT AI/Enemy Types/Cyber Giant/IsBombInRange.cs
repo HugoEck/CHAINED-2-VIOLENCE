@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class IsNotInRange : Node
+public class IsBombInRange : Node
 {
     private float distance;
-
     public override NodeState Evaluate(BaseManager agent)
     {
+        CyberGiantManager cg = agent as CyberGiantManager;
+
         agent.targetedPlayer = agent.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
-        if (distance > agent.attackRange)
-        {
-
-            return NodeState.SUCCESS;
-        }
-        else
+        if (distance < cg.minimumBombDistance)
         {
             return NodeState.FAILURE;
         }
+        else
+        {
+            return NodeState.SUCCESS;
+        }
+        
     }
 }

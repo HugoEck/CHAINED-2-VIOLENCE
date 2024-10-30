@@ -28,7 +28,7 @@ public class ChargerManager : BaseManager
     [HideInInspector] public bool prepareChargeComplete = false;
 
   
-    [HideInInspector] public Vector3 chainPosition;
+    //[HideInInspector] public Vector3 chainPosition;
     [HideInInspector] public Vector3 lastSavedPosition;
 
     

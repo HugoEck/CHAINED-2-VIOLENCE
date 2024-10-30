@@ -6,7 +6,7 @@ using UnityEngine.XR;
 public abstract class Node 
 {
     protected NodeState _nodeState;
-    protected Transform targetedPlayer;
+    //protected Transform targetedPlayer;
     
     public NodeState nodeState {  get { return _nodeState; } }
 

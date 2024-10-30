@@ -1,21 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class CalculateThrow : Node
+public class CalculateBombPosition : Node
 {
+
     Transform playerLastPosition;
     float throwForce = 12;
-    
+
     public override NodeState Evaluate(BaseManager agent)
     {
-        RockThrowerManager rockThrower = agent as RockThrowerManager;
+        CyberGiantManager cg = agent as CyberGiantManager;
 
-        if (rockThrower == null)
-        {
-            Debug.Log("Denna metod fungerar inte!");   
-        }
 
         agent.targetedPlayer = agent.CalculateClosestTarget();
         playerLastPosition = agent.targetedPlayer;
@@ -40,7 +36,4 @@ public class CalculateThrow : Node
         return NodeState.SUCCESS;
 
     }
-  
-
-    
 }
