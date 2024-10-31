@@ -68,7 +68,7 @@ public class BaseManager : MonoBehaviour
         playerManager1 = player1.GetComponent<Player>();
         playerManager2 = player2.GetComponent<Player>();
 
-
+        bloodSplatter = GetComponentsInChildren<ParticleSystem>();
     }
 
 
@@ -88,18 +88,14 @@ public class BaseManager : MonoBehaviour
 
     public virtual void DealDamageToEnemy(float damage)
     {
-        if (defense - damage < 0)
+        if (defense - damage < 0 && currentHealth > 0)
         {
-            if (transform.childCount > 0)
-            {
-
-                bloodSplatter = GetComponentsInChildren<ParticleSystem>();
+                //Plays bloodsplatter anim
                 foreach (ParticleSystem particles in bloodSplatter)
                 {
-                    Debug.Log("Found a particle system");
                     particles.Play();
                 }
-            }
+            
             currentHealth = currentHealth + defense - damage;
         }
 
