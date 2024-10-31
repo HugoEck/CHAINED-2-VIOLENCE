@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CyberGiantManager : BaseManager
@@ -10,9 +11,12 @@ public class CyberGiantManager : BaseManager
 
     [Header("CYBERGIANT MANAGER")]
     public GameObject bombPrefab;
+    public GameObject missilePrefab;
     public Transform bombShootPoint;
     public Transform missileShootPoint;
-
+    public bool missilePrepActivated = false;
+    public bool missileSent = false;
+    public float currentTime = 0;
 
     [HideInInspector] public float bombDamage;
     [HideInInspector] public float missileDamage;
@@ -20,8 +24,13 @@ public class CyberGiantManager : BaseManager
     [HideInInspector] public float minimumMissileDistance;
     
     [HideInInspector] public Vector3 bombVelocity;
-    [HideInInspector] public Vector3 p1LastPosition;
-    [HideInInspector] public Vector3 p2LastPosition;
+    [HideInInspector] public Vector3 p1_LastPosition;
+    [HideInInspector] public Vector3 p2_LastPosition;
+    [HideInInspector] public Vector3 chain_LastPosition;
+    [HideInInspector] public Vector3 p1_Velocity;
+    [HideInInspector] public Vector3 p2_Velocity;
+    [HideInInspector] public Vector3 chain_Velocity;
+
 
     [HideInInspector] public bool abilityInProgress = false;
     [HideInInspector] public bool missileReady = false;
@@ -30,8 +39,9 @@ public class CyberGiantManager : BaseManager
 
     private float lastBombShotTime = 3;
     private float bombCooldown;
-    private float lastMissileShotTime = 5;
+    private float lastMissileShotTime = 0;
     private float missileCooldown;
+    private float distance;
 
     void Start()
     {
@@ -59,7 +69,7 @@ public class CyberGiantManager : BaseManager
         minimumMissileDistance = 25;
         bombCooldown = 3;
         bombDamage = 10;
-        missileCooldown = 3;
+        missileCooldown = 10;
         missileDamage = 20;
 
         c_collider.center = new Vector3(0, 0.75f, 0);
@@ -70,8 +80,12 @@ public class CyberGiantManager : BaseManager
 
     public bool IsMissileReady()
     {
+        targetedPlayer = CalculateClosestTarget();
+        distance = Vector3.Distance(transform.position, targetedPlayer.position);
+
         if (Time.time > lastMissileShotTime + missileCooldown)
         {
+            
             lastMissileShotTime = Time.time;
 
             return true;
@@ -83,7 +97,7 @@ public class CyberGiantManager : BaseManager
     }
 
 
-    public void SetCalculatedVelocity(Vector3 newVelocity)
+    public void SetBombVelocity(Vector3 newVelocity)
     {
         bombVelocity = newVelocity;
     }
@@ -107,17 +121,24 @@ public class CyberGiantManager : BaseManager
 
         CheckIfDead checkIfDead = new CheckIfDead();
         KillAgent killAgent = new KillAgent();
-        IsBombInRange isBombInRange = new IsBombInRange();
         CalculateBombPosition calculateBombPosition = new CalculateBombPosition();
         ShootBomb shootBomb = new ShootBomb();
+        IsMissileReady isMissileReady = new IsMissileReady();
+        PrepareMissiles prepareMissiles = new PrepareMissiles();
+        CalculateMissilePosition calculateMissilePosition = new CalculateMissilePosition();
+        ShootMissiles shootMissiles = new ShootMissiles();
 
         //Kill Branch
         Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
 
         //Range Branch
-        Sequence bomb = new Sequence(new List<Node> { isBombInRange, calculateBombPosition, shootBomb });
+        Sequence bomb = new Sequence(new List<Node> { calculateBombPosition, shootBomb });
+
+        //Sequence missileConditions = new Sequence(new List<Node> { isMissileInRange, isMissileReady });
+        Sequence missiles = new Sequence(new List<Node> { isMissileReady, prepareMissiles, calculateMissilePosition, shootMissiles });
+        Sequence longRange = new Sequence(new List<Node> { bomb, missiles });
 
 
-        rootNode = new Selector(new List<Node>() { isDead, bomb });
+        rootNode = new Selector(new List<Node>() { isDead, longRange });
     }
 }

@@ -27,9 +27,10 @@ public class CalculateBombPosition : Node
 
         Vector3 velocityXZ = directionXZ.normalized * shootForce;
 
+
         Vector3 finalVelocity = new Vector3(velocityXZ.x, velocityY, velocityXZ.z);
 
-        cg.SetCalculatedVelocity(finalVelocity);
+        cg.SetBombVelocity(finalVelocity);
 
         return NodeState.SUCCESS;
 

@@ -545,6 +545,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c56e1ea930d4baa448ee4cebf772899f, type: 3}
+--- !u!1 &190215086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 190215088}
+  - component: {fileID: 190215087}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &190215087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190215086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &190215088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190215086}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &264591225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -910,7 +956,7 @@ Transform:
   m_GameObject: {fileID: 531025609}
   serializedVersion: 2
   m_LocalRotation: {x: -0.23242792, y: 0.6678153, z: -0.23242792, w: -0.6678153}
-  m_LocalPosition: {x: -0.39674842, y: 0.021956678, z: 0.30000013}
+  m_LocalPosition: {x: -0.252, y: 0.067, z: 0.258}
   m_LocalScale: {x: 0.28571418, y: 0.28571418, z: 0.2857142}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1401,7 +1447,6 @@ MonoBehaviour:
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
-  chainPosition: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -1962,7 +2007,6 @@ MonoBehaviour:
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
-  chainPosition: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -2965,7 +3009,6 @@ MonoBehaviour:
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
-  chainPosition: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
   enemyID: Plebian
   activateDeathTimer: 0
@@ -3459,6 +3502,37 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.75, z: 0}
+--- !u!114 &1073503590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073503585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62359d80fdc0e4315ab6331b78ec5b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicForParticles: 0
+--- !u!114 &1073503591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073503585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 1073503588}
+  m_DistanceField: {fileID: 0}
 --- !u!1 &1102680179
 GameObject:
   m_ObjectHideFlags: 0
@@ -3811,52 +3885,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1129976309
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1129976311}
-  - component: {fileID: 1129976310}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1129976310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129976309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1129976311
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129976309}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1154717115
 GameObject:
   m_ObjectHideFlags: 0
@@ -4571,7 +4599,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474865657}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
   m_Name: 
@@ -4585,7 +4613,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474865657}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
   m_Name: 
@@ -4674,7 +4702,6 @@ MonoBehaviour:
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
-  chainPosition: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -4683,15 +4710,24 @@ MonoBehaviour:
   rb: {fileID: 0}
   bombPrefab: {fileID: 4981767440125039733, guid: 6e10bfb257a793e438a727260e28864c,
     type: 3}
+  missilePrefab: {fileID: 2539648549058869044, guid: ecfbc4c4fb4af0045999733b3eedb914,
+    type: 3}
   bombShootPoint: {fileID: 106961051}
   missileShootPoint: {fileID: 531025610}
+  missilePrepActivated: 0
+  missileSent: 0
+  currentTime: 0
   bombDamage: 10
   missileDamage: 0
   minimumBombDistance: 20
   minimumMissileDistance: 25
   bombVelocity: {x: 0, y: 0, z: 0}
-  p1LastPosition: {x: 0, y: 0, z: 0}
-  p2LastPosition: {x: 0, y: 0, z: 0}
+  p1_LastPosition: {x: 0, y: 0, z: 0}
+  p2_LastPosition: {x: 0, y: 0, z: 0}
+  chain_LastPosition: {x: 0, y: 0, z: 0}
+  p1_Velocity: {x: 0, y: 0, z: 0}
+  p2_Velocity: {x: 0, y: 0, z: 0}
+  chain_Velocity: {x: 0, y: 0, z: 0}
   abilityInProgress: 0
   missileReady: 0
 --- !u!4 &1517848752 stripped
@@ -4903,7 +4939,6 @@ MonoBehaviour:
   playerManager1: {fileID: 0}
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
-  chainPosition: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
@@ -4917,6 +4952,7 @@ MonoBehaviour:
   activatePrepareChargeTimer: 0
   activateChargingTimer: 0
   prepareChargeComplete: 0
+  chainPosition: {x: 0, y: 0, z: 0}
   lastSavedPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1584694764 stripped
 Transform:
@@ -5825,6 +5861,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1398320186731392, guid: c38312671b1287f438871de666ae8f72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398320186731392, guid: c38312671b1287f438871de666ae8f72, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -6150,6 +6190,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1073503587}
+    - targetCorrespondingSourceObject: {fileID: 1705072311351044, guid: c38312671b1287f438871de666ae8f72,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1073503591}
+    - targetCorrespondingSourceObject: {fileID: 1705072311351044, guid: c38312671b1287f438871de666ae8f72,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1073503590}
   m_SourcePrefab: {fileID: 100100000, guid: c38312671b1287f438871de666ae8f72, type: 3}
 --- !u!1001 &1833642104
 PrefabInstance:
@@ -7060,4 +7108,4 @@ SceneRoots:
   - {fileID: 1746527592}
   - {fileID: 1154717128}
   - {fileID: 1801737359}
-  - {fileID: 1129976311}
+  - {fileID: 190215088}

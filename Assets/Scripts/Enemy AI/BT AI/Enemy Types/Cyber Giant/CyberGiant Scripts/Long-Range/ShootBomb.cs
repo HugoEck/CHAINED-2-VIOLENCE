@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShootBomb : Node
 {
+    private float distance;
     public override NodeState Evaluate(BaseManager agent)
     {
 
         CyberGiantManager cg =  agent as CyberGiantManager;
 
-        if (cg.IsAttackAllowed())
+        agent.targetedPlayer = agent.CalculateClosestTarget();
+        distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
+
+        if (cg.IsBombReady() && distance > cg.minimumBombDistance)
         {
             GameObject bomb = GameObject.Instantiate(cg.bombPrefab, cg.bombShootPoint.position, cg.bombShootPoint.rotation);
             Rigidbody rb = bomb.GetComponent<Rigidbody>();

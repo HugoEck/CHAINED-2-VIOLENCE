@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PrepareCharge : Node
 {
+
+   
     
    public override NodeState Evaluate(BaseManager agent)
     {
@@ -20,8 +22,8 @@ public class PrepareCharge : Node
             agent.navigation.isStopped = true;
 
             agent.targetedPlayer = agent.CalculateClosestTarget();
-            agent.chainPosition = agent.CalculateChainPosition();
-            RotateTowardsChain(agent, agent.chainPosition );
+            charger.chainPosition = agent.CalculateChainPosition();
+            RotateTowardsChain(agent, charger.chainPosition );
             charger.lastSavedPosition = new Vector3 (agent.transform.position.x, 0, agent.transform.position.z);
 
 

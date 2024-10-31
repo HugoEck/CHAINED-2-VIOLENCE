@@ -9,7 +9,7 @@ using UnityEngine.AI;
 public class BaseManager : MonoBehaviour
 {
 
-    //Detta skript innehåller alla basvariabler samt metoder för alla andra managers.
+    //Detta skript innehåller alla basvariabler samt basmetoder för alla andra managers.
 
     //----------------------------------------------------------------------------------------
     // OBS! NI FÅR VARKEN LÄGGA TILL ELLER ÄNDRA VARIABLER/METODER I DETTA SKRIPT UTAN MIN TILLÅTELSE!
@@ -35,7 +35,7 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public Player playerManager1;
     [HideInInspector] public Player playerManager2;
     [HideInInspector] public Transform targetedPlayer;
-    [HideInInspector] public Vector3 chainPosition;
+    //[HideInInspector] public Vector3 chainPosition;
     [HideInInspector] public Animator animator;
     [HideInInspector] public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
