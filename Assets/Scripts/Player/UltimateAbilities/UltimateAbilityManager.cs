@@ -17,7 +17,7 @@ public class UltimateAbilityManager : MonoBehaviour
         FireChain
     }
 
-    private UltimateAbilities currentUltimateAbility = UltimateAbilities.FireChain;
+    private UltimateAbilities currentUltimateAbility = UltimateAbilities.LaserChain;
 
     [Header("Ultimate attributes")]
     [SerializeField] private int _timeForOtherPlayerToUseUltimate = 3;

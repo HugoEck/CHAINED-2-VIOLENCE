@@ -22,6 +22,10 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     private List<GameObject> _pooledElectricChainSegments;
     private List<GameObject> _pooledFireChainSegments;
 
+    ObiRopeChainRenderer chainRenderer1;
+    ObiRopeChainRenderer chainRenderer2;
+    ObiRopeLineRenderer lineRenderer;
+
     private void Awake()
     {
         if (instance == null)
@@ -37,6 +41,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     private void Start()
     {
         _chain = GetComponent<ObiActor>();
+
+        ObiRopeChainRenderer[] chainRenderers = gameObject.GetComponents<ObiRopeChainRenderer>();
+
+        chainRenderer1 = chainRenderers[0];
+        chainRenderer2 = chainRenderers[1];
+        lineRenderer = GetComponent<ObiRopeLineRenderer>();
 
         InstantiateLaserChainSegments();
         InstantiateElectricChainSegments();
@@ -196,10 +206,15 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     /// </summary>
     public void SpawnLaserChainSegments()
     {
+        chainRenderer1.enabled = false;
+        chainRenderer2.enabled = false;
+
+        lineRenderer.enabled = true;
+
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
             if (!_pooledLaserChainSegments[i].activeInHierarchy)
-            {
+            {              
                 // Update the position before setting the object active
                 _pooledLaserChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
 
@@ -228,10 +243,15 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     /// </summary>
     public void DeactivateLaserChainSegments()
     {
+        lineRenderer.enabled = false;
+
+        chainRenderer1.enabled = true;
+        chainRenderer2.enabled = true;
+
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
             if (_pooledLaserChainSegments[i].activeInHierarchy)
-            {
+            {            
                 _pooledLaserChainSegments[i].SetActive(false);
             }
         }
@@ -255,7 +275,7 @@ public class SpawnAbilityChainSegments : MonoBehaviour
             tmpLaserChain.SetActive(false);
 
             tmpLaserChain.transform.SetParent(laserChainParent.transform);
-
+           
             _pooledLaserChainSegments.Add(tmpLaserChain);
         }
     }
