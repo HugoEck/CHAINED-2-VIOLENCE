@@ -18,6 +18,9 @@ public class CyberGiantManager : BaseManager
     public bool missileSent = false;
     public float currentTime = 0;
 
+    public bool missileReady = false;
+    public bool bombReady = false;
+
     [HideInInspector] public float bombDamage;
     [HideInInspector] public float missileDamage;
     [HideInInspector] public float minimumBombDistance;
@@ -33,7 +36,7 @@ public class CyberGiantManager : BaseManager
 
 
     [HideInInspector] public bool abilityInProgress = false;
-    [HideInInspector] public bool missileReady = false;
+    
 
 
 
@@ -41,7 +44,7 @@ public class CyberGiantManager : BaseManager
     private float bombCooldown;
     private float lastMissileShotTime = 0;
     private float missileCooldown;
-    private float distance;
+
 
     void Start()
     {
@@ -57,6 +60,9 @@ public class CyberGiantManager : BaseManager
     private void FixedUpdate()
     {
         rootNode.Evaluate(this);
+
+        IsMissileReady();
+        IsBombReady();
     }
 
     
@@ -80,18 +86,17 @@ public class CyberGiantManager : BaseManager
 
     public bool IsMissileReady()
     {
-        targetedPlayer = CalculateClosestTarget();
-        distance = Vector3.Distance(transform.position, targetedPlayer.position);
 
         if (Time.time > lastMissileShotTime + missileCooldown)
         {
             
             lastMissileShotTime = Time.time;
-
+            missileReady = true;
             return true;
         }
         else
         {
+            
             return false;
         }
     }
@@ -108,10 +113,12 @@ public class CyberGiantManager : BaseManager
         if (Time.time > lastBombShotTime + bombCooldown)
         {
             lastBombShotTime = Time.time;
+            bombReady = true;
             return true;
         }
         else
         {
+            
             return false;
         }
     }
@@ -133,8 +140,6 @@ public class CyberGiantManager : BaseManager
 
         //Range Branch
         Sequence bomb = new Sequence(new List<Node> { calculateBombPosition, shootBomb });
-
-        //Sequence missileConditions = new Sequence(new List<Node> { isMissileInRange, isMissileReady });
         Sequence missiles = new Sequence(new List<Node> { isMissileReady, prepareMissiles, calculateMissilePosition, shootMissiles });
         Sequence longRange = new Sequence(new List<Node> { bomb, missiles });
 

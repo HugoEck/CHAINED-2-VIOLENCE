@@ -10,6 +10,8 @@ public class ShootMissiles : Node
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
+        cg.missileReady = false;
+
         GameObject p1_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);
         GameObject p2_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);
         GameObject chain_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);

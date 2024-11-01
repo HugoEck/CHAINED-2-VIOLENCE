@@ -5,7 +5,7 @@ using UnityEngine;
 public class CalculateMissilePosition : Node
 {
     
-    float shootForce = 50;
+    float shootForce = 60;
 
     public override NodeState Evaluate(BaseManager agent)
     {
