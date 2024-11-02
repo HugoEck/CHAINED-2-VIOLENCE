@@ -81,7 +81,7 @@ public class CyberGiantManager : BaseManager
         missileDamage = 20;
         attackRange = 8;
 
-        c_collider.center = new Vector3(0, 0.75f, 0);
+        c_collider.center = new Vector3(0, 1f, 0);
         c_collider.radius = 0.75f;
         c_collider.height = 2.5f;
 
