@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class PrepareMissiles : Node
 {
-    private float prepDurationTime = 5;
+    private float prepDurationTime = 3.5f;
     private float currentTime = 0;
 
 
     public override NodeState Evaluate(BaseManager agent)
     {
+
+
+
+        agent.navigation.isStopped = true;
+
+        agent.animator.SetBool("CyberGiant_PrepareMissiles", true);
+        agent.animator.SetBool("CyberGiant_Walk", false);
 
         CyberGiantManager cg = agent as CyberGiantManager;
 

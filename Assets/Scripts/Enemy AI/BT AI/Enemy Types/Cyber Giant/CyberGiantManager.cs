@@ -50,7 +50,7 @@ public class CyberGiantManager : BaseManager
     {
         enemyID = "CyberGiant";
 
-        animator.SetBool("CyberGiant_Idle", true);
+        animator.SetBool("CyberGiant_StartChasing", true);
 
         LoadStats();
         ConstructBT();
@@ -71,12 +71,15 @@ public class CyberGiantManager : BaseManager
     {
         maxHealth = 100;
         currentHealth = maxHealth;
+        navigation.maxSpeed = speed;
+
         minimumBombDistance = 20;
         minimumMissileDistance = 25;
         bombCooldown = 3;
         bombDamage = 10;
         missileCooldown = 10;
         missileDamage = 20;
+        attackRange = 8;
 
         c_collider.center = new Vector3(0, 0.75f, 0);
         c_collider.radius = 0.75f;
@@ -134,6 +137,7 @@ public class CyberGiantManager : BaseManager
         PrepareMissiles prepareMissiles = new PrepareMissiles();
         CalculateMissilePosition calculateMissilePosition = new CalculateMissilePosition();
         ShootMissiles shootMissiles = new ShootMissiles();
+        ChasePlayer chasePlayer = new ChasePlayer();
 
         //Kill Branch
         Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
@@ -143,7 +147,11 @@ public class CyberGiantManager : BaseManager
         Sequence missiles = new Sequence(new List<Node> { isMissileReady, prepareMissiles, calculateMissilePosition, shootMissiles });
         Sequence longRange = new Sequence(new List<Node> { bomb, missiles });
 
+        //Chase Branch
 
-        rootNode = new Selector(new List<Node>() { isDead, longRange });
+
+
+
+        rootNode = new Selector(new List<Node>() { isDead, longRange, chasePlayer });
     }
 }

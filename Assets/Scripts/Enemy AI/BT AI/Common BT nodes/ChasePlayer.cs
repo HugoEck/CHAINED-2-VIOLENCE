@@ -20,8 +20,7 @@ public class ChasePlayer : Node
             agent.navigation.isStopped = false;
             agent.navigation.destination = agent.targetedPlayer.position;
 
-            //agent.navMeshAgent.isStopped = false;
-            //agent.navMeshAgent.SetDestination(targetedPlayer.position);
+
             
             return NodeState.RUNNING;
         }
@@ -31,7 +30,7 @@ public class ChasePlayer : Node
             agent.navigation.isStopped = true;
             //agent.navMeshAgent.isStopped = true;
 
-            RotateTowardsPlayer(agent, agent.targetedPlayer);
+            //RotateTowardsPlayer(agent, agent.targetedPlayer);
             return NodeState.SUCCESS;
         }
 
@@ -74,5 +73,11 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Charger_Attack", false);
             agent.animator.SetBool("Charger_Sprint", false);
         }
+        else if(agent.enemyID == "CyberGiant")
+        {
+            agent.animator.SetBool("CyberGiant_Walk", true);
+            agent.animator.SetBool("CyberGiant_PrepareMissiles", false);
+        }
+        
     }
 }
