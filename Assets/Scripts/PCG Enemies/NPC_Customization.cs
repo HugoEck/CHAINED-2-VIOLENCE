@@ -64,6 +64,10 @@ public class NPC_Customization : MonoBehaviour
     [SerializeField] GameObject FarmRock;
     [SerializeField] GameObject RagdollRoot;
 
+    [Header("NPC Particles")]
+    [SerializeField] GameObject bloodSplatter;
+    [SerializeField] GameObject smokeTrail;
+
 
     [SerializeField] private Dictionary<NPCTheme, ThemeData> themeDataDict;
 
@@ -83,7 +87,8 @@ public class NPC_Customization : MonoBehaviour
         Mini,
         Pirate,
         Cowboys,
-        Indians
+        Indians,
+        CurrentDay
         //Add more Themes here
     };
 
@@ -240,6 +245,9 @@ public class NPC_Customization : MonoBehaviour
         ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
         SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
         BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
+
+        GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
+        
         //Physics.SyncTransforms();
 
         triggerCollider.isTrigger = true;
@@ -300,6 +308,7 @@ public class NPC_Customization : MonoBehaviour
         }
         else if (Class == NPCClass.Charger)
         {
+            GameObject smokeTrailCopy = Instantiate(smokeTrail, enemy.transform);
             ChargerManager behaviour = enemy.AddComponent<ChargerManager>();
 
         }

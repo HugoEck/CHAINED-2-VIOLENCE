@@ -5,7 +5,9 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] availableWeapons; 
     private GameObject currentWeapon;
-    private Dictionary<int, GameObject> weaponDictionary = new Dictionary<int, GameObject>(); 
+    private Dictionary<int, GameObject> weaponDictionary = new Dictionary<int, GameObject>();
+
+    public bool hasWeapon => currentWeapon != null;
 
     private void Start()
     {
