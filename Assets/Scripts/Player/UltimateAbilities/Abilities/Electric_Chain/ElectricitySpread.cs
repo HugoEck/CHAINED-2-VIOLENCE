@@ -61,9 +61,12 @@ public class ElectricitySpread : MonoBehaviour
         _damageTimer += Time.deltaTime;
         if (_damageTimer >= _damageInterval)
         {
-            // Apply damage to the enemy
-            enemyManager.DealDamageToEnemy(_electricityDamage);
-            _damageTimer = 0f; // Reset the damage timer
+            if(enemyManager != null)
+            {
+                // Apply damage to the enemy
+                enemyManager.DealDamageToEnemy(_electricityDamage);
+                _damageTimer = 0f; // Reset the damage timer
+            }         
         }
     }
 
