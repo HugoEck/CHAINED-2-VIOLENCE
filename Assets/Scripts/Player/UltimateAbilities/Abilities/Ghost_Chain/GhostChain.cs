@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script handles the ghost chain ultimate ability (activation, timer etc)
+/// </summary>
 public class GhostChain : MonoBehaviour, IUltimateAbility
 {
     [Header("Ghost chain attributes")]
@@ -29,7 +30,7 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
             Activate();
         }
     }
-
+    
     public void Activate()
     {
         _bIsGhostChainActive = true;
@@ -38,7 +39,7 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
         Debug.Log("Ghost Chain Activated");
         SpawnAbilityChainSegments.instance.SpawnGhostChainSegments();
     }
-
+   
     public void Deactivate()
     {
         _bIsGhostChainActive = false;

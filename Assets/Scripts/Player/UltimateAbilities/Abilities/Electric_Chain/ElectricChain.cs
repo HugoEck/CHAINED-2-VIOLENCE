@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script handles the electric chain ultimate ability 
+/// </summary>
 public class ElectricChain : MonoBehaviour, IUltimateAbility
 {
     [Header("Electric chain attributes")]

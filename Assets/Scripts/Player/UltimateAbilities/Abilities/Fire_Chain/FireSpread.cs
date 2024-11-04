@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script handles the spreading of the fire to enemies if they collide with another enemy that is inflicted with fire
+/// </summary>
 public class FireSpread : MonoBehaviour
 {
     public GameObject _fireParticles;
@@ -164,6 +165,11 @@ public class FireSpread : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The fire spread collider needs to inherit the normal collider to make proporions correct
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="target"></param>
     private void CopyColliderValues(CapsuleCollider source, CapsuleCollider target)
     {
         if (source != null && target != null)

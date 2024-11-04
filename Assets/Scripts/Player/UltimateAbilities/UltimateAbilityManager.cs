@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// This class handles all the ultimate abilites (updating and synchronizing player inputs to use them)
+/// This script handles all the ultimate abilites (updating and synchronizing player inputs to use them)
 /// </summary>
 
 [RequireComponent(typeof(LaserChain))]
@@ -11,7 +11,7 @@ using UnityEngine;
 [RequireComponent(typeof(GhostChain))]
 public class UltimateAbilityManager : MonoBehaviour
 {
-    private enum UltimateAbilities
+    public enum UltimateAbilities
     {
         LaserChain,
         ElectricChain,
@@ -19,7 +19,7 @@ public class UltimateAbilityManager : MonoBehaviour
         GhostChain
     }
 
-    private UltimateAbilities currentUltimateAbility = UltimateAbilities.LaserChain;
+    private UltimateAbilities _currentUltimateAbility = UltimateAbilities.LaserChain;
 
     [Header("Ultimate attributes")]
     [SerializeField] private int _timeForOtherPlayerToUseUltimate = 3;
@@ -47,15 +47,14 @@ public class UltimateAbilityManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (instance != null)
         {
             Destroy(gameObject);
+            return;
         }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -67,11 +66,20 @@ public class UltimateAbilityManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Call this from UI logic that lets players change their current ultimate ability
+    /// </summary>
+    /// <param name="newUltimateAbiltiy"></param>
+    public void SetCurrentUltimateAbility(UltimateAbilities newUltimateAbiltiy)
+    {
+        _currentUltimateAbility = newUltimateAbiltiy;
+    }
+
+    /// <summary>
     /// Update the current Ultimate ability that is being used
     /// </summary>
     private void Update()
     {
-        switch (currentUltimateAbility)
+        switch (_currentUltimateAbility)
         {
             case UltimateAbilities.LaserChain:
                 _laserChain.UpdateUltimateAttack();
@@ -97,10 +105,12 @@ public class UltimateAbilityManager : MonoBehaviour
         }
     }
 
-    
+    /// <summary>
+    /// Activate the current Ultimate ability that is being used
+    /// </summary>
     public void UseUltimateAbility()
     {
-        switch (currentUltimateAbility)
+        switch (_currentUltimateAbility)
         {
             case UltimateAbilities.LaserChain:
                 _laserChain.UseUltimate();

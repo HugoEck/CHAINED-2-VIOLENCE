@@ -1,8 +1,7 @@
-using Obi;
 using UnityEngine;
 
 /// <summary>
-/// This class handles the laser chain segments such as damage and collisions
+/// This script handles the laser chain segments such as damage and collisions
 /// </summary>
 public class LaserChainSegment : MonoBehaviour
 {

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// This script handles the collision logic for the electric chain segments
+/// </summary>
 public class ElectricChainSegment : MonoBehaviour
 {
     [Header("Layers to collide with")]
@@ -8,6 +11,7 @@ public class ElectricChainSegment : MonoBehaviour
     [Header("Electric Segment attributes")]
     [SerializeField] private float _electricityDamage;
     [SerializeField] private float _electricityActiveDuration;
+    [SerializeField] private float _additionalElectricitySpreadRadius = 1.0f;
 
     [Header("Electricity particles")]
     [SerializeField] private GameObject _electricityParticles;
@@ -36,6 +40,7 @@ public class ElectricChainSegment : MonoBehaviour
                 ElectricitySpread newElectricity = electricityObject.AddComponent<ElectricitySpread>();
                 newElectricity._electricityDamage = _electricityDamage;
                 newElectricity._electricityActiveDuration = _electricityActiveDuration;
+                newElectricity._additionalElectricitySpreadRadius = _additionalElectricitySpreadRadius;
 
                 // Instantiate the electricity particles and set it as a child of electricityObject
                 GameObject particlesInstance = Instantiate(_electricityParticles, electricityObject.transform);

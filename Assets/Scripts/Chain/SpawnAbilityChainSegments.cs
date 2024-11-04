@@ -1,4 +1,5 @@
 using Obi;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public class SpawnAbilityChainSegments : MonoBehaviour
 
     private ObiActor _chain;
 
-    private const int AMOUNT_OF_OBJECTS_TO_POOL = 100;
+    private const int AMOUNT_OF_OBJECTS_TO_POOL = 50;
 
     private List<GameObject> _pooledLaserChainSegments;
     private List<GameObject> _pooledElectricChainSegments;
@@ -33,7 +34,6 @@ public class SpawnAbilityChainSegments : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -111,6 +111,19 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         GameObject ghostChainParent = new GameObject("Ghost_Chain_Segments");
 
+        GameObject ultimateAbilityManager = GameObject.FindGameObjectWithTag("UltimateAbilityManager");
+
+        if (ultimateAbilityManager != null)
+        {
+            ghostChainParent.transform.SetParent(ultimateAbilityManager.transform);
+        }
+        else
+        {
+            int numberOfTries = 0;
+            // Start a coroutine to keep checking for UltimateAbilityManager
+            StartCoroutine(UltimateAbilityManagerNotFound(ghostChainParent, numberOfTries));
+        }
+
         // Initialize the object pool list
         _pooledGhostChainSegments = new List<GameObject>();
 
@@ -184,6 +197,19 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         GameObject fireChainParent = new GameObject("Fire_Chain_Segments");
 
+        GameObject ultimateAbilityManager = GameObject.FindGameObjectWithTag("UltimateAbilityManager");
+
+        if (ultimateAbilityManager != null)
+        {
+            fireChainParent.transform.SetParent(ultimateAbilityManager.transform);
+        }
+        else
+        {
+            int numberOfTries = 0;
+            // Start a coroutine to keep checking for UltimateAbilityManager
+            StartCoroutine(UltimateAbilityManagerNotFound(fireChainParent, numberOfTries));
+        }
+
         // Initialize the object pool list
         _pooledFireChainSegments = new List<GameObject>();
 
@@ -256,6 +282,19 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     private void InstantiateElectricChainSegments()
     {
         GameObject electricChainParent = new GameObject("Electric_Chain_Segments");
+
+        GameObject ultimateAbilityManager = GameObject.FindGameObjectWithTag("UltimateAbilityManager");
+
+        if (ultimateAbilityManager != null)
+        {
+            electricChainParent.transform.SetParent(ultimateAbilityManager.transform);
+        }
+        else
+        {
+            int numberOfTries = 0;
+            // Start a coroutine to keep checking for UltimateAbilityManager
+            StartCoroutine(UltimateAbilityManagerNotFound(electricChainParent, numberOfTries));
+        }
 
         // Initialize the object pool list
         _pooledElectricChainSegments = new List<GameObject>();
@@ -340,6 +379,19 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         GameObject laserChainParent = new GameObject("Laser_Chain_Segments");
 
+        GameObject ultimateAbilityManager = GameObject.FindGameObjectWithTag("UltimateAbilityManager");
+
+        if (ultimateAbilityManager != null)
+        {
+            laserChainParent.transform.SetParent(ultimateAbilityManager.transform);
+        }
+        else
+        {
+            int numberOfTries = 0;
+            // Start a coroutine to keep checking for UltimateAbilityManager
+            StartCoroutine(UltimateAbilityManagerNotFound(laserChainParent, numberOfTries));
+        }
+
         // Initialize the object pool list
         _pooledLaserChainSegments = new List<GameObject>();
 
@@ -357,5 +409,29 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     }
 
     #endregion
+
+    private IEnumerator UltimateAbilityManagerNotFound(GameObject ultimateAbilityParent, int numberOfTries)
+    {
+        // Wait before checking again
+        yield return new WaitForSeconds(0.2f);
+
+        GameObject ultimateAbilityManager = GameObject.FindGameObjectWithTag("UltimateAbilityManager");
+
+        if (ultimateAbilityManager != null)
+        {
+            // Set the parent once the UltimateAbilityManager is found
+            ultimateAbilityParent.transform.SetParent(ultimateAbilityManager.transform);
+        }
+        else
+        {
+            numberOfTries = numberOfTries + 1;
+
+            // Only check for gameobject 5 times to avoid infinite loop
+            if(numberOfTries < 5)
+            {           
+                StartCoroutine(UltimateAbilityManagerNotFound(ultimateAbilityParent, numberOfTries));
+            }           
+        }
+    }
 }
 

@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// This script handles how long the ground fire will be active and spreads the fire 
+/// This script handles how long the ground fire will be active and spreads the fire from the ground to the enemy that collides with it
 /// </summary>
 public class GroundFire : MonoBehaviour
 {

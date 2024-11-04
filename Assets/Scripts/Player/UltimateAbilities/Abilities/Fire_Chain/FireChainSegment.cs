@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script handles the collision logic for the fire chain segments
+/// </summary>
 public class FireChainSegment : MonoBehaviour
 {
     [Header("Layers to collide with")]

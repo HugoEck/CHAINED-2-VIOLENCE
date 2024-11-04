@@ -1,13 +1,14 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// This script handles the spreading from enemy to enemy of electricity
+/// </summary>
 public class ElectricitySpread : MonoBehaviour
 {
     public GameObject _electricityParticles;
     public float _electricityDamage { get; set; }
     public float _electricityActiveDuration { get; set; }
-    public float _additionalSpreadRadius { get; private set; } = 10.0f;
+    public float _additionalElectricitySpreadRadius { get; set; }
 
     private float _electricityActiveTimer;
 
@@ -93,6 +94,7 @@ public class ElectricitySpread : MonoBehaviour
                 ElectricitySpread newElectricity = electricityObject.AddComponent<ElectricitySpread>();
                 newElectricity._electricityDamage = _electricityDamage;
                 newElectricity._electricityActiveDuration = _electricityActiveDuration;
+                newElectricity._additionalElectricitySpreadRadius = _additionalElectricitySpreadRadius;
 
                 // Instantiate the electricity particles and set it as a child of electricityObject
                 GameObject particlesInstance = Instantiate(_electricityParticles, electricityObject.transform);
@@ -164,6 +166,11 @@ public class ElectricitySpread : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// The electricity collider needs to copy the original collider of the enemy to properly adjust for different enemy types 
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="target"></param>
     private void CopyColliderValues(CapsuleCollider source, CapsuleCollider target)
     {
         if (source != null && target != null)

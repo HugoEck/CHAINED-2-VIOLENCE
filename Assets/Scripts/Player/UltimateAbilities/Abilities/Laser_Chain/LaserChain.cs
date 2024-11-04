@@ -15,9 +15,6 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
     private float _laserChainTimer;
     private float _cooldownTimer;
 
-    /// <summary>
-    /// This method is called from the UltimateAbilityManager
-    /// </summary>
     public void UseUltimate()
     {     
         if(_bCanUseLaserChain && !_bIsLaserChainActive)
@@ -26,9 +23,6 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
         }      
     } 
 
-    /// <summary>
-    /// This methods activates the laser chain (spawning the laser chain segments)
-    /// </summary>
     public void Activate()
     {
         _bIsLaserChainActive = true;
@@ -38,9 +32,6 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
         SpawnAbilityChainSegments.instance.SpawnLaserChainSegments();
     }
 
-    /// <summary>
-    /// This method deactivates the laser chain segments
-    /// </summary>
     public void Deactivate()
     {
         _bIsLaserChainActive = false;
@@ -50,9 +41,6 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
         UltimateAbilityManager.instance._bIsBothPlayersUsingUltimate = false;
     }
 
-    /// <summary>
-    /// This method handles the update of the laser chain segments and updates timers
-    /// </summary>
     public void UpdateUltimateAttack()
     {
         if (_bIsLaserChainActive)

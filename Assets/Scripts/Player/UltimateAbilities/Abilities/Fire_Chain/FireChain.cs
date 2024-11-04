@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script handles the fire chain ultimate ability (activation, timers etc)
+/// </summary>
 public class FireChain : MonoBehaviour, IUltimateAbility
 {
     [Header("Electric chain attributes")]

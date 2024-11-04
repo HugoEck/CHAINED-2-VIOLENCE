@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script handles collisions for each individual ghost chain segment
+/// </summary>
 public class GhostChainSegment : MonoBehaviour
 {
     [Header("Layers to collide with")]

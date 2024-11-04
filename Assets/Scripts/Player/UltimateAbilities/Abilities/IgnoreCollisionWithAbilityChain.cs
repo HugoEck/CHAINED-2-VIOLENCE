@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// /// <summary>
+/// /// This script makes the object that is holding it ignore collisions with the chain when a specific ultimate ability is activated
+/// /// </summary>
 public class IgnoreCollisionWithAbilityChain : MonoBehaviour
 {
     private bool _ignoresCollisionWithLaserChain = false;
@@ -31,6 +34,10 @@ public class IgnoreCollisionWithAbilityChain : MonoBehaviour
             IgnoreCollisionWithGhostChain();
         }
     }
+
+    /// <summary>
+    /// For laser chain
+    /// </summary>
     private void IgnoreCollisionWithLaserChain()
     {
         if (LaserChain._bIsLaserChainActive && _ignoresCollisionWithLaserChain)
@@ -39,6 +46,10 @@ public class IgnoreCollisionWithAbilityChain : MonoBehaviour
             _colliderEnabled = false;
         }
     }
+
+    /// <summary>
+    /// For ghost chain
+    /// </summary>
     private void IgnoreCollisionWithGhostChain()
     {
         if (GhostChain._bIsGhostChainActive)
@@ -48,6 +59,9 @@ public class IgnoreCollisionWithAbilityChain : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// An object doesn't always need to ignore collision with laser chain, but it does for ghost chain (call this to ignore with laser chain aswell)
+    /// </summary>
     public void ObjectIgnoresLaserChain()
     {
         _ignoresCollisionWithLaserChain = true;
