@@ -65,6 +65,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledGhostChainSegments[i] == null)
+            {
+                Debug.Log("This ghost chain segment is not initialized");
+                return;
+            }
+
             if (!_pooledGhostChainSegments[i].activeInHierarchy)
             {
                 // Update the position before setting the object active
@@ -83,6 +89,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledGhostChainSegments[i] == null)
+            {
+                Debug.Log("This ghost chain segment is not initialized");
+                return;
+            }
+
             if (_pooledGhostChainSegments[i].activeInHierarchy)
             {
                 _pooledGhostChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
@@ -97,6 +109,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledGhostChainSegments[i] == null)
+            {
+                Debug.Log("This ghost chain segment is not initialized");
+                return;
+            }
+
             if (_pooledGhostChainSegments[i].activeInHierarchy)
             {
                 _pooledGhostChainSegments[i].SetActive(false);
@@ -151,6 +169,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledFireChainSegments[i] == null)
+            {
+                Debug.Log("This fire chain segment is not initialized");
+                return;
+            }
+
             if (!_pooledFireChainSegments[i].activeInHierarchy)
             {
                 // Update the position before setting the object active
@@ -169,6 +193,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledFireChainSegments[i] == null)
+            {
+                Debug.Log("This fire chain segment is not initialized");
+                return;
+            }
+
             if (_pooledFireChainSegments[i].activeInHierarchy)
             {
                 _pooledFireChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
@@ -183,6 +213,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledFireChainSegments[i] == null)
+            {
+                Debug.Log("This fire chain segment is not initialized");
+                return;
+            }
+
             if (_pooledFireChainSegments[i].activeInHierarchy)
             {
                 _pooledFireChainSegments[i].SetActive(false);
@@ -237,6 +273,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledElectricChainSegments[i] == null)
+            {
+                Debug.Log("This electric chain segment is not initialized");
+                return;
+            }
+
             if (!_pooledElectricChainSegments[i].activeInHierarchy)
             {
                 // Update the position before setting the object active
@@ -255,6 +297,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledElectricChainSegments[i] == null)
+            {
+                Debug.Log("This electric chain segment is not initialized");
+                return;
+            }
+
             if (_pooledElectricChainSegments[i].activeInHierarchy)
             {
                 _pooledElectricChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
@@ -269,6 +317,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledElectricChainSegments[i] == null)
+            {
+                Debug.Log("This electric chain segment is not initialized");
+                return;
+            }
+
             if (_pooledElectricChainSegments[i].activeInHierarchy)
             {
                 _pooledElectricChainSegments[i].SetActive(false);
@@ -328,6 +382,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
 
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledLaserChainSegments[i] == null)
+            {
+                Debug.Log("This laser chain segment is not initialized");
+                return;
+            }
+
             if (!_pooledLaserChainSegments[i].activeInHierarchy)
             {              
                 // Update the position before setting the object active
@@ -346,6 +406,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     {
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledLaserChainSegments[i] == null)
+            {
+                Debug.Log("This laser chain segment is not initialized");
+                return;
+            }
+
             if (_pooledLaserChainSegments[i].activeInHierarchy)
             {
                 _pooledLaserChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
@@ -365,6 +431,12 @@ public class SpawnAbilityChainSegments : MonoBehaviour
 
         for (int i = 0; i < _chain.activeParticleCount; i++)
         {
+            if (_pooledLaserChainSegments[i] == null)
+            {
+                Debug.Log("This laser chain segment is not initialized");
+                return;
+            }
+
             if (_pooledLaserChainSegments[i].activeInHierarchy)
             {            
                 _pooledLaserChainSegments[i].SetActive(false);

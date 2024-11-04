@@ -62,8 +62,7 @@ public class SpawnGroundFire : MonoBehaviour
                 }
             }
         }
-
-        
+       
     }
 
     private void InstantiateGroundFire()
