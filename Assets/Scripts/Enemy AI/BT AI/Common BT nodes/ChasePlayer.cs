@@ -19,8 +19,6 @@ public class ChasePlayer : Node
         {
             agent.navigation.isStopped = false;
             agent.navigation.destination = agent.targetedPlayer.position;
-
-
             
             return NodeState.RUNNING;
         }
@@ -61,6 +59,11 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Runner_Chase", true);
             agent.animator.SetBool("Runner_Attack", false);
         }
+        else if (agent.enemyID == "Swordsman")
+        {
+            agent.animator.SetBool("Swordsman_Chase", true);
+            agent.animator.SetBool("Swordsman_Attack", false);
+        }
         else if(agent.enemyID == "RockThrower")
         {
             agent.animator.SetBool("RockThrower_Chase", true);
@@ -79,5 +82,6 @@ public class ChasePlayer : Node
             agent.animator.SetBool("CyberGiant_PrepareMissiles", false);
         }
         
+
     }
 }

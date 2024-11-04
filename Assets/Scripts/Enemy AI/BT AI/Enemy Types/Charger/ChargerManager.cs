@@ -76,7 +76,7 @@ public class ChargerManager : BaseManager
         c_collider.radius = 0.75f;
         c_collider.height = 3;
         transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
-
+        rb.mass = 50;
         maxHealth = 10;
         currentHealth = maxHealth;
         attack = 5;

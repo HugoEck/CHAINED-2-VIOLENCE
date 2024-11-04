@@ -34,6 +34,11 @@ public class AttackPlayer : Node
             agent.animator.SetBool("Runner_Chase", false);
             agent.animator.SetBool("Runner_Attack", true);
         }
+        else if (agent.enemyID == "Swordsman")
+        {
+            agent.animator.SetBool("Swordsman_Chase", false);
+            agent.animator.SetBool("Swordsman_Attack", true);
+        }
         else if(agent.enemyID == "Charger")
         {
             agent.animator.SetBool("Charger_Chase", false);
