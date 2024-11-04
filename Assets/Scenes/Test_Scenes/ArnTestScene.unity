@@ -543,6 +543,8 @@ MonoBehaviour:
     type: 3}
   _fireSegment: {fileID: 2666894068205934557, guid: a9748cbcba312a443887b0d7d4798561,
     type: 3}
+  _ghostSegment: {fileID: 2666894068205934557, guid: 67f08958e4ef1f344ae6823a0c5cbc98,
+    type: 3}
 --- !u!114 &18886285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -789,52 +791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc81e3b5f9874f847bb77874ae188ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &140285138
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 140285140}
-  - component: {fileID: 140285139}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &140285139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140285138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &140285140
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140285138}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &144536265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,6 +1060,7 @@ GameObject:
   - component: {fileID: 183960630}
   - component: {fileID: 183960633}
   - component: {fileID: 183960634}
+  - component: {fileID: 183960635}
   m_Layer: 0
   m_Name: Ultimate_Ability_Manager
   m_TagString: Untagged
@@ -1123,7 +1080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e8d14751a237c4e92cf40d14f1d17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _laserActiveDuration: 50
+  _laserChainActiveDuration: 10
   _laserChainCooldown: 20
 --- !u!114 &183960631
 MonoBehaviour:
@@ -1182,6 +1139,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireChainActiveDuration: 50
   _fireChainCooldown: 20
+--- !u!114 &183960635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183960629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e34283fa69cd84994c8a334619076e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ghostChainActiveDuration: 10
+  _ghostChainCooldown: 5
+  _setIgnoreCollisionLayers:
+    serializedVersion: 2
+    m_Bits: 1728
 --- !u!1001 &194547574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1532,7 +1506,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225701957}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
   m_Name: 
@@ -1560,7 +1534,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
@@ -2277,6 +2251,52 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 95286516}
   m_SourcePrefab: {fileID: 100100000, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
+--- !u!1 &379276937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 379276939}
+  - component: {fileID: 379276938}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &379276938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379276937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &379276939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379276937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &394824019 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
@@ -3524,6 +3544,7 @@ GameObject:
   - component: {fileID: 543031935}
   - component: {fileID: 543031941}
   - component: {fileID: 543031940}
+  - component: {fileID: 543031942}
   m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
@@ -3675,6 +3696,18 @@ MonoBehaviour:
   filter: -65535
   m_SourceCollider: {fileID: 543031936}
   m_DistanceField: {fileID: 0}
+--- !u!114 &543031942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543031934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc81e3b5f9874f847bb77874ae188ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &578295424
 GameObject:
   m_ObjectHideFlags: 0
@@ -3691,6 +3724,7 @@ GameObject:
   - component: {fileID: 578295430}
   - component: {fileID: 578295432}
   - component: {fileID: 578295431}
+  - component: {fileID: 578295433}
   m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
@@ -3857,6 +3891,18 @@ MonoBehaviour:
   filter: -65535
   m_SourceCollider: {fileID: 578295426}
   m_DistanceField: {fileID: 0}
+--- !u!114 &578295433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578295424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc81e3b5f9874f847bb77874ae188ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &601890134
 GameObject:
   m_ObjectHideFlags: 0
@@ -4745,7 +4791,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988525190}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
   m_Name: 
@@ -4773,7 +4819,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
@@ -7798,4 +7844,4 @@ SceneRoots:
   - {fileID: 719467059}
   - {fileID: 194547574}
   - {fileID: 1823212283}
-  - {fileID: 140285140}
+  - {fileID: 379276939}

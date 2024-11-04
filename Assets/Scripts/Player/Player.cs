@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     private PlayerCombat _playerCombat;
     private ShieldAbility _shieldAbility;
 
+    private Collider _playerCollider;
+
     #endregion
 
     #region Player attributes
@@ -25,8 +27,7 @@ public class Player : MonoBehaviour
 
     public int _playerId {  get; private set; }
 
-    
-
+    private LayerMask _defaultIgnoreCollisionLayer;
     #endregion
 
     #region Inputs
@@ -70,13 +71,15 @@ public class Player : MonoBehaviour
         _playerCombat = GetComponent<PlayerCombat>();
         _shieldAbility = GetComponent<ShieldAbility>(); // Get reference to the ShieldAbility
 
-        currentHealth = _maxHealth;
+        _playerCollider = GetComponent<Collider>();
 
         #endregion
 
         #region Set attributes
 
         currentHealth = _maxHealth;
+
+        _defaultIgnoreCollisionLayer = _playerCollider.excludeLayers.value;
 
         #endregion
 
@@ -101,6 +104,8 @@ public class Player : MonoBehaviour
         UpdatePlayerCombat();
 
         HandleKnockout();
+
+        GhostChainIgnoreCollision();
     }
     #region Player Movement
     private void UpdatePlayerMovement()
@@ -256,6 +261,8 @@ public class Player : MonoBehaviour
 
     public void SetHealth(float damage)
     {
+        if (GhostChain._bIsGhostChainActive) return;
+
         // Check if the shield is active and absorb damage first
         if (_shieldAbility != null && _shieldAbility.IsShieldActive())
         {
@@ -303,8 +310,7 @@ public class Player : MonoBehaviour
     #region Events
 
     private void Chained2ViolenceGameManagerOnGameStateChanged(Chained2ViolenceGameManager.GameState state)
-    {
-        
+    {      
 
         if (state == Chained2ViolenceGameManager.GameState.Paused || state == Chained2ViolenceGameManager.GameState.GameOver)
         {
@@ -342,6 +348,25 @@ public class Player : MonoBehaviour
 
         _bIsPlayerDisabled = false;
     }
+    #endregion
+
+    #region Ability chain Related Logic
+
+    private void GhostChainIgnoreCollision()
+    {
+        
+        if (GhostChain._bIsGhostChainActive)
+        {
+            _playerCollider.excludeLayers = GhostChain.ignoreCollisionLayers;
+            
+        }
+        else
+        {
+            _playerCollider.excludeLayers = _defaultIgnoreCollisionLayer;
+        }
+       
+    }
+
     #endregion
 }
 

@@ -9,10 +9,11 @@ public class SpawnAbilityChainSegments : MonoBehaviour
 {
     public static SpawnAbilityChainSegments instance { get; private set; }
 
-    [Header("Laser chain segment prefab")]
+    [Header("Ultimate ability segment prefabs")]
     [SerializeField] private GameObject _laserSegment;
     [SerializeField] private GameObject _electricSegment;
     [SerializeField] private GameObject _fireSegment;
+    [SerializeField] private GameObject _ghostSegment;
 
     private ObiActor _chain;
 
@@ -21,6 +22,7 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     private List<GameObject> _pooledLaserChainSegments;
     private List<GameObject> _pooledElectricChainSegments;
     private List<GameObject> _pooledFireChainSegments;
+    private List<GameObject> _pooledGhostChainSegments;
 
     ObiRopeChainRenderer chainRenderer1;
     ObiRopeChainRenderer chainRenderer2;
@@ -51,7 +53,81 @@ public class SpawnAbilityChainSegments : MonoBehaviour
         InstantiateLaserChainSegments();
         InstantiateElectricChainSegments();
         InstantiateFireChainSegments();
+        InstantiateGhostChainSegments();
     }
+
+    #region Ghost Chain
+
+    /// <summary>
+    /// This method is called when you want to spawn all the ghost chain segments
+    /// </summary>
+    public void SpawnGhostChainSegments()
+    {
+        for (int i = 0; i < _chain.activeParticleCount; i++)
+        {
+            if (!_pooledGhostChainSegments[i].activeInHierarchy)
+            {
+                // Update the position before setting the object active
+                _pooledGhostChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
+
+                // Now activate the object
+                _pooledGhostChainSegments[i].SetActive(true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// This method is called to update the position of all the ghost chain segments
+    /// </summary>
+    public void UpdateGhostChainSegments()
+    {
+        for (int i = 0; i < _chain.activeParticleCount; i++)
+        {
+            if (_pooledGhostChainSegments[i].activeInHierarchy)
+            {
+                _pooledGhostChainSegments[i].transform.position = _chain.GetParticlePosition(_chain.solverIndices[i]);
+            }
+        }
+    }
+
+    /// <summary>
+    /// This method is called to set all the active ghost chain segments to inactive
+    /// </summary>
+    public void DeactivateGhostChainSegments()
+    {
+        for (int i = 0; i < _chain.activeParticleCount; i++)
+        {
+            if (_pooledGhostChainSegments[i].activeInHierarchy)
+            {
+                _pooledGhostChainSegments[i].SetActive(false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// This method instantiates the ghost chain segment object pool
+    /// </summary>
+    private void InstantiateGhostChainSegments()
+    {
+        GameObject ghostChainParent = new GameObject("Ghost_Chain_Segments");
+
+        // Initialize the object pool list
+        _pooledGhostChainSegments = new List<GameObject>();
+
+        GameObject tmpGhostChain;
+
+        for (int i = 0; i < AMOUNT_OF_OBJECTS_TO_POOL; i++)
+        {
+            tmpGhostChain = Instantiate(_ghostSegment);
+            tmpGhostChain.SetActive(false);
+
+            tmpGhostChain.transform.SetParent(ghostChainParent.transform);
+
+            _pooledGhostChainSegments.Add(tmpGhostChain);
+        }
+    }
+
+    #endregion
 
     #region Fire Chain
 
@@ -199,7 +275,7 @@ public class SpawnAbilityChainSegments : MonoBehaviour
 
     #endregion
 
-    #region Laser chain
+    #region Laser Chain
 
     /// <summary>
     /// This method is called when you want to spawn all the laser chain segments

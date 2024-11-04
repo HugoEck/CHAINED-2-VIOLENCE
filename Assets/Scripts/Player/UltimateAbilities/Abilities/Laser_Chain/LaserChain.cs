@@ -6,13 +6,13 @@ using UnityEngine;
 public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimateAbility
 {
     [Header("Laser chain attributes")]
-    [SerializeField] private float _laserActiveDuration = 10.0f;
+    [SerializeField] private float _laserChainActiveDuration = 10.0f;
     [SerializeField] private float _laserChainCooldown = 20.0f;
 
-    public static bool _bIsLaserActive = false;  
+    public static bool _bIsLaserChainActive = false;  
     private bool _bCanUseLaserChain = true;
     
-    private float _laserTimer;
+    private float _laserChainTimer;
     private float _cooldownTimer;
 
     /// <summary>
@@ -20,7 +20,7 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
     /// </summary>
     public void UseUltimate()
     {     
-        if(_bCanUseLaserChain && !_bIsLaserActive)
+        if(_bCanUseLaserChain && !_bIsLaserChainActive)
         {
             Activate();
         }      
@@ -31,8 +31,8 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
     /// </summary>
     public void Activate()
     {
-        _bIsLaserActive = true;
-        _laserTimer = _laserActiveDuration;
+        _bIsLaserChainActive = true;
+        _laserChainTimer = _laserChainActiveDuration;
         _bCanUseLaserChain = false;
         Debug.Log("Laser Chain Activated");
         SpawnAbilityChainSegments.instance.SpawnLaserChainSegments();
@@ -43,7 +43,7 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
     /// </summary>
     public void Deactivate()
     {
-        _bIsLaserActive = false;
+        _bIsLaserChainActive = false;
         _cooldownTimer = _laserChainCooldown; 
         Debug.Log("Laser Chain Deactivated");
         SpawnAbilityChainSegments.instance.DeactivateLaserChainSegments();
@@ -55,10 +55,10 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
     /// </summary>
     public void UpdateUltimateAttack()
     {
-        if (_bIsLaserActive)
+        if (_bIsLaserChainActive)
         {
-            _laserTimer -= Time.deltaTime;
-            if (_laserTimer <= 0)
+            _laserChainTimer -= Time.deltaTime;
+            if (_laserChainTimer <= 0)
             {
                 Deactivate();
             }
@@ -69,7 +69,7 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
         }
 
         // Update the cooldown timer
-        if (!_bCanUseLaserChain && !_bIsLaserActive)
+        if (!_bCanUseLaserChain && !_bIsLaserChainActive)
         {
             _cooldownTimer -= Time.deltaTime;
             if (_cooldownTimer <= 0)
