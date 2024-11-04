@@ -54,11 +54,14 @@ public class RockThrowerManager : BaseManager
         CalculateThrow calculateThrow = new CalculateThrow();
         ThrowRock throwRock = new ThrowRock();
         ChasePlayer chasePlayer = new ChasePlayer();
+        IsAgentStunned isAgentStunned = new IsAgentStunned();
+        StunAgent stunAgent = new StunAgent();
 
         Sequence attack = new Sequence(new List<Node> { playerInRange, calculateThrow, throwRock });
+        Sequence isStunned = new Sequence(new List<Node>() { isAgentStunned, stunAgent });
         Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
 
-        rootNode = new Selector(new List<Node>() { isDead, attack, chasePlayer });
+        rootNode = new Selector(new List<Node>() { isDead, isStunned, attack, chasePlayer });
     }
 
     public void SetCalculatedVelocity(Vector3 newVelocity)

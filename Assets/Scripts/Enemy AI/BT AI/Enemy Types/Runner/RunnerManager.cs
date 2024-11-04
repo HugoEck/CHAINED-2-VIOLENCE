@@ -26,7 +26,7 @@ public class RunnerManager : BaseManager
     private void FixedUpdate()
     {
         FixedEvaluate();
-
+        //rootNode.Evaluate(this);
     }
 
     private void LoadStats()
@@ -49,11 +49,14 @@ public class RunnerManager : BaseManager
         PlayerInRange playerInRange = new PlayerInRange();
         AttackPlayer attackPlayer = new AttackPlayer();
         ChasePlayer chasePlayer = new ChasePlayer();
+        IsAgentStunned isAgentStunned = new IsAgentStunned();
+        StunAgent stunAgent = new StunAgent();
 
         Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
+        Sequence isStunned = new Sequence(new List<Node>() { isAgentStunned, stunAgent });
         Sequence attack = new Sequence(new List<Node> { playerInRange, attackPlayer });
 
-        rootNode = new Selector(new List<Node>() { isDead, attack, chasePlayer });
+        rootNode = new Selector(new List<Node>() { isDead, isStunned, attack, chasePlayer });
 
 
     }

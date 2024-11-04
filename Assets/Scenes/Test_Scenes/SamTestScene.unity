@@ -1135,7 +1135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_TagString
@@ -1407,6 +1407,7 @@ MonoBehaviour:
   agentIsDead: 0
   c_collider: {fileID: 0}
   rb: {fileID: 0}
+  trackTime: 0
   rockPrefab: {fileID: 4609290678756628542, guid: 476ac0833a9cee54f9dbff6ef3ba677e,
     type: 3}
   throwPoint: {fileID: 1197989616}
@@ -1967,6 +1968,7 @@ MonoBehaviour:
   agentIsDead: 0
   c_collider: {fileID: 0}
   rb: {fileID: 0}
+  trackTime: 0
 --- !u!114 &702823657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2615,6 +2617,52 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!1 &825574787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 825574789}
+  - component: {fileID: 825574788}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &825574788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825574787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &825574789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825574787}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &830286969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3042641796925898504, guid: 4603d2cd3ffcb6e46add7daf3a524b6c,
@@ -2969,6 +3017,7 @@ MonoBehaviour:
   agentIsDead: 0
   c_collider: {fileID: 0}
   rb: {fileID: 0}
+  trackTime: 0
 --- !u!4 &859918688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4958464907473990, guid: 12c4abf4689be7e489107ccb6010bcba,
@@ -4662,6 +4711,7 @@ MonoBehaviour:
   agentIsDead: 0
   c_collider: {fileID: 0}
   rb: {fileID: 0}
+  trackTime: 0
   bombPrefab: {fileID: 4981767440125039733, guid: 6e10bfb257a793e438a727260e28864c,
     type: 3}
   missilePrefab: {fileID: 2539648549058869044, guid: ecfbc4c4fb4af0045999733b3eedb914,
@@ -4922,6 +4972,7 @@ MonoBehaviour:
   agentIsDead: 0
   c_collider: {fileID: 0}
   rb: {fileID: 0}
+  trackTime: 0
   chargingRange: 20
   chargingSpeed: 20
   hasAlreadyCharged: 0
@@ -4943,52 +4994,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1865798014}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1653965193
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1653965195}
-  - component: {fileID: 1653965194}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1653965194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653965193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1653965195
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653965193}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1697108599
 GameObject:
   m_ObjectHideFlags: 0
@@ -5885,7 +5890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1398320186731392, guid: c38312671b1287f438871de666ae8f72, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1398320186731392, guid: c38312671b1287f438871de666ae8f72, type: 3}
       propertyPath: m_TagString
@@ -7136,4 +7141,4 @@ SceneRoots:
   - {fileID: 1746527592}
   - {fileID: 1154717128}
   - {fileID: 1801737359}
-  - {fileID: 1653965195}
+  - {fileID: 825574789}

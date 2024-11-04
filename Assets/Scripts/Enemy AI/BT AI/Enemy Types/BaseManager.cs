@@ -29,6 +29,8 @@ public class BaseManager : MonoBehaviour
     [Header("GE EJ VÄRDE")]
 
     [HideInInspector] public AIPath navigation;
+    [HideInInspector] public AIChainEffects chainEffects;
+
 
     [HideInInspector] public GameObject player1;
     [HideInInspector] public GameObject player2;
@@ -41,15 +43,19 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
 
+
     [HideInInspector] public CapsuleCollider c_collider;
     [HideInInspector] public Rigidbody rb;
 
+    public float trackTime;
 
 
 
 
     public virtual void Awake()
     {
+        chainEffects = new AIChainEffects();
+
         rb = GetComponentInChildren<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         c_collider = GetComponentInChildren<CapsuleCollider>();
@@ -73,6 +79,12 @@ public class BaseManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            chainEffects.ActivateGhostChainEffect(3f);
+        }
+        trackTime = chainEffects.stunDurationTime;
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             currentHealth = 0;
@@ -81,7 +93,6 @@ public class BaseManager : MonoBehaviour
         {
             DeathTimer();
         }
-
     }
 
     public virtual void DealDamageToEnemy(float damage)
