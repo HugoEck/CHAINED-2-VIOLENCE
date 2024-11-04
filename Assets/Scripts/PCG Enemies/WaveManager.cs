@@ -11,6 +11,7 @@ public class WaveManager : MonoBehaviour
     public TMP_Asset fantasyFont;
     public TMP_Asset westernFont;
     public TMP_Asset pirateFont;
+    public TMP_Asset currentDayFont;
 
 
     [Header(" ")]
@@ -239,9 +240,17 @@ public class WaveManager : MonoBehaviour
         {
             return fantasyFont;
         }
-        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Mini)
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Cowboys)
         {
             return westernFont;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Pirate)
+        {
+            return pirateFont;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.CurrentDay)
+        {
+            return currentDayFont;
         }
         return romanFont;
     }
