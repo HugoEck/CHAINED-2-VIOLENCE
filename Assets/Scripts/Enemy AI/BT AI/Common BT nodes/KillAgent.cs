@@ -11,11 +11,10 @@ public class KillAgent : Node
     {
         WaveManager.ActiveEnemies--;
         agent.rb.constraints = RigidbodyConstraints.None;
-        //agent.ToggleRagdoll(true);
+        agent.ToggleRagdoll(true);
         agent.animator.enabled = false;
 
         agent.navigation.isStopped = true;
-        //agent.navMeshAgent.isStopped = true;
 
         
         if (agent.agentIsDead)
