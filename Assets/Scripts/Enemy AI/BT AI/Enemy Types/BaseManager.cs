@@ -30,6 +30,7 @@ public class BaseManager : MonoBehaviour
 
     [HideInInspector] public AIPath navigation;
     [HideInInspector] public AIChainEffects chainEffects;
+    [HideInInspector] public AIParticleEffects particleEffects;
 
 
     [HideInInspector] public GameObject player1;
@@ -97,8 +98,10 @@ public class BaseManager : MonoBehaviour
 
     public virtual void DealDamageToEnemy(float damage)
     {
+
         if (defense - damage < 0)
         {
+            particleEffects.ActivateBloodParticles();
             currentHealth = currentHealth + defense - damage;
         }
 
