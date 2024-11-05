@@ -6,6 +6,7 @@ public abstract class UpgradeBase
     protected int upgradeCostIncrease;
 
     public int currentLevel { get; protected set; } = 0;
+    public int MaxLevel => maxLevel;
 
     public UpgradeBase(int maxLevel, int upgradeCostIncrease)
     {
@@ -15,7 +16,7 @@ public abstract class UpgradeBase
 
     public abstract void Upgrade();
 
-    protected int CalculateUpgradeCost()
+    public int CalculateUpgradeCost()
     {
         return (currentLevel + 1) * upgradeCostIncrease;
     }

@@ -51,6 +51,10 @@ public class UpgradeManager : MonoBehaviour
     public TMP_Text chainLevelText;
     public TMP_Text notEnoughGoldText;
     public TMP_Text maxUpgradeReachedText;
+    public TMP_Text attackUpgradeCostText;
+    public TMP_Text healthUpgradeCostText;
+    public TMP_Text speedUpgradeCostText;
+    public TMP_Text chainUpgradeCostText;
     #endregion
 
     private void Awake()
@@ -161,7 +165,7 @@ public class UpgradeManager : MonoBehaviour
     }
 
     #region Text UI Updates
-    private void UpdateUpgradeLevelText()
+    private void UpdateUpgradeLevelText() // Fix so that it checks the value instead of level so even if its below 10 it displays Cost: Maxed
     {
         if (attackLevelText != null)
         {
@@ -181,6 +185,26 @@ public class UpgradeManager : MonoBehaviour
         if (chainLevelText != null)
         {
             chainLevelText.text = "Chain Level: " + chainUpgrade.currentLevel.ToString();
+        }
+
+        if (attackUpgradeCostText != null)
+        {
+            attackUpgradeCostText.text = damageUpgrade.currentLevel >= damageUpgrade.MaxLevel? "Cost: Maxed" : $"Cost: {damageUpgrade.CalculateUpgradeCost()}";
+        }
+
+        if (healthUpgradeCostText != null)
+        {
+            healthUpgradeCostText.text = healthUpgrade.currentLevel >= healthUpgrade.MaxLevel ? "Cost: Maxed" : $"Cost: {healthUpgrade.CalculateUpgradeCost()}";
+        }
+
+        if (speedUpgradeCostText != null)
+        {
+            speedUpgradeCostText.text = speedUpgrade.currentLevel >= speedUpgrade.MaxLevel ? "Cost: Maxed" : $"Cost: {speedUpgrade.CalculateUpgradeCost()}";
+        }
+
+        if (chainUpgradeCostText != null)
+        {
+            chainUpgradeCostText.text = chainUpgrade.currentLevel >= chainUpgrade.MaxLevel ? "Cost: Maxed" : $"Cost: {chainUpgrade.CalculateUpgradeCost()}";
         }
     }
 
