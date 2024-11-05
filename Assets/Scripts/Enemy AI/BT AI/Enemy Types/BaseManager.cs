@@ -72,43 +72,22 @@ public class BaseManager : MonoBehaviour
 
         playerManager1 = player1.GetComponent<Player>();
         playerManager2 = player2.GetComponent<Player>();
-
-
     }
-
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.K))
         {
             currentHealth = 0;
         }
-        //if (activateDeathTimer)
-        //{
-        //    DeathTimer();
-        //}
     }
-
     public virtual void DealDamageToEnemy(float damage)
     {
-
         if (defense - damage < 0)
         {
             particleEffects.ActivateBloodParticles();
             currentHealth = currentHealth + defense - damage;
         }
-
     }
-
-    //public virtual void DeathTimer()
-    //{
-    //    timer -= Time.deltaTime;
-    //    if (timer < 0)
-    //    {
-    //        agentIsDead = true;
-    //    }
-    //}
-
     public virtual void ToggleRagdoll(bool enabled)
     {
         if (!enabled)
