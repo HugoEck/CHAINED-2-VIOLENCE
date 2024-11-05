@@ -23,7 +23,7 @@ public class BaseManager : MonoBehaviour
 
 
 
-    private float lastAttackedTime;
+    //private float lastAttackedTime;
     private float timer = 5f;
 
     [Header("GE EJ VÄRDE")]
@@ -31,6 +31,7 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public AIPath navigation;
     [HideInInspector] public AIChainEffects chainEffects;
     [HideInInspector] public AIParticleEffects particleEffects;
+    [HideInInspector] public AIBehaviorMethods behaviorMethods;
 
 
     [HideInInspector] public GameObject player1;
@@ -48,16 +49,11 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public CapsuleCollider c_collider;
     [HideInInspector] public Rigidbody rb;
 
-    public float trackTime;
-
-
-
-
-
     public virtual void Awake()
     {
         chainEffects = new AIChainEffects();
         particleEffects = new AIParticleEffects();
+        behaviorMethods = new AIBehaviorMethods(this);
 
         rb = GetComponentInChildren<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
@@ -82,17 +78,15 @@ public class BaseManager : MonoBehaviour
 
     private void Update()
     {
- 
-        trackTime = chainEffects.stunDurationTime;
 
         if (Input.GetKeyDown(KeyCode.K))
         {
             currentHealth = 0;
         }
-        if (activateDeathTimer)
-        {
-            DeathTimer();
-        }
+        //if (activateDeathTimer)
+        //{
+        //    DeathTimer();
+        //}
     }
 
     public virtual void DealDamageToEnemy(float damage)
@@ -106,66 +100,14 @@ public class BaseManager : MonoBehaviour
 
     }
 
-    public virtual Transform CalculateClosestTarget()
-    {
-        if (Vector3.Distance(this.transform.position, player1.transform.position) < Vector3.Distance(this.transform.position, player2.transform.position))
-        {
-            return player1.transform;
-        }
-        else if((Vector3.Distance(this.transform.position, player2.transform.position) < Vector3.Distance(this.transform.position, player1.transform.position)))
-        {
-            return player2.transform;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    public virtual bool IsAttackAllowed()
-    {
-
-        if (Time.time > lastAttackedTime + attackSpeed)
-        {
-            lastAttackedTime = Time.time;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public Player GetCorrectPlayerManager(Transform player)
-    {
-        if (player == player1.transform)
-        {
-            return playerManager1;
-        }
-        else
-        {
-            return playerManager2;
-        }
-    }
-
-    public Vector3 CalculateChainPosition()
-    {
-
-        Vector3 p1Position = player1.transform.position;
-        Vector3 p2Position = player2.transform.position;
-        Vector3 midPoint = (p1Position + p2Position) / 2;
-        midPoint.y = 0;
-        return midPoint;
-    }
-
-    public virtual void DeathTimer()
-    {
-        timer -= Time.deltaTime;
-        if (timer < 0)
-        {
-            agentIsDead = true;
-        }
-    }
+    //public virtual void DeathTimer()
+    //{
+    //    timer -= Time.deltaTime;
+    //    if (timer < 0)
+    //    {
+    //        agentIsDead = true;
+    //    }
+    //}
 
     public virtual void ToggleRagdoll(bool enabled)
     {

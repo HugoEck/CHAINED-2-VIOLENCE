@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class KillAgent : Node
 {
+    float deathDurationTime = 5;
+    float deathTimerStart = 0;
+    private bool isTimerInitialized = false;
+
 
 
     public override NodeState Evaluate(BaseManager agent)
@@ -13,16 +17,26 @@ public class KillAgent : Node
         agent.rb.constraints = RigidbodyConstraints.None;
         //agent.ToggleRagdoll(true);
         agent.animator.enabled = false;
-
         agent.navigation.isStopped = true;
-        //agent.navMeshAgent.isStopped = true;
 
-        
-        if (agent.agentIsDead)
+        if (!isTimerInitialized)
         {
-            GameObject.Destroy(agent.gameObject);
+            deathTimerStart = Time.time;
+            isTimerInitialized = true;
         }
 
-        return NodeState.RUNNING;
+        if (Time.time >= deathTimerStart + deathDurationTime)
+        {
+            //ADDERA PENGAR HÄR: totalaPengar += agent.cost;
+            GameObject.Destroy(agent.gameObject);
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.RUNNING;
+        }
+
+
     }
+
 }

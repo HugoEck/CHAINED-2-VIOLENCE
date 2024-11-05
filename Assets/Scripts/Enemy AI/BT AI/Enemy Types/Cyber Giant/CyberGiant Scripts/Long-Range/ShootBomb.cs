@@ -13,7 +13,7 @@ public class ShootBomb : Node
 
         
 
-        agent.targetedPlayer = agent.CalculateClosestTarget();
+        agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
         if (cg.IsBombReady() && distance > cg.minimumBombDistance)

@@ -9,11 +9,11 @@ public class AttackPlayer : Node
     {
         SetAttackAnimation(agent);
 
-        agent.targetedPlayer = agent.CalculateClosestTarget();
+        agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
 
-        Player playerManager = agent.GetCorrectPlayerManager(agent.targetedPlayer);
+        Player playerManager = agent.behaviorMethods.GetCorrectPlayerManager(agent.targetedPlayer);
 
-        if (agent.IsAttackAllowed())
+        if (agent.behaviorMethods.IsAttackAllowed())
         {
             playerManager.SetHealth(agent.attack);
         }

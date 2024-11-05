@@ -9,7 +9,7 @@ public class IsNotInRange : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        agent.targetedPlayer = agent.CalculateClosestTarget();
+        agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
         if (distance > agent.attackRange)

@@ -26,7 +26,7 @@ public class PrepareMissiles : Node
 
         cg.p1_LastPosition = agent.player1.transform.position;
         cg.p2_LastPosition = agent.player2.transform.position;
-        cg.chain_LastPosition = agent.CalculateChainPosition();
+        cg.chain_LastPosition = agent.behaviorMethods.CalculateChainPosition();
         cg.chain_LastPosition = new Vector3(cg.chain_LastPosition.x, 0, cg.chain_LastPosition.z);
 
         RotateTowardsChain(agent, cg.chain_LastPosition);

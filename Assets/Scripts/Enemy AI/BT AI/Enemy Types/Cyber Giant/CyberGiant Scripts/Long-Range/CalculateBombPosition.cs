@@ -12,7 +12,7 @@ public class CalculateBombPosition : Node
     {
         CyberGiantManager cg = agent as CyberGiantManager;
 
-        chainLastPosition = agent.CalculateChainPosition();
+        chainLastPosition = agent.behaviorMethods.CalculateChainPosition();
 
         Vector3 directionXZ = new Vector3(chainLastPosition.x - cg.bombShootPoint.position.x, 0f,
             chainLastPosition.z - cg.bombShootPoint.position.z);
