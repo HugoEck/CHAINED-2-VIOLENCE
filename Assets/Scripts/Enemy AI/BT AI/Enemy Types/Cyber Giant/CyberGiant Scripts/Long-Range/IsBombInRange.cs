@@ -13,7 +13,7 @@ public class IsBombInRange : Node
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
-        if (distance < cg.minimumBombDistance)
+        if (distance < cg.minBombDistance)
         {
             return NodeState.FAILURE;
         }

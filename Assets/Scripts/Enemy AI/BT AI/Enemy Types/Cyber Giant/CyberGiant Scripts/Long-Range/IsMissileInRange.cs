@@ -12,7 +12,7 @@ public class IsMissileInRange : Node
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
-        if (distance < cg.minimumMissileDistance)
+        if (distance < cg.minLongRangeDistance)
         {
             return NodeState.FAILURE;
         }

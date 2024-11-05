@@ -123,52 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &2222666
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2222668}
-  - component: {fileID: 2222667}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2222667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2222666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &2222668
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2222666}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &90663786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,7 +1007,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 78.2
+  field of view: 108.6
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1212,7 +1166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_TagString
@@ -1479,11 +1433,11 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
   animator: {fileID: 0}
+  c_collider: {fileID: 0}
+  rb: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  c_collider: {fileID: 0}
-  rb: {fileID: 0}
   rockPrefab: {fileID: 4609290678756628542, guid: 476ac0833a9cee54f9dbff6ef3ba677e,
     type: 3}
   throwPoint: {fileID: 1197989616}
@@ -1772,7 +1726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_TagString
@@ -2039,11 +1993,11 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
   animator: {fileID: 0}
+  c_collider: {fileID: 0}
+  rb: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  c_collider: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!114 &702823657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2780,7 +2734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_TagString
@@ -3041,11 +2995,11 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
   animator: {fileID: 0}
+  c_collider: {fileID: 0}
+  rb: {fileID: 0}
   enemyID: Plebian
   activateDeathTimer: 0
   agentIsDead: 0
-  c_collider: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!4 &859918688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4958464907473990, guid: 12c4abf4689be7e489107ccb6010bcba,
@@ -5057,7 +5011,7 @@ MonoBehaviour:
   defense: 1
   speed: 3
   attackSpeed: 5
-  attackRange: 5
+  attackRange: 1
   unitCost: 10000
   navigation: {fileID: 0}
   player1: {fileID: 0}
@@ -5066,26 +5020,28 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
   animator: {fileID: 0}
+  c_collider: {fileID: 0}
+  rb: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  c_collider: {fileID: 0}
-  rb: {fileID: 0}
   bombPrefab: {fileID: 4981767440125039733, guid: 6e10bfb257a793e438a727260e28864c,
     type: 3}
   missilePrefab: {fileID: 2539648549058869044, guid: ecfbc4c4fb4af0045999733b3eedb914,
     type: 3}
   bombShootPoint: {fileID: 106961051}
   missileShootPoint: {fileID: 531025610}
-  missilePrepActivated: 0
-  missileSent: 0
   currentTime: 0
-  missileReady: 0
-  bombReady: 0
-  bombDamage: 10
-  missileDamage: 0
-  minimumBombDistance: 20
-  minimumMissileDistance: 25
+  bombDamage: 25
+  missileDamage: 25
+  bombCooldown: 3
+  longRangeCooldown: 15
+  midRangeCooldown: 15
+  closeRangeCooldown: 0
+  minBombDistance: 20
+  minLongRangeDistance: 25
+  maxMidRangeDistance: 20
+  maxCloseRangeDistance: 7
   bombVelocity: {x: 0, y: 0, z: 0}
   p1_LastPosition: {x: 0, y: 0, z: 0}
   p2_LastPosition: {x: 0, y: 0, z: 0}
@@ -5094,6 +5050,9 @@ MonoBehaviour:
   p2_Velocity: {x: 0, y: 0, z: 0}
   chain_Velocity: {x: 0, y: 0, z: 0}
   abilityInProgress: 0
+  missileRainActive: 0
+  missileReady: 0
+  JumpEngageActive: 0
 --- !u!114 &1474865666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5326,11 +5285,11 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
   animator: {fileID: 0}
+  c_collider: {fileID: 0}
+  rb: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  c_collider: {fileID: 0}
-  rb: {fileID: 0}
   chargingRange: 20
   chargingSpeed: 20
   hasAlreadyCharged: 0
@@ -5352,6 +5311,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1865798014}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1614311855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1614311857}
+  - component: {fileID: 1614311856}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1614311856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614311855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1614311857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614311855}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1697108599
 GameObject:
   m_ObjectHideFlags: 0
@@ -6251,7 +6256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1398320186731392, guid: c38312671b1287f438871de666ae8f72, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1398320186731392, guid: c38312671b1287f438871de666ae8f72, type: 3}
       propertyPath: m_TagString
@@ -6796,11 +6801,11 @@ MonoBehaviour:
   playerManager2: {fileID: 0}
   targetedPlayer: {fileID: 0}
   animator: {fileID: 0}
+  c_collider: {fileID: 0}
+  rb: {fileID: 0}
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  c_collider: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!1001 &1833642104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6883,7 +6888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_TagString
@@ -7712,4 +7717,4 @@ SceneRoots:
   - {fileID: 1746527592}
   - {fileID: 1154717128}
   - {fileID: 1801737359}
-  - {fileID: 2222668}
+  - {fileID: 1614311857}

@@ -12,7 +12,7 @@ public class BaseManager : MonoBehaviour
     //Detta skript innehåller alla baskomponenter, basvariabler och basmetoder för alla andra enemy managers.
 
     //----------------------------------------------------------------------------------------
-    // OBS! NI FÅR VARKEN LÄGGA TILL ELLER ÄNDRA VARIABLER/METODER I DETTA SKRIPT UTAN MIN TILLÅTELSE!
+    // OBS! NI FÅR VARKEN LÄGGA TILL ELLER ÄNDRA KOMPONENTER/VARIABLER/METODER I DETTA SKRIPT UTAN MIN TILLÅTELSE!
     //----------------------------------------------------------------------------------------
 
     public float maxHealth;

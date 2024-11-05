@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
-public class IsMissileReady : Node
+public class LongRangeConditions : Node
 {
     float distance;
-    
+
     public override NodeState Evaluate(BaseManager agent)
     {
 
@@ -18,11 +16,12 @@ public class IsMissileReady : Node
 
         if (cg.missileRainActive) // || annan range ability)
         {
-            
+
             return NodeState.SUCCESS;
         }
         else if (cg.CheckIfAbilityInProgress() == false && cg.IsLongRangeAbilityReady() && CheckLongRangeDistance(cg))
         {
+            //LONG RANGE RANDOMIZER HÄR
             cg.abilityInProgress = true;
             cg.missileReady = false;
             return NodeState.SUCCESS;

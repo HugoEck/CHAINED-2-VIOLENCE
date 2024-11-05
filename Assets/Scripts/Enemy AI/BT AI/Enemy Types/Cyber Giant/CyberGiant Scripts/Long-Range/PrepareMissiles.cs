@@ -10,8 +10,6 @@ public class PrepareMissiles : Node
     public override NodeState Evaluate(BaseManager agent)
     {
 
-
-
         agent.navigation.isStopped = true;
 
         agent.animator.SetBool("CyberGiant_PrepareMissiles", true);
@@ -20,7 +18,7 @@ public class PrepareMissiles : Node
         CyberGiantManager cg = agent as CyberGiantManager;
 
         
-        cg.missilePrepActivated = true;
+        cg.missileRainActive = true;
 
         cg.currentTime += Time.deltaTime;
 
@@ -34,8 +32,8 @@ public class PrepareMissiles : Node
 
         if (cg.currentTime > prepDurationTime)
         {
-            cg.missilePrepActivated = false;
-            cg.missileSent = true;
+            cg.missileRainActive = false;
+            //cg.missileSent = true;
             cg.currentTime = 0;
             return NodeState.SUCCESS;
         }
