@@ -9,13 +9,13 @@ public class PlayerInRange : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        targetedPlayer = agent.CalculateClosestTarget();
-        distance = Vector3.Distance(agent.transform.position, targetedPlayer.position);
+        agent.targetedPlayer = agent.CalculateClosestTarget();
+        distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
         if (distance <= agent.attackRange)
         {
             agent.navigation.isStopped = true;
-            RotateTowardsPlayer(agent, targetedPlayer);
+            RotateTowardsPlayer(agent, agent.targetedPlayer);
             return NodeState.SUCCESS;
         }
         else

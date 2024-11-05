@@ -3,14 +3,13 @@ using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class BaseManager : MonoBehaviour
 {
 
-    //Detta skript innehåller alla basvariabler samt metoder för alla andra managers.
+    //Detta skript innehåller alla basvariabler samt basmetoder för alla andra managers.
 
     //----------------------------------------------------------------------------------------
     // OBS! NI FÅR VARKEN LÄGGA TILL ELLER ÄNDRA VARIABLER/METODER I DETTA SKRIPT UTAN MIN TILLÅTELSE!
@@ -30,29 +29,36 @@ public class BaseManager : MonoBehaviour
     [Header("GE EJ VÄRDE")]
 
     [HideInInspector] public AIPath navigation;
+    [HideInInspector] public AIChainEffects chainEffects;
+
 
     [HideInInspector] public GameObject player1;
     [HideInInspector] public GameObject player2;
     [HideInInspector] public Player playerManager1;
     [HideInInspector] public Player playerManager2;
-
-    public Player checkWhichPlayerManager;
+    [HideInInspector] public Transform targetedPlayer;
+    //[HideInInspector] public Vector3 chainPosition;
     [HideInInspector] public Animator animator;
     [HideInInspector] public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
 
+
     [HideInInspector] public CapsuleCollider c_collider;
     [HideInInspector] public Rigidbody rb;
 
-    ParticleSystem[] bloodSplatter;
+    public float trackTime;
+
+
 
 
     public virtual void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        chainEffects = new AIChainEffects();
+
+        rb = GetComponentInChildren<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-        c_collider = GetComponent<CapsuleCollider>();
+        c_collider = GetComponentInChildren<CapsuleCollider>();
         c_collider.center = new Vector3(0, 1, 0);
         c_collider.radius = 0.5f;
         c_collider.height = 2;
@@ -68,13 +74,17 @@ public class BaseManager : MonoBehaviour
         playerManager1 = player1.GetComponent<Player>();
         playerManager2 = player2.GetComponent<Player>();
 
-        bloodSplatter = GetComponentsInChildren<ParticleSystem>();
+
     }
-
-
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            chainEffects.ActivateGhostChainEffect(3f);
+        }
+        trackTime = chainEffects.stunDurationTime;
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             currentHealth = 0;
@@ -83,19 +93,12 @@ public class BaseManager : MonoBehaviour
         {
             DeathTimer();
         }
-
     }
 
     public virtual void DealDamageToEnemy(float damage)
     {
-        if (defense - damage < 0 && currentHealth > 0)
+        if (defense - damage < 0)
         {
-                //Plays bloodsplatter anim
-                foreach (ParticleSystem particles in bloodSplatter)
-                {
-                    particles.Play();
-                }
-            
             currentHealth = currentHealth + defense - damage;
         }
 
@@ -107,7 +110,7 @@ public class BaseManager : MonoBehaviour
         {
             return player1.transform;
         }
-        else if ((Vector3.Distance(this.transform.position, player2.transform.position) < Vector3.Distance(this.transform.position, player1.transform.position)))
+        else if((Vector3.Distance(this.transform.position, player2.transform.position) < Vector3.Distance(this.transform.position, player1.transform.position)))
         {
             return player2.transform;
         }
@@ -143,6 +146,16 @@ public class BaseManager : MonoBehaviour
         }
     }
 
+    public Vector3 CalculateChainPosition()
+    {
+
+        Vector3 p1Position = player1.transform.position;
+        Vector3 p2Position = player2.transform.position;
+        Vector3 midPoint = (p1Position + p2Position) / 2;
+        midPoint.y = 0;
+        return midPoint;
+    }
+
     public virtual void DeathTimer()
     {
         timer -= Time.deltaTime;
@@ -169,7 +182,7 @@ public class BaseManager : MonoBehaviour
             }
             c_collider.enabled = true;
             rb.isKinematic = false;
-
+            
         }
         else
         {
@@ -200,5 +213,5 @@ public class BaseManager : MonoBehaviour
     }
 }
 
-
+    
 

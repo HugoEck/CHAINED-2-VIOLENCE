@@ -287,7 +287,7 @@ public class Player : MonoBehaviour
         if (currentHealth <= 0)
         {
             // Handle player's death here if needed
-            Debug.Log(gameObject.tag + " has died.");
+            //Debug.Log(gameObject.tag + " has died.");
         }
     }
 

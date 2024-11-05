@@ -9,9 +9,9 @@ public class AttackPlayer : Node
     {
         SetAttackAnimation(agent);
 
-        targetedPlayer = agent.CalculateClosestTarget();
+        agent.targetedPlayer = agent.CalculateClosestTarget();
 
-        Player playerManager = agent.GetCorrectPlayerManager(targetedPlayer);
+        Player playerManager = agent.GetCorrectPlayerManager(agent.targetedPlayer);
 
         if (agent.IsAttackAllowed())
         {
@@ -33,6 +33,11 @@ public class AttackPlayer : Node
         {
             agent.animator.SetBool("Runner_Chase", false);
             agent.animator.SetBool("Runner_Attack", true);
+        }
+        else if (agent.enemyID == "Swordsman")
+        {
+            agent.animator.SetBool("Swordsman_Chase", false);
+            agent.animator.SetBool("Swordsman_Attack", true);
         }
         else if(agent.enemyID == "Charger")
         {
