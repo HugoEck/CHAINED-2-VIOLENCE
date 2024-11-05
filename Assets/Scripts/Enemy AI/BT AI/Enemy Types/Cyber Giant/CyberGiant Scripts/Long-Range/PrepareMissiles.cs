@@ -5,7 +5,6 @@ using UnityEngine;
 public class PrepareMissiles : Node
 {
     private float prepDurationTime = 3.5f;
-    private float currentTime = 0;
 
 
     public override NodeState Evaluate(BaseManager agent)

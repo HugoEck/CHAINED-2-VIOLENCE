@@ -53,9 +53,11 @@ public class BaseManager : MonoBehaviour
 
 
 
+
     public virtual void Awake()
     {
         chainEffects = new AIChainEffects();
+        particleEffects = new AIParticleEffects();
 
         rb = GetComponentInChildren<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
@@ -80,10 +82,7 @@ public class BaseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            chainEffects.ActivateGhostChainEffect(3f);
-        }
+ 
         trackTime = chainEffects.stunDurationTime;
 
         if (Input.GetKeyDown(KeyCode.K))
