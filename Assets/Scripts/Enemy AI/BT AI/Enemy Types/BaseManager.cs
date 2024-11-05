@@ -9,7 +9,7 @@ using UnityEngine.AI;
 public class BaseManager : MonoBehaviour
 {
 
-    //Detta skript innehåller alla basvariabler samt basmetoder för alla andra managers.
+    //Detta skript innehåller alla baskomponenter, basvariabler och basmetoder för alla andra enemy managers.
 
     //----------------------------------------------------------------------------------------
     // OBS! NI FÅR VARKEN LÄGGA TILL ELLER ÄNDRA VARIABLER/METODER I DETTA SKRIPT UTAN MIN TILLÅTELSE!
@@ -21,33 +21,28 @@ public class BaseManager : MonoBehaviour
     public float attackRange;
     public float unitCost;
 
-
-
-    //private float lastAttackedTime;
-    private float timer = 5f;
-
     [Header("GE EJ VÄRDE")]
 
+    //SKRIPTS
     [HideInInspector] public AIPath navigation;
     [HideInInspector] public AIChainEffects chainEffects;
     [HideInInspector] public AIParticleEffects particleEffects;
     [HideInInspector] public AIBehaviorMethods behaviorMethods;
 
-
+    //KOMPONENTER
     [HideInInspector] public GameObject player1;
     [HideInInspector] public GameObject player2;
     [HideInInspector] public Player playerManager1;
     [HideInInspector] public Player playerManager2;
     [HideInInspector] public Transform targetedPlayer;
-    //[HideInInspector] public Vector3 chainPosition;
     [HideInInspector] public Animator animator;
+    [HideInInspector] public CapsuleCollider c_collider;
+    [HideInInspector] public Rigidbody rb;
+
+    //VARIABLER
     [HideInInspector] public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
-
-
-    [HideInInspector] public CapsuleCollider c_collider;
-    [HideInInspector] public Rigidbody rb;
 
     public virtual void Awake()
     {
