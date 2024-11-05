@@ -50,11 +50,9 @@ public class CyberGiantManager : BaseManager
     [HideInInspector] public bool JumpEngageActive = false;
 
     private float lastBombShotTime = 3;
-    //private float bombCooldown;
     private float lastLongRangeTime = 0;
     private float lastMidRangeTime = 0;
-    //private float longRangeCooldown;
-    //private float midRangeCooldown;
+
 
 
     void Start()
