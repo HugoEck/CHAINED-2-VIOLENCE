@@ -2813,6 +2813,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563564154}
   m_LocalEulerAnglesHint: {x: 0, y: 9, z: -90}
+--- !u!1 &762890295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 762890297}
+  - component: {fileID: 762890296}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &762890296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762890295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &762890297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762890295}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &773580636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4624,6 +4670,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserSegment: {fileID: 2666894068205934557, guid: abb8db24f1c16d24e826cc223a82f308,
     type: 3}
+  _electricSegment: {fileID: 0}
+  _fireSegment: {fileID: 0}
+  _ghostSegment: {fileID: 0}
 --- !u!114 &1024054569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7100,52 +7149,6 @@ MonoBehaviour:
     iterations: 3
     SORFactor: 1
     enabled: 0
---- !u!1 &1930172955
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1930172957}
-  - component: {fileID: 1930172956}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1930172956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930172955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1930172957
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930172955}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2003639248
 GameObject:
   m_ObjectHideFlags: 0
@@ -11417,6 +11420,637 @@ PrefabInstance:
       propertyPath: m_Name
       value: PCG Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].theme
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.basicBodies.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerBodies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorBodies.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorBodies.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerWeapons.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorBodies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.chargerBodies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerWeapons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorShields.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.basicBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1670876841442770, guid: 185b30f6808cefc43a6b26c29c93e4a7,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.basicBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1968479938754796, guid: db6fb0a926ee5664b8fbd3e2a016fb4a,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.basicBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 1185303888046672, guid: 32c69695fc97d9e47a6c22fb797ef0f5,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.basicBodies.Array.data[3]
+      value: 
+      objectReference: {fileID: 1971472593742656, guid: 35710aa377008d540a4c3ef459c38843,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.basicBodies.Array.data[4]
+      value: 
+      objectReference: {fileID: 1821211341035534, guid: 59055e6e46ee00f469afc8c20eb6e6a6,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 194332, guid: 83678b0287f5c8d4fb090f363e656dda, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 171076, guid: c6b37e343715b914eae3f7c516c8c341, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1189580221944950, guid: 21ae28f317f202e4aaa83b58773da385,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1947661023289072, guid: 944ddea2cbb722c48ae79d8b5ddaad45,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 1930506485524798, guid: 7c789ed8217f348409a84c93e0600c50,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[3]
+      value: 
+      objectReference: {fileID: 1584794483432000, guid: 7140ae04e6ae38146bedcd253f9853cd,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[4]
+      value: 
+      objectReference: {fileID: 1074598233348488, guid: 5e2758d07f5a2844bb37c1a991be4598,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[5]
+      value: 
+      objectReference: {fileID: 1000615490526886, guid: 4202f468dc12bf14689962f022f22aa7,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[6]
+      value: 
+      objectReference: {fileID: 1411867784693500, guid: 9dd7b59e62cbd3d4ca827c3d8ea2136e,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[7]
+      value: 
+      objectReference: {fileID: 1584794483432000, guid: 7140ae04e6ae38146bedcd253f9853cd,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[8]
+      value: 
+      objectReference: {fileID: 1074598233348488, guid: 5e2758d07f5a2844bb37c1a991be4598,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[9]
+      value: 
+      objectReference: {fileID: 1000615490526886, guid: 4202f468dc12bf14689962f022f22aa7,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 7019067445343743068, guid: 96dcbf5202198d948ab62d7c70139824,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 929796107206996346, guid: 6449e2b039b2ee7408ae1917a22b86ee,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 5572286812958236185, guid: e77f73ad3ca370f40802215cdfa4f9ff,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorBodies.Array.data[3]
+      value: 
+      objectReference: {fileID: 5507706372722182100, guid: 1892e2b7ebdad0346b0ac7f3e0f55e33,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 111782, guid: 35dd43ae5c2e10a4abb1ec8f5ecb5c11, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 195416, guid: 21a82b88f4e365a4cb4277cd43b7fe21, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 186328, guid: d24bb65e9cbd4f34d8d7c86cdec254e1, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorBodies.Array.data[3]
+      value: 
+      objectReference: {fileID: 192002, guid: bc4987e2fb189ec4d96488b047577016, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorBodies.Array.data[4]
+      value: 
+      objectReference: {fileID: 126762, guid: 1cc323c6fbf66b44b87cf8f0d2378b05, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 117684, guid: 0b0a850f05865574585d763108b873fe, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 150692, guid: cf02e9c538881564c8c87b3fe71d58ab, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerWeapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 185350, guid: 89f2c24352766b5478d2f7e8fe40e629, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerWeapons.Array.data[3]
+      value: 
+      objectReference: {fileID: 173842, guid: d58decf8a526ce048942213f259cb918, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerWeapons.Array.data[4]
+      value: 
+      objectReference: {fileID: 125836, guid: f429802cda6e8fd4592d3ea5e32667a7, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.runnerWeapons.Array.data[5]
+      value: 
+      objectReference: {fileID: 160132, guid: b5984fcebeb89dc42b987304b50a179a, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 173802, guid: d593da6c05ff5fb4bb1472cb17471fe0, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 128260, guid: 481fd41d14e734b49928b79e4169d5bc, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.chargerBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1830787700065114, guid: bdca9777bec5c67408e86e564f1d1e38,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.chargerBodies.Array.data[4]
+      value: 
+      objectReference: {fileID: 1830787700065114, guid: bdca9777bec5c67408e86e564f1d1e38,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerBodies.Array.data[10]
+      value: 
+      objectReference: {fileID: 1411867784693500, guid: 9dd7b59e62cbd3d4ca827c3d8ea2136e,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1672612285695940, guid: 741f59bbacc177548a5785130e6ca215,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 1754550499850068, guid: 23987bcfe351a1042a257166f7710b13,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.runnerWeapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 1965112421670760, guid: 9bfd64e21ab1f4c4fa24e7e05c9b9b16,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.data[0]
+      value: 
+      objectReference: {fileID: 4895822798063340827, guid: 2d100d8d0b917564b891897d2ad0b77b,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.data[1]
+      value: 
+      objectReference: {fileID: 7237590416500943158, guid: b9e6962016a9ae74c8f8fd188e1b1b2e,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.data[2]
+      value: 
+      objectReference: {fileID: 2300072681672728094, guid: a40ea4a0f3a074a4e8bb578e15b52fa9,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.data[3]
+      value: 
+      objectReference: {fileID: 3093988187645197924, guid: 2baa6f26a48d24742b55f3cd0f67567c,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.data[4]
+      value: 
+      objectReference: {fileID: 8192587157554123910, guid: 50b6a34e27cd25348b021df56442f366,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.data[5]
+      value: 
+      objectReference: {fileID: 2216755173373874202, guid: 97ef05e1bf12e4449aeeb65c85d9d36f,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.data[6]
+      value: 
+      objectReference: {fileID: 3384407662855222205, guid: 82a4e92f1307e1042a7fc68f41ffbf0d,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorHelmets.Array.data[7]
+      value: 
+      objectReference: {fileID: 1072109476992179027, guid: 98764d6f74fa89846a204e194a410cf3,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorShields.Array.data[0]
+      value: 
+      objectReference: {fileID: 4328516414427333798, guid: df33f47f7ced30746b0517db2c4af7e8,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorShields.Array.data[1]
+      value: 
+      objectReference: {fileID: 9016359471717977719, guid: 2e1b0083399837042a3cac4a396d14df,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorShields.Array.data[2]
+      value: 
+      objectReference: {fileID: 1499082280024966430, guid: e4fb4915c37c6f24a91b0219e538cee5,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorShields.Array.data[3]
+      value: 
+      objectReference: {fileID: 6985825494845418188, guid: e1d6ee186df0cb740aa1c80e74164b94,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 2836573981829754960, guid: 40fe5114e1b7b184680717f868623884,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 2702893461459134100, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 2281732870259357092, guid: 431ec6dafbc34724788c5c6ff8c60aab,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.data[3]
+      value: 
+      objectReference: {fileID: 8487435932786721014, guid: e1018cd9923a8bd4ca17acc33976967c,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.data[4]
+      value: 
+      objectReference: {fileID: 8612453288589322726, guid: 7fc5e324cff6a704fa39dfe146ffa32c,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.data[5]
+      value: 
+      objectReference: {fileID: 7021420225420658521, guid: cbc4765c873205a489d92bed70f3c8c7,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.data[6]
+      value: 
+      objectReference: {fileID: 9199442243369390583, guid: 031b58f6572dbc24e8ee6b81f88f351e,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[0].themeData.warriorWeapons.Array.data[7]
+      value: 
+      objectReference: {fileID: 783026104044848977, guid: 12073530738e22e4aa112b732f4d0a86,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 187760, guid: b42509b3c6fb1b3428faf609fb2f58ac, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 177368, guid: db100b1209fd55441ac1e5f1f7d3af3f, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 160864, guid: 11d74e3fd3d72994e8c477482b91d9c1, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[3]
+      value: 
+      objectReference: {fileID: 196164, guid: e9c6bdb0ca1da4b4086d137a2ab489de, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[4]
+      value: 
+      objectReference: {fileID: 137004, guid: 8e1f983ccd715b143b61a42ec9014704, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[5]
+      value: 
+      objectReference: {fileID: 115264, guid: ff2e1743ca0f31a4f9153e4896df47ce, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[6]
+      value: 
+      objectReference: {fileID: 184880, guid: 053ce15110086414881ea768e4066564, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[7]
+      value: 
+      objectReference: {fileID: 177170, guid: 37df78cca20c31943b3a3d5ee0df1f46, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[8]
+      value: 
+      objectReference: {fileID: 182920, guid: b4207cfce0a76f54cbfb26cee65d88f0, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[9]
+      value: 
+      objectReference: {fileID: 124188, guid: 1217a65a33a7dbc429087664e5473d36, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.data[0]
+      value: 
+      objectReference: {fileID: 129300, guid: b242b38a51a1b7549b5a9113c7425e93, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.data[1]
+      value: 
+      objectReference: {fileID: 107784, guid: d450a569b107aaf429c8827785fb48ff, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.data[2]
+      value: 
+      objectReference: {fileID: 184446, guid: b97b84d9be6496e41a84c2f2382376d2, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.data[3]
+      value: 
+      objectReference: {fileID: 129334, guid: 062905bb96bf96b419975654cdb40dde, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.data[4]
+      value: 
+      objectReference: {fileID: 134266, guid: f0dffb8a358b9544f945784b5bcdf60e, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.data[5]
+      value: 
+      objectReference: {fileID: 143154, guid: a5f16e5adc2c362489ad175c16f67290, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.data[6]
+      value: 
+      objectReference: {fileID: 149276, guid: b1cd006056105cb4fabb3b063ffe7351, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorShields.Array.data[7]
+      value: 
+      objectReference: {fileID: 192082, guid: 223dadf175fbfe04d93a1558000e4e70, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 125176, guid: b90f7bad647b0e44ca2c5c9756d810be, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 161324, guid: dc940f00038e36842905d37991e9b1d9, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 130572, guid: 46bb24d99368d774aa5dbd59a9990969, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.data[3]
+      value: 
+      objectReference: {fileID: 114634, guid: 7a8c209ed2217ef40ad0e76e95f34d1b, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.data[4]
+      value: 
+      objectReference: {fileID: 155168, guid: f9437ea218befa74c94da7889d2dd4c2, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.data[5]
+      value: 
+      objectReference: {fileID: 133380, guid: f99a4641d7c816644b741b79c78f8633, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.data[6]
+      value: 
+      objectReference: {fileID: 144458, guid: f142352c64eefcb4e98ba43e0385145a, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[4].themeData.warriorWeapons.Array.data[7]
+      value: 
+      objectReference: {fileID: 173842, guid: d58decf8a526ce048942213f259cb918, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.rockThrowerBodies.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[10]
+      value: 
+      objectReference: {fileID: 182436, guid: a5bfc8b0889817c4098bacca50d9a306, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[11]
+      value: 
+      objectReference: {fileID: 149524, guid: aa47d85a7c253d848b753bd4b0198036, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[12]
+      value: 
+      objectReference: {fileID: 178878, guid: c3f7b233d8b8ef9458d9b7d75a94c6d0, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[13]
+      value: 
+      objectReference: {fileID: 142688, guid: 8b9367b1d24f1814c9fa52c66826241c, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[14]
+      value: 
+      objectReference: {fileID: 100726, guid: 6a64a3a842d568948b101d6edd570896, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.warriorWeapons.Array.data[15]
+      value: 
+      objectReference: {fileID: 143354, guid: 1c9bfa448dab0ad4fa2795ca67ad67a8, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.rockThrowerWeapons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.rockThrowerBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1670876841442770, guid: 185b30f6808cefc43a6b26c29c93e4a7,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.rockThrowerBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1968479938754796, guid: db6fb0a926ee5664b8fbd3e2a016fb4a,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.rockThrowerBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 1185303888046672, guid: 32c69695fc97d9e47a6c22fb797ef0f5,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.rockThrowerBodies.Array.data[3]
+      value: 
+      objectReference: {fileID: 1971472593742656, guid: 35710aa377008d540a4c3ef459c38843,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.rockThrowerBodies.Array.data[4]
+      value: 
+      objectReference: {fileID: 1821211341035534, guid: 59055e6e46ee00f469afc8c20eb6e6a6,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[5].themeData.rockThrowerWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 4609290678756628542, guid: 1134a1321e70f26449824606fbb63c30,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17852,4 +18486,4 @@ SceneRoots:
   - {fileID: 773580640}
   - {fileID: 845530785}
   - {fileID: 1827652041}
-  - {fileID: 1930172957}
+  - {fileID: 762890297}

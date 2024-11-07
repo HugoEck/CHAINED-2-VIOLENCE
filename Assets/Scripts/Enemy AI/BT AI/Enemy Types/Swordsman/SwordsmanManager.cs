@@ -24,7 +24,7 @@ public class SwordsmanManager : BaseManager
         LoadStats();
 
         ConstructBT();
-
+        animator.applyRootMotion = false;
         randomOffset = Random.Range(0f, evaluationInterval);
     }
 

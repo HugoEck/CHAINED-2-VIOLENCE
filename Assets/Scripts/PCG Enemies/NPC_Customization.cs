@@ -282,6 +282,10 @@ public class NPC_Customization : MonoBehaviour
             RunnerManager behaviour = enemy.AddComponent<RunnerManager>();
 
         }
+        else if (Class == NPCClass.Warrior)
+        {
+            SwordsmanManager behaviour = enemy.AddComponent<SwordsmanManager>();
+        }
         else if (Class == NPCClass.RockThrower)
         {
             RockThrowerManager behaviour = enemy.AddComponent<RockThrowerManager>();
