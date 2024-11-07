@@ -5,6 +5,8 @@ using UnityEngine;
 public class WeaponSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject farmWeaponsPrefab;
+    [SerializeField] private GameObject warriorWeaponsPrefab;
+    [SerializeField] private GameObject medievalWeaponsPrefab;
     [SerializeField] private Transform[] spawnPoints;       
     [SerializeField] private float respawnTime = 10f;   
 
@@ -20,7 +22,14 @@ public class WeaponSpawner : MonoBehaviour
         {
             weaponPrefabs.Add(weapon.gameObject);
         }
-
+        foreach (Transform weapon in warriorWeaponsPrefab.transform)
+        {
+            weaponPrefabs.Add(weapon.gameObject);
+        }
+        foreach (Transform weapon in medievalWeaponsPrefab.transform)
+        {
+            weaponPrefabs.Add(weapon.gameObject);
+        }
         PlaceInitialWeapons();
         StartCoroutine(RespawnWeapons());
     }
