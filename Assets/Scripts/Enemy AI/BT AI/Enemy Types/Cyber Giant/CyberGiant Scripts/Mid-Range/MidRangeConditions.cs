@@ -22,10 +22,10 @@ public class MidRangeConditions : Node
 
             return NodeState.SUCCESS;
         }
-        else if (cg.CheckIfAbilityInProgress() == false && cg.IsLongRangeAbilityReady() && CheckMidRangeDistance(cg))
+        else if (cg.CheckIfAbilityInProgress() == false && cg.IsMidRangeAbilityReady() && CheckMidRangeDistance(cg))
         {
-            //MID RANGE RANDOMIZER HÄR
-            cg.abilityInProgress = true;
+            //cg.IsMidRangeAbilityReady() && CheckMidRangeDistance(cg)
+            ChooseAbility(cg);
             
             return NodeState.SUCCESS;
         }
@@ -36,13 +36,23 @@ public class MidRangeConditions : Node
     }
     public bool CheckMidRangeDistance(CyberGiantManager cg)
     {
-        if (distance <= cg.maxMidRangeDistance && distance < cg.maxCloseRangeDistance)
+        if (distance <= cg.maxMidRangeDistance && distance > cg.maxCloseRangeDistance)
         {
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    public void ChooseAbility(CyberGiantManager cg)
+    {
+        int randomNr = Random.Range(0, 1);
+
+        if (randomNr == 0)
+        {
+            cg.JumpEngageActive = true;
         }
     }
 }

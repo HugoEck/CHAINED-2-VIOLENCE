@@ -14,11 +14,12 @@ public class PrepareMissiles : Node
 
         agent.animator.SetBool("CyberGiant_PrepareMissiles", true);
         agent.animator.SetBool("CyberGiant_Walk", false);
+        agent.animator.SetBool("CyberGiant_JumpEngage", false);
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
         
-        cg.missileRainActive = true;
+
 
         cg.currentTime += Time.deltaTime;
 

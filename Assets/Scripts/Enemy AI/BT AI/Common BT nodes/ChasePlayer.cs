@@ -80,6 +80,7 @@ public class ChasePlayer : Node
         {
             agent.animator.SetBool("CyberGiant_Walk", true);
             agent.animator.SetBool("CyberGiant_PrepareMissiles", false);
+            agent.animator.SetBool("CyberGiant_JumpEngage", false);
         }
         
 

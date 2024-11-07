@@ -65,4 +65,13 @@ public class AIBehaviorMethods
         return midPoint;
     }
 
+    public void RotateTowardsClosestPlayer()
+    {
+        agent.targetedPlayer = CalculateClosestTarget();
+        Vector3 direction = (agent.targetedPlayer.position - agent.transform.position).normalized;
+
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+
+        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
+    }
 }

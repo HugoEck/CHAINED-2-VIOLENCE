@@ -21,8 +21,8 @@ public class LongRangeConditions : Node
         }
         else if (cg.CheckIfAbilityInProgress() == false && cg.IsLongRangeAbilityReady() && CheckLongRangeDistance(cg))
         {
-            //LONG RANGE RANDOMIZER HÄR
-            cg.abilityInProgress = true;
+         
+            ChooseAbility(cg);
             cg.missileReady = false;
             return NodeState.SUCCESS;
         }
@@ -42,6 +42,16 @@ public class LongRangeConditions : Node
         else
         {
             return false;
+        }
+    }
+
+    public void ChooseAbility(CyberGiantManager cg)
+    {
+        int randomNr = Random.Range(0, 1);
+
+        if (randomNr == 0)
+        {
+            cg.missileRainActive = true;
         }
     }
 }
