@@ -8,8 +8,8 @@ public class RockThrowerManager : BaseManager
     Node rootNode;
 
     [Header("ROCKTHROWER MANAGER")]
-    [HideInInspector] public GameObject rockPrefab;
-    [HideInInspector] public Transform throwPoint;
+    public GameObject rockPrefab;
+    public Transform throwPoint;
 
     [Header("GE EJ VÄRDE")]
     [HideInInspector]  public Vector3 calculatedVelocity;
