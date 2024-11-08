@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6432224721615536152
+--- !u!1 &7652597283054029283
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2403426410310948645}
-  - component: {fileID: 5851985771490350515}
+  - component: {fileID: 2434044534117576769}
+  - component: {fileID: 9126811942274477116}
   m_Layer: 0
   m_Name: Item Spawner
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2403426410310948645
+--- !u!4 &2434044534117576769
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6432224721615536152}
+  m_GameObject: {fileID: 7652597283054029283}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,20 +32,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5851985771490350515
+--- !u!114 &9126811942274477116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6432224721615536152}
+  m_GameObject: {fileID: 7652597283054029283}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53772a654c9463d40a2b69bca564ca91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToPickFrom:
-  - {fileID: 4495637541287041551, guid: 374edf06b87058b4eb21e20ee69ce2dd, type: 3}
+  romanObjects:
   - {fileID: 2558261172680922099, guid: 17195f059cef49b42aec426fcee2643d, type: 3}
   - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
   - {fileID: 6810822671076020267, guid: 5b8a2577c6fe74e4ebf99f3a9a5d106e, type: 3}
@@ -56,8 +55,42 @@ MonoBehaviour:
   - {fileID: 1833758746571175651, guid: ed9bbcb366badc44abcf3f6ed793a50d, type: 3}
   - {fileID: 7981063632941157584, guid: 9234e05926f54e740882fc4cb3c904d2, type: 3}
   - {fileID: 8069750076735145532, guid: fe1c4366e77e1b740968ab634ae883bb, type: 3}
+  - {fileID: 4495637541287041551, guid: 374edf06b87058b4eb21e20ee69ce2dd, type: 3}
+  fantasyObjects:
+  - {fileID: 1833758746571175651, guid: ed9bbcb366badc44abcf3f6ed793a50d, type: 3}
+  - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
+  - {fileID: 1980398563486944521, guid: b4c0e3b5a2512ab429c9c1f7c9f769b0, type: 3}
+  - {fileID: 8069750076735145532, guid: fe1c4366e77e1b740968ab634ae883bb, type: 3}
+  - {fileID: 1833758746571175651, guid: ed9bbcb366badc44abcf3f6ed793a50d, type: 3}
   - {fileID: 371760280927858361, guid: 985e5069eaee7ad41b6db56249d3f71d, type: 3}
+  pirateObjects:
+  - {fileID: 7981063632941157584, guid: 9234e05926f54e740882fc4cb3c904d2, type: 3}
+  - {fileID: 1833758746571175651, guid: ed9bbcb366badc44abcf3f6ed793a50d, type: 3}
+  - {fileID: 5815203133834099868, guid: 5c3aa53818c8f6443ade845b84fbeefc, type: 3}
+  - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
   - {fileID: 371760280927858361, guid: 985e5069eaee7ad41b6db56249d3f71d, type: 3}
+  westernObjects:
+  - {fileID: 4495637541287041551, guid: 374edf06b87058b4eb21e20ee69ce2dd, type: 3}
+  - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
+  - {fileID: 1980398563486944521, guid: b4c0e3b5a2512ab429c9c1f7c9f769b0, type: 3}
+  - {fileID: 1833758746571175651, guid: ed9bbcb366badc44abcf3f6ed793a50d, type: 3}
+  - {fileID: 371760280927858361, guid: 985e5069eaee7ad41b6db56249d3f71d, type: 3}
+  farmObjects:
+  - {fileID: 4495637541287041551, guid: 374edf06b87058b4eb21e20ee69ce2dd, type: 3}
+  - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
+  - {fileID: 1980398563486944521, guid: b4c0e3b5a2512ab429c9c1f7c9f769b0, type: 3}
+  - {fileID: 8069750076735145532, guid: fe1c4366e77e1b740968ab634ae883bb, type: 3}
+  - {fileID: 371760280927858361, guid: 985e5069eaee7ad41b6db56249d3f71d, type: 3}
+  modernDayObjects:
+  - {fileID: 4495637541287041551, guid: 374edf06b87058b4eb21e20ee69ce2dd, type: 3}
+  - {fileID: 1980398563486944521, guid: b4c0e3b5a2512ab429c9c1f7c9f769b0, type: 3}
+  - {fileID: 1980398563486944521, guid: b4c0e3b5a2512ab429c9c1f7c9f769b0, type: 3}
+  - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
+  - {fileID: 371760280927858361, guid: 985e5069eaee7ad41b6db56249d3f71d, type: 3}
+  scifiObjects:
+  - {fileID: 4495637541287041551, guid: 374edf06b87058b4eb21e20ee69ce2dd, type: 3}
+  - {fileID: 4962541597895920394, guid: 765ca18263e945545ac433793cd2ec17, type: 3}
+  - {fileID: 5815203133834099868, guid: 5c3aa53818c8f6443ade845b84fbeefc, type: 3}
   - {fileID: 371760280927858361, guid: 985e5069eaee7ad41b6db56249d3f71d, type: 3}
   spawnedObjects: []
   numObjectsToSpawn: 40
