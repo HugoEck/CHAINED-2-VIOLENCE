@@ -30,6 +30,16 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     {
         _mainCameraReference = Camera.main;
         _playerRigidBody = GetComponent<Rigidbody>();
+
+        if (gameObject.CompareTag("Player1"))
+        {
+            _walkingSpeed = StatsTransfer.Player1WalkingSpeed > 0 ? StatsTransfer.Player1WalkingSpeed : _walkingSpeed;
+        }
+        else if (gameObject.CompareTag("Player2"))
+        {
+            _walkingSpeed = StatsTransfer.Player2WalkingSpeed > 0 ? StatsTransfer.Player2WalkingSpeed : _walkingSpeed;
+        }
+
         originalWalkingSpeed = _walkingSpeed;
     }
     private void Update()
@@ -119,6 +129,11 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     public void SetWalkingSpeed(float newSpeed)
     {
         _walkingSpeed = newSpeed;
+    }
+
+    public float GetWalkingSpeed()
+    {
+        return _walkingSpeed;
     }
 
     #endregion

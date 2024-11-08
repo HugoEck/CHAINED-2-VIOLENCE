@@ -32,6 +32,7 @@ public class PlayerCombat : MonoBehaviour
     public float abilityCooldown = 5f; // Cooldown between abilities
     public float attackRange = 2f;     // Range of attack
     public float attackDamage = 10f;   // Damage per attack
+    public float InitialAttackDamage { get; private set; }
 
     protected float lastAttackTime;
     protected float lastAbilityTime;
@@ -83,16 +84,17 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         playerId = gameObject.GetComponent<Player>()._playerId;
-
+        InitialAttackDamage = attackDamage;
         // Set the player classes to the saved player class in the class manager. This is because player objects are destroyed between scenes
         if (playerId == 1)
         {
-
+            attackDamage = StatsTransfer.Player1AttackDamage > 0 ? StatsTransfer.Player1AttackDamage : attackDamage;
             currentPlayerClass = ClassManager._currentPlayer1Class;
             SetActiveClassModel(currentPlayerClass);
         }
         else if (playerId == 2)
         {
+            attackDamage = StatsTransfer.Player2AttackDamage > 0 ? StatsTransfer.Player2AttackDamage : attackDamage;
             currentPlayerClass = ClassManager._currentPlayer2Class;
             SetActiveClassModel(currentPlayerClass);
         }
