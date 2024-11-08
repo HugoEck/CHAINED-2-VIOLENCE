@@ -37,6 +37,22 @@ public class ClassSelector : MonoBehaviour
 
     void Update()
     {
+        if(uiPrompt == null)
+        {
+            GameObject findUIPromt = GameObject.FindGameObjectWithTag("ClassSwapText (Lobby)");
+            uiPrompt = findUIPromt;
+        }
+        if(player1 == null)
+        {
+            GameObject findPlayer1 = GameObject.FindGameObjectWithTag("Player1");
+            player1 = findPlayer1;
+        }
+        if(player2 == null)
+        {
+            GameObject findPlayer2 = GameObject.FindGameObjectWithTag("Player2");
+            player2 = findPlayer2;
+        }
+
         if (activePlayer != null && Input.GetKeyDown(KeyCode.E))
         {
             SwitchClass(activePlayer, targetClass);

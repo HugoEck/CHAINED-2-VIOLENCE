@@ -17,6 +17,14 @@ public class PlayerCombat : MonoBehaviour
         Ranged
     };
 
+    [Header("Class reference objects")]
+    [SerializeField] private GameObject _defaultObject;
+    [SerializeField] private GameObject _tankObject;
+    [SerializeField] private GameObject _supportObject;
+    [SerializeField] private GameObject _rangedObject;
+    [SerializeField] private GameObject _warriorObject;
+
+
     public PlayerClass currentPlayerClass;   
 
     public float attackCooldown = 1f;  // Cooldown between attacks
@@ -29,6 +37,7 @@ public class PlayerCombat : MonoBehaviour
 
     private int playerId;
 
+    
     #region Ability components
 
     private SwingAbility swingAbility;
@@ -46,10 +55,12 @@ public class PlayerCombat : MonoBehaviour
         if (playerId == 1)
         {
             currentPlayerClass = ClassManager._currentPlayer1Class;
+            SetActiveClassModel(currentPlayerClass);
         }
         else if (playerId == 2)
         {
             currentPlayerClass = ClassManager._currentPlayer2Class;
+            SetActiveClassModel(currentPlayerClass);
         }
 
         swingAbility = GetComponent<SwingAbility>();
@@ -147,6 +158,50 @@ public class PlayerCombat : MonoBehaviour
             ClassManager._currentPlayer2Class = newPlayerClass;
         }
             
+    }
+    private void SetActiveClassModel(PlayerClass currentPlayerClass)
+    {
+        
+        if (currentPlayerClass == PlayerClass.Tank)
+        {
+            _defaultObject.SetActive(false);
+
+            _rangedObject.SetActive(false);
+            _supportObject.SetActive(false);
+            _warriorObject.SetActive(false);
+
+            _tankObject.SetActive(true);
+        }
+        else if(currentPlayerClass == PlayerClass.Ranged)
+        {
+            _defaultObject.SetActive(false);
+
+            _supportObject.SetActive(false);
+            _warriorObject.SetActive(false);
+            _tankObject.SetActive(false);
+
+            _rangedObject.SetActive(true);
+        }
+        else if(currentPlayerClass == PlayerClass.Warrior)
+        {
+            _defaultObject.SetActive(false);
+
+            _supportObject.SetActive(false);
+            _tankObject.SetActive(false);
+            _rangedObject.SetActive(false);
+
+            _warriorObject.SetActive(true);
+        }
+        else if(currentPlayerClass == PlayerClass.Support)
+        {
+            _defaultObject.SetActive(false);
+
+            _tankObject.SetActive(false);
+            _rangedObject.SetActive(false);
+            _warriorObject.SetActive(false);
+
+            _supportObject.SetActive(true);
+        }
     }
 
 }
