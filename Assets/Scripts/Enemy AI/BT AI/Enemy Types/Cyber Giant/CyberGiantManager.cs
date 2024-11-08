@@ -50,10 +50,11 @@ public class CyberGiantManager : BaseManager
     public bool JumpEngageActive = false;
 
     private float lastBombShotTime = 0;
-    private float lastLongRangeTime = 0;
-    private float lastMidRangeTime = 0;
+    public float lastLongRangeTime = 0;
+    public float lastMidRangeTime = 0;
 
-    public float distance;
+    public float midRangeCooldownTimer;
+    public float longRangeCooldownTimer;
 
 
 
@@ -74,12 +75,9 @@ public class CyberGiantManager : BaseManager
     {
         rootNode.Evaluate(this);
 
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            testBool = true;
-        }
         abilityInProgress = CheckIfAbilityInProgress();
-        testBool = IsLongRangeAbilityReady();
+        midRangeCooldownTimer = Time.time;
+        longRangeCooldownTimer = Time.time;
     }
 
     private void LoadStats()
@@ -121,14 +119,9 @@ public class CyberGiantManager : BaseManager
         if (Time.time > lastLongRangeTime + longRangeCooldown)
         {
             lastLongRangeTime = Time.time;
-            missileReady = true;
             return true;
         }
-        else if(testBool == true)
-        {
 
-            return false;
-        }
         else
         {
             return false;
@@ -197,8 +190,7 @@ public class CyberGiantManager : BaseManager
         Sequence bomb = new Sequence(new List<Node> { calculateBombPosition, shootBomb });
         Sequence ability_missileRain = new Sequence(new List<Node> { prepareMissiles, calculateMissilePosition, shootMissiles });
         Selector LR_Ability = new Selector(new List<Node> { ability_missileRain});
-        Sequence longRange = new Sequence(new List<Node> { longRangeConditions, LR_Ability });
-        //Sequence longRange = new Sequence(new List<Node> { bomb, longRangeConditions, LR_Ability });
+        Sequence longRange = new Sequence(new List<Node> { bomb, longRangeConditions, LR_Ability });
 
         //Mid-Range Branch
 

@@ -19,7 +19,7 @@ public class LongRangeConditions : Node
 
             return NodeState.SUCCESS;
         }
-        else if (cg.CheckIfAbilityInProgress() == false && cg.IsLongRangeAbilityReady() && CheckLongRangeDistance(cg))
+        else if (cg.CheckIfAbilityInProgress() == false && CheckLongRangeDistance(cg) && cg.IsLongRangeAbilityReady())
         {
          
             ChooseAbility(cg);

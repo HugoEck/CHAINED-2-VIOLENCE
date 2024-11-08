@@ -19,13 +19,7 @@ public class CloseRangeConditions : Node
 
             return NodeState.SUCCESS;
         }
-        else if (cg.CheckIfAbilityInProgress() == false && cg.IsLongRangeAbilityReady() && CheckMidRangeDistance(cg))
-        {
-            //MID RANGE RANDOMIZER HÄR
-            cg.abilityInProgress = true;
-
-            return NodeState.SUCCESS;
-        }
+        
         else
         {
             return NodeState.FAILURE;

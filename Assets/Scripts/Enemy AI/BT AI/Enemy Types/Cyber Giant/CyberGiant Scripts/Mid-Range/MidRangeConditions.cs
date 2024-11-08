@@ -22,12 +22,18 @@ public class MidRangeConditions : Node
 
             return NodeState.SUCCESS;
         }
-        else if (cg.CheckIfAbilityInProgress() == false && cg.IsMidRangeAbilityReady() && CheckMidRangeDistance(cg))
+        else if (cg.CheckIfAbilityInProgress() == false  && CheckMidRangeDistance(cg) && cg.IsMidRangeAbilityReady())
         {
-            //cg.IsMidRangeAbilityReady() && CheckMidRangeDistance(cg)
+            //if (cg.IsMidRangeAbilityReady())
+            //{
+            //    ChooseAbility(cg);
+
+            //    return NodeState.SUCCESS;
+            //}
             ChooseAbility(cg);
-            
+
             return NodeState.SUCCESS;
+
         }
         else
         {

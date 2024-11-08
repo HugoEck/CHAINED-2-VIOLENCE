@@ -1383,52 +1383,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1573504829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &683517036
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 683517038}
-  - component: {fileID: 683517037}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &683517037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683517036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &683517038
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683517036}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &692779615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4314073569283862, guid: 535e935da08dc87499ca1cd6a751877c,
@@ -2817,6 +2771,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 131585320}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &981140508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 981140510}
+  - component: {fileID: 981140509}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &981140509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981140508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &981140510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981140508}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1010507737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4063,8 +4063,8 @@ MonoBehaviour:
   bombDamage: 25
   missileDamage: 25
   bombCooldown: 3
-  longRangeCooldown: 15
-  midRangeCooldown: 7
+  longRangeCooldown: 10
+  midRangeCooldown: 10
   closeRangeCooldown: 0
   minBombDistance: 20
   minLongRangeDistance: 30
@@ -4081,7 +4081,10 @@ MonoBehaviour:
   missileRainActive: 0
   missileReady: 0
   JumpEngageActive: 0
-  distance: 0
+  lastLongRangeTime: 0
+  lastMidRangeTime: 0
+  midRangeCooldownTimer: 0
+  longRangeCooldownTimer: 0
 --- !u!114 &1474865666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5826,4 +5829,4 @@ SceneRoots:
   - {fileID: 1323669736}
   - {fileID: 1801737359}
   - {fileID: 1533911516}
-  - {fileID: 683517038}
+  - {fileID: 981140510}
