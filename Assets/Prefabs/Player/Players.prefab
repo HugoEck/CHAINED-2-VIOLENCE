@@ -1240,6 +1240,9 @@ GameObject:
   - component: {fileID: 1965023006138953653}
   - component: {fileID: 243103856076282265}
   - component: {fileID: 8814520522031248142}
+  - component: {fileID: 3709626260186165014}
+  - component: {fileID: 4104196438329042504}
+  - component: {fileID: 4169235365561965082}
   m_Layer: 6
   m_Name: Player_2
   m_TagString: Player2
@@ -1507,6 +1510,55 @@ MonoBehaviour:
   filter: 1
   m_SourceCollider: {fileID: 6979189935529476186}
   m_DistanceField: {fileID: 0}
+--- !u!114 &3709626260186165014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401457856023750393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b10ebf198b4d93b4f8b4515719c71a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coneRange: 10
+  coneAngle: 90
+  coneDamage: 50
+--- !u!114 &4104196438329042504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401457856023750393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99e3673e5a9ece49924393df282d3aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxShieldHealth: 20
+  shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
+    type: 3}
+  otherPlayer: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
+    type: 3}
+--- !u!114 &4169235365561965082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401457856023750393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2069301f64bcc4d8e4aa76866ea7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 8430580474095380351, guid: e9d4644974641b04e88340a2ee92c946,
+    type: 3}
+  firePoint: {fileID: 4053205714226101396}
+  playerDirection: {fileID: 4053205714226101396}
+  projectileSpeed: 20
 --- !u!1 &5509006210856663872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,6 +1656,9 @@ GameObject:
   - component: {fileID: 2673040087041862345}
   - component: {fileID: 5776628171920410961}
   - component: {fileID: 861050730865157766}
+  - component: {fileID: 6919952620552269569}
+  - component: {fileID: 8472543195992861203}
+  - component: {fileID: 3873123668886611004}
   m_Layer: 6
   m_Name: 'Player_1 '
   m_TagString: Player1
@@ -1871,6 +1926,55 @@ MonoBehaviour:
   filter: 1
   m_SourceCollider: {fileID: 2338531556277086677}
   m_DistanceField: {fileID: 0}
+--- !u!114 &6919952620552269569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057992993270712755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b10ebf198b4d93b4f8b4515719c71a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coneRange: 10
+  coneAngle: 90
+  coneDamage: 50
+--- !u!114 &8472543195992861203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057992993270712755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99e3673e5a9ece49924393df282d3aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxShieldHealth: 20
+  shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
+    type: 3}
+  otherPlayer: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
+    type: 3}
+--- !u!114 &3873123668886611004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057992993270712755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2069301f64bcc4d8e4aa76866ea7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 8430580474095380351, guid: e9d4644974641b04e88340a2ee92c946,
+    type: 3}
+  firePoint: {fileID: 4026770230506929579}
+  playerDirection: {fileID: 4026770230506929579}
+  projectileSpeed: 20
 --- !u!1 &8386865782416438173
 GameObject:
   m_ObjectHideFlags: 0
