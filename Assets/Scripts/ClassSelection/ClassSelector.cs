@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static NPC_Customization;
 
 public class ClassSelector : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class ClassSelector : MonoBehaviour
 
     private GameObject activePlayer; // The player currently in range of a tube
     private PlayerCombat.PlayerClass targetClass; // Class associated with the nearby tube
+
+    public event Action<GameObject, PlayerCombat.PlayerClass> OnClassSwitched;
 
     void Start()
     {
@@ -56,6 +60,8 @@ public class ClassSelector : MonoBehaviour
         if (activePlayer != null && Input.GetKeyDown(KeyCode.E))
         {
             SwitchClass(activePlayer, targetClass);
+
+            
         }
     }
 
@@ -94,6 +100,7 @@ public class ClassSelector : MonoBehaviour
 
                 Debug.Log($"Setting {classTransform.name} to {(shouldEnable ? "enabled" : "disabled")}");
             }
+            OnClassSwitched?.Invoke(player, newClass);
         }     
 
         // Hide UI prompt after switching

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AnimationStateController : MonoBehaviour
 {
-    private Animator _animator;
+    public Animator _animator;
     private PlayerMovement _playerMovement;
     private Camera _mainCamera;
 
