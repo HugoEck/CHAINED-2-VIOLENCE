@@ -38,15 +38,15 @@ public class GoldDropManager : MonoBehaviour
     }
 
     // Old method? Use new the 1 for Sam
-    public void DropGold()
-    {
-        if (Random.value <= dropChance)
-        {
-            goldAmount += 1;
+    //public void DropGold()
+    //{
+    //    if (Random.value <= dropChance)
+    //    {
+    //        goldAmount += 1;
 
-            UpdateGoldCounterText();
-        }
-    }
+    //        UpdateGoldCounterText();
+    //    }
+    //}
 
     public int GetGoldAmount()
     {
@@ -55,7 +55,7 @@ public class GoldDropManager : MonoBehaviour
 
     public void SpendGold(int amount)
     {
-        if(goldAmount >= amount)
+        if (goldAmount >= amount)
         {
             goldAmount -= amount;
             UpdateGoldCounterText();
