@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// CHANGE LATER SO IT WORKS WHEN A PLAYER WALKS INTO THE AREA OR ANY OF THE PLAYERS PRESSES E ON THE UPDATE OBJECT IN THE LOBBY.
+/// Actives the Upgrade Menu UI when one of the player presses the E or X on controller near the NPC. Press again to close.
 /// </summary>
 public class UpgradeUIActivator : MonoBehaviour
 {
@@ -12,35 +12,40 @@ public class UpgradeUIActivator : MonoBehaviour
 
     private GameObject player1;
     private GameObject player2;
+    private bool isWithinRange;
 
-    // Start is called before the first frame update
     void Start()
     {
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
 
-        upgradeUICanvas.SetActive(false);
+        if (upgradeUICanvas != null)
+        {
+            upgradeUICanvas.SetActive(false);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        ToggleUpgradeUICanvas();
+        ToggleUpgradeMenuUI();
     }
 
-    private void ToggleUpgradeUICanvas()
+    private bool CheckPlayerDistance(GameObject player)
     {
-        float distanceP1 = Vector3.Distance(player1.transform.position, transform.position);
-        //float distanceP2 = Vector3.Distance(player2.transform.position, transform.position);
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+        return distance <= interactionDistance;
+    }
 
-        if (distanceP1 <= interactionDistance)
+    private void ToggleUpgradeMenuUI()
+    {
+        if (player1 != null && player2 != null)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            isWithinRange = CheckPlayerDistance(player1) || CheckPlayerDistance(player2);
+
+            if (isWithinRange && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)))
             {
-                bool isActive = upgradeUICanvas.activeSelf;
-                upgradeUICanvas.SetActive(!isActive);
+                upgradeUICanvas.SetActive(!upgradeUICanvas.activeSelf);
             }
         }
-
     }
 }
