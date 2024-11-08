@@ -10,24 +10,24 @@ public class PlayerCombat : MonoBehaviour
 {
     public enum PlayerClass
     {
+        Default,
         Tank,
-        Melee,
+        Warrior,
         Support,
         Ranged
     };
 
-    public PlayerClass currentPlayerClass;
-    public event Action<PlayerClass> OnPlayerClassChanged;
+    public PlayerClass currentPlayerClass;   
 
     public float attackCooldown = 1f;  // Cooldown between attacks
     public float abilityCooldown = 5f; // Cooldown between abilities
     public float attackRange = 2f;     // Range of attack
     public float attackDamage = 10f;   // Damage per attack
-    
-    public float InitialAttackDamage { get; private set; }// Initial value for upgrade system.
 
     protected float lastAttackTime;
     protected float lastAbilityTime;
+
+    private int playerId;
 
     #region Ability components
 
@@ -40,17 +40,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
-        int playerId = gameObject.GetComponent<Player>()._playerId;
-        InitialAttackDamage = attackDamage;
-
-        if (playerId == 1)
-        {
-            attackDamage = StatsTransfer.Player1AttackDamage > 0 ? StatsTransfer.Player1AttackDamage : attackDamage;
-        }
-        else if (playerId == 2)
-        {
-            attackDamage = StatsTransfer.Player2AttackDamage > 0 ? StatsTransfer.Player2AttackDamage : attackDamage;
-        }
+        playerId = gameObject.GetComponent<Player>()._playerId;
 
         // Set the player classes to the saved player class in the class manager. This is because player objects are destroyed between scenes
         if (playerId == 1)
@@ -97,7 +87,7 @@ public class PlayerCombat : MonoBehaviour
         switch (currentPlayerClass)
         {
 
-            case PlayerClass.Melee:
+            case PlayerClass.Warrior:
 
                 coneAbility.UseAbility();
 
@@ -137,8 +127,26 @@ public class PlayerCombat : MonoBehaviour
     /// <param name="newPlayerClass"></param>
     public void SetCurrentPlayerClass(PlayerClass newPlayerClass)
     {
+        if (playerId == 1)
+        {
+            if (newPlayerClass == ClassManager._currentPlayer2Class) return;
+        }
+        else if (playerId == 2)
+        {
+            if (newPlayerClass == ClassManager._currentPlayer1Class) return;
+        }
+       
         currentPlayerClass = newPlayerClass;
-
-        OnPlayerClassChanged?.Invoke(newPlayerClass);
+       
+        if (playerId == 1)
+        {
+            ClassManager._currentPlayer1Class = newPlayerClass;
+        }
+        else if (playerId == 2)
+        {
+            ClassManager._currentPlayer2Class = newPlayerClass;
+        }
+            
     }
+
 }

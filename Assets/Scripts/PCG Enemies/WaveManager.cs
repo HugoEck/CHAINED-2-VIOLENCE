@@ -11,7 +11,8 @@ public class WaveManager : MonoBehaviour
     public TMP_Asset fantasyFont;
     public TMP_Asset westernFont;
     public TMP_Asset pirateFont;
-   
+    public TMP_Asset currentDayFont;
+
 
     [Header(" ")]
     [SerializeField] GameObject enemyCreatorObject;
@@ -63,15 +64,15 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if(ActiveEnemies == 0 || timer > targetTime)
+        if (ActiveEnemies == 0 || timer > targetTime)
         {
-            currentWave++;
             timer = 0;
             SpawnWave(waves[currentWave]);
+            currentWave++;
         }
 
         //Debug spawner
-        if (Input.GetKeyDown(KeyCode.L) && currentWave < waves.Count)
+        if (Input.GetKeyDown(KeyCode.L))
         {
             SpawnWave(waves[currentWave]);
             currentWave++;
@@ -113,8 +114,36 @@ public class WaveManager : MonoBehaviour
     {
         GameObject waveParent = new GameObject($"{wave.waveName} Army");
         GameObject portal = null;
-           
 
+
+        //foreach (var enemyConfig in wave.enemyConfigs)
+        //{
+        //    //portal = Instantiate(spawnPortal, spawnPoint.transform);
+        //    // Randomize and create the base enemy
+        //    enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass);
+        //    GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
+        //    //randomEnemy.transform.parent = waveParent.transform; // Set the parent for the base enemy
+        //    randomEnemy.transform.position = new Vector3(100, 0, 100);
+
+
+        //    for (int i = 0; i < enemyConfig.waveSize; i++)
+        //    {
+        //        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+        //        // Instantiate a new enemy
+        //        GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
+        //        ActiveEnemies++;
+
+        //        newEnemy.name = $"{enemyConfig.enemyClass} enemy {i + 1}";
+        //        newEnemy.transform.parent = waveParent.transform; // Set the parent for the new enemy
+
+        //        // Add behavior to the new enemy
+        //        enemyCreator.AddBehaviourToClass(newEnemy);
+
+        //        // Optionally yield return null to spread creation over frames
+        //        yield return null; // This will wait for one frame before continuing the loop
+        //    }
+
+        //}
         foreach (var enemyConfig in wave.enemyConfigs)
         {
             //portal = Instantiate(spawnPortal, spawnPoint.transform);
@@ -123,26 +152,22 @@ public class WaveManager : MonoBehaviour
             GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
             //randomEnemy.transform.parent = waveParent.transform; // Set the parent for the base enemy
             randomEnemy.transform.position = new Vector3(100, 0, 100);
-
-
             for (int i = 0; i < enemyConfig.waveSize; i++)
             {
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
-                // Instantiate a new enemy
-                GameObject newEnemy = Instantiate(randomEnemy, spawnPoint.position, spawnPoint.rotation);
+                enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass); // Apply to each enemy
+                GameObject newEnemy = Instantiate(enemyCreator.currentBody, spawnPoint.position, spawnPoint.rotation);
+                newEnemy.name = $"{enemyConfig.enemyClass} enemy {i + 1}";
+                newEnemy.transform.parent = waveParent.transform;
+
+                enemyCreator.AddBehaviourToClass(newEnemy);
                 ActiveEnemies++;
 
-                newEnemy.name = $"{enemyConfig.enemyClass} enemy {i + 1}";
-                newEnemy.transform.parent = waveParent.transform; // Set the parent for the new enemy
-
-                // Add behavior to the new enemy
-                enemyCreator.AddBehaviourToClass(newEnemy);
-
-                // Optionally yield return null to spread creation over frames
-                yield return null; // This will wait for one frame before continuing the loop
+                yield return null;
             }
-
         }
+
+
         yield return new WaitForSeconds(3.0f);
         if (portal != null)
         {
@@ -215,9 +240,17 @@ public class WaveManager : MonoBehaviour
         {
             return fantasyFont;
         }
-        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Mini)
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Cowboys)
         {
             return westernFont;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Pirate)
+        {
+            return pirateFont;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.CurrentDay)
+        {
+            return currentDayFont;
         }
         return romanFont;
     }
