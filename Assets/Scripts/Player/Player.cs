@@ -15,8 +15,6 @@ public class Player : MonoBehaviour
     private PlayerCombat _playerCombat;
     private ShieldAbility _shieldAbility;
 
-    private Collider _playerCollider;
-
     #endregion
 
     #region Player attributes
@@ -24,10 +22,11 @@ public class Player : MonoBehaviour
     [Header("Player attributes")]
     [SerializeField] private float _maxHealth = 10.0f;
     public float currentHealth { get; private set; }
-
+    public float InitialMaxHealth { get; private set; }
     public int _playerId {  get; private set; }
 
-    private LayerMask _defaultIgnoreCollisionLayer;
+    
+
     #endregion
 
     #region Inputs
@@ -71,16 +70,27 @@ public class Player : MonoBehaviour
         _playerCombat = GetComponent<PlayerCombat>();
         _shieldAbility = GetComponent<ShieldAbility>(); // Get reference to the ShieldAbility
 
-        _playerCollider = GetComponent<Collider>();
+        //InitialMaxHealth = _maxHealth;
 
         #endregion
 
         #region Set attributes
 
-        currentHealth = _maxHealth;
+        // Retrieve and set max health from StatsTransfer
+        if (_playerId == 1)
+        {
+            _maxHealth = StatsTransfer.Player1MaxHealth > 0 ? StatsTransfer.Player1MaxHealth : _maxHealth;
+            Debug.Log("Current health in new scene: " + currentHealth);
+            currentHealth = StatsTransfer.Player1Health > 0 ? StatsTransfer.Player1Health : _maxHealth;
+        }
+        else if (_playerId == 2)
+        {
+            _maxHealth = StatsTransfer.Player2MaxHealth > 0 ? StatsTransfer.Player2MaxHealth : _maxHealth;
+            currentHealth = StatsTransfer.Player2Health > 0 ? StatsTransfer.Player2Health : _maxHealth;
+        }
 
-        _defaultIgnoreCollisionLayer = _playerCollider.excludeLayers.value;
-
+        InitialMaxHealth = _maxHealth;
+        //currentHealth = _maxHealth;
         #endregion
 
         Chained2ViolenceGameManager.Instance.OnGameStateChanged += Chained2ViolenceGameManagerOnGameStateChanged;
@@ -104,8 +114,6 @@ public class Player : MonoBehaviour
         UpdatePlayerCombat();
 
         HandleKnockout();
-
-        GhostChainIgnoreCollision();
     }
     #region Player Movement
     private void UpdatePlayerMovement()
@@ -261,8 +269,6 @@ public class Player : MonoBehaviour
 
     public void SetHealth(float damage)
     {
-        if (GhostChain._bIsGhostChainActive) return;
-
         // Check if the shield is active and absorb damage first
         if (_shieldAbility != null && _shieldAbility.IsShieldActive())
         {
@@ -287,7 +293,7 @@ public class Player : MonoBehaviour
         if (currentHealth <= 0)
         {
             // Handle player's death here if needed
-            //Debug.Log(gameObject.tag + " has died.");
+            Debug.Log(gameObject.tag + " has died.");
         }
     }
 
@@ -305,12 +311,18 @@ public class Player : MonoBehaviour
         Debug.Log("Player max health set to: " + _maxHealth);
     }
 
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
+    }
+
     #endregion
 
     #region Events
 
     private void Chained2ViolenceGameManagerOnGameStateChanged(Chained2ViolenceGameManager.GameState state)
-    {      
+    {
+        
 
         if (state == Chained2ViolenceGameManager.GameState.Paused || state == Chained2ViolenceGameManager.GameState.GameOver)
         {
@@ -348,25 +360,6 @@ public class Player : MonoBehaviour
 
         _bIsPlayerDisabled = false;
     }
-    #endregion
-
-    #region Ability chain Related Logic
-
-    private void GhostChainIgnoreCollision()
-    {
-        
-        if (GhostChain._bIsGhostChainActive)
-        {
-            _playerCollider.excludeLayers = GhostChain.ignoreCollisionLayers;
-            
-        }
-        else
-        {
-            _playerCollider.excludeLayers = _defaultIgnoreCollisionLayer;
-        }
-       
-    }
-
     #endregion
 }
 

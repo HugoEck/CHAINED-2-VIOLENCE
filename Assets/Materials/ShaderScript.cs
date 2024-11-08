@@ -14,8 +14,6 @@ public class ShaderScript : MonoBehaviour
     public Material[] romanMaterials;
     public Material[] westernMaterials;
     public Material[] fantasyMaterials;
-    public Material[] currentDayMaterials;
-    public Material[] sciFiMaterials;
     private List<Material> allMaterials = new List<Material>();
     private Coroutine dissolveCoroutine;
 
@@ -24,16 +22,12 @@ public class ShaderScript : MonoBehaviour
     private bool hasChangedToPirate = false;
     private bool hasChangedToWestern = false;
     private bool hasChangedToFantasy = false;
-    private bool hasChangedToCurrentDay = false;
-    private bool hasChangedToSciFi = false;
 
     float initialOffsetsPirate = -10f;
     float initialOffsetsFarm = -0.3f;
     float initialOffsetsRoman = -0.1f;
     float initialOffsetsWestern = -1.2f;
     float initialOffsetsFantasy = -6.2f;
-    float initialOffsetsCurrentDay = -0.1f;
-    float initialOffsetsSciFi = -60f;
 
     // Define the Y-level dissolve ranges for each arena
     private Dictionary<Material[], Vector2> materialYRanges = new Dictionary<Material[], Vector2>();
@@ -47,8 +41,6 @@ public class ShaderScript : MonoBehaviour
         allMaterials.AddRange(romanMaterials);
         allMaterials.AddRange(westernMaterials);
         allMaterials.AddRange(fantasyMaterials);
-        allMaterials.AddRange(currentDayMaterials);
-        allMaterials.AddRange(sciFiMaterials);
 
         // Define the Y dissolve ranges for each material set
         materialYRanges.Add(pirateMaterials, new Vector2(25f, initialOffsetsPirate));  // Pirate Y range: 25 to -10
@@ -56,8 +48,6 @@ public class ShaderScript : MonoBehaviour
         materialYRanges.Add(romanMaterials, new Vector2(0.2f, initialOffsetsRoman)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(westernMaterials, new Vector2(25, initialOffsetsWestern)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(fantasyMaterials, new Vector2(25f, initialOffsetsFantasy)); // Roman Y range: 0.2 to -0.1
-        materialYRanges.Add(currentDayMaterials, new Vector2(3, initialOffsetsCurrentDay)); // Roman Y range: 0.2 to -0.1
-        materialYRanges.Add(sciFiMaterials, new Vector2(110, initialOffsetsSciFi)); // Roman Y range: 0.2 to -0.1
     }
 
     private void Update()
@@ -68,32 +58,21 @@ public class ShaderScript : MonoBehaviour
             ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f);
             hasChangedToRoman = true;
         }
-        if (WaveManager.currentWave == 5 && !hasChangedToFantasy)
+        if (WaveManager.currentWave == 6 && !hasChangedToFantasy)
         {
             ChangeArena(fantasyMaterials, 25f, initialOffsetsFantasy);
             hasChangedToFantasy = true;
         }
-        if (WaveManager.currentWave == 10 && !hasChangedToPirate)
+        if (WaveManager.currentWave == 11 && !hasChangedToPirate)
         {
             ChangeArena(pirateMaterials, 25f, initialOffsetsPirate);
             hasChangedToPirate = true;
         }
-        if (WaveManager.currentWave == 15 && !hasChangedToWestern)
+        if (WaveManager.currentWave == 16 && !hasChangedToWestern)
         {
             ChangeArena(westernMaterials, 25f, initialOffsetsWestern);
             hasChangedToWestern = true;
         }
-        if (WaveManager.currentWave == 20 && !hasChangedToWestern)
-        {
-            ChangeArena(currentDayMaterials, 25f, initialOffsetsCurrentDay);
-            hasChangedToCurrentDay = true;
-        }
-        if (WaveManager.currentWave == 25 && !hasChangedToSciFi)
-        {
-            ChangeArena(sciFiMaterials, 25f, initialOffsetsSciFi);
-            hasChangedToSciFi = true;
-        }
-        
     }
     public void ChangeArena(Material[] desiredArena, float stopY, float startY)
     {

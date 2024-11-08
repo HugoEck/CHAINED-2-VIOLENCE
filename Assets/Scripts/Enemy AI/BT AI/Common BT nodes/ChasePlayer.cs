@@ -12,13 +12,16 @@ public class ChasePlayer : Node
     {
         SetChaseAnimation(agent);
        
-        agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
-        float distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
+        targetedPlayer = agent.CalculateClosestTarget();
+        float distance = Vector3.Distance(agent.transform.position, targetedPlayer.transform.position);
         
         if (distance > agent.attackRange)
         {
             agent.navigation.isStopped = false;
-            agent.navigation.destination = agent.targetedPlayer.position;
+            agent.navigation.destination = targetedPlayer.position;
+
+            //agent.navMeshAgent.isStopped = false;
+            //agent.navMeshAgent.SetDestination(targetedPlayer.position);
             
             return NodeState.RUNNING;
         }
@@ -28,7 +31,7 @@ public class ChasePlayer : Node
             agent.navigation.isStopped = true;
             //agent.navMeshAgent.isStopped = true;
 
-            //RotateTowardsPlayer(agent, agent.targetedPlayer);
+            RotateTowardsPlayer(agent, targetedPlayer);
             return NodeState.SUCCESS;
         }
 
@@ -59,11 +62,6 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Runner_Chase", true);
             agent.animator.SetBool("Runner_Attack", false);
         }
-        else if (agent.enemyID == "Swordsman")
-        {
-            agent.animator.SetBool("Swordsman_Chase", true);
-            agent.animator.SetBool("Swordsman_Attack", false);
-        }
         else if(agent.enemyID == "RockThrower")
         {
             agent.animator.SetBool("RockThrower_Chase", true);
@@ -76,13 +74,5 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Charger_Attack", false);
             agent.animator.SetBool("Charger_Sprint", false);
         }
-        else if(agent.enemyID == "CyberGiant")
-        {
-            agent.animator.SetBool("CyberGiant_Walk", true);
-            agent.animator.SetBool("CyberGiant_PrepareMissiles", false);
-            agent.animator.SetBool("CyberGiant_JumpEngage", false);
-        }
-        
-
     }
 }
