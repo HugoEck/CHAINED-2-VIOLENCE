@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     [Header("Player attributes")]
     [SerializeField] private float _maxHealth = 10.0f;
     public float currentHealth { get; private set; }
-    public float InitialMaxHealth { get; private set; }
 
     public int _playerId {  get; private set; }
 
@@ -304,11 +303,6 @@ public class Player : MonoBehaviour
         }
 
         Debug.Log("Player max health set to: " + _maxHealth);
-    }
-
-    public float GetMaxHealth()
-    {
-        return _maxHealth;
     }
 
     #endregion

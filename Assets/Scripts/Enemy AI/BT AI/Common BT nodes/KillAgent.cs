@@ -28,10 +28,6 @@ public class KillAgent : Node
         if (Time.time >= deathTimerStart + deathDurationTime)
         {
             //ADDERA PENGAR HÄR: totalaPengar += agent.cost;
-            if (GoldDropManager.Instance != null)
-            {        
-                GoldDropManager.Instance.AddGold(agent.unitCost);
-            }
             GameObject.Destroy(agent.gameObject);
             return NodeState.SUCCESS;
         }
