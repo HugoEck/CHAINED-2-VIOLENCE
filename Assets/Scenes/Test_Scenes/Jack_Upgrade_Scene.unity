@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4196,6 +4196,7 @@ GameObject:
   - component: {fileID: 1446530441}
   - component: {fileID: 1446530440}
   - component: {fileID: 1446530448}
+  - component: {fileID: 1446530449}
   m_Layer: 6
   m_Name: Player_1 (2)
   m_TagString: Player1
@@ -4233,6 +4234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b299c46794c71c9418903cb1a3c2bd72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!114 &1446530441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4404,10 +4406,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd144d9172a7c074a857b95d51ea14e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultObject: {fileID: 0}
+  _tankObject: {fileID: 0}
+  _supportObject: {fileID: 0}
+  _rangedObject: {fileID: 0}
+  _warriorObject: {fileID: 0}
+  currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
   attackRange: 2
   attackDamage: 10
+--- !u!114 &1446530449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446530436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3e3f76aba9b534f9d783269dae0010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherPlayer: {fileID: 0}
+  swingDuration: 3
+  swingSpeed: 200
+  swingRadius: 5
+  swingDamage: 20
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1481567988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4437,6 +4468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a6ffe22acfa21449b647f5c233e080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSceneState: 0
+  currentGameState: 0
+  currentLobbyState: 0
 --- !u!4 &1481567991
 Transform:
   m_ObjectHideFlags: 0
@@ -4452,74 +4486,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1507485309
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752512945022354207, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7594234868517049348, guid: 3d61fd5ea98187d468faeaeea5979e84,
-        type: 3}
-      propertyPath: m_Name
-      value: Item_Spreader
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3d61fd5ea98187d468faeaeea5979e84, type: 3}
 --- !u!1 &1511702048
 GameObject:
   m_ObjectHideFlags: 0
@@ -4649,6 +4615,7 @@ GameObject:
   - component: {fileID: 1579101367}
   - component: {fileID: 1579101366}
   - component: {fileID: 1579101375}
+  - component: {fileID: 1579101376}
   m_Layer: 6
   m_Name: Player_2 (1)
   m_TagString: Player2
@@ -4668,6 +4635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b299c46794c71c9418903cb1a3c2bd72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!114 &1579101367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4857,10 +4825,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd144d9172a7c074a857b95d51ea14e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultObject: {fileID: 0}
+  _tankObject: {fileID: 0}
+  _supportObject: {fileID: 0}
+  _rangedObject: {fileID: 0}
+  _warriorObject: {fileID: 0}
+  currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
   attackRange: 2
   attackDamage: 10
+--- !u!114 &1579101376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579101363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3e3f76aba9b534f9d783269dae0010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherPlayer: {fileID: 0}
+  swingDuration: 3
+  swingSpeed: 200
+  swingRadius: 5
+  swingDamage: 20
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1596704654
 GameObject:
   m_ObjectHideFlags: 0
@@ -18084,7 +18081,6 @@ SceneRoots:
   - {fileID: 903052284}
   - {fileID: 543450652723172447}
   - {fileID: 443529127}
-  - {fileID: 1507485309}
   - {fileID: 1481567991}
   - {fileID: 1004666167}
   - {fileID: 2077713383}

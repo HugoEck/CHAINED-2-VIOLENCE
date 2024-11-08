@@ -66,114 +66,114 @@ public class UpgradeManager : MonoBehaviour
         currentSpeed = player1Movement.originalWalkingSpeed;
     }
 
-    // Upgrade Damage with Scriptable Object Data
-    public void UpgradeDamage(DamageUpgradeSO damageUpgrade)
-{
-    float initialAttackDamage = 10f; // You can adjust this to the real initial value if needed.
+//    // Upgrade Damage with Scriptable Object Data
+//    public void UpgradeDamage(DamageUpgradeSO damageUpgrade)
+//{
+//    float initialAttackDamage = 10f; // You can adjust this to the real initial value if needed.
 
-    // Check if the damage upgrade is not null and the attack level hasn't reached the max limit.
-    if (damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
-    {
-        // Calculate the new attack damage based on the damage increase from the scriptable object.
-        float newAttackDamage = currentAttackDamage + damageUpgrade.damageIncrease;
+//    // Check if the damage upgrade is not null and the attack level hasn't reached the max limit.
+//    if (damageUpgrade != null && currentAttackLevel < MaxUpgradeLevel)
+//    {
+//        // Calculate the new attack damage based on the damage increase from the scriptable object.
+//        float newAttackDamage = currentAttackDamage + damageUpgrade.damageIncrease;
 
-        // Determine the maximum allowed attack damage based on the initial value and max multiplier.
-        float maxAllowedAttackDamage = initialAttackDamage * MaxAttackMultiplier;
+//        // Determine the maximum allowed attack damage based on the initial value and max multiplier.
+//        float maxAllowedAttackDamage = initialAttackDamage * MaxAttackMultiplier;
 
-        // Ensure the new attack damage doesn't exceed the maximum allowed value.
-        if (newAttackDamage <= maxAllowedAttackDamage)
-        {
-            // Update the current attack damage and increase the attack level.
-            currentAttackDamage = newAttackDamage;
-            currentAttackLevel++;
+//        // Ensure the new attack damage doesn't exceed the maximum allowed value.
+//        if (newAttackDamage <= maxAllowedAttackDamage)
+//        {
+//            // Update the current attack damage and increase the attack level.
+//            currentAttackDamage = newAttackDamage;
+//            currentAttackLevel++;
 
-            // Apply the new attack damage to both Player 1 and Player 2 using SetAttackDamage.
-            player1Combat.SetAttackDamage(currentAttackDamage);
-            player2Combat.SetAttackDamage(currentAttackDamage);
+//            // Apply the new attack damage to both Player 1 and Player 2 using SetAttackDamage.
+//            player1Combat.SetAttackDamage(currentAttackDamage);
+//            player2Combat.SetAttackDamage(currentAttackDamage);
 
-            Debug.Log("Damage upgraded. New Attack Damage: " + currentAttackDamage);
+//            Debug.Log("Damage upgraded. New Attack Damage: " + currentAttackDamage);
 
-            // Update the UI text to reflect the new attack level.
-            UpdateUpgradeLevelText();
-        }
-        else
-        {
-            // Notify if the new damage exceeds the maximum allowed value.
-            Debug.LogWarning("Damage upgrade exceeds the maximum allowed limit.");
-        }
-    }
-    else
-    {
-        // Notify if the maximum upgrade level is reached.
-        Debug.LogWarning("Maximum attack upgrade level reached.");
-    }
-}
-
-
-    //Upgrade Health with Scriptable Object Data
-    public void UpgradeHealth(HealthUpgradeSO healthUpgrade)
-    {
-        float initialMaxHealth = 100f;
-
-        if (healthUpgrade != null && currentHealthLevel < MaxUpgradeLevel)
-        {
-            float newMaxHealth = currentMaxHealth + healthUpgrade.healthIncrease;
-            float maxAllowedHealth = initialMaxHealth * MaxHealthMultiplier;
-
-            if (newMaxHealth <= maxAllowedHealth)
-            {
-                currentMaxHealth = newMaxHealth;
-                currentHealthLevel++;
-
-                player1Manager.SetMaxHealth(currentMaxHealth);
-                player2Manager.SetMaxHealth(currentMaxHealth);
-
-                Debug.Log("Health upgraded for both players! New Max Health: " + currentMaxHealth);
-
-                UpdateUpgradeLevelText();
-            }
-            else
-            {
-                Debug.LogWarning("Health upgrade exceeds the maximum allowed limit.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Maximum health upgrade level reached.");
-        }
-    }
+//            // Update the UI text to reflect the new attack level.
+//            UpdateUpgradeLevelText();
+//        }
+//        else
+//        {
+//            // Notify if the new damage exceeds the maximum allowed value.
+//            Debug.LogWarning("Damage upgrade exceeds the maximum allowed limit.");
+//        }
+//    }
+//    else
+//    {
+//        // Notify if the maximum upgrade level is reached.
+//        Debug.LogWarning("Maximum attack upgrade level reached.");
+//    }
+//}
 
 
+//    //Upgrade Health with Scriptable Object Data
+//    public void UpgradeHealth(HealthUpgradeSO healthUpgrade)
+//    {
+//        float initialMaxHealth = 100f;
 
-    // Upgrades Speed with Scriptable Object Data
-    public void UpgradeSpeed(SpeedUpgradeSO speedUpgrade)
-    {
-        if (speedUpgrade != null && currentSpeedLevel < MaxUpgradeLevel)
-        {
-            float newSpeed = currentSpeed + speedUpgrade.speedIncrease;
-            float maxAllowedSpeed = player1Movement.originalWalkingSpeed * MaxSpeedMultiplier;
+//        if (healthUpgrade != null && currentHealthLevel < MaxUpgradeLevel)
+//        {
+//            float newMaxHealth = currentMaxHealth + healthUpgrade.healthIncrease;
+//            float maxAllowedHealth = initialMaxHealth * MaxHealthMultiplier;
 
-            if (newSpeed <= maxAllowedSpeed)
-            {
-                currentSpeed = newSpeed;
-                currentSpeedLevel++;
+//            if (newMaxHealth <= maxAllowedHealth)
+//            {
+//                currentMaxHealth = newMaxHealth;
+//                currentHealthLevel++;
 
-                player1Movement.SetWalkingSpeed(currentSpeed);
-                player2Movement.SetWalkingSpeed(currentSpeed);
+//                player1Manager.SetMaxHealth(currentMaxHealth);
+//                player2Manager.SetMaxHealth(currentMaxHealth);
 
-                Debug.Log("Speed upgraded for both players! New Speed: " + currentSpeed);
-                UpdateUpgradeLevelText();
-            }
-            else
-            {
-                Debug.LogWarning("Speed upgrade exceeds the maximum allowed limit.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Maximum speed upgrade level reached.");
-        }
-    }
+//                Debug.Log("Health upgraded for both players! New Max Health: " + currentMaxHealth);
+
+//                UpdateUpgradeLevelText();
+//            }
+//            else
+//            {
+//                Debug.LogWarning("Health upgrade exceeds the maximum allowed limit.");
+//            }
+//        }
+//        else
+//        {
+//            Debug.LogWarning("Maximum health upgrade level reached.");
+//        }
+//    }
+
+
+
+//    // Upgrades Speed with Scriptable Object Data
+//    public void UpgradeSpeed()
+//    {
+//        if (speedUpgrade != null && currentSpeedLevel < MaxUpgradeLevel)
+//        {
+//            float newSpeed = currentSpeed + speedUpgrade.speedIncrease;
+//            float maxAllowedSpeed = player1Movement.originalWalkingSpeed * MaxSpeedMultiplier;
+
+//            if (newSpeed <= maxAllowedSpeed)
+//            {
+//                currentSpeed = newSpeed;
+//                currentSpeedLevel++;
+
+//                player1Movement.SetWalkingSpeed(currentSpeed);
+//                player2Movement.SetWalkingSpeed(currentSpeed);
+
+//                Debug.Log("Speed upgraded for both players! New Speed: " + currentSpeed);
+//                UpdateUpgradeLevelText();
+//            }
+//            else
+//            {
+//                Debug.LogWarning("Speed upgrade exceeds the maximum allowed limit.");
+//            }
+//        }
+//        else
+//        {
+//            Debug.LogWarning("Maximum speed upgrade level reached.");
+//        }
+//    }
 
     private void UpdateUpgradeLevelText()
     {
