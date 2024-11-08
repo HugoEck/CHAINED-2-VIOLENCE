@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,6 +38,7 @@ public class PlayerCombat : MonoBehaviour
 
     private int playerId;
 
+    private ClassSelector classSelector;
     
     #region Ability components
 
@@ -47,6 +49,37 @@ public class PlayerCombat : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        classSelector = FindObjectOfType<ClassSelector>();
+        if (classSelector == null)
+        {
+            Debug.LogError("ClassSelector not found in the scene.");
+            return;
+        }
+
+        classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
+    }
+    private void OnDestroy()
+    {
+        classSelector.OnClassSwitched -= ClassSelectorOnClassSwitched;
+    }
+
+    private void ClassSelectorOnClassSwitched(GameObject player, PlayerClass targetClass)
+    {
+        string activeClass = targetClass.ToString();
+
+        AnimationStateController animator = gameObject.GetComponent<AnimationStateController>();
+
+        Transform findActiveClass = transform.Find("Classes:").transform.Find(activeClass);
+
+        animator._animator = findActiveClass.gameObject.GetComponentInChildren<Animator>();
+        if (animator != null)
+        {
+            animator._animator.Rebind();
+        }
+    }
+
     private void Start()
     {
         playerId = gameObject.GetComponent<Player>()._playerId;
@@ -54,6 +87,7 @@ public class PlayerCombat : MonoBehaviour
         // Set the player classes to the saved player class in the class manager. This is because player objects are destroyed between scenes
         if (playerId == 1)
         {
+
             currentPlayerClass = ClassManager._currentPlayer1Class;
             SetActiveClassModel(currentPlayerClass);
         }
@@ -140,7 +174,10 @@ public class PlayerCombat : MonoBehaviour
     {
         if (playerId == 1)
         {
+
             if (newPlayerClass == ClassManager._currentPlayer2Class) return;
+
+
         }
         else if (playerId == 2)
         {
@@ -148,7 +185,9 @@ public class PlayerCombat : MonoBehaviour
         }
        
         currentPlayerClass = newPlayerClass;
+        
        
+
         if (playerId == 1)
         {
             ClassManager._currentPlayer1Class = newPlayerClass;
@@ -171,6 +210,8 @@ public class PlayerCombat : MonoBehaviour
             _warriorObject.SetActive(false);
 
             _tankObject.SetActive(true);
+
+
         }
         else if(currentPlayerClass == PlayerClass.Ranged)
         {
@@ -202,6 +243,9 @@ public class PlayerCombat : MonoBehaviour
 
             _supportObject.SetActive(true);
         }
+
+
+
     }
 
 }
