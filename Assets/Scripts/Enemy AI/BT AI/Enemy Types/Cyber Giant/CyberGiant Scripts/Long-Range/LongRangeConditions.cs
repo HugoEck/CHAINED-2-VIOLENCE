@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
-public class IsMissileReady : Node
+public class LongRangeConditions : Node
 {
     float distance;
-    
+
     public override NodeState Evaluate(BaseManager agent)
     {
 
@@ -18,12 +16,13 @@ public class IsMissileReady : Node
 
         if (cg.missileRainActive) // || annan range ability)
         {
-            
+
             return NodeState.SUCCESS;
         }
-        else if (cg.CheckIfAbilityInProgress() == false && cg.IsLongRangeAbilityReady() && CheckLongRangeDistance(cg))
+        else if (cg.CheckIfAbilityInProgress() == false && CheckLongRangeDistance(cg) && cg.IsLongRangeAbilityReady())
         {
-            cg.abilityInProgress = true;
+         
+            ChooseAbility(cg);
             cg.missileReady = false;
             return NodeState.SUCCESS;
         }
@@ -43,6 +42,16 @@ public class IsMissileReady : Node
         else
         {
             return false;
+        }
+    }
+
+    public void ChooseAbility(CyberGiantManager cg)
+    {
+        int randomNr = Random.Range(0, 1);
+
+        if (randomNr == 0)
+        {
+            cg.missileRainActive = true;
         }
     }
 }

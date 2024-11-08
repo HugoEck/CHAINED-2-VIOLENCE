@@ -12,7 +12,7 @@ public class ChasePlayer : Node
     {
         SetChaseAnimation(agent);
        
-        agent.targetedPlayer = agent.CalculateClosestTarget();
+        agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         float distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
         
         if (distance > agent.attackRange)
@@ -80,6 +80,7 @@ public class ChasePlayer : Node
         {
             agent.animator.SetBool("CyberGiant_Walk", true);
             agent.animator.SetBool("CyberGiant_PrepareMissiles", false);
+            agent.animator.SetBool("CyberGiant_JumpEngage", false);
         }
         
 

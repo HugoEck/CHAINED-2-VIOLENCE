@@ -12,12 +12,7 @@ public class CalculateThrow : Node
     {
         RockThrowerManager rockThrower = agent as RockThrowerManager;
 
-        if (rockThrower == null)
-        {
-            Debug.Log("Denna metod fungerar inte!");   
-        }
-
-        agent.targetedPlayer = agent.CalculateClosestTarget();
+        agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         playerLastPosition = agent.targetedPlayer;
 
         Vector3 directionXZ = new Vector3(playerLastPosition.position.x - rockThrower.throwPoint.position.x, 0f,

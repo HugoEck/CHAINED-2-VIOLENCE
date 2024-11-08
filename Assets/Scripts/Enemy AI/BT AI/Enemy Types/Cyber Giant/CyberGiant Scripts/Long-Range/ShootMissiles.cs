@@ -10,8 +10,6 @@ public class ShootMissiles : Node
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
-        cg.missileReady = false;
-
         GameObject p1_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);
         GameObject p2_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);
         GameObject chain_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);
@@ -37,7 +35,8 @@ public class ShootMissiles : Node
         rb_p2_Missile.velocity = cg.p2_Velocity;
         rb_chain_Missile.velocity = cg.chain_Velocity;
 
-
+        //cg.missileReady = false;
+        cg.abilityInProgress = false;
 
 
         return NodeState.SUCCESS;

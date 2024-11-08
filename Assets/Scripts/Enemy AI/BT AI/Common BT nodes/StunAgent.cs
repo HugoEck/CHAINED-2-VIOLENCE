@@ -33,21 +33,5 @@ public class StunAgent : Node
         }
     }
 }
-    //public override NodeState Evaluate(BaseManager agent)
-    //{
 
-    //    agent.navigation.isStopped = true;
-    //    agent.chainEffects.stunDurationTime -= Time.deltaTime;
-
-    //    if(agent.chainEffects.stunDurationTime < 0)
-    //    {
-    //        agent.chainEffects.stunActivated = false;
-    //        return NodeState.SUCCESS;
-
-    //    }
-    //    else
-    //    {
-    //        return NodeState.RUNNING;
-    //    }
-    //}
 

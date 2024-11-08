@@ -4,45 +4,61 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
-public class IsMissileReady : Node
+public class MidRangeConditions : Node
 {
+
     float distance;
-    
     public override NodeState Evaluate(BaseManager agent)
     {
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
+
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
-        if (cg.missileRainActive) // || annan range ability)
+        if (cg.JumpEngageActive) // || andra mid range abilites
         {
-            
+
             return NodeState.SUCCESS;
         }
-        else if (cg.CheckIfAbilityInProgress() == false && cg.IsLongRangeAbilityReady() && CheckLongRangeDistance(cg))
+        else if (cg.CheckIfAbilityInProgress() == false  && CheckMidRangeDistance(cg) && cg.IsMidRangeAbilityReady())
         {
-            cg.abilityInProgress = true;
-            cg.missileReady = false;
+            //if (cg.IsMidRangeAbilityReady())
+            //{
+            //    ChooseAbility(cg);
+
+            //    return NodeState.SUCCESS;
+            //}
+            ChooseAbility(cg);
+
             return NodeState.SUCCESS;
+
         }
         else
         {
             return NodeState.FAILURE;
-        }
-
+        }    
     }
-
-    public bool CheckLongRangeDistance(CyberGiantManager cg)
+    public bool CheckMidRangeDistance(CyberGiantManager cg)
     {
-        if (distance > cg.minLongRangeDistance)
+        if (distance <= cg.maxMidRangeDistance && distance > cg.maxCloseRangeDistance)
         {
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    public void ChooseAbility(CyberGiantManager cg)
+    {
+        int randomNr = Random.Range(0, 1);
+
+        if (randomNr == 0)
+        {
+            cg.JumpEngageActive = true;
         }
     }
 }

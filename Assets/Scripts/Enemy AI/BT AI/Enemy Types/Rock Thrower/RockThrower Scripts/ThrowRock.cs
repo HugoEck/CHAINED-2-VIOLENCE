@@ -11,7 +11,7 @@ public class ThrowRock : Node
         
         RockThrowerManager rockThrower = agent as RockThrowerManager;
 
-        if (agent.IsAttackAllowed())
+        if (agent.behaviorMethods.IsAttackAllowed())
         {
             agent.animator.SetBool("RockThrower_Attack", true);
             agent.animator.SetBool("RockThrower_Idle", false);

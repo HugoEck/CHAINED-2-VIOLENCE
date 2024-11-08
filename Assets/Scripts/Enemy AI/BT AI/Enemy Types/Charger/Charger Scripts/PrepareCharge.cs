@@ -21,8 +21,8 @@ public class PrepareCharge : Node
             charger.activatePrepareChargeTimer = true;
             agent.navigation.isStopped = true;
 
-            agent.targetedPlayer = agent.CalculateClosestTarget();
-            charger.chainPosition = agent.CalculateChainPosition();
+            agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
+            charger.chainPosition = agent.behaviorMethods.CalculateChainPosition();
             RotateTowardsChain(agent, charger.chainPosition );
             charger.lastSavedPosition = new Vector3 (agent.transform.position.x, 0, agent.transform.position.z);
 

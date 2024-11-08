@@ -10,23 +10,22 @@ public class PrepareMissiles : Node
     public override NodeState Evaluate(BaseManager agent)
     {
 
-
-
         agent.navigation.isStopped = true;
 
         agent.animator.SetBool("CyberGiant_PrepareMissiles", true);
         agent.animator.SetBool("CyberGiant_Walk", false);
+        agent.animator.SetBool("CyberGiant_JumpEngage", false);
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
         
-        cg.missilePrepActivated = true;
+
 
         cg.currentTime += Time.deltaTime;
 
         cg.p1_LastPosition = agent.player1.transform.position;
         cg.p2_LastPosition = agent.player2.transform.position;
-        cg.chain_LastPosition = agent.CalculateChainPosition();
+        cg.chain_LastPosition = agent.behaviorMethods.CalculateChainPosition();
         cg.chain_LastPosition = new Vector3(cg.chain_LastPosition.x, 0, cg.chain_LastPosition.z);
 
         RotateTowardsChain(agent, cg.chain_LastPosition);
@@ -34,8 +33,8 @@ public class PrepareMissiles : Node
 
         if (cg.currentTime > prepDurationTime)
         {
-            cg.missilePrepActivated = false;
-            cg.missileSent = true;
+            cg.missileRainActive = false;
+            //cg.missileSent = true;
             cg.currentTime = 0;
             return NodeState.SUCCESS;
         }
