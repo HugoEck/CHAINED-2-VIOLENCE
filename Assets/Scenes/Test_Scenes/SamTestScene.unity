@@ -829,52 +829,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!1 &629601167
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 629601169}
-  - component: {fileID: 629601168}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &629601168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629601167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &629601169
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629601167}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &630983126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1954,6 +1908,52 @@ MonoBehaviour:
   filter: -65535
   m_SourceCollider: {fileID: 702823662}
   m_DistanceField: {fileID: 0}
+--- !u!1 &712927674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 712927676}
+  - component: {fileID: 712927675}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &712927675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712927674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &712927676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712927674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &749862986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4039,7 +4039,7 @@ MonoBehaviour:
   defense: 1
   speed: 3
   attackSpeed: 5
-  attackRange: 1
+  attackRange: 10
   unitCost: 10000
   navigation: {fileID: 0}
   player1: {fileID: 0}
@@ -4065,11 +4065,11 @@ MonoBehaviour:
   bombCooldown: 3
   longRangeCooldown: 10
   midRangeCooldown: 10
-  closeRangeCooldown: 0
+  closeRangeCooldown: 6.5
   minBombDistance: 20
   minLongRangeDistance: 30
   maxMidRangeDistance: 25
-  maxCloseRangeDistance: 8
+  maxCloseRangeDistance: 15
   bombVelocity: {x: 0, y: 0, z: 0}
   p1_LastPosition: {x: 0, y: 0, z: 0}
   p2_LastPosition: {x: 0, y: 0, z: 0}
@@ -4080,11 +4080,11 @@ MonoBehaviour:
   abilityInProgress: 0
   missileRainActive: 0
   missileReady: 0
-  JumpEngageActive: 0
+  jumpEngageActive: 0
+  overheadSmashActive: 0
   lastLongRangeTime: 0
   lastMidRangeTime: 0
-  midRangeCooldownTimer: 0
-  longRangeCooldownTimer: 0
+  lastCloseRangeTime: 0
 --- !u!114 &1474865666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5829,4 +5829,4 @@ SceneRoots:
   - {fileID: 1323669736}
   - {fileID: 1801737359}
   - {fileID: 1533911516}
-  - {fileID: 629601169}
+  - {fileID: 712927676}

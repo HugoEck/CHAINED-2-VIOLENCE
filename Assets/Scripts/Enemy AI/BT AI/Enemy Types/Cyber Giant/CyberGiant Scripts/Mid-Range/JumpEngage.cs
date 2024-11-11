@@ -15,9 +15,7 @@ public class JumpEngage : Node
     
     public override NodeState Evaluate(BaseManager agent)
     {
-        agent.animator.SetBool("CyberGiant_JumpEngage", true);
-        agent.animator.SetBool("CyberGiant_PrepareMissiles", false);
-        agent.animator.SetBool("CyberGiant_Walk", false);
+        SetAnimation(agent);
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
@@ -32,12 +30,11 @@ public class JumpEngage : Node
             targetedPlayerLastPos = agent.targetedPlayer.transform.position;
             agent.behaviorMethods.RotateTowardsClosestPlayer();
             jumpSpeed = distance / jumpAnimationTime;
-            //jumpDirection = agent.targetedPlayer.position.normalized;
             jumpDirection = (agent.targetedPlayer.position - agent.transform.position).normalized;
         }
         else if (animationTimer < 3.5f && animationTimer > 2.5f)
         {
-            if(distance > cg.maxCloseRangeDistance)
+            if(distance > cg.maxCloseRangeDistance - 7)
             {
                 RotateTowardsPlayer(agent);
                 agent.transform.position += jumpDirection * jumpSpeed * Time.deltaTime;
@@ -46,11 +43,11 @@ public class JumpEngage : Node
         }
 
         animationTimer -= Time.deltaTime;
-        //Debug.Log(animationTimer);
+
         if (animationTimer < 0)
         {
             animationTimer = animationTotTime;
-            cg.JumpEngageActive = false;
+            cg.jumpEngageActive = false;
             return NodeState.SUCCESS;
         }
         else
@@ -59,30 +56,21 @@ public class JumpEngage : Node
         }
         
     }
-
-    //private void RotateTowardsPlayer(BaseManager agent)
-    //{
-    //    Vector3 direction = (agent.targetedPlayer.position - agent.transform.position).normalized;
-
-    //    Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-
-    //    agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
-    //}
     private void RotateTowardsPlayer(BaseManager agent)
     {
-        // Calculate the direction vector to the targeted player
         Vector3 direction = (agent.targetedPlayer.position - agent.transform.position).normalized;
-
-        // Calculate the rotation that looks at the targeted player
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-
-        // Apply an additional rotation offset on the Z-axis
-        Quaternion offsetRotation = Quaternion.Euler(0, 10, 0f); // Adjust -5f as needed for the tilt to the left
-
-        // Combine the lookRotation with the offset
+        Quaternion offsetRotation = Quaternion.Euler(0, 10, 0f);
         Quaternion finalRotation = lookRotation * offsetRotation;
-
-        // Smoothly rotate towards the final rotation with a Slerp
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, finalRotation, Time.deltaTime * agent.navigation.rotationSpeed);
+    }
+
+    private void SetAnimation(BaseManager agent)
+    {
+        agent.animator.SetBool("CyberGiant_JumpEngage", true);
+        agent.animator.SetBool("CyberGiant_MissileRain", false);
+        agent.animator.SetBool("CyberGiant_Walk", false);
+        agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
+        agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
     }
 }
