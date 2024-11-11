@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 132932837}
   m_Layer: 0
   m_Name: TubeSelectionCollider
-  m_TagString: Untagged
+  m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 1
-  classSelector: {fileID: 210311616}
+  classSelector: {fileID: 0}
 --- !u!1 &183526973
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +289,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 210311615}
-  - component: {fileID: 210311616}
   - component: {fileID: 210311617}
   m_Layer: 0
   m_Name: ClassManager
@@ -313,21 +312,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &210311616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 210311614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43ff08ddee777f741b9d547cce00a3bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1: {fileID: 1555253888}
-  player2: {fileID: 1678772369}
-  uiPrompt: {fileID: 757525554}
 --- !u!114 &210311617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,7 +736,7 @@ GameObject:
   - component: {fileID: 370033215}
   m_Layer: 0
   m_Name: TubeSelectionCollider
-  m_TagString: Untagged
+  m_TagString: Ranged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -806,53 +790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 4
-  classSelector: {fileID: 210311616}
---- !u!1 &381097946
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 381097948}
-  - component: {fileID: 381097947}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &381097947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381097946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &381097948
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 381097946}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  classSelector: {fileID: 0}
 --- !u!1 &384938969
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +804,7 @@ GameObject:
   - component: {fileID: 384938972}
   m_Layer: 0
   m_Name: TubeSelectionCollider
-  m_TagString: Untagged
+  m_TagString: Warrior
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -920,7 +858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 2
-  classSelector: {fileID: 210311616}
+  classSelector: {fileID: 0}
 --- !u!1001 &471000797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1314,6 +1252,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClassTube1
       objectReference: {fileID: 0}
+    - target: {fileID: 1058912666773384, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
+      propertyPath: m_TagString
+      value: Tank
+      objectReference: {fileID: 0}
     - target: {fileID: 4153561948850794, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
       propertyPath: m_RootOrder
       value: 510
@@ -1614,7 +1556,7 @@ GameObject:
   - component: {fileID: 871826229}
   m_Layer: 0
   m_Name: TubeSelectionCollider
-  m_TagString: Untagged
+  m_TagString: Support
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1668,7 +1610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 3
-  classSelector: {fileID: 210311616}
+  classSelector: {fileID: 0}
 --- !u!1001 &883163467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1742,6 +1684,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3903829308009327339, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: uiPrompt
+      value: 
+      objectReference: {fileID: 757525554}
+    - target: {fileID: 7079573598015526987, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: uiPrompt
+      value: 
+      objectReference: {fileID: 757525554}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1830,6 +1782,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891802579}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &899381925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 899381927}
+  - component: {fileID: 899381926}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &899381926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899381925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &899381927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899381925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &903612228
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,6 +2229,10 @@ PrefabInstance:
     - target: {fileID: 1058912666773384, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
       propertyPath: m_Name
       value: ClassTube3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058912666773384, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
+      propertyPath: m_TagString
+      value: Ranged
       objectReference: {fileID: 0}
     - target: {fileID: 4153561948850794, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
       propertyPath: m_RootOrder
@@ -2903,6 +2905,10 @@ PrefabInstance:
     - target: {fileID: 1058912666773384, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
       propertyPath: m_Name
       value: ClassTube4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058912666773384, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
+      propertyPath: m_TagString
+      value: Support
       objectReference: {fileID: 0}
     - target: {fileID: 4153561948850794, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
       propertyPath: m_RootOrder
@@ -4059,6 +4065,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClassTube2
       objectReference: {fileID: 0}
+    - target: {fileID: 1058912666773384, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
+      propertyPath: m_TagString
+      value: Warrior
+      objectReference: {fileID: 0}
     - target: {fileID: 4153561948850794, guid: ad0c90ff1d999f74eb83b1a52c1e2878, type: 3}
       propertyPath: m_RootOrder
       value: 510
@@ -4521,4 +4531,4 @@ SceneRoots:
   - {fileID: 265807667}
   - {fileID: 883163467}
   - {fileID: 2112212546}
-  - {fileID: 381097948}
+  - {fileID: 899381927}

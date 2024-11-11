@@ -1,28 +1,100 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using static NPC_Customization;
 
 public class ClassSelector : MonoBehaviour
 {
-    public GameObject player1; // Reference to Player 1 object
-    public GameObject player2; // Reference to Player 2 object
-    public GameObject uiPrompt; // UI Text object for "Switch to: Class [E]"
+    [SerializeField] private GameObject uiPrompt; // UI Text object for "Switch to: Class [E]"
 
     private GameObject activePlayer; // The player currently in range of a tube
     private PlayerCombat.PlayerClass targetClass; // Class associated with the nearby tube
 
     public event Action<GameObject, PlayerCombat.PlayerClass> OnClassSwitched;
 
+    private bool _bIsPlayer1ChoosingClass = false;
+    private bool _bIsPlayer2ChoosingClass = false;
+
+    private int _playerId = 0;
+
     void Start()
     {
         uiPrompt.SetActive(false); // Ensure UI is hidden at the start
+
+        _playerId = GetComponent<Player>()._playerId;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+       
+        PlayerCombat.PlayerClass classType;
+
+        if(other.CompareTag("Tank"))
+        {
+            classType = PlayerCombat.PlayerClass.Tank;
+            ShowClassPrompt(other.gameObject, classType);
+        }
+        else if(other.CompareTag("Warrior"))
+        {
+            classType = PlayerCombat.PlayerClass.Warrior;
+            ShowClassPrompt(other.gameObject, classType);
+        }
+        else if(other.CompareTag("Ranged"))
+        {
+            classType = PlayerCombat.PlayerClass.Ranged;
+            ShowClassPrompt(other.gameObject, classType);
+        }
+        else if(other.CompareTag("Support"))
+        {
+            classType = PlayerCombat.PlayerClass.Support;
+            ShowClassPrompt(other.gameObject, classType);
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+
+        PlayerCombat.PlayerClass classType;
+
+        if (other.CompareTag("Tank"))
+        {
+            classType = PlayerCombat.PlayerClass.Tank;
+            Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+        }
+        else if (other.CompareTag("Warrior"))
+        {
+            classType = PlayerCombat.PlayerClass.Warrior;
+            Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+        }
+        else if (other.CompareTag("Ranged"))
+        {
+            classType = PlayerCombat.PlayerClass.Ranged;
+            Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+        }
+        else if (other.CompareTag("Support"))
+        {
+            classType = PlayerCombat.PlayerClass.Support;
+            Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+        }
+        else
+        {
+            return;
+        }
+        HideClassPrompt();
+       
     }
 
     // Called when a player enters the trigger of a class tube
     public void ShowClassPrompt(GameObject player, PlayerCombat.PlayerClass classType)
     {
         activePlayer = player;
+
         targetClass = classType;
 
         // Show prompt and update text
@@ -41,28 +113,24 @@ public class ClassSelector : MonoBehaviour
 
     void Update()
     {
-        if(uiPrompt == null)
+        
+        if(_playerId == 1)
         {
-            GameObject findUIPromt = GameObject.FindGameObjectWithTag("ClassSwapText (Lobby)");
-            uiPrompt = findUIPromt;
+            if(_bIsPlayer1ChoosingClass = InputManager.Instance.GetInteractInput_P1())
+            {
+                SwitchClass(gameObject, targetClass);
+                Debug.Log(gameObject.tag + " Changed class");
+            }
         }
-        if(player1 == null)
+        else if(_playerId == 2)
         {
-            GameObject findPlayer1 = GameObject.FindGameObjectWithTag("Player1");
-            player1 = findPlayer1;
+            if(_bIsPlayer2ChoosingClass = InputManager.Instance.GetInteractInput_P2())
+            {
+                SwitchClass(gameObject, targetClass);
+                Debug.Log(gameObject.tag + " Changed class");
+            }
         }
-        if(player2 == null)
-        {
-            GameObject findPlayer2 = GameObject.FindGameObjectWithTag("Player2");
-            player2 = findPlayer2;
-        }
-
-        if (activePlayer != null && Input.GetKeyDown(KeyCode.E))
-        {
-            SwitchClass(activePlayer, targetClass);
-
-            
-        }
+        
     }
 
     void SwitchClass(GameObject player, PlayerCombat.PlayerClass newClass)
@@ -77,14 +145,13 @@ public class ClassSelector : MonoBehaviour
 
         bool hasClassBeenSet = false;
 
-        // Update the player's current class in ClassManager
-        if (player == player1 && newClass != ClassManager._currentPlayer2Class)
+        if(_playerId == 1 && newClass != ClassManager._currentPlayer2Class)
         {
             player.GetComponent<PlayerCombat>().SetCurrentPlayerClass(newClass);
             hasClassBeenSet = true;
-            
+            Debug.Log("Has class been set");
         }
-        else if (player == player2 && newClass != ClassManager._currentPlayer1Class)
+        else if(_playerId == 2 && newClass != ClassManager._currentPlayer1Class)
         {
             player.GetComponent<PlayerCombat>().SetCurrentPlayerClass(newClass);
             hasClassBeenSet = true;

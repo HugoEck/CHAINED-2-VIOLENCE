@@ -113,4 +113,27 @@ public class GamepadInput : MonoBehaviour, IInputInterface
 
         return isPressed;
     }
+
+    public bool GetInteractInput_P1()
+    {
+        bool isPressed = false;
+
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned) return false;
+
+        isPressed = Input.GetButtonDown("Gamepad_Interact_P1");
+
+        return isPressed;
+    }
+
+    public bool GetInteractInput_P2()
+    {
+        bool isPressed = false;
+
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+        {
+            isPressed = Input.GetButtonDown("Gamepad_Interact_P2");
+        }
+
+        return isPressed;
+    }
 }

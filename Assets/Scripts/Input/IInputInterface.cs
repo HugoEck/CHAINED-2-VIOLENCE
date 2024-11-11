@@ -24,4 +24,8 @@ public interface IInputInterface
 
     public bool GetUltimateAttackInput_P2();
 
+    public bool GetInteractInput_P1();
+
+    public bool GetInteractInput_P2();
+
 }

@@ -77,4 +77,21 @@ public class KeyboardAndMouse : MonoBehaviour, IInputInterface
     {
         return false;
     }
+
+    public bool GetInteractInput_P1()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool GetInteractInput_P2()
+    {
+        return false;
+    }
 }
