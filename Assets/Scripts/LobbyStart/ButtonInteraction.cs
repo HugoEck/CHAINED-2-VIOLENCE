@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class ButtonInteraction : MonoBehaviour
 {
-    public GameObject player; // Reference to the player's GameObject
+    public GameObject player1; // Reference to the player's GameObject
+    public GameObject player2;
     public GameObject interactPromptUI; // The UI element that prompts "Press E to Open Door"
     public DoorController doorController; // The script that controls the doors
 
@@ -11,6 +12,9 @@ public class ButtonInteraction : MonoBehaviour
 
     private bool isPlayerInRange = false;
     private bool hasBeenPressed = false; // New variable to track if the button was pressed
+
+    private bool isPlayer1PressingButton = false;
+    private bool isPlayer2PressingButton = false;
 
     void Start()
     {
@@ -27,16 +31,20 @@ public class ButtonInteraction : MonoBehaviour
         }
 
         // Measure the distance between the player and the button
-        float distance = Vector3.Distance(player.transform.position, transform.position);
+        float distanceToPlayer1 = Vector3.Distance(player1.transform.position, transform.position);
+        float distanceToPlayer2 = Vector3.Distance(player2.transform.position, transform.position);
 
-        if (distance <= interactionDistance)
+        if (distanceToPlayer1 <= interactionDistance || distanceToPlayer2 <= interactionDistance)
         {
             // If the player is in range, show the prompt
             isPlayerInRange = true;
             interactPromptUI.SetActive(true);
 
+            isPlayer1PressingButton = InputManager.Instance.GetInteractInput_P1();
+            isPlayer2PressingButton = InputManager.Instance.GetInteractInput_P2();
+
             // When the player presses 'E' while in range, open the doors
-            if (Input.GetKeyDown(KeyCode.E))
+            if (isPlayer1PressingButton || isPlayer2PressingButton)
             {
                 doorController.OnStartButtonPress(); // Trigger door animation and camera switch
                 interactPromptUI.SetActive(false); // Hide the prompt after pressing 'E'
