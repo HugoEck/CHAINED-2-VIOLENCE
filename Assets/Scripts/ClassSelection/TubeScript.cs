@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TubeScript : MonoBehaviour
+public class TubeScript : MonoBehaviour /// THIS SCRIPT IS DEPRICATED DONT USE!!!!!!!!!!!!!!!!!!!!1
 {
     public PlayerCombat.PlayerClass classType;
     public ClassSelector classSelector;
