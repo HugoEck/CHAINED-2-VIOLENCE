@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public float currentHealth { get; private set; }
     public float InitialMaxHealth { get; private set; }
 
+    private AnimationStateController animationController;
+
     public int _playerId {  get; private set; }
 
     private LayerMask _defaultIgnoreCollisionLayer;
@@ -71,6 +73,7 @@ public class Player : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
         _playerCombat = GetComponent<PlayerCombat>();
         _shieldAbility = GetComponent<ShieldAbility>(); // Get reference to the ShieldAbility
+        animationController = GetComponent<AnimationStateController>();
 
         _playerCollider = GetComponent<Collider>();
 
@@ -185,7 +188,7 @@ public class Player : MonoBehaviour
 
             if (_bIsUsingBasicAttack)
             {
-                _playerCombat.UseBaseAttack();
+                animationController.TriggerAttackAnimation();
                 Debug.Log("Player 1 is using basic attack");
                 
             }

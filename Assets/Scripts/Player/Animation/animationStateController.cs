@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class AnimationStateController : MonoBehaviour
@@ -10,12 +11,18 @@ public class AnimationStateController : MonoBehaviour
 
     private Player _player;
 
+    private bool _isAttackPlaying = false;
+    private PlayerCombat _playerCombat;
+
+
+
 
     void Start()
     {
         _animator = GetComponentInChildren<Animator>();
         _playerMovement = GetComponent<PlayerMovement>();
         _mainCamera = Camera.main;
+        _playerCombat = GetComponent<PlayerCombat>();
 
         _player = gameObject.GetComponent<Player>();
     }
@@ -45,8 +52,6 @@ public class AnimationStateController : MonoBehaviour
         
         bool isMoving = movementInput.magnitude > 0;
         _animator.SetBool("isMoving", isMoving);
-
-        GetPlayerCombatInput();
     }
 
    
@@ -72,33 +77,63 @@ public class AnimationStateController : MonoBehaviour
 
         return adjustedMovement;
     }
-    private void GetPlayerCombatInput()
+    //private void GetPlayerCombatInput()
+    //{
+    //    if (_player._playerId == 1)
+    //    {
+    //        _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P1();
+
+    //        if (_bIsUsingBasicAttack)
+    //        {
+    //            _animator.SetBool("isAttacking", true);
+    //            Invoke("StopAttacking", 0.5f); 
+    //        }
+    //    }
+    //    else if (_player._playerId == 2)
+    //    {
+    //        _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P2();
+
+    //        if (_bIsUsingBasicAttack)
+    //        {
+    //            _animator.SetBool("isAttacking", true);
+    //            Invoke("StopAttacking", 0.5f); 
+    //        }
+    //    }
+    //}
+
+    public void TriggerAttackAnimation()
     {
-        if (_player._playerId == 1)
+        if (!_isAttackPlaying) 
         {
-            _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P1();
-
-            if (_bIsUsingBasicAttack)
-            {
-                _animator.SetBool("isAttacking", true);
-                Invoke("StopAttacking", 0.5f); 
-            }
-        }
-        else if (_player._playerId == 2)
-        {
-            _bIsUsingBasicAttack = InputManager.Instance.GetBasicAttackInput_P2();
-
-            if (_bIsUsingBasicAttack)
-            {
-                _animator.SetBool("isAttacking", true);
-                Invoke("StopAttacking", 0.5f); 
-            }
+            _isAttackPlaying = true;
+            _animator.SetBool("isAttacking", true);
+            StartCoroutine(AttackRoutine());
         }
     }
 
-    private void StopAttacking()
+    private IEnumerator AttackRoutine()
     {
+        float attackDuration = GetAnimationClipLength("Player_Melee_Horizontal");
+
+        yield return new WaitForSeconds(attackDuration / 8);
+        _playerCombat.UseBaseAttack();
+        Debug.Log("Player 1 attacked Once");
+
+        yield return new WaitForSeconds(attackDuration / 8);
+
         _animator.SetBool("isAttacking", false);
+        _isAttackPlaying = false;
+    }
+
+    private float GetAnimationClipLength(string clipName)
+    {
+        foreach (var clip in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == clipName)
+                return clip.length;
+        }
+        Debug.LogWarning("Animation clip not found: " + clipName);
+        return 0f;
     }
 
 

@@ -36,6 +36,7 @@ public class PlayerCombat : MonoBehaviour
 
     protected float lastAttackTime;
     protected float lastAbilityTime;
+    private bool hasDealtDamage = false;
 
     private int playerId;
 
@@ -120,12 +121,17 @@ public class PlayerCombat : MonoBehaviour
                 enemyManager.DealDamageToEnemy(attackDamage);
                 Debug.Log("Hit enemy: " + enemy.name);
             }
+            hasDealtDamage = true;
         }
 
         Debug.Log("Base Attack triggered.");
 
     }
-    
+    public void ResetAttack()
+    {
+        hasDealtDamage = false; // Reset flag for the next attack
+    }
+
     /// <summary>
     /// This method uses the ability that the player has for its class (Called in Player script)
     /// </summary>
