@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     [Header("Player attributes")]
     [SerializeField] private float _maxHealth = 10.0f;
     public float currentHealth { get; private set; }
+    public float InitialMaxHealth { get; private set; }
 
     public int _playerId {  get; private set; }
 
@@ -77,7 +78,19 @@ public class Player : MonoBehaviour
 
         #region Set attributes
 
-        currentHealth = _maxHealth;
+        if (_playerId== 1)
+        {
+            _maxHealth = StatsTransfer.Player1MaxHealth > 0 ? StatsTransfer.Player1MaxHealth : _maxHealth;
+            currentHealth = StatsTransfer.Player1Health > 0 ? StatsTransfer.Player1Health : _maxHealth;
+        }
+        else if (_playerId== 2) 
+        {
+            _maxHealth = StatsTransfer.Player2MaxHealth > 0 ? StatsTransfer.Player2MaxHealth : _maxHealth;
+            currentHealth = StatsTransfer.Player2Health > 0 ? StatsTransfer.Player2Health : _maxHealth;
+        }
+
+        InitialMaxHealth = _maxHealth;
+        //currentHealth = _maxHealth; //Removed to work with upgrades. 
 
         _defaultIgnoreCollisionLayer = _playerCollider.excludeLayers.value;
 
@@ -303,6 +316,11 @@ public class Player : MonoBehaviour
         }
 
         Debug.Log("Player max health set to: " + _maxHealth);
+    }
+
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
     }
 
     #endregion
