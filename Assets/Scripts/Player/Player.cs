@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static NPC_Customization;
 
 /// <summary>
 /// This script handles updating all the player actions (i.e, movement, combat etc)
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
     #region Player attributes
 
     [Header("Player attributes")]
-    [SerializeField] private float _maxHealth = 10.0f;
+    [SerializeField] private float _maxHealth;
     public float currentHealth { get; private set; }
     public float InitialMaxHealth { get; private set; }
 
@@ -44,6 +45,8 @@ public class Player : MonoBehaviour
     private bool _bIsPlayerDisabled = false;
 
     private static int playersDefeated = 0;
+
+    public event Action<float> PlayerSpawnedIn;
     
     private void Awake()
     {          
@@ -78,19 +81,28 @@ public class Player : MonoBehaviour
 
         #region Set attributes
 
-        if (_playerId== 1)
-        {
-            _maxHealth = StatsTransfer.Player1MaxHealth > 0 ? StatsTransfer.Player1MaxHealth : _maxHealth;
-            currentHealth = StatsTransfer.Player1Health > 0 ? StatsTransfer.Player1Health : _maxHealth;
+        currentHealth = _maxHealth;
+
+        if (_playerId == 1)
+        {       
+            //_maxHealth = StatsTransfer.Player1MaxHealth > 0 ? StatsTransfer.Player1MaxHealth : _maxHealth;
+            //currentHealth = StatsTransfer.Player1Health > 0 ? StatsTransfer.Player1Health : _maxHealth;
+           
+            
+            PlayerSpawnedIn?.Invoke(_maxHealth);
+            _maxHealth = StatsTransfer.Player1Health;
         }
-        else if (_playerId== 2) 
+        else if (_playerId == 2)
         {
-            _maxHealth = StatsTransfer.Player2MaxHealth > 0 ? StatsTransfer.Player2MaxHealth : _maxHealth;
-            currentHealth = StatsTransfer.Player2Health > 0 ? StatsTransfer.Player2Health : _maxHealth;
+            //_maxHealth = StatsTransfer.Player2MaxHealth > 0 ? StatsTransfer.Player2MaxHealth : _maxHealth;
+            //currentHealth = StatsTransfer.Player2Health > 0 ? StatsTransfer.Player2Health : _maxHealth;
+            
+            PlayerSpawnedIn?.Invoke(_maxHealth);
+            _maxHealth = StatsTransfer.Player2Health;
         }
 
         InitialMaxHealth = _maxHealth;
-        //currentHealth = _maxHealth; //Removed to work with upgrades. 
+        currentHealth = _maxHealth; 
 
         _defaultIgnoreCollisionLayer = _playerCollider.excludeLayers.value;
 
