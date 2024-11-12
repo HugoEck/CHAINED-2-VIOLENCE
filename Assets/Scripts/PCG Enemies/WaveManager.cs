@@ -34,15 +34,17 @@ public class WaveManager : MonoBehaviour
 
 
     public float deltaTime;
-    private void Awake()
+    private void OnEnable()
     {
-        enemyCreator = enemyCreatorObject.GetComponent<NPC_Customization>();
+        ActiveEnemies = 0;
+        currentWave = 0;
     }
 
 
 
     private void Start()
     {
+        enemyCreator = enemyCreatorObject.GetComponent<NPC_Customization>();
         waveData.LoadWaves(waves);
         //StartCoroutine(SpawnWavesRegularly());
     }

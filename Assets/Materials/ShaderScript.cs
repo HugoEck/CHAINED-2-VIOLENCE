@@ -32,7 +32,7 @@ public class ShaderScript : MonoBehaviour
     float initialOffsetsRoman = -0.1f;
     float initialOffsetsWestern = -1.2f;
     float initialOffsetsFantasy = -6.2f;
-    float initialOffsetsCurrentDay = -0.1f;
+    float initialOffsetsCurrentDay = -3f;
     float initialOffsetsSciFi = -100f;
 
     // Define the Y-level dissolve ranges for each arena
