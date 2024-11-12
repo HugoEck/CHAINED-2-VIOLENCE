@@ -28,12 +28,12 @@ public class ShaderScript : MonoBehaviour
     private bool hasChangedToSciFi = false;
 
     float initialOffsetsPirate = -10f;
-    float initialOffsetsFarm = -0.3f;
+    float initialOffsetsFarm = -3f;
     float initialOffsetsRoman = -0.1f;
     float initialOffsetsWestern = -1.2f;
     float initialOffsetsFantasy = -6.2f;
     float initialOffsetsCurrentDay = -0.1f;
-    float initialOffsetsSciFi = -60f;
+    float initialOffsetsSciFi = -100f;
 
     // Define the Y-level dissolve ranges for each arena
     private Dictionary<Material[], Vector2> materialYRanges = new Dictionary<Material[], Vector2>();
@@ -83,7 +83,7 @@ public class ShaderScript : MonoBehaviour
             ChangeArena(westernMaterials, 25f, initialOffsetsWestern);
             hasChangedToWestern = true;
         }
-        if (WaveManager.currentWave == 20 && !hasChangedToWestern)
+        if (WaveManager.currentWave == 20 && !hasChangedToCurrentDay)
         {
             ChangeArena(currentDayMaterials, 25f, initialOffsetsCurrentDay);
             hasChangedToCurrentDay = true;

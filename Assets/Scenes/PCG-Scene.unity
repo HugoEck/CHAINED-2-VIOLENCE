@@ -2813,52 +2813,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1563564154}
   m_LocalEulerAnglesHint: {x: 0, y: 9, z: -90}
---- !u!1 &762890295
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 762890297}
-  - component: {fileID: 762890296}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &762890296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762890295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &762890297
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762890295}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &773580636
 GameObject:
   m_ObjectHideFlags: 0
@@ -3059,6 +3013,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd144d9172a7c074a857b95d51ea14e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultObject: {fileID: 0}
+  _tankObject: {fileID: 0}
+  _supportObject: {fileID: 0}
+  _rangedObject: {fileID: 0}
+  _warriorObject: {fileID: 0}
   currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
@@ -3076,6 +3035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b299c46794c71c9418903cb1a3c2bd72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!114 &787229177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3873,6 +3833,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd144d9172a7c074a857b95d51ea14e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultObject: {fileID: 0}
+  _tankObject: {fileID: 0}
+  _supportObject: {fileID: 0}
+  _rangedObject: {fileID: 0}
+  _warriorObject: {fileID: 0}
   currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
@@ -3890,6 +3855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b299c46794c71c9418903cb1a3c2bd72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!114 &931360425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6034,6 +6000,52 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1636762397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1636762399}
+  - component: {fileID: 1636762398}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1636762398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636762397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1636762399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636762397}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669108436
 GameObject:
   m_ObjectHideFlags: 0
@@ -17855,4 +17867,4 @@ SceneRoots:
   - {fileID: 773580640}
   - {fileID: 845530785}
   - {fileID: 1827652041}
-  - {fileID: 762890297}
+  - {fileID: 1636762399}
