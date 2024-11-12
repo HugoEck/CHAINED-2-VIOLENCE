@@ -1,8 +1,10 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class itemAreaSpawner : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class itemAreaSpawner : MonoBehaviour
     public GameObject[] farmObjects;
     public GameObject[] modernDayObjects;
     public GameObject[] scifiObjects;
+
+    // A*
+    public GameObject aiPathPrefab;
+    private AIPath aiPath;
 
     // List of objects that has been added
     public List<GameObject> spawnedObjects = new List<GameObject>();
@@ -46,15 +52,20 @@ public class itemAreaSpawner : MonoBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        aiPath = aiPathPrefab.GetComponent<AIPath>();
+    }
+
     private void Update()
     {
         SpawnWithWaves();
 
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            WaveManager.currentWave++;
-            Debug.Log(WaveManager.currentWave);
-        }
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    WaveManager.currentWave++;
+        //    Debug.Log(WaveManager.currentWave);
+        //}
     }
 
     void SpawnItems(GameObject[] objectArray)
@@ -149,15 +160,22 @@ public class itemAreaSpawner : MonoBehaviour
             {
                 SpawnItems(romanObjects);
                 itemsSpawnedForRomanWave = true;
+                ScanMap();
             }
 
             // For each wave with despawning and cooldown before spawning new items
             HandleWave(5, fantasyObjects, ref itemsSpawnedForFantasyWave);
+            ScanMap();
             HandleWave(10, pirateObjects, ref itemsSpawnedForPirateWave);
+            ScanMap();
             HandleWave(15, westernObjects, ref itemsSpawnedForWesternWave);
+            ScanMap();
             HandleWave(20, farmObjects, ref itemsSpawnedForFarmWave);
+            ScanMap();
             HandleWave(25, modernDayObjects, ref itemsSpawnedForModernDayWave);
+            ScanMap();
             HandleWave(30, scifiObjects, ref itemsSpawnedForSciFiWave);
+            ScanMap();
         }
     }
 
@@ -182,6 +200,11 @@ public class itemAreaSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ScanMap()
+    {
+        
     }
 
     //private void SpawnWithWaves()

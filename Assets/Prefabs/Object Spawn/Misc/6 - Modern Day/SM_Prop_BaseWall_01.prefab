@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64986660292041380}
   - component: {fileID: 846082347260595950}
   - component: {fileID: -3806433888454007718}
+  - component: {fileID: 3820933273564742561}
   m_Layer: 8
   m_Name: SM_Prop_BaseWall_01
   m_TagString: Untagged
@@ -136,6 +137,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 5e56c1b8a99fb5a4e962dbaaf179ef60, type: 2}
   dissolveYRange: {x: -0.1, y: 15}
+--- !u!114 &3820933273564742561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630052041012002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 64986660292041380}
+  m_DistanceField: {fileID: 0}
 --- !u!1001 &5034573362744363271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -256,11 +275,45 @@ PrefabInstance:
     - {fileID: 3066628995245066967, guid: 7009328d184126a42b40077c9dbb1faa, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1520938048520990, guid: 7009328d184126a42b40077c9dbb1faa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8878187344948963547}
   m_SourcePrefab: {fileID: 100100000, guid: 7009328d184126a42b40077c9dbb1faa, type: 3}
+--- !u!1 &7596787824720055056 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1520938048520990, guid: 7009328d184126a42b40077c9dbb1faa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7595409892440541198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8878187344948963547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7596787824720055056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 7605609691838061014}
+  m_DistanceField: {fileID: 0}
 --- !u!4 &7600228360565413640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4853669681028870, guid: 7009328d184126a42b40077c9dbb1faa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7595409892440541198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &7605609691838061014 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 64418986048000472, guid: 7009328d184126a42b40077c9dbb1faa,
     type: 3}
   m_PrefabInstance: {fileID: 7595409892440541198}
   m_PrefabAsset: {fileID: 0}
