@@ -9,7 +9,7 @@ public class IsJumpEngageChosen : Node
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
-        if (cg.JumpEngageActive == true)
+        if (cg.jumpEngageActive == true)
         {
             return NodeState.SUCCESS;
         }

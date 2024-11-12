@@ -14,7 +14,7 @@ public class LongRangeConditions : Node
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
-        if (cg.missileRainActive) // || annan range ability)
+        if (cg.missileRainActive) // || annan long-range ability)
         {
 
             return NodeState.SUCCESS;
@@ -33,7 +33,7 @@ public class LongRangeConditions : Node
 
     }
 
-    public bool CheckLongRangeDistance(CyberGiantManager cg)
+    private bool CheckLongRangeDistance(CyberGiantManager cg)
     {
         if (distance > cg.minLongRangeDistance)
         {
@@ -45,7 +45,7 @@ public class LongRangeConditions : Node
         }
     }
 
-    public void ChooseAbility(CyberGiantManager cg)
+    private void ChooseAbility(CyberGiantManager cg)
     {
         int randomNr = Random.Range(0, 1);
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4631462047658670}
   - component: {fileID: 33608963197275762}
   - component: {fileID: 23026178775200618}
+  - component: {fileID: 8362278322388741344}
   m_Layer: 8
   m_Name: SM_Prop_Lantern_Glass_01
   m_TagString: Untagged
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8362278322388741344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176442139075482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
+  dissolveYRange: {x: -0.1, y: 15}
 --- !u!1 &1772909026193728
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +110,7 @@ GameObject:
   - component: {fileID: 33157331997350464}
   - component: {fileID: 23956592562209808}
   - component: {fileID: 64559676084204228}
+  - component: {fileID: 7971241870193829151}
   m_Layer: 8
   m_Name: SM_Prop_Lantern_01
   m_TagString: Untagged
@@ -190,3 +206,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43297934574174352, guid: 1368e1eee8d2e1740842608681b673e9, type: 2}
+--- !u!114 &7971241870193829151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772909026193728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
+  dissolveYRange: {x: -0.1, y: 15}
