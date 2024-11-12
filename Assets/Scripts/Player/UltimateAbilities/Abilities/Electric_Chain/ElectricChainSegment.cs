@@ -94,11 +94,7 @@ public class ElectricChainSegment : MonoBehaviour
 
                         // Calculate the size of the skinned mesh
                         Bounds meshBounds = skinnedMeshRenderer.bounds;
-<<<<<<< Updated upstream
-                        Vector3 meshSize = meshBounds.size * 2; // Get the size of the mesh
-=======
                         Vector3 meshSize = meshBounds.size; // Get the size of the mesh
->>>>>>> Stashed changes
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
