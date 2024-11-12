@@ -51,8 +51,8 @@ public class FireChainSegment : MonoBehaviour
                 ParticleSystem.ShapeModule shapeModule = particleSystem.shape;
 
                 // Check for MeshRenderer or SkinnedMeshRenderer
-                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>();
-                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>();
+                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>(false);
+                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>(false);
 
                 if (meshRenderer != null)
                 {
@@ -87,7 +87,7 @@ public class FireChainSegment : MonoBehaviour
                         shapeModule.skinnedMeshRenderer = skinnedMeshRenderer;
 
                         // Calculate the size of the skinned mesh
-                        Bounds meshBounds = skinnedMeshRenderer.sharedMesh.bounds;
+                        Bounds meshBounds = skinnedMeshRenderer.bounds;
                         Vector3 meshSize = meshBounds.size; // Get the size of the mesh
 
                         // Set particle system size based on mesh size

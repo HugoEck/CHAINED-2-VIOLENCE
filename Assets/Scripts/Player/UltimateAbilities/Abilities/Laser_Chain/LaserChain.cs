@@ -13,7 +13,7 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
     private bool _bCanUseLaserChain = true;
     
     private float _laserChainTimer;
-    private float _cooldownTimer;
+    public float _cooldownTimer { get; set; }
 
     public void UseUltimate()
     {     

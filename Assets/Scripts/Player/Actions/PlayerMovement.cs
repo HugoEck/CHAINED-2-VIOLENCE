@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     [SerializeField] private float _playerRotateSpeedMouse = 5.0f;
     [SerializeField] private float _playerRotateSpeedJoystick = 10.0f;
 
-
     private Camera _mainCameraReference;
 
     private Rigidbody _playerRigidBody;
@@ -25,6 +24,10 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     public float originalWalkingSpeed { get; private set; }
 
     private Vector3 _externalForce = Vector3.zero;
+
+    private bool _bIsGrounded = false;
+    private float _groundCheckDistance = 2;
+    private LayerMask _groundLayer;
     
     private void Start()
     {
@@ -41,9 +44,12 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         }
 
         originalWalkingSpeed = _walkingSpeed;
+
+        _groundLayer = LayerMask.GetMask("Ground");
     }
     private void Update()
     {
+        RaycastGroundCheck();
         if(!_mainCameraReference)
         {
             _mainCameraReference = Camera.main;
@@ -53,27 +59,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     #region Player Movement & Camera rotation
 
     #region Movement
-    /// <summary>
-    /// Called from the rope script 
-    /// </summary>
-    public void SetPlayerVelocity(Vector3 velocity)
-    {
-        _playerRigidBody.velocity = velocity;
-    }
-    public void AddPlayerVelocity(Vector3 velocity)
-    {
-        _playerRigidBody.AddForce(velocity);
-    }
-
-    private Vector3 _lastExternalForce = Vector3.zero; // New field to store last external force
-    private float _forceDamping = 2f; // Damping factor for smoothing
-
-    public void ApplyExternalForce(Vector3 force)
-    {
-        // Smoothly transition to the new external force
-        _lastExternalForce = Vector3.Lerp(_lastExternalForce, force, Time.deltaTime * _forceDamping);
-    }
-
+   
     public Vector2 GetMovementInput()
     {
         // Return the movement input for other scripts (such as the animation controller)
@@ -81,6 +67,8 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     }
     public void MovePlayer(Vector2 movementInput)
     {
+        if (!_bIsGrounded) return;
+
         // Calculate the desired movement direction relative to the camera's perspective (isometric movement)
         _isometricPlayerMoveDirection = ProjectToXZPlane(_mainCameraReference.transform.right) * movementInput.x +
                                          ProjectToXZPlane(_mainCameraReference.transform.forward) * movementInput.y;
@@ -99,12 +87,28 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
                 _isometricPlayerMoveDirection.z * playerSpeedDt
             );
 
-            // Use the last external force instead of the direct external force
-            Vector3 totalMovement = newVelocity + (_lastExternalForce * Time.deltaTime);
-
             // Lerp between the last frame's velocity and the new calculated total movement velocity
             float lerpFactor = 0.1f; // Adjust this value for how quickly you want to blend
-            _playerRigidBody.velocity = Vector3.Lerp(_playerRigidBody.velocity, totalMovement, lerpFactor);
+            _playerRigidBody.velocity = Vector3.Lerp(_playerRigidBody.velocity, newVelocity, lerpFactor);
+        }
+    }
+    private void RaycastGroundCheck()
+    {
+        RaycastHit hit;
+        Vector3 rayOrigin = transform.position + Vector3.down * 0.1f;  // Start ray just below player pivot to avoid false positives
+
+        // Perform raycast with debug visualization
+        if (Physics.Raycast(rayOrigin, Vector3.down, out hit, _groundCheckDistance, _groundLayer))
+        {
+            _bIsGrounded = true;
+            Debug.DrawRay(rayOrigin, Vector3.down * _groundCheckDistance, Color.green);
+            Debug.Log("Ground detected at distance: " + hit.distance);
+        }
+        else
+        {
+            _bIsGrounded = false;
+            Debug.DrawRay(rayOrigin, Vector3.down * _groundCheckDistance, Color.red);
+            Debug.Log("No ground detected within range.");
         }
     }
 
@@ -182,14 +186,29 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     public void RotatePlayerWithJoystick(Vector2 joystickInput)
     {
         if (joystickInput != Vector2.zero)
-        {           
-            float angle = Mathf.Atan2(joystickInput.x, joystickInput.y) * Mathf.Rad2Deg + 45; // The 45 value is added for the misalignment in the joystick rotation (45 degrees)
-           
+        {
+            // Get the camera's forward direction on the XZ plane
+            Vector3 cameraForward = Camera.main.transform.forward;
+            cameraForward.y = 0;  // Flatten to XZ plane
+            cameraForward.Normalize();
+
+            // Calculate right direction relative to the camera's forward
+            Vector3 cameraRight = Camera.main.transform.right;
+            cameraRight.y = 0;
+            cameraRight.Normalize();
+
+            // Map joystick input to camera's forward and right directions
+            Vector3 targetDirection = (cameraRight * joystickInput.x + cameraForward * joystickInput.y).normalized;
+
+            // Calculate the target rotation based on the target direction
+            float angle = Mathf.Atan2(targetDirection.x, targetDirection.z) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
 
+            // Smoothly rotate the player towards the target rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _playerRotateSpeedJoystick);
         }
     }
+
 
     #endregion
 

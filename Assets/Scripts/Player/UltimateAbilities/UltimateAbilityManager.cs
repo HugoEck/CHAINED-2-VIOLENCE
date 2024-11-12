@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -33,6 +34,8 @@ public class UltimateAbilityManager : MonoBehaviour
     private bool _bIsPlayer2UsingUltimateAbility = false;
     private bool _bIsUltimateUsed = false;
 
+    public static bool bISSceneChanged = false;
+
     private Coroutine _player1WaitCoroutine;
     private Coroutine _player2WaitCoroutine;
 
@@ -63,6 +66,23 @@ public class UltimateAbilityManager : MonoBehaviour
         _electricChain = GetComponent<ElectricChain>();
         _fireChain = GetComponent<FireChain>();
         _ghostChain = GetComponent<GhostChain>();
+
+        Chained2ViolenceGameManager.Instance.OnSceneStateChanged += Chained2VilenceGameManagerOnSceneStateChanged;
+    }
+    private void OnDestroy()
+    {
+        Chained2ViolenceGameManager.Instance.OnSceneStateChanged -= Chained2VilenceGameManagerOnSceneStateChanged;
+    }
+    private void Chained2VilenceGameManagerOnSceneStateChanged(Chained2ViolenceGameManager.SceneState state)
+    {
+        _laserChain.Deactivate();
+        _laserChain._cooldownTimer = 0;
+        _electricChain.Deactivate();
+        _electricChain._cooldownTimer = 0;
+        _fireChain.Deactivate();
+        _fireChain._cooldownTimer = 0;
+        _ghostChain.Deactivate();
+        _ghostChain._cooldownTimer = 0;
     }
 
     /// <summary>
