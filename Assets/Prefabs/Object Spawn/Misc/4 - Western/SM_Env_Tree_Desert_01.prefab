@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 33922629842500052}
   - component: {fileID: 23851184977339586}
   - component: {fileID: 64988707355511858}
-  - component: {fileID: 64794206373532322}
   - component: {fileID: -333997983236386162}
   - component: {fileID: 9086898367244551417}
+  - component: {fileID: -173605939376761426}
   m_Layer: 8
   m_Name: SM_Env_Tree_Desert_01
   m_TagString: Untagged
@@ -109,28 +109,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43884539381754226, guid: 99132776f344bb146812e407e5e4466c, type: 2}
---- !u!64 &64794206373532322
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508417119092054}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43037612631454090, guid: 99132776f344bb146812e407e5e4466c, type: 2}
 --- !u!114 &-333997983236386162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,3 +135,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1acaf8908ef284597bf8c5c6392af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-173605939376761426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508417119092054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 64988707355511858}
+  m_DistanceField: {fileID: 0}

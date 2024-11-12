@@ -72,7 +72,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4c332050643db604d8c3c268397df666, type: 2}
+      objectReference: {fileID: 2100000, guid: dfc9bb911f682c341a59f6b9be5c35ea, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -85,6 +85,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -2924785556414713288}
+    - targetCorrespondingSourceObject: {fileID: 2695353091512856577, guid: 9e3b438c6f81f69438fa285e0f46dc37,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8046962502594622448}
   m_SourcePrefab: {fileID: 100100000, guid: 9e3b438c6f81f69438fa285e0f46dc37, type: 3}
 --- !u!1 &4495637541287041551 stripped
 GameObject:
@@ -116,5 +120,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dissolveMaterial: {fileID: 2100000, guid: 4c332050643db604d8c3c268397df666, type: 2}
+  dissolveMaterial: {fileID: 2100000, guid: f9a5eab2c9dc431418bb3dbc0a591fb6, type: 2}
   dissolveYRange: {x: -1, y: 15}
+--- !u!114 &8046962502594622448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4495637541287041551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 4112248734731068052, guid: 9234e05926f54e740882fc4cb3c904d2,
+    type: 3}
+  m_DistanceField: {fileID: 0}

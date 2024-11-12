@@ -18,6 +18,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 2902156451996657378, guid: 239e89113e31eaf419e7c9f2d5a38ebc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3025670739769516148, guid: 239e89113e31eaf419e7c9f2d5a38ebc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -80,7 +85,17 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -516473627790323527}
+    - targetCorrespondingSourceObject: {fileID: 2501335271634713294, guid: 239e89113e31eaf419e7c9f2d5a38ebc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7339146416542367366}
   m_SourcePrefab: {fileID: 100100000, guid: 239e89113e31eaf419e7c9f2d5a38ebc, type: 3}
+--- !u!136 &7281619347541694992 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 2902156451996657378, guid: 239e89113e31eaf419e7c9f2d5a38ebc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5569551811792862450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8069750076735145532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2501335271634713294, guid: 239e89113e31eaf419e7c9f2d5a38ebc,
@@ -111,5 +126,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dissolveMaterial: {fileID: 2100000, guid: 4c332050643db604d8c3c268397df666, type: 2}
+  dissolveMaterial: {fileID: 2100000, guid: f9a5eab2c9dc431418bb3dbc0a591fb6, type: 2}
   dissolveYRange: {x: -1, y: 15}
+--- !u!114 &-7339146416542367366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8069750076735145532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 7281619347541694992}
+  m_DistanceField: {fileID: 0}

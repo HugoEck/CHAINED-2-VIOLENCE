@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2324106}
   - component: {fileID: -8738089519273469536}
   - component: {fileID: 3344502845730645031}
+  - component: {fileID: 4313442056311267492}
+  - component: {fileID: 8418014188111433203}
   m_Layer: 8
   m_Name: SM_Prop_BookPile_03
   m_TagString: Untagged
@@ -114,6 +116,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 2ad6119752e35bd48ac36100d1cedb84, type: 2}
   dissolveYRange: {x: -0.1, y: 15}
+--- !u!65 &4313442056311267492
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158164}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.3513567, y: 1.9049926, z: 1.71878}
+  m_Center: {x: 0.30065095, y: 0.9524963, z: -0.26122832}
+--- !u!114 &8418014188111433203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 4313442056311267492}
+  m_DistanceField: {fileID: 0}
 --- !u!1001 &193128057181865970
 PrefabInstance:
   m_ObjectHideFlags: 0
