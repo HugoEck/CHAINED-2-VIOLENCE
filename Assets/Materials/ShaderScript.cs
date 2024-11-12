@@ -40,7 +40,7 @@ public class ShaderScript : MonoBehaviour
 
     private void Start()
     {
-        //OLD
+        
 
         allMaterials.AddRange(pirateMaterials);
         allMaterials.AddRange(farmMaterials);
@@ -167,31 +167,16 @@ public class ShaderScript : MonoBehaviour
         ResetMaterials();
     }
 
-    private void ResetMaterials()
+    public void ResetMaterials()
     {
-        // Reset active materials to a default state
-        if (activeMaterials != null && activeMaterials.Length > 0)
-        {
-            for (int i = 0; i < activeMaterials.Length; i++)
-            {
-                if (activeMaterials == pirateMaterials)
-                {
-                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0,initialOffsetsPirate,0));
-                }
-                else if (activeMaterials == farmMaterials)
-                {
-                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsFarm,0));
-                }
-                else if (activeMaterials == romanMaterials)
-                {
-                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsRoman,0));
-                }
-                else if (activeMaterials == westernMaterials)
-                {
-                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsWestern,0));
-                }
-            }
-        }
+        // Reset all material groups to their initial offsets
+        ResetMaterialGroup(pirateMaterials, initialOffsetsPirate);
+        ResetMaterialGroup(farmMaterials, initialOffsetsFarm);
+        ResetMaterialGroup(romanMaterials, initialOffsetsRoman);
+        ResetMaterialGroup(westernMaterials, initialOffsetsWestern);
+        ResetMaterialGroup(fantasyMaterials, initialOffsetsFantasy);
+        ResetMaterialGroup(currentDayMaterials, initialOffsetsCurrentDay);
+        ResetMaterialGroup(sciFiMaterials, initialOffsetsSciFi);
 
         // Optionally reset your change flags
         hasChangedToRoman = false;
@@ -199,5 +184,19 @@ public class ShaderScript : MonoBehaviour
         hasChangedToPirate = false;
         hasChangedToWestern = false;
         hasChangedToFantasy = false;
+        hasChangedToCurrentDay = false;
+        hasChangedToSciFi = false;
+    }
+
+    private void ResetMaterialGroup(Material[] materials, float initialOffset)
+    {
+        if (materials != null && materials.Length > 0)
+        {
+            for (int i = 0; i < materials.Length; i++)
+            {
+                // Reset the "_DissolveOffest" parameter to the initial offset for each material
+                materials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffset, 0));
+            }
+        }
     }
 }
