@@ -15,6 +15,7 @@ public class JumpEngage : Node
     
     public override NodeState Evaluate(BaseManager agent)
     {
+        agent.navigation.rotationSpeed = 360;
         SetAnimation(agent);
 
         CyberGiantManager cg = agent as CyberGiantManager;
@@ -72,5 +73,6 @@ public class JumpEngage : Node
         agent.animator.SetBool("CyberGiant_Walk", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
+        agent.animator.SetBool("CyberGiant_Idle", false);
     }
 }

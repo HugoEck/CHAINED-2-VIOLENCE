@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -49,16 +50,18 @@ public class CyberGiantManager : BaseManager
     public bool missileReady = false;
     public bool jumpEngageActive = false;
     public bool overheadSmashActive = false;
+    
 
     private float lastBombShotTime = 0;
-    public float lastLongRangeTime = 0;
-    public float lastMidRangeTime = 0;
-    public float lastCloseRangeTime = 0;
+    private float lastLongRangeTime = -5;
+    private float lastMidRangeTime = -5;
+    private float lastCloseRangeTime = -5;
 
     //[HideInInspector] public float longRangeCooldownTimer;
     //[HideInInspector] public float midRangeCooldownTimer;   
     //[HideInInspector] public float closeRangeCooldownTimer;
 
+    GraphUpdateObject guo;
 
     void Start()
     {
@@ -70,14 +73,20 @@ public class CyberGiantManager : BaseManager
         damageCollider.isTrigger = true;
         LoadStats();
         ConstructBT();
-        
+        rb.isKinematic = true;
+
     }
 
     private void Update()
     {
+
+        
         rootNode.Evaluate(this);
 
         abilityInProgress = CheckIfAbilityInProgress();
+        
+        
+
         //midRangeCooldownTimer = Time.time;
         //longRangeCooldownTimer = Time.time;
     }
@@ -179,6 +188,7 @@ public class CyberGiantManager : BaseManager
     }
 
     
+    
     private void ConstructBT()
     {
 
@@ -190,6 +200,7 @@ public class CyberGiantManager : BaseManager
         PrepareMissiles prepareMissiles = new PrepareMissiles();
         CalculateMissilePosition calculateMissilePosition = new CalculateMissilePosition();
         ShootMissiles shootMissiles = new ShootMissiles();
+        IsInMeleeRange isInMeleeRange = new IsInMeleeRange();
         ChasePlayer chasePlayer = new ChasePlayer();
         MidRangeConditions midRangeConditions = new MidRangeConditions();
         IsJumpEngageChosen isJumpEngageChosen = new IsJumpEngageChosen();
@@ -197,10 +208,14 @@ public class CyberGiantManager : BaseManager
         CloseRangeConditions closeRangeConditions = new CloseRangeConditions();
         IsOverheadSmashChosen isOverheadSmashChosen = new IsOverheadSmashChosen();
         OverheadSmash overheadSmash = new OverheadSmash();
+        Idle idle = new Idle();
 
+        //-----------------------------------------------------------------------------------------------------
 
         //Kill Branch
         Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
+
+        //-----------------------------------------------------------------------------------------------------
 
         //ATTACK
 
@@ -211,7 +226,6 @@ public class CyberGiantManager : BaseManager
         Sequence longRange = new Sequence(new List<Node> { bomb, longRangeConditions, LR_Ability });
 
         //Mid-Range Branch
-
         Sequence ability_jumpEngage = new Sequence(new List<Node> { isJumpEngageChosen, jumpEngage });
         Selector MR_Ability = new Selector(new List<Node> { ability_jumpEngage });
         Sequence midRange = new Sequence (new List<Node> { midRangeConditions, MR_Ability });
@@ -221,17 +235,16 @@ public class CyberGiantManager : BaseManager
         Selector CR_Ability = new Selector(new List<Node> { ability_overheadSmash });
         Sequence closeRange = new Sequence(new List<Node> { closeRangeConditions, CR_Ability });
 
-
-        //main
+        //Attack
         Selector attack = new Selector(new List<Node> { longRange, midRange, closeRange });
 
-        //Chase Branch
+        //-----------------------------------------------------------------------------------------------------
 
-        rootNode = new Selector(new List<Node>() { isDead, attack, chasePlayer });
+        //Chase Branch
+        Sequence chase = new Sequence (new List<Node> { isInMeleeRange, chasePlayer });
+
+        //-------------------------------------------------------------------------------------------------------
+        rootNode = new Selector(new List<Node>() { isDead, attack, chase, idle });
     }
 }
-////Long-Range Branch
-//Sequence bomb = new Sequence(new List<Node> { calculateBombPosition, shootBomb });
-//Sequence ability_missileRain = new Sequence(new List<Node> { longRangeConditions, prepareMissiles, calculateMissilePosition, shootMissiles });
-//Selector LR_Ability = new Selector(new List<Node> { ability_missileRain });
-//Sequence LongRange = new Sequence(new List<Node> { bomb, LR_Ability });
+

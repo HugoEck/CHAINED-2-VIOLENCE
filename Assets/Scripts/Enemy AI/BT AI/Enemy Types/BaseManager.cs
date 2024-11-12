@@ -99,8 +99,7 @@ public class BaseManager : MonoBehaviour
                 capsule1.enabled = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
             }
             c_collider.enabled = true;
-            rb.isKinematic = false;
-            
+            rb.isKinematic = false;      
         }
         else
         {

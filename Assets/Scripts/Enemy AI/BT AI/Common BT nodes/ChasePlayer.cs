@@ -10,7 +10,8 @@ public class ChasePlayer : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        SetChaseAnimation(agent);
+        agent.navigation.rotationSpeed = 360;
+        SetAnimation(agent);
        
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         float distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
@@ -47,7 +48,7 @@ public class ChasePlayer : Node
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
     }
 
-    public void SetChaseAnimation(BaseManager agent)
+    public void SetAnimation(BaseManager agent)
     {
         if (agent.enemyID=="Plebian")
         {
@@ -83,6 +84,7 @@ public class ChasePlayer : Node
             agent.animator.SetBool("CyberGiant_JumpEngage", false);
             agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
             agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
+            agent.animator.SetBool("CyberGiant_Idle", false);
         }
         
 

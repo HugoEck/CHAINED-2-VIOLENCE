@@ -9,7 +9,7 @@ public class PrepareMissiles : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-
+        agent.navigation.rotationSpeed = 360;
         agent.navigation.isStopped = true;
 
         SetAnimation(agent);
@@ -55,5 +55,6 @@ public class PrepareMissiles : Node
         agent.animator.SetBool("CyberGiant_JumpEngage", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
+        agent.animator.SetBool("CyberGiant_Idle", false);
     }
 }
