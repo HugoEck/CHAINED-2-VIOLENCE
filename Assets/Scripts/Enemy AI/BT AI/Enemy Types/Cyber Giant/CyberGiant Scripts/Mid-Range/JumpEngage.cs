@@ -27,7 +27,7 @@ public class JumpEngage : Node
 
         if(animationTimer < 5.5f && animationTimer > 3.5f)
         {
-            RotateTowardsPlayer(agent);
+            //RotateTowardsPlayer(agent);
             targetedPlayerLastPos = agent.targetedPlayer.transform.position;
             agent.behaviorMethods.RotateTowardsClosestPlayer();
             jumpSpeed = distance / jumpAnimationTime;
@@ -37,7 +37,7 @@ public class JumpEngage : Node
         {
             if(distance > cg.maxCloseRangeDistance - 7)
             {
-                RotateTowardsPlayer(agent);
+                OffsetRotation(agent);
                 agent.transform.position += jumpDirection * jumpSpeed * Time.deltaTime;
             }
 
@@ -57,7 +57,7 @@ public class JumpEngage : Node
         }
         
     }
-    private void RotateTowardsPlayer(BaseManager agent)
+    private void OffsetRotation(BaseManager agent)
     {
         Vector3 direction = (agent.targetedPlayer.position - agent.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
