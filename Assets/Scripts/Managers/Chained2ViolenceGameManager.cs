@@ -57,6 +57,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
     private static bool bIsPlayer2Assigned = false;
 
     private GameObject _player2GameObject;
+    ShaderScript arenaShader;
     private void Awake()
     {
         if(Instance == null)
@@ -74,6 +75,8 @@ public class Chained2ViolenceGameManager : MonoBehaviour
     {
         _player2GameObject = GameObject.FindGameObjectWithTag("Player2");
         _player2GameObject.GetComponent<Player>().enabled = false;
+
+        arenaShader = GameObject.FindAnyObjectByType<ShaderScript>();
     }
     private void Update()
     {
@@ -224,6 +227,8 @@ public class Chained2ViolenceGameManager : MonoBehaviour
 
         Debug.Log("Game over");
         // SOME KIND OF WAITING MECHANISM OR BUTTONPRESS SO THAT THE PLAYERS AREN'T IMMEDIATELY TRANSFERRED TO LOBBY SCENE
+
+        arenaShader.ResetMaterials();
 
         Loader.LoadScene(Loader.Scene.LobbyScene);
 
