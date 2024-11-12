@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 411846}
   - component: {fileID: 3320544}
   - component: {fileID: 2388600}
-  - component: {fileID: 64111172245445214}
   - component: {fileID: 8755549287049307844}
   - component: {fileID: 2944300651061946219}
+  - component: {fileID: 9068634551022209472}
+  - component: {fileID: 9169247754958591411}
   m_Layer: 8
   m_Name: SM_Prop_Cannon_03
   m_TagString: Untagged
@@ -86,28 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64111172245445214
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120394}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43122819336405812, guid: 7c345048ee6dafb4ca5b438491c4f016, type: 2}
 --- !u!114 &8755549287049307844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +113,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 573a687f3fd44624583b2d1039a7b70c, type: 2}
   dissolveYRange: {x: -0.1, y: 15}
+--- !u!136 &9068634551022209472
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120394}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.11588
+  m_Height: 2.9244308
+  m_Direction: 1
+  m_Center: {x: 0.34620568, y: 0.68043685, z: 0.15405655}
+--- !u!114 &9169247754958591411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 9068634551022209472}
+  m_DistanceField: {fileID: 0}

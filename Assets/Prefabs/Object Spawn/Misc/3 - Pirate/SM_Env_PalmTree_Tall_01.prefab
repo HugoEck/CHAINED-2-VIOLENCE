@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 433308}
   - component: {fileID: 3349358}
   - component: {fileID: 2325492}
-  - component: {fileID: 64278136764799502}
   - component: {fileID: -4213074523893254170}
   - component: {fileID: -5691302548114144267}
+  - component: {fileID: 7757708862817694714}
+  - component: {fileID: -6932528867123433784}
   m_Layer: 8
   m_Name: SM_Env_PalmTree_Tall_01
   m_TagString: Untagged
@@ -86,28 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64278136764799502
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198730}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: b50164063629fac449934e4caf843eb3, type: 3}
 --- !u!114 &-4213074523893254170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +113,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 573a687f3fd44624583b2d1039a7b70c, type: 2}
   dissolveYRange: {x: -0.1, y: 15}
+--- !u!136 &7757708862817694714
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198730}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3670119
+  m_Height: 18.470491
+  m_Direction: 1
+  m_Center: {x: 0.0015974343, y: 8.22335, z: 0.27002907}
+--- !u!114 &-6932528867123433784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 7757708862817694714}
+  m_DistanceField: {fileID: 0}
