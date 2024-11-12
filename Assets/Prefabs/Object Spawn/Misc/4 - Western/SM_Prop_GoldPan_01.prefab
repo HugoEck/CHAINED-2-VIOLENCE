@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 4521312018664026}
   - component: {fileID: 33526813788206992}
   - component: {fileID: 23125942208209892}
+  - component: {fileID: 4237584135406811815}
   m_Layer: 8
   m_Name: SM_Prop_GoldPan_Dirt_01
   m_TagString: Untagged
@@ -191,6 +192,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4237584135406811815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546022574954858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
+  dissolveYRange: {x: -0.1, y: 15}
 --- !u!1 &1607872224918496
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +217,7 @@ GameObject:
   - component: {fileID: 4903497689604232}
   - component: {fileID: 33285520049224678}
   - component: {fileID: 23763459670660548}
+  - component: {fileID: 4301329541158934111}
   m_Layer: 8
   m_Name: SM_Prop_GoldPan_Nugget_01
   m_TagString: Untagged
@@ -274,3 +290,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4301329541158934111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607872224918496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
+  dissolveYRange: {x: -0.1, y: 15}

@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 4894139959781190}
   - component: {fileID: 33306562620398880}
   - component: {fileID: 23284582126272430}
+  - component: {fileID: 2163161507041569811}
   m_Layer: 0
   m_Name: SM_Wep_ChainGun_Mag_01
   m_TagString: Untagged
@@ -219,6 +220,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2163161507041569811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191220170984490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
+  dissolveYRange: {x: -0.1, y: 15}
 --- !u!1 &1837292027977912
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +245,7 @@ GameObject:
   - component: {fileID: 4946415365515416}
   - component: {fileID: 33647866468107978}
   - component: {fileID: 23870591228280906}
+  - component: {fileID: 2150869915052352176}
   m_Layer: 0
   m_Name: SM_Wep_ChainGun_Barrel_01
   m_TagString: Untagged
@@ -302,3 +318,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2150869915052352176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837292027977912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
+  dissolveYRange: {x: -0.1, y: 15}
