@@ -76,11 +76,14 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         _player2GameObject = GameObject.FindGameObjectWithTag("Player2");
         _player2GameObject.GetComponent<Player>().enabled = false;
 
-        arenaShader = GameObject.FindAnyObjectByType<ShaderScript>();
     }
     private void Update()
     {
         AssignPlayer2();
+        if (arenaShader == null && currentSceneState == SceneState.ArenaScene)
+        {
+            arenaShader = GameObject.FindAnyObjectByType<ShaderScript>();
+        }
     }
 
     #region State management
