@@ -20,7 +20,7 @@ public class UltimateAbilityManager : MonoBehaviour
         GhostChain
     }
 
-    private UltimateAbilities _currentUltimateAbility = UltimateAbilities.ElectricChain;
+    public UltimateAbilities _currentUltimateAbility = UltimateAbilities.ElectricChain;
 
     [Header("Ultimate attributes")]
     [SerializeField] private int _timeForOtherPlayerToUseUltimate = 3;
