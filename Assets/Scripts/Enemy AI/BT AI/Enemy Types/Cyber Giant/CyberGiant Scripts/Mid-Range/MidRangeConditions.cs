@@ -6,8 +6,8 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class MidRangeConditions : Node
 {
-
     float distance;
+
     public override NodeState Evaluate(BaseManager agent)
     {
 
@@ -17,19 +17,14 @@ public class MidRangeConditions : Node
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
-        if (cg.JumpEngageActive) // || andra mid range abilites
+        if (cg.jumpEngageActive) // || andra mid-range abilites
         {
 
             return NodeState.SUCCESS;
         }
         else if (cg.CheckIfAbilityInProgress() == false  && CheckMidRangeDistance(cg) && cg.IsMidRangeAbilityReady())
         {
-            //if (cg.IsMidRangeAbilityReady())
-            //{
-            //    ChooseAbility(cg);
 
-            //    return NodeState.SUCCESS;
-            //}
             ChooseAbility(cg);
 
             return NodeState.SUCCESS;
@@ -40,7 +35,7 @@ public class MidRangeConditions : Node
             return NodeState.FAILURE;
         }    
     }
-    public bool CheckMidRangeDistance(CyberGiantManager cg)
+    private bool CheckMidRangeDistance(CyberGiantManager cg)
     {
         if (distance <= cg.maxMidRangeDistance && distance > cg.maxCloseRangeDistance)
         {
@@ -52,13 +47,13 @@ public class MidRangeConditions : Node
         }
     }
 
-    public void ChooseAbility(CyberGiantManager cg)
+    private void ChooseAbility(CyberGiantManager cg)
     {
         int randomNr = Random.Range(0, 1);
 
         if (randomNr == 0)
         {
-            cg.JumpEngageActive = true;
+            cg.jumpEngageActive = true;
         }
     }
 }
