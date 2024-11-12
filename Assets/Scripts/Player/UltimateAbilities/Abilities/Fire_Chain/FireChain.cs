@@ -13,7 +13,7 @@ public class FireChain : MonoBehaviour, IUltimateAbility
     private bool _bCanUseFireChain = true;
 
     private float _fireChainTimer;
-    private float _cooldownTimer;
+    public float _cooldownTimer { get; set; }
 
     public void Activate()
     {

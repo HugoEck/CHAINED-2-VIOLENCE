@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -13,7 +14,7 @@ public class ElectricChain : MonoBehaviour, IUltimateAbility
     private bool _bCanUseElectricityChain = true;
 
     private float _electricityChainTimer;
-    private float _cooldownTimer;
+    public float _cooldownTimer { get; set; }
 
     public void Activate()
     {
