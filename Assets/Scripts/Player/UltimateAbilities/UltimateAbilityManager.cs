@@ -75,6 +75,11 @@ public class UltimateAbilityManager : MonoBehaviour
     }
     private void Chained2VilenceGameManagerOnSceneStateChanged(Chained2ViolenceGameManager.SceneState state)
     {
+        DeactivateUltimateChains();
+    }
+    
+    public void DeactivateUltimateChains()
+    {
         _laserChain.Deactivate();
         _laserChain._cooldownTimer = 0;
         _electricChain.Deactivate();
