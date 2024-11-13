@@ -18,6 +18,8 @@ public class SwingAbility : MonoBehaviour, IAbility
     private Rigidbody otherPlayerRb;   // Rigidbody of the other player
     private Rigidbody anchorRb;        // Rigidbody of this (anchor) player
 
+    public GameObject swingEffectPrefab;
+
     private void Start()
     {
         if (otherPlayer != null)
@@ -34,11 +36,15 @@ public class SwingAbility : MonoBehaviour, IAbility
         if (!isSwinging && otherPlayer != null && !BIsPlayerCurrentlySwinging)
         {
             StartSwing();
+            
         }
     }
 
     void StartSwing()
     {
+        // Instantiate and store the effect instance
+        GameObject swingEffect = Instantiate(swingEffectPrefab, transform.position, Quaternion.identity);
+
         BIsPlayerCurrentlySwinging = true;
         swingRadius = AdjustChainLength.currentChainLength;
 
@@ -52,6 +58,7 @@ public class SwingAbility : MonoBehaviour, IAbility
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
 
         StartCoroutine(SwingOtherPlayer());
+        Destroy(swingEffect, swingDuration);
     }
 
     IEnumerator SwingOtherPlayer()
