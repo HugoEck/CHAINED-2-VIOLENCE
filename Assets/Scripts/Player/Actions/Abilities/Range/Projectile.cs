@@ -6,10 +6,21 @@ public class Projectile : MonoBehaviour, IAbility
     public Transform firePoint;
     public Transform playerDirection;
     public float projectileSpeed = 20f;
+    public float cooldown = 2f;        // Cooldown duration in seconds
+    private float lastShootTime = -Mathf.Infinity; // Time when the ability was last used
 
     public void UseAbility()
     {
-        Shoot();
+        // Check if the ability is ready (cooldown has elapsed)
+        if (Time.time >= lastShootTime + cooldown)
+        {
+            Shoot();
+            lastShootTime = Time.time; // Update the last use time
+        }
+        else
+        {
+            Debug.Log("Projectile ability is on cooldown.");
+        }
     }
 
     void Shoot()
@@ -21,6 +32,7 @@ public class Projectile : MonoBehaviour, IAbility
 
         projectile.layer = LayerMask.NameToLayer("Projectile");
 
+        // Ignore collision between the player and the projectile
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Projectile"));
 
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
