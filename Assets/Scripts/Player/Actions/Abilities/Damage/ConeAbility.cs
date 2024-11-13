@@ -2,12 +2,31 @@ using UnityEngine;
 
 public class ConeAbility : MonoBehaviour, IAbility
 {
-    public float coneRange = 10f;          // Range of the cone
-    public float coneAngle = 90f;         // Angle of the cone in degrees
-    public float coneDamage = 50f;        // Damage dealt to enemies in the cone
+    public float coneRange = 10f;
+    public float coneAngle = 90f;
+    public float coneDamage = 50f;
+    public GameObject coneEffectPrefab;
+    public Transform coneAnchor;            // Anchor object for the effect to follow
 
     public void UseAbility()
     {
+        // Check if the cone anchor and effect prefab are assigned
+        if (coneEffectPrefab != null && coneAnchor != null)
+        {
+            // Instantiate the visual effect at the anchor's position
+            GameObject coneEffect = Instantiate(coneEffectPrefab, coneAnchor.position, Quaternion.identity);
+
+            // Make the effect follow the cone anchor
+            coneEffect.transform.SetParent(coneAnchor);
+
+            // Align and scale the visual effect to match the cone
+            coneEffect.transform.localRotation = Quaternion.identity; // Keep aligned with the anchor's forward direction
+            coneEffect.transform.localScale = new Vector3(coneRange, coneRange, coneRange); // Scale as needed
+
+            // Optionally destroy the effect after some time if it's temporary
+            Destroy(coneEffect, 2.0f);
+        }
+
         // Find all enemies within the range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, coneRange);
 

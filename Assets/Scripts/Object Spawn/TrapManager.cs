@@ -17,11 +17,15 @@ public class TrapManager : MonoBehaviour
     private float timer = 0f;
 
     private bool isDespawning = false;
-    private bool isMovingUp = true;
+    private bool isMovingUp = false;
     private bool waitingAbove = false;
     private bool waitingBelow = false;
 
     public float trapDamage = 1f;
+
+    public GameObject surfaceIndicator;
+    private bool indicatorVisible = false;
+
     #endregion
 
     void Start()
@@ -29,6 +33,13 @@ public class TrapManager : MonoBehaviour
         // Start the trap below the surface
         transform.position = new Vector3(transform.position.x, spawnY, transform.position.z);
         timer = Random.Range(minWaitTime, maxWaitTime);
+
+        // Initialize the indicator at the surface position and hide it
+        if (surfaceIndicator != null)
+        {
+            surfaceIndicator.transform.position = new Vector3(transform.position.x, surfaceY, transform.position.z);
+            surfaceIndicator.SetActive(false);
+        }
     }
 
     void Update()
@@ -66,6 +77,13 @@ public class TrapManager : MonoBehaviour
                 if (transform.position.y < surfaceY)
                 {
                     transform.position += Vector3.up * riseSpeed * Time.deltaTime;
+
+                    // Show the indicator if it’s not already visible
+                    if (!indicatorVisible && surfaceIndicator != null)
+                    {
+                        surfaceIndicator.SetActive(true);
+                        indicatorVisible = true;
+                    }
                 }
                 else
                 {
@@ -73,6 +91,13 @@ public class TrapManager : MonoBehaviour
                     isMovingUp = false;
                     waitingAbove = true;
                     timer = Random.Range(minWaitTime, maxWaitTime);
+
+                    // Hide the indicator as the trap has surfaced
+                    if (surfaceIndicator != null)
+                    {
+                        surfaceIndicator.SetActive(false);
+                        indicatorVisible = false;
+                    }
                 }
             }
             else
@@ -104,10 +129,6 @@ public class TrapManager : MonoBehaviour
         {
             transform.position += Vector3.down * despawnSpeed * Time.deltaTime;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
     #endregion
 
@@ -134,3 +155,4 @@ public class TrapManager : MonoBehaviour
     }
     #endregion
 }
+    
