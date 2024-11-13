@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     public float currentHealth { get; private set; }
     public float InitialMaxHealth { get; private set; }
 
+    GameObject player1Obj;
+    GameObject player2Obj;
     public int _playerId {  get; private set; }
 
     private LayerMask _defaultIgnoreCollisionLayer;
@@ -53,11 +55,14 @@ public class Player : MonoBehaviour
     {          
         if(gameObject.tag == "Player1")
         {
+            player1Obj = gameObject;
             _playerId = 1;
         }
         else if(gameObject.tag == "Player2")
         {
+            player2Obj = gameObject;
             _playerId = 2;
+            currentHealth = 0;
         }
     }
 
@@ -253,11 +258,15 @@ public class Player : MonoBehaviour
         {
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
+                player1Obj.GetComponentInChildren<Animator>(false).enabled = false;
+                player1Obj.GetComponent<CapsuleCollider>().enabled = false;
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
             }
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
             {
+                player2Obj.GetComponentInChildren<Animator>(false).enabled = false;
+                player2Obj.GetComponent<CapsuleCollider>().enabled = false;
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
             }
@@ -273,8 +282,16 @@ public class Player : MonoBehaviour
 
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
+                player1Obj.GetComponentInChildren<Animator>(false).enabled = false;
+                player1Obj.GetComponent<CapsuleCollider>().enabled = false;
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
+            }
+            else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
+            {
+                player2Obj.GetComponentInChildren<Animator>(false).enabled = false;
+                player2Obj.GetComponent<CapsuleCollider>().enabled = false;
+                _bIsPlayerDisabled = true;
             }
 
             if (playersDefeated == 1)
