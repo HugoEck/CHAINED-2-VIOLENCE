@@ -49,6 +49,11 @@ public class itemAreaSpawner : MonoBehaviour
     private bool itemsSpawnedForSciFiWave = false;
 
     private bool isDespawning = false;
+    
+
+    //-------------SAMS SCRIPTS-------------------------
+
+    public GridGraphUpdater gridGraphUpdater;
 
     #endregion
 
@@ -116,13 +121,22 @@ public class itemAreaSpawner : MonoBehaviour
                 GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
                 spawnedObjects.Add(clone);
 
+
+               
+                float updateRadius = (Mathf.Max(clone.transform.localScale.x, clone.transform.localScale.z) / 2.0f) + 1;
+                
+                if (!clone.CompareTag("Decor"))
+                {
+                    gridGraphUpdater.UpdateGrid(clone.transform.position, updateRadius);
+                }
+
                 return true;  // Successfully spawned an item
             }
         }
         return false;  // Failed to spawn due to overlap
     }   
 
-    void DespawnObjects()
+    void DespawnObjects() //HÄR SAM
     {
         foreach (GameObject obj in spawnedObjects)
         {
@@ -146,7 +160,14 @@ public class itemAreaSpawner : MonoBehaviour
                     //obj.AddComponent<MoveDownwards>();
                     objectShader.StartDespawn();
                 }
+              
             }
+            //float updateRadius = Mathf.Max(obj.transform.localScale.x,
+            //    obj.transform.localScale.y, obj.transform.localScale.z) / 2.0f;
+
+            float updateRadius = (Mathf.Max(obj.transform.localScale.x, obj.transform.localScale.z) / 2.0f) +1;
+
+            gridGraphUpdater.RemoveObstacleUpdate(obj.transform.position, updateRadius);
         }
         spawnedObjects.Clear();
     }
