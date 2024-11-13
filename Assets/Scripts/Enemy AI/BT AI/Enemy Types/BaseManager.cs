@@ -79,7 +79,7 @@ public class BaseManager : MonoBehaviour
     {
         if (defense - damage < 0)
         {
-            particleEffects.ActivateBloodParticles();
+            particleEffects.ActivateBloodParticles(transform);
             currentHealth = currentHealth + defense - damage;
         }
     }
