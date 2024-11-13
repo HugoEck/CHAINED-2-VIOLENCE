@@ -37,6 +37,10 @@ public class PlayerCombat : MonoBehaviour
     protected float lastAttackTime;
     protected float lastAbilityTime;
 
+    ///Variables for allowing attack
+    private float _lastAttackedTime = 0f;
+    private float _attackSpeed = 1f;
+
     private int playerId;
 
     private ClassSelector classSelector;
@@ -131,6 +135,18 @@ public class PlayerCombat : MonoBehaviour
         }
 
         Debug.Log("Base Attack triggered in 120-degree cone.");
+    }
+    public bool IsAttackAllowed()
+    {
+        if (Time.time > _lastAttackedTime + _attackSpeed)
+        {
+            _lastAttackedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /// <summary>
