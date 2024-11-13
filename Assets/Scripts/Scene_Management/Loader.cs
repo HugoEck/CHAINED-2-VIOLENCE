@@ -10,7 +10,8 @@ public static class Loader
         Main_Menu,
         Arena,
         ArnTestScene, // FOR TESTING PURPOSES ONLY
-        LobbyScene
+        LobbyScene,
+        PlaygroundScene
     };
 
     private static Scene targetScene;
