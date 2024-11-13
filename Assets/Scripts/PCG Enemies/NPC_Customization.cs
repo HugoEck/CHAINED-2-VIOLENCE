@@ -245,6 +245,8 @@ public class NPC_Customization : MonoBehaviour
         ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
         SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
         BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
+        IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
+        ignoreChain.ObjectIgnoresLaserChain();
 
         GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
         
