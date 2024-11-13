@@ -1,3 +1,5 @@
+using Obi;
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,5 +75,51 @@ public class AIBehaviorMethods
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
+    }
+
+    public void ToggleRagdoll(bool enabled)
+    {
+        if (!enabled)
+        {
+            Rigidbody[] rigidbodies = agent.GetComponentsInChildren<Rigidbody>();
+            foreach (Rigidbody rbs in rigidbodies)
+            {
+                rbs.isKinematic = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+            }
+            Collider[] capsuleColliders = agent.GetComponentsInChildren<Collider>();
+            foreach (Collider capsule1 in capsuleColliders)
+            {
+                capsule1.enabled = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+            }
+            agent.c_collider.enabled = true;
+            agent.rb.isKinematic = false;
+        }
+        else
+        {
+            AIPath aiPath = agent.GetComponent<AIPath>();
+            AIDestinationSetter destinationSetter = agent.GetComponent<AIDestinationSetter>();
+            ObiCollider obiCollider = agent.GetComponent<ObiCollider>();
+            ObiRigidbody obiRb = agent.GetComponent<ObiRigidbody>();
+            Rigidbody[] rigidbodies = agent.GetComponentsInChildren<Rigidbody>();
+            SimpleSmoothModifier smoothing = agent.GetComponent<SimpleSmoothModifier>();
+            foreach (Rigidbody rbs in rigidbodies)
+            {
+                rbs.isKinematic = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                rbs.constraints = RigidbodyConstraints.None;
+                Collider[] capsuleColliders = agent.GetComponentsInChildren<Collider>();
+                foreach (Collider capsule1 in capsuleColliders)
+                {
+                    capsule1.enabled = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                }
+            }
+            //c_collider.enabled = false;
+            //rb.isKinematic = true;
+            obiCollider.enabled = false;
+            obiRb.enabled = false;
+            aiPath.enabled = false;
+            smoothing.enabled = false;
+            destinationSetter.enabled = false;
+        }
     }
 }
