@@ -12,12 +12,17 @@ public class ElectricChainSegment : MonoBehaviour
     [SerializeField] private float _electricityDamage;
     [SerializeField] private float _electricityActiveDuration;
     [SerializeField] private float _additionalElectricitySpreadRadius = 1.0f;
+    private float electricityMultiplier = 10;
+
 
     [Header("Electricity particles")]
     [SerializeField] private GameObject _electricityParticles;
+    private CapsuleCollider _enemyCollider;
 
     private void OnTriggerEnter(Collider other)
     {
+        _enemyCollider = other.GetComponentInParent<CapsuleCollider>();
+
         // Check if the collided object's layer is within the specified layers to collide with
         if (((1 << other.gameObject.layer) & _layersToCollideWith) != 0)
         {
@@ -53,8 +58,8 @@ public class ElectricChainSegment : MonoBehaviour
                 ParticleSystem.ShapeModule shapeModule = particleSystem.shape;
 
                 // Check for MeshRenderer or SkinnedMeshRenderer
-                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>();
-                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>();
+                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>(false);
+                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>(false);
 
                 if (meshRenderer != null)
                 {
@@ -67,13 +72,13 @@ public class ElectricChainSegment : MonoBehaviour
 
                         // Calculate the size of the mesh
                         Bounds meshBounds = meshFilter.sharedMesh.bounds;
-                        Vector3 meshSize = meshBounds.size * 2; // Get the size of the mesh
+                        Vector3 meshSize = meshBounds.size; // Get the size of the mesh
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
-                        mainModule.startSizeX = meshSize.x; // Scale X
-                        mainModule.startSizeY = meshSize.y; // Scale Y
-                        mainModule.startSizeZ = meshSize.z; // Scale Z
+                        mainModule.startSizeX = _enemyCollider.radius * electricityMultiplier; // Scale X
+                        mainModule.startSizeY = _enemyCollider.height * electricityMultiplier; // Scale Y
+                        mainModule.startSizeZ = _enemyCollider.radius * electricityMultiplier; // Scale Z
                     }
                     else
                     {
@@ -82,21 +87,20 @@ public class ElectricChainSegment : MonoBehaviour
                 }
                 else if (skinnedMeshRenderer != null)
                 {
-                    // SkinnedMeshRenderer found
                     if (skinnedMeshRenderer.sharedMesh != null)
                     {
                         shapeModule.shapeType = ParticleSystemShapeType.SkinnedMeshRenderer; // Set to Skinned Mesh
                         shapeModule.skinnedMeshRenderer = skinnedMeshRenderer;
 
                         // Calculate the size of the skinned mesh
-                        Bounds meshBounds = skinnedMeshRenderer.sharedMesh.bounds;
-                        Vector3 meshSize = meshBounds.size * 2; // Get the size of the mesh
+                        Bounds meshBounds = skinnedMeshRenderer.bounds;
+                        Vector3 meshSize = meshBounds.size; // Get the size of the mesh
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
-                        mainModule.startSizeX = meshSize.x; // Scale X
-                        mainModule.startSizeY = meshSize.y; // Scale Y
-                        mainModule.startSizeZ = meshSize.z; // Scale Z
+                        mainModule.startSizeX = _enemyCollider.radius * electricityMultiplier; // Scale X
+                        mainModule.startSizeY = _enemyCollider.height * electricityMultiplier; // Scale Y
+                        mainModule.startSizeZ = _enemyCollider.radius * electricityMultiplier; // Scale Z
                     }
                     else
                     {

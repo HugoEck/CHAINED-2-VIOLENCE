@@ -2,30 +2,44 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
 {
-    public GameObject projectilePrefab;  // Reference to the projectile prefab
-    public Transform firePoint;          // The point from where the projectile is shot (usually the player's position)
-    public Transform playerDirection;    // A reference to the transform representing the player's forward direction (e.g., the cube in front of the player)
-    public float projectileSpeed = 20f;  // Speed of the projectile
+    public GameObject projectilePrefab;
+    public Transform firePoint;
+    public Transform playerDirection;
+    public float projectileSpeed = 20f;
+    public float cooldown = 2f;        // Cooldown duration in seconds
+    private float lastShootTime = -Mathf.Infinity; // Time when the ability was last used
 
     public void UseAbility()
     {
-        Shoot();
+        // Check if the ability is ready (cooldown has elapsed)
+        if (Time.time >= lastShootTime + cooldown)
+        {
+            Shoot();
+            lastShootTime = Time.time; // Update the last use time
+        }
+        else
+        {
+            Debug.Log("Projectile ability is on cooldown.");
+        }
     }
 
     void Shoot()
     {
-        // Use the forward direction of the player or the cube object to determine the shooting direction
-        Vector3 direction = playerDirection.forward;
-        direction.Normalize();  // Ensure the direction is a unit vector
+        Vector3 direction = playerDirection.forward.normalized;
 
-        // Instantiate the projectile at the fire point's position
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 1.0f, Quaternion.identity);
+        // Instantiate the projectile at a slight offset to avoid immediate collision
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 1f, Quaternion.LookRotation(direction));
+
+        projectile.layer = LayerMask.NameToLayer("Projectile");
+
+        // Ignore collision between the player and the projectile
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Projectile"));
 
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.useGravity = false;
-            rb.velocity = direction * projectileSpeed;  // Apply velocity to the projectile
+            rb.velocity = direction * projectileSpeed;
         }
         else
         {

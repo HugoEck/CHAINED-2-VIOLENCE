@@ -7,9 +7,11 @@ public class GroundFire : MonoBehaviour
 {
     [SerializeField] private GameObject _fireParticles;
 
-    [SerializeField] private float _groundFireActiveDuration;  
-
+    [SerializeField] private float _groundFireActiveDuration;
+    CapsuleCollider _enemyCollider;
     private float _groundFireActiveTimer;
+    float fireMultiplier = 5;
+
 
     [HideInInspector]
     public bool bIsGroundFireActive = true;
@@ -45,6 +47,7 @@ public class GroundFire : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        _enemyCollider = other.GetComponentInParent<CapsuleCollider>();
         string layerNameToCompare = "Enemy";
 
         int layerToCompare = LayerMask.NameToLayer(layerNameToCompare);
@@ -82,8 +85,8 @@ public class GroundFire : MonoBehaviour
                 ParticleSystem.ShapeModule shapeModule = particleSystem.shape;
 
                 // Check for MeshRenderer or SkinnedMeshRenderer
-                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>();
-                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>();
+                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>(false);
+                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>(false);
 
                 if (meshRenderer != null)
                 {
@@ -100,9 +103,9 @@ public class GroundFire : MonoBehaviour
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
-                        mainModule.startSizeX = meshSize.x; // Scale X
-                        mainModule.startSizeY = meshSize.y; // Scale Y
-                        mainModule.startSizeZ = meshSize.z; // Scale Z
+                        mainModule.startSizeX = _enemyCollider.radius * fireMultiplier; // Scale X
+                        mainModule.startSizeY = _enemyCollider.height * fireMultiplier; // Scale Y
+                        mainModule.startSizeZ = _enemyCollider.radius * fireMultiplier; // Scale Z
                     }
                     else
                     {
@@ -118,14 +121,14 @@ public class GroundFire : MonoBehaviour
                         shapeModule.skinnedMeshRenderer = skinnedMeshRenderer;
 
                         // Calculate the size of the skinned mesh
-                        Bounds meshBounds = skinnedMeshRenderer.sharedMesh.bounds;
+                        Bounds meshBounds = skinnedMeshRenderer.bounds;
                         Vector3 meshSize = meshBounds.size; // Get the size of the mesh
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
-                        mainModule.startSizeX = meshSize.x; // Scale X
-                        mainModule.startSizeY = meshSize.y; // Scale Y
-                        mainModule.startSizeZ = meshSize.z; // Scale Z
+                        mainModule.startSizeX = _enemyCollider.radius * fireMultiplier; // Scale X
+                        mainModule.startSizeY = _enemyCollider.height * fireMultiplier; // Scale Y
+                        mainModule.startSizeZ = _enemyCollider.radius * fireMultiplier; // Scale Z
                     }
                     else
                     {

@@ -28,19 +28,19 @@ public class ShaderScript : MonoBehaviour
     private bool hasChangedToSciFi = false;
 
     float initialOffsetsPirate = -10f;
-    float initialOffsetsFarm = -0.3f;
+    float initialOffsetsFarm = -3f;
     float initialOffsetsRoman = -0.1f;
     float initialOffsetsWestern = -1.2f;
     float initialOffsetsFantasy = -6.2f;
-    float initialOffsetsCurrentDay = -0.1f;
-    float initialOffsetsSciFi = -60f;
+    float initialOffsetsCurrentDay = -3f;
+    float initialOffsetsSciFi = -100f;
 
     // Define the Y-level dissolve ranges for each arena
     private Dictionary<Material[], Vector2> materialYRanges = new Dictionary<Material[], Vector2>();
 
     private void Start()
     {
-        //OLD
+        
 
         allMaterials.AddRange(pirateMaterials);
         allMaterials.AddRange(farmMaterials);
@@ -83,7 +83,7 @@ public class ShaderScript : MonoBehaviour
             ChangeArena(westernMaterials, 25f, initialOffsetsWestern);
             hasChangedToWestern = true;
         }
-        if (WaveManager.currentWave == 20 && !hasChangedToWestern)
+        if (WaveManager.currentWave == 20 && !hasChangedToCurrentDay)
         {
             ChangeArena(currentDayMaterials, 25f, initialOffsetsCurrentDay);
             hasChangedToCurrentDay = true;
@@ -167,31 +167,16 @@ public class ShaderScript : MonoBehaviour
         ResetMaterials();
     }
 
-    private void ResetMaterials()
+    public void ResetMaterials()
     {
-        // Reset active materials to a default state
-        if (activeMaterials != null && activeMaterials.Length > 0)
-        {
-            for (int i = 0; i < activeMaterials.Length; i++)
-            {
-                if (activeMaterials == pirateMaterials)
-                {
-                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0,initialOffsetsPirate,0));
-                }
-                else if (activeMaterials == farmMaterials)
-                {
-                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsFarm,0));
-                }
-                else if (activeMaterials == romanMaterials)
-                {
-                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsRoman,0));
-                }
-                else if (activeMaterials == westernMaterials)
-                {
-                    activeMaterials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffsetsWestern,0));
-                }
-            }
-        }
+        // Reset all material groups to their initial offsets
+        ResetMaterialGroup(pirateMaterials, initialOffsetsPirate);
+        ResetMaterialGroup(farmMaterials, initialOffsetsFarm);
+        ResetMaterialGroup(romanMaterials, initialOffsetsRoman);
+        ResetMaterialGroup(westernMaterials, initialOffsetsWestern);
+        ResetMaterialGroup(fantasyMaterials, initialOffsetsFantasy);
+        ResetMaterialGroup(currentDayMaterials, initialOffsetsCurrentDay);
+        ResetMaterialGroup(sciFiMaterials, initialOffsetsSciFi);
 
         // Optionally reset your change flags
         hasChangedToRoman = false;
@@ -199,5 +184,19 @@ public class ShaderScript : MonoBehaviour
         hasChangedToPirate = false;
         hasChangedToWestern = false;
         hasChangedToFantasy = false;
+        hasChangedToCurrentDay = false;
+        hasChangedToSciFi = false;
+    }
+
+    private void ResetMaterialGroup(Material[] materials, float initialOffset)
+    {
+        if (materials != null && materials.Length > 0)
+        {
+            for (int i = 0; i < materials.Length; i++)
+            {
+                // Reset the "_DissolveOffest" parameter to the initial offset for each material
+                materials[i].SetVector("_DissolveOffest", new Vector3(0, initialOffset, 0));
+            }
+        }
     }
 }

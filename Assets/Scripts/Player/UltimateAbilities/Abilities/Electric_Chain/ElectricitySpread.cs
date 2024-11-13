@@ -16,7 +16,7 @@ public class ElectricitySpread : MonoBehaviour
     private float _damageInterval = 1f;
 
     private BaseManager enemyManager;
-
+    private float electricityMultiplier = 10;
     private CapsuleCollider _enemyCollider;
     private CapsuleCollider _electricitySpreadRadius;
 
@@ -110,8 +110,8 @@ public class ElectricitySpread : MonoBehaviour
                 ParticleSystem.ShapeModule shapeModule = particleSystem.shape;
 
                 // Check for MeshRenderer or SkinnedMeshRenderer
-                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>();
-                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>();
+                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>(false);
+                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>(false);
 
                 if (meshRenderer != null)
                 {
@@ -124,13 +124,13 @@ public class ElectricitySpread : MonoBehaviour
 
                         // Calculate the size of the mesh
                         Bounds meshBounds = meshFilter.sharedMesh.bounds;
-                        Vector3 meshSize = meshBounds.size * 2; // Get the size of the mesh
+                        Vector3 meshSize = meshBounds.size; // Get the size of the mesh
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
-                        mainModule.startSizeX = meshSize.x; // Scale X
-                        mainModule.startSizeY = meshSize.y; // Scale Y
-                        mainModule.startSizeZ = meshSize.z; // Scale Z
+                        mainModule.startSizeX = _enemyCollider.radius * electricityMultiplier; // Scale X
+                        mainModule.startSizeY = _enemyCollider.height * electricityMultiplier; // Scale Y
+                        mainModule.startSizeZ = _enemyCollider.radius * electricityMultiplier; // Scale Z
                     }
                     else
                     {
@@ -146,14 +146,16 @@ public class ElectricitySpread : MonoBehaviour
                         shapeModule.skinnedMeshRenderer = skinnedMeshRenderer;
 
                         // Calculate the size of the skinned mesh
-                        Bounds meshBounds = skinnedMeshRenderer.sharedMesh.bounds;
-                        Vector3 meshSize = meshBounds.size * 2; // Get the size of the mesh
+                        Bounds meshBounds = skinnedMeshRenderer.bounds;
+
+
+                        Vector3 meshSize = meshBounds.size; // Get the size of the mesh
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
-                        mainModule.startSizeX = meshSize.x; // Scale X
-                        mainModule.startSizeY = meshSize.y; // Scale Y
-                        mainModule.startSizeZ = meshSize.z; // Scale Z
+                        mainModule.startSizeX = _enemyCollider.radius * electricityMultiplier; // Scale X
+                        mainModule.startSizeY = _enemyCollider.height * electricityMultiplier; // Scale Y
+                        mainModule.startSizeZ = _enemyCollider.radius * electricityMultiplier; // Scale Z
                     }
                     else
                     {

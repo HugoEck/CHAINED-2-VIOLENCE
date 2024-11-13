@@ -78,7 +78,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e8145baa166bd6d4687ce86e8161423e, type: 2}
+  m_Motion: {fileID: 7400000, guid: e385df593180b824e96ffd8a64580006, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -149,7 +149,7 @@ AnimatorStateTransition:
     m_ConditionEvent: CyberGiant_Walk
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: CyberGiant_PrepareMissiles
+    m_ConditionEvent: CyberGiant_MissileRain
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6274991190618698517}
@@ -245,6 +245,34 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-7613665519576134570
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Walk
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_OverheadSmash2
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -6274991190618698517}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.93697476
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-7563844579308599408
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -270,6 +298,34 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-7167209079221451233
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_MissileRain
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_JumpEngage
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1157442714689661019}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.9603175
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1102 &-6274991190618698517
 AnimatorState:
   serializedVersion: 6
@@ -283,6 +339,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 8744526817134093246}
   - {fileID: 357667862046197113}
+  - {fileID: 679980247326212430}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -321,6 +378,34 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &-6039357055694193210
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_OverheadSmash1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_MissileRain
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -3315572523287801371}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.9528302
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -480,22 +565,22 @@ AnimatorStateMachine:
     m_Position: {x: 510, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1164622590667591775}
-    m_Position: {x: 1350, y: 250, z: 0}
+    m_Position: {x: 1310, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 93077922856844422}
-    m_Position: {x: 1350, y: 500, z: 0}
+    m_Position: {x: 1310, y: 510, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8289933674042541152}
-    m_Position: {x: 1230, y: 390, z: 0}
+    m_Position: {x: 1190, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7855166764409480705}
-    m_Position: {x: 1490, y: 390, z: 0}
+    m_Position: {x: 1440, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6274991190618698517}
-    m_Position: {x: 1730, y: 250, z: 0}
+    m_Position: {x: 2010, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1157442714689661019}
-    m_Position: {x: 1730, y: 400, z: 0}
+    m_Position: {x: 1740, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2537512708736318337}
     m_Position: {x: 860, y: 250, z: 0}
@@ -504,7 +589,13 @@ AnimatorStateMachine:
     m_Position: {x: 860, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8103758493687138357}
-    m_Position: {x: 1980, y: 330, z: 0}
+    m_Position: {x: 2010, y: 550, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -3315572523287801371}
+    m_Position: {x: 2300, y: 390, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 636903430685012218}
+    m_Position: {x: 2300, y: 440, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -546,6 +637,33 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1102 &-3315572523287801371
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CyberGiant_OverheadSmash1
+  m_Speed: 1.2
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: 2098465505690307001}
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 3ccd7e9f0d743de418b7b3e561610926, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1101 &-3294132764338671323
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -574,6 +692,34 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-2657992509177246806
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_MissileRain
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_OverheadSmash2
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1157442714689661019}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.93697476
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-1908364620404185505
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -594,6 +740,34 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.96052635
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &-920409442750124698
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_OverheadSmash1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_JumpEngage
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -3315572523287801371}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.9603175
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -723,25 +897,37 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: CyberGiant_Walk
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: CyberGiant_StartChasing
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: CyberGiant_PrepareMissiles
+  - m_Name: CyberGiant_Walk
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: CyberGiant_MissileRain
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: CyberGiant_JumpEngage
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: CyberGiant_OverheadSmash1
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: CyberGiant_OverheadSmash2
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -876,11 +1062,65 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: CyberGiant_Walk
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: CyberGiant_PrepareMissiles
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8103758493687138357}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8897059
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1102 &636903430685012218
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CyberGiant_OverheadSmash2
+  m_Speed: 1.2
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: -7613665519576134570}
+  - {fileID: 3476096460112521688}
+  - {fileID: -2657992509177246806}
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 33833b031aae41e42b6e43c90df6cbbd, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1101 &679980247326212430
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_OverheadSmash1
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_Walk
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -3315572523287801371}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -941,7 +1181,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 74dbaf40aa33d7f4a82cff81e9040fcf, type: 2}
+  m_Motion: {fileID: 7400000, guid: d230101cf102e9f4fafd5129201e562d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -954,12 +1194,13 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CyberGiant_PrepareMissiles
+  m_Name: CyberGiant_MissileRain
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8062290666400221543}
   - {fileID: 1784324287846731371}
+  - {fileID: -6039357055694193210}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -1015,7 +1256,7 @@ AnimatorStateTransition:
     m_ConditionEvent: CyberGiant_JumpEngage
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: CyberGiant_PrepareMissiles
+    m_ConditionEvent: CyberGiant_MissileRain
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8103758493687138357}
@@ -1026,6 +1267,34 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.9528302
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &2098465505690307001
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_OverheadSmash2
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_OverheadSmash1
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 636903430685012218}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1058,6 +1327,34 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &3476096460112521688
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_JumpEngage
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_OverheadSmash2
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 8103758493687138357}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.93697476
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1102 &3619138212528472680
 AnimatorState:
   serializedVersion: 6
@@ -1080,7 +1377,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a41e1255e51d3b742934f5793adab6c7, type: 2}
+  m_Motion: {fileID: 7400000, guid: 92799f8509618d94fb88e38745def94d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1214,9 +1511,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: CyberGiant_JumpEngage
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: CyberGiant_PrepareMissiles
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6274991190618698517}
   m_Solo: 0
@@ -1333,7 +1627,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: cf13edad99dbd0d4fa7ac02350b098b2, type: 2}
+  m_Motion: {fileID: 7400000, guid: 3aeccbfcbd4df5148bf3d0d27a615c1a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1377,11 +1671,13 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: JumpEngage
+  m_Name: CyberGiant_JumpEngage
   m_Speed: 1.1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6276868272126480600}
+  - {fileID: -7167209079221451233}
+  - {fileID: -920409442750124698}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -1488,7 +1784,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: CyberGiant_PrepareMissiles
+    m_ConditionEvent: CyberGiant_MissileRain
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: CyberGiant_Walk

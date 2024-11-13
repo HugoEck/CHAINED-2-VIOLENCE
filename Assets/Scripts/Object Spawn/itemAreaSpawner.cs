@@ -1,8 +1,10 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class itemAreaSpawner : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class itemAreaSpawner : MonoBehaviour
     public GameObject[] farmObjects;
     public GameObject[] modernDayObjects;
     public GameObject[] scifiObjects;
+
+    // A*
+    public GameObject aiPathPrefab;
+    private AIPath aiPath;
 
     // List of objects that has been added
     public List<GameObject> spawnedObjects = new List<GameObject>();
@@ -43,17 +49,28 @@ public class itemAreaSpawner : MonoBehaviour
     private bool itemsSpawnedForSciFiWave = false;
 
     private bool isDespawning = false;
+    
+
+    //-------------SAMS SCRIPTS-------------------------
+
+    public GridGraphUpdater gridGraphUpdater;
 
     #endregion
+
+    private void Start()
+    {
+        aiPath = aiPathPrefab.GetComponent<AIPath>();
+    }
 
     private void Update()
     {
         SpawnWithWaves();
-        
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    WaveManager.currentWave++;
-        //}
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            WaveManager.currentWave++;
+            Debug.Log(WaveManager.currentWave);
+        }
     }
 
     void SpawnItems(GameObject[] objectArray)
@@ -104,13 +121,28 @@ public class itemAreaSpawner : MonoBehaviour
                 GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
                 spawnedObjects.Add(clone);
 
+
+
+                //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
+                float updateRadius = 0;
+                Collider collider = clone.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    Bounds bounds = collider.bounds;
+                    updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2.0f) + 1;
+                }
+                if (!clone.CompareTag("Decor"))
+                {
+                    gridGraphUpdater.UpdateGrid(clone.transform.position, updateRadius);
+                }
+
                 return true;  // Successfully spawned an item
             }
         }
         return false;  // Failed to spawn due to overlap
     }   
 
-    void DespawnObjects()
+    void DespawnObjects() 
     {
         foreach (GameObject obj in spawnedObjects)
         {
@@ -134,11 +166,27 @@ public class itemAreaSpawner : MonoBehaviour
                     //obj.AddComponent<MoveDownwards>();
                     objectShader.StartDespawn();
                 }
+              
+            }
+
+
+            //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
+            float updateRadius = 0;
+            Collider collider = obj.GetComponent<Collider>();
+            if (collider != null)
+            {
+                Bounds bounds = collider.bounds;
+                updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2.0f) + 1;
+            }
+            if (!obj.CompareTag("Decor"))
+            {
+                gridGraphUpdater.RemoveObstacleUpdate(obj.transform.position, updateRadius);
             }
         }
         spawnedObjects.Clear();
     }
-    private void SpawnWithWaves()
+
+    void SpawnWithWaves()
     {
         if (waveManager != null)
         {
@@ -147,147 +195,203 @@ public class itemAreaSpawner : MonoBehaviour
             {
                 SpawnItems(romanObjects);
                 itemsSpawnedForRomanWave = true;
+                ScanMap();
             }
 
-            // Wave 5 - Despawn, wait for the cooldown, then spawn Fantasy objects
-            if (WaveManager.currentWave == 5 && !itemsSpawnedForFantasyWave)
-            {
-                if (!isDespawning)
-                {
-                    DespawnObjects();
-                    isDespawning = true;
-                    cooldownTimer = 5f;
-                }
-                else
-                {
-                    cooldownTimer -= Time.deltaTime;
-                    if (cooldownTimer <= 0)
-                    {
-                        SpawnItems(fantasyObjects);
-                        itemsSpawnedForFantasyWave = true;
-                        isDespawning = false;
-                    }
-                }
-            }
-
-            // Add additional waves as needed with similar logic
-
-            // Example for Pirate Wave 10
-            if (WaveManager.currentWave == 10 && !itemsSpawnedForPirateWave)
-            {
-                if (!isDespawning)
-                {
-                    DespawnObjects();
-                    isDespawning = true;
-                    cooldownTimer = 5f;
-                }
-                else
-                {
-                    cooldownTimer -= Time.deltaTime;
-                    if (cooldownTimer <= 0)
-                    {
-                        SpawnItems(pirateObjects);
-                        itemsSpawnedForPirateWave = true;
-                        isDespawning = false;
-                    }
-                }
-            }
-            // Wave 15
-            //if (WaveManager.currentWave == 15 && !itemsSpawnedForWesternWave)
-            //{
-            //    // Start despawning phase if not already in progress
-            //    if (!isDespawning)
-            //    {
-            //        DespawnObjects();
-            //        isDespawning = true; // Set despawning flag
-            //        cooldownTimer = 5f; // Reset cooldown timer for waiting period
-            //    }
-            //    else
-            //    {
-            //        // Wait for the cooldown before spawning new items
-            //        cooldownTimer -= Time.deltaTime;
-            //        //Debug.Log("Cooldown Timer: " + cooldownTimer);
-            //        if (cooldownTimer <= 0)
-            //        {
-            //            // Spawn new items once cooldown is over
-            //            SpawnItems();
-            //            itemsSpawnedForWesternWave = true;
-            //            isDespawning = false; // Reset the despawning flag
-            //        }
-            //    }
-            //}
-            //// Wave 20
-            //if (WaveManager.currentWave == 20 && !itemsSpawnedForFarmWave)
-            //{
-            //    // Start despawning phase if not already in progress
-            //    if (!isDespawning)
-            //    {
-            //        DespawnObjects();
-            //        isDespawning = true; // Set despawning flag
-            //        cooldownTimer = 5f; // Reset cooldown timer for waiting period
-            //    }
-            //    else
-            //    {
-            //        // Wait for the cooldown before spawning new items
-            //        cooldownTimer -= Time.deltaTime;
-            //        //Debug.Log("Cooldown Timer: " + cooldownTimer);
-            //        if (cooldownTimer <= 0)
-            //        {
-            //            // Spawn new items once cooldown is over
-            //            SpawnItems();
-            //            itemsSpawnedForFarmWave = true;
-            //            isDespawning = false; // Reset the despawning flag
-            //        }
-            //    }
-            //}
-            //// Wave 25
-            //if (WaveManager.currentWave == 25 && !itemsSpawnedForModernDayWave)
-            //{
-            //    // Start despawning phase if not already in progress
-            //    if (!isDespawning)
-            //    {
-            //        DespawnObjects();
-            //        isDespawning = true; // Set despawning flag
-            //        cooldownTimer = 5f; // Reset cooldown timer for waiting period
-            //    }
-            //    else
-            //    {
-            //        // Wait for the cooldown before spawning new items
-            //        cooldownTimer -= Time.deltaTime;
-            //        //Debug.Log("Cooldown Timer: " + cooldownTimer);
-            //        if (cooldownTimer <= 0)
-            //        {
-            //            // Spawn new items once cooldown is over
-            //            SpawnItems();
-            //            itemsSpawnedForModernDayWave = true;
-            //            isDespawning = false; // Reset the despawning flag
-            //        }
-            //    }
-            //}
-            //// Wave 30
-            //if (WaveManager.currentWave == 30 && !itemsSpawnedForSciFiWave)
-            //{
-            //    // Start despawning phase if not already in progress
-            //    if (!isDespawning)
-            //    {
-            //        DespawnObjects();
-            //        isDespawning = true; // Set despawning flag
-            //        cooldownTimer = 5f; // Reset cooldown timer for waiting period
-            //    }
-            //    else
-            //    {
-            //        // Wait for the cooldown before spawning new items
-            //        cooldownTimer -= Time.deltaTime;
-            //        //Debug.Log("Cooldown Timer: " + cooldownTimer);
-            //        if (cooldownTimer <= 0)
-            //        {
-            //            // Spawn new items once cooldown is over
-            //            SpawnItems();
-            //            itemsSpawnedForSciFiWave = true;
-            //            isDespawning = false; // Reset the despawning flag
-            //        }
-            //    }
-            //}
+            // For each wave with despawning and cooldown before spawning new items
+            HandleWave(5, fantasyObjects, ref itemsSpawnedForFantasyWave);
+            ScanMap();
+            HandleWave(10, pirateObjects, ref itemsSpawnedForPirateWave);
+            ScanMap();
+            HandleWave(15, westernObjects, ref itemsSpawnedForWesternWave);
+            ScanMap();
+            HandleWave(20, farmObjects, ref itemsSpawnedForFarmWave);
+            ScanMap();
+            HandleWave(25, modernDayObjects, ref itemsSpawnedForModernDayWave);
+            ScanMap();
+            HandleWave(30, scifiObjects, ref itemsSpawnedForSciFiWave);
+            ScanMap();
         }
     }
+
+    void HandleWave(int waveNumber, GameObject[] objectsToSpawn, ref bool itemsSpawnedFlag)
+    {
+        if (WaveManager.currentWave == waveNumber && !itemsSpawnedFlag)
+        {
+            if (!isDespawning)
+            {
+                DespawnObjects();
+                isDespawning = true;
+                cooldownTimer = 5f; // Reset cooldown timer
+            }
+            else
+            {
+                cooldownTimer -= Time.deltaTime;
+                if (cooldownTimer <= 0)
+                {
+                    SpawnItems(objectsToSpawn);
+                    itemsSpawnedFlag = true;
+                    isDespawning = false; // Reset despawning for next wave
+                }
+            }
+        }
+    }
+
+    public void ScanMap()
+    {
+        
+    }
+
+    //private void SpawnWithWaves()
+    //{
+    //    if (waveManager != null)
+    //    {
+    //        // Wave 1 - Spawn Roman objects
+    //        if (WaveManager.currentWave == 1 && !itemsSpawnedForRomanWave)
+    //        {
+    //            SpawnItems(romanObjects);
+    //            itemsSpawnedForRomanWave = true;
+    //        }
+
+    //        // Wave 5 - Despawn, wait for the cooldown, then spawn Fantasy objects
+    //        if (WaveManager.currentWave == 5 && !itemsSpawnedForFantasyWave)
+    //        {
+    //            if (!isDespawning)
+    //            {
+    //                DespawnObjects();
+    //                isDespawning = true;
+    //                cooldownTimer = 5f;
+    //            }
+    //            else
+    //            {
+    //                cooldownTimer -= Time.deltaTime;
+    //                if (cooldownTimer <= 0)
+    //                {
+    //                    SpawnItems(fantasyObjects);
+    //                    itemsSpawnedForFantasyWave = true;
+    //                    isDespawning = false;
+    //                }
+    //            }
+    //        }
+
+    //        // Add additional waves as needed with similar logic
+
+    //        // Example for Pirate Wave 10
+    //        if (WaveManager.currentWave == 10 && !itemsSpawnedForPirateWave)
+    //        {
+    //            if (!isDespawning)
+    //            {
+    //                DespawnObjects();
+    //                isDespawning = true;
+    //                cooldownTimer = 5f;
+    //            }
+    //            else
+    //            {
+    //                cooldownTimer -= Time.deltaTime;
+    //                if (cooldownTimer <= 0)
+    //                {
+    //                    SpawnItems(pirateObjects);
+    //                    itemsSpawnedForPirateWave = true;
+    //                    isDespawning = false;
+    //                }
+    //            }
+    //        }
+    //        // Wave 15
+    //        if (WaveManager.currentWave == 15 && !itemsSpawnedForWesternWave)
+    //        {
+    //            // Start despawning phase if not already in progress
+    //            if (!isDespawning)
+    //            {
+    //                DespawnObjects();
+    //                isDespawning = true; // Set despawning flag
+    //                cooldownTimer = 5f; // Reset cooldown timer for waiting period
+    //            }
+    //            else
+    //            {
+    //                // Wait for the cooldown before spawning new items
+    //                cooldownTimer -= Time.deltaTime;
+    //                //Debug.Log("Cooldown Timer: " + cooldownTimer);
+    //                if (cooldownTimer <= 0)
+    //                {
+    //                    // Spawn new items once cooldown is over
+    //                    SpawnItems(westernObjects);
+    //                    itemsSpawnedForWesternWave = true;
+    //                    isDespawning = false; // Reset the despawning flag
+    //                }
+    //            }
+    //        }
+    //        // Wave 20
+    //        if (WaveManager.currentWave == 20 && !itemsSpawnedForFarmWave)
+    //        {
+    //            // Start despawning phase if not already in progress
+    //            if (!isDespawning)
+    //            {
+    //                DespawnObjects();
+    //                isDespawning = true; // Set despawning flag
+    //                cooldownTimer = 5f; // Reset cooldown timer for waiting period
+    //            }
+    //            else
+    //            {
+    //                // Wait for the cooldown before spawning new items
+    //                cooldownTimer -= Time.deltaTime;
+    //                //Debug.Log("Cooldown Timer: " + cooldownTimer);
+    //                if (cooldownTimer <= 0)
+    //                {
+    //                    // Spawn new items once cooldown is over
+    //                    SpawnItems(farmObjects);
+    //                    itemsSpawnedForFarmWave = true;
+    //                    isDespawning = false; // Reset the despawning flag
+    //                }
+    //            }
+    //        }
+    //        // Wave 25
+    //        if (WaveManager.currentWave == 25 && !itemsSpawnedForModernDayWave)
+    //        {
+    //            // Start despawning phase if not already in progress
+    //            if (!isDespawning)
+    //            {
+    //                DespawnObjects();
+    //                isDespawning = true; // Set despawning flag
+    //                cooldownTimer = 5f; // Reset cooldown timer for waiting period
+    //            }
+    //            else
+    //            {
+    //                // Wait for the cooldown before spawning new items
+    //                cooldownTimer -= Time.deltaTime;
+    //                //Debug.Log("Cooldown Timer: " + cooldownTimer);
+    //                if (cooldownTimer <= 0)
+    //                {
+    //                    // Spawn new items once cooldown is over
+    //                    SpawnItems(modernDayObjects);
+    //                    itemsSpawnedForModernDayWave = true;
+    //                    isDespawning = false; // Reset the despawning flag
+    //                }
+    //            }
+    //        }
+    //        // Wave 30
+    //        if (WaveManager.currentWave == 30 && !itemsSpawnedForSciFiWave)
+    //        {
+    //            // Start despawning phase if not already in progress
+    //            if (!isDespawning)
+    //            {
+    //                DespawnObjects();
+    //                isDespawning = true; // Set despawning flag
+    //                cooldownTimer = 5f; // Reset cooldown timer for waiting period
+    //            }
+    //            else
+    //            {
+    //                // Wait for the cooldown before spawning new items
+    //                cooldownTimer -= Time.deltaTime;
+    //                //Debug.Log("Cooldown Timer: " + cooldownTimer);
+    //                if (cooldownTimer <= 0)
+    //                {
+    //                    // Spawn new items once cooldown is over
+    //                    SpawnItems(scifiObjects);
+    //                    itemsSpawnedForSciFiWave = true;
+    //                    isDespawning = false; // Reset the despawning flag
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 }

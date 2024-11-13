@@ -14,7 +14,7 @@ public class FireSpread : MonoBehaviour
 
     private float _damageTimer;
     private float _damageInterval = 1f;
-
+    float fireMultiplier = 5;
     private BaseManager enemyManager;
 
     private CapsuleCollider _enemyCollider;
@@ -106,8 +106,8 @@ public class FireSpread : MonoBehaviour
                 ParticleSystem.ShapeModule shapeModule = particleSystem.shape;
 
                 // Check for MeshRenderer or SkinnedMeshRenderer
-                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>();
-                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>();
+                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>(false);
+                SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>(false);
 
                 if (meshRenderer != null)
                 {
@@ -124,9 +124,9 @@ public class FireSpread : MonoBehaviour
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
-                        mainModule.startSizeX = meshSize.x; // Scale X
-                        mainModule.startSizeY = meshSize.y; // Scale Y
-                        mainModule.startSizeZ = meshSize.z; // Scale Z
+                        mainModule.startSizeX = _enemyCollider.radius * fireMultiplier; // Scale X
+                        mainModule.startSizeY = _enemyCollider.height * fireMultiplier; // Scale Y
+                        mainModule.startSizeZ = _enemyCollider.radius * fireMultiplier; // Scale Z
                     }
                     else
                     {
@@ -142,14 +142,14 @@ public class FireSpread : MonoBehaviour
                         shapeModule.skinnedMeshRenderer = skinnedMeshRenderer;
 
                         // Calculate the size of the skinned mesh
-                        Bounds meshBounds = skinnedMeshRenderer.sharedMesh.bounds;
+                        Bounds meshBounds = skinnedMeshRenderer.bounds;
                         Vector3 meshSize = meshBounds.size; // Get the size of the mesh
 
                         // Set particle system size based on mesh size
                         var mainModule = particleSystem.main;
-                        mainModule.startSizeX = meshSize.x; // Scale X
-                        mainModule.startSizeY = meshSize.y; // Scale Y
-                        mainModule.startSizeZ = meshSize.z; // Scale Z
+                        mainModule.startSizeX = _enemyCollider.radius * fireMultiplier; // Scale X
+                        mainModule.startSizeY = _enemyCollider.height * fireMultiplier; // Scale Y
+                        mainModule.startSizeZ = _enemyCollider.radius * fireMultiplier; // Scale Z
                     }
                     else
                     {

@@ -47,15 +47,17 @@ public class CyberGiantManager : BaseManager
     public bool abilityInProgress = false;
     public bool missileRainActive = false;
     public bool missileReady = false;
-    public bool JumpEngageActive = false;
+    public bool jumpEngageActive = false;
+    public bool overheadSmashActive = false;
 
     private float lastBombShotTime = 0;
     public float lastLongRangeTime = 0;
     public float lastMidRangeTime = 0;
+    public float lastCloseRangeTime = 0;
 
-    public float midRangeCooldownTimer;
-    public float longRangeCooldownTimer;
-
+    //[HideInInspector] public float longRangeCooldownTimer;
+    //[HideInInspector] public float midRangeCooldownTimer;   
+    //[HideInInspector] public float closeRangeCooldownTimer;
 
 
     void Start()
@@ -76,8 +78,8 @@ public class CyberGiantManager : BaseManager
         rootNode.Evaluate(this);
 
         abilityInProgress = CheckIfAbilityInProgress();
-        midRangeCooldownTimer = Time.time;
-        longRangeCooldownTimer = Time.time;
+        //midRangeCooldownTimer = Time.time;
+        //longRangeCooldownTimer = Time.time;
     }
 
     private void LoadStats()
@@ -93,7 +95,7 @@ public class CyberGiantManager : BaseManager
         //longRangeCooldown = 15;
         //midRangeCooldown = 15;
         //missileDamage = 20;
-        attackRange = 8;
+        //attackRange = 8;
 
         c_collider.center = new Vector3(0, 1f, 0);
         c_collider.radius = 0.75f;
@@ -105,7 +107,7 @@ public class CyberGiantManager : BaseManager
     }
     public bool CheckIfAbilityInProgress()
     {
-        if (missileRainActive || JumpEngageActive)
+        if (missileRainActive || jumpEngageActive || overheadSmashActive)
         {
             return true;
         }
@@ -132,6 +134,19 @@ public class CyberGiantManager : BaseManager
         if (Time.time > lastMidRangeTime + midRangeCooldown)
         {
             lastMidRangeTime = Time.time;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public bool IsCloseRangeAbilityReady()
+    {
+        if (Time.time > lastCloseRangeTime + closeRangeCooldown)
+        {
+            lastCloseRangeTime = Time.time;
 
             return true;
         }
@@ -179,6 +194,9 @@ public class CyberGiantManager : BaseManager
         MidRangeConditions midRangeConditions = new MidRangeConditions();
         IsJumpEngageChosen isJumpEngageChosen = new IsJumpEngageChosen();
         JumpEngage jumpEngage = new JumpEngage();
+        CloseRangeConditions closeRangeConditions = new CloseRangeConditions();
+        IsOverheadSmashChosen isOverheadSmashChosen = new IsOverheadSmashChosen();
+        OverheadSmash overheadSmash = new OverheadSmash();
 
 
         //Kill Branch
@@ -198,8 +216,14 @@ public class CyberGiantManager : BaseManager
         Selector MR_Ability = new Selector(new List<Node> { ability_jumpEngage });
         Sequence midRange = new Sequence (new List<Node> { midRangeConditions, MR_Ability });
 
+        //Close-Range Branch
+        Sequence ability_overheadSmash = new Sequence(new List<Node> { isOverheadSmashChosen, overheadSmash });
+        Selector CR_Ability = new Selector(new List<Node> { ability_overheadSmash });
+        Sequence closeRange = new Sequence(new List<Node> { closeRangeConditions, CR_Ability });
+
+
         //main
-        Selector attack = new Selector(new List<Node> { longRange, midRange });
+        Selector attack = new Selector(new List<Node> { longRange, midRange, closeRange });
 
         //Chase Branch
 

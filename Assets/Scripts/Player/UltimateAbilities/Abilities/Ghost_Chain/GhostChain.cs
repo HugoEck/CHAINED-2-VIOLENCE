@@ -16,13 +16,13 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
     private bool _bCanUseGhostChain = true;
 
     private float _ghostChainTimer;
-    private float _cooldownTimer;
+    public float _cooldownTimer { get; set; }
 
     private void Start()
     {
         ignoreCollisionLayers = _setIgnoreCollisionLayers.value;
     }
-
+    
     public void UseUltimate()
     {
         if (_bCanUseGhostChain && !_bIsGhostChainActive)

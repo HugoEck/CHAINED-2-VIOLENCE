@@ -1,6 +1,8 @@
 using Obi;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -34,12 +36,14 @@ public class SpawnAbilityChainSegments : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
     private void Start()
     {
         _chain = GetComponent<ObiActor>();

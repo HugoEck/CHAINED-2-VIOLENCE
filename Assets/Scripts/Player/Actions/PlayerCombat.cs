@@ -37,6 +37,10 @@ public class PlayerCombat : MonoBehaviour
     protected float lastAttackTime;
     protected float lastAbilityTime;
 
+    ///Variables for allowing attack
+    private float _lastAttackedTime = 0f;
+    private float _attackSpeed = 1f;
+
     private int playerId;
 
     private ClassSelector classSelector;
@@ -109,23 +113,42 @@ public class PlayerCombat : MonoBehaviour
     /// This method is used for basic attacks (Called in Player script)
     /// </summary>
     public void UseBaseAttack()
-    {       
+    {
         // Find all enemies within the attack range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
         foreach (Collider enemy in hitEnemies)
         {
-            BaseManager enemyManager = enemy.GetComponent<BaseManager>();
-            if (enemyManager != null)
+            // Calculate the direction to the enemy
+            Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
+
+            // Check if the enemy is within the 120-degree cone
+            if (Vector3.Angle(transform.forward, directionToEnemy) <= 60) // 60 degrees on each side
             {
-                enemyManager.DealDamageToEnemy(attackDamage);
-                Debug.Log("Hit enemy: " + enemy.name);
+                BaseManager enemyManager = enemy.GetComponent<BaseManager>();
+                if (enemyManager != null)
+                {
+                    // Deal damage if within cone
+                    enemyManager.DealDamageToEnemy(attackDamage);
+                    Debug.Log("Hit enemy: " + enemy.name);
+                }
             }
         }
 
-        Debug.Log("Base Attack triggered.");
-
+        Debug.Log("Base Attack triggered in 120-degree cone.");
     }
-    
+    public bool IsAttackAllowed()
+    {
+        if (Time.time > _lastAttackedTime + _attackSpeed)
+        {
+            _lastAttackedTime = Time.time;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     /// <summary>
     /// This method uses the ability that the player has for its class (Called in Player script)
     /// </summary>
