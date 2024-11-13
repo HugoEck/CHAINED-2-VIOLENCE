@@ -10,6 +10,7 @@ public class ClassSelector : MonoBehaviour
 
     private GameObject activePlayer; // The player currently in range of a tube
     private PlayerCombat.PlayerClass targetClass; // Class associated with the nearby tube
+    private WeaponManager _weaponManager;
 
     public event Action<GameObject, PlayerCombat.PlayerClass> OnClassSwitched;
 
@@ -23,6 +24,7 @@ public class ClassSelector : MonoBehaviour
         uiPrompt.SetActive(false); // Ensure UI is hidden at the start
 
         _playerId = GetComponent<Player>()._playerId;
+        _weaponManager = GetComponent<WeaponManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,21 +34,26 @@ public class ClassSelector : MonoBehaviour
 
         if(other.CompareTag("Tank"))
         {
+            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Tank);
             classType = PlayerCombat.PlayerClass.Tank;
             ShowClassPrompt(other.gameObject, classType);
         }
         else if(other.CompareTag("Warrior"))
         {
+            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Warrior);
             classType = PlayerCombat.PlayerClass.Warrior;
             ShowClassPrompt(other.gameObject, classType);
         }
         else if(other.CompareTag("Ranged"))
         {
+
+            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Ranged);
             classType = PlayerCombat.PlayerClass.Ranged;
             ShowClassPrompt(other.gameObject, classType);
         }
         else if(other.CompareTag("Support"))
         {
+            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Support);
             classType = PlayerCombat.PlayerClass.Support;
             ShowClassPrompt(other.gameObject, classType);
         }
