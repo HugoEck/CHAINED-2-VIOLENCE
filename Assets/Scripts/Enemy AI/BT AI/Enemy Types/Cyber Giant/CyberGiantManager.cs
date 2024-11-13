@@ -66,8 +66,6 @@ public class CyberGiantManager : BaseManager
     //[HideInInspector] public float midRangeCooldownTimer;   
     //[HideInInspector] public float closeRangeCooldownTimer;
 
-    GraphUpdateObject guo;
-
     void Start()
     {
         enemyID = "CyberGiant";
@@ -209,9 +207,7 @@ public class CyberGiantManager : BaseManager
             return false;
         }
     }
-
-    
-    
+ 
     private void ConstructBT()
     {
 
@@ -235,7 +231,7 @@ public class CyberGiantManager : BaseManager
 
         //-----------------------------------------------------------------------------------------------------
 
-        //Kill Branch
+        //DIIIE DIIIE
         Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
 
         //-----------------------------------------------------------------------------------------------------
