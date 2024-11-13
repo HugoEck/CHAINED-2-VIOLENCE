@@ -53,6 +53,7 @@ public class OverheadSmash : Node
     {
         agent.animator.SetBool("CyberGiant_MissileRain", false);
         agent.animator.SetBool("CyberGiant_Walk", false);
+        agent.animator.SetBool("CyberGiant_ShieldWalk", false);
         agent.animator.SetBool("CyberGiant_JumpEngage", false);
         agent.animator.SetBool("CyberGiant_Idle", false);
 

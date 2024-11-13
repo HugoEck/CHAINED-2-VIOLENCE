@@ -20,6 +20,7 @@ public class Idle : Node
         agent.animator.SetBool("CyberGiant_Idle", true);
         agent.animator.SetBool("CyberGiant_MissileRain", false);
         agent.animator.SetBool("CyberGiant_Walk", false);
+        agent.animator.SetBool("CyberGiant_ShieldWalk", false);
         agent.animator.SetBool("CyberGiant_JumpEngage", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash2", false);

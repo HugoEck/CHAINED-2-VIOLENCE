@@ -16,7 +16,7 @@ public class KillAgent : Node
     {
         WaveManager.ActiveEnemies--;
         agent.rb.constraints = RigidbodyConstraints.None;
-        agent.behaviorMethods.ToggleRagdoll(true);
+        //agent.behaviorMethods.ToggleRagdoll(true);
         agent.animator.enabled = false;
         agent.navigation.isStopped = true;
 

@@ -24,12 +24,10 @@ public class ChasePlayer : Node
             return NodeState.RUNNING;
         }
         
-        else //Denna kan aldrig bli true eftersom att PlayerInRange hinner bli true före.
+        else //Denna kan aldrig bli true eftersom detta är sista BT branch
         {
             agent.navigation.isStopped = true;
-            //agent.navMeshAgent.isStopped = true;
 
-            //RotateTowardsPlayer(agent, agent.targetedPlayer);
             return NodeState.SUCCESS;
         }
 
@@ -77,16 +75,5 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Charger_Attack", false);
             agent.animator.SetBool("Charger_Sprint", false);
         }
-        else if(agent.enemyID == "CyberGiant")
-        {
-            agent.animator.SetBool("CyberGiant_Walk", true);
-            agent.animator.SetBool("CyberGiant_MissileRain", false);
-            agent.animator.SetBool("CyberGiant_JumpEngage", false);
-            agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
-            agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
-            agent.animator.SetBool("CyberGiant_Idle", false);
-        }
-        
-
     }
 }

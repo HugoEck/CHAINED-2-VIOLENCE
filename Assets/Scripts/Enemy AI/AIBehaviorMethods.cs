@@ -17,19 +17,33 @@ public class AIBehaviorMethods
 
     public Transform CalculateClosestTarget()
     {
-        if (Vector3.Distance(agent.transform.position, agent.player1.transform.position) < Vector3.Distance(agent.transform.position, agent.player2.transform.position))
+        float distanceToPlayer1Sqr = (agent.transform.position - agent.player1.transform.position).sqrMagnitude;
+        float distanceToPlayer2Sqr = (agent.transform.position - agent.player2.transform.position).sqrMagnitude;
+
+        if (distanceToPlayer1Sqr < distanceToPlayer2Sqr)
         {
             return agent.player1.transform;
         }
-        else if ((Vector3.Distance(agent.transform.position, agent.player2.transform.position) < Vector3.Distance(agent.transform.position, agent.player1.transform.position)))
+        else
         {
             return agent.player2.transform;
         }
-        else
-        {
-            return null;
-        }
     }
+    //public Transform CalculateClosestTarget()
+    //{
+    //    if (Vector3.Distance(agent.transform.position, agent.player1.transform.position) < Vector3.Distance(agent.transform.position, agent.player2.transform.position))
+    //    {
+    //        return agent.player1.transform;
+    //    }
+    //    else if ((Vector3.Distance(agent.transform.position, agent.player2.transform.position) < Vector3.Distance(agent.transform.position, agent.player1.transform.position)))
+    //    {
+    //        return agent.player2.transform;
+    //    }
+    //    else
+    //    {
+    //        return null;
+    //    }
+    //}
 
     public bool IsAttackAllowed()
     {

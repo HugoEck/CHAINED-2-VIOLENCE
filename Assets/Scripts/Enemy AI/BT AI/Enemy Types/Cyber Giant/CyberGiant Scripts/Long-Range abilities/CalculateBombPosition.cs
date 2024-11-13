@@ -6,7 +6,7 @@ public class CalculateBombPosition : Node
 {
 
     Vector3 chainLastPosition;
-    float shootForce = 45;
+    float shootForce = 40;
 
     public override NodeState Evaluate(BaseManager agent)
     {

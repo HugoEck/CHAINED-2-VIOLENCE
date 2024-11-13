@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class CyberGiantManager : BaseManager
 {
@@ -16,11 +17,14 @@ public class CyberGiantManager : BaseManager
     public GameObject missilePrefab;
     public Transform bombShootPoint;
     public Transform missileShootPoint;
+    public GameObject energyShield;
     private CapsuleCollider damageCollider;
 
     public float currentTime = 0;
     [Header("CG STATS")]
-    
+
+    public float energyShieldDefense;
+    private float baseDefense;
     public float bombDamage;
     public float missileDamage;
     public float bombCooldown;
@@ -50,6 +54,7 @@ public class CyberGiantManager : BaseManager
     public bool missileReady = false;
     public bool jumpEngageActive = false;
     public bool overheadSmashActive = false;
+    public bool shieldWalkActive = false;
     
 
     private float lastBombShotTime = 0;
@@ -84,8 +89,8 @@ public class CyberGiantManager : BaseManager
         rootNode.Evaluate(this);
 
         abilityInProgress = CheckIfAbilityInProgress();
-        
-        
+
+        ToggleEnergyShield();
 
         //midRangeCooldownTimer = Time.time;
         //longRangeCooldownTimer = Time.time;
@@ -96,6 +101,7 @@ public class CyberGiantManager : BaseManager
         maxHealth = 100;
         currentHealth = maxHealth;
         navigation.maxSpeed = speed;
+        baseDefense = defense;
 
         //minimumBombDistance = 20;
         //minimumLongRangeDistance = 25;
@@ -106,12 +112,12 @@ public class CyberGiantManager : BaseManager
         //missileDamage = 20;
         //attackRange = 8;
 
-        c_collider.center = new Vector3(0, 1f, 0);
+        c_collider.center = new Vector3(0, 0.7f, 0);
         c_collider.radius = 0.75f;
-        c_collider.height = 2.5f;
-        damageCollider.center = new Vector3(0, 1f, 0);
+        c_collider.height = 2.25f;
+        damageCollider.center = new Vector3(0, 0.7f, 0);
         damageCollider.radius = 0.75f;
-        damageCollider.height = 2.5f;
+        damageCollider.height = 2.25f;
 
     }
     public bool CheckIfAbilityInProgress()
@@ -165,7 +171,24 @@ public class CyberGiantManager : BaseManager
         }
     }
 
+    private void ToggleEnergyShield()
+    {
+        Transform closestPlayer = behaviorMethods.CalculateClosestTarget();
+        float distance = Vector3.Distance(transform.position, closestPlayer.position);
 
+        if (distance > maxMidRangeDistance && !CheckIfAbilityInProgress())
+        {
+            energyShield.SetActive(true);
+            damageCollider.radius = 1.4f;
+            defense = energyShieldDefense;
+        }
+        else
+        {
+            energyShield.SetActive(false);
+            damageCollider.radius = 0.75f;
+            defense = baseDefense;
+        }
+    }
     public void SetBombVelocity(Vector3 newVelocity)
     {
         bombVelocity = newVelocity;
@@ -200,14 +223,14 @@ public class CyberGiantManager : BaseManager
         PrepareMissiles prepareMissiles = new PrepareMissiles();
         CalculateMissilePosition calculateMissilePosition = new CalculateMissilePosition();
         ShootMissiles shootMissiles = new ShootMissiles();
-        IsInMeleeRange isInMeleeRange = new IsInMeleeRange();
-        ChasePlayer chasePlayer = new ChasePlayer();
         MidRangeConditions midRangeConditions = new MidRangeConditions();
         IsJumpEngageChosen isJumpEngageChosen = new IsJumpEngageChosen();
         JumpEngage jumpEngage = new JumpEngage();
         CloseRangeConditions closeRangeConditions = new CloseRangeConditions();
         IsOverheadSmashChosen isOverheadSmashChosen = new IsOverheadSmashChosen();
         OverheadSmash overheadSmash = new OverheadSmash();
+        ChaseConditions chaseConditions = new ChaseConditions();
+        CGChasePlayer cg_ChasePlayer = new CGChasePlayer();
         Idle idle = new Idle();
 
         //-----------------------------------------------------------------------------------------------------
@@ -241,10 +264,10 @@ public class CyberGiantManager : BaseManager
         //-----------------------------------------------------------------------------------------------------
 
         //Chase Branch
-        Sequence chase = new Sequence (new List<Node> { isInMeleeRange, chasePlayer });
+        Sequence chase = new Sequence (new List<Node> { chaseConditions, cg_ChasePlayer });
 
         //-------------------------------------------------------------------------------------------------------
-        rootNode = new Selector(new List<Node>() { isDead, closeRange, chase, idle });
+        rootNode = new Selector(new List<Node>() { isDead, attack, chase, idle });
     }
 }
 

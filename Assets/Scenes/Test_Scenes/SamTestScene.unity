@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &8731971 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7444615369609778791, guid: aac99e1e76663f142b05e5a1b840924f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2063457500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &90663786
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,52 +479,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c56e1ea930d4baa448ee4cebf772899f, type: 3}
---- !u!1 &193244272
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 193244274}
-  - component: {fileID: 193244273}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &193244273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193244272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &193244274
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193244272}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &264591225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9033,12 +8993,14 @@ MonoBehaviour:
     type: 3}
   bombShootPoint: {fileID: 106961051}
   missileShootPoint: {fileID: 531025610}
+  energyShield: {fileID: 8731971}
   currentTime: 0
+  energyShieldDefense: 10000
   bombDamage: 25
   missileDamage: 25
   bombCooldown: 3
-  longRangeCooldown: 10
-  midRangeCooldown: 10
+  longRangeCooldown: 15
+  midRangeCooldown: 15
   closeRangeCooldown: 5
   minBombDistance: 20
   minLongRangeDistance: 30
@@ -9056,6 +9018,7 @@ MonoBehaviour:
   missileReady: 0
   jumpEngageActive: 0
   overheadSmashActive: 0
+  shieldWalkActive: 0
 --- !u!114 &1474865666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9090,6 +9053,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1878258424}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1525869110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1525869112}
+  - component: {fileID: 1525869111}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1525869111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525869110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1525869112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525869110}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1573504819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba,
@@ -10636,6 +10645,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3512789377983596536, guid: aac99e1e76663f142b05e5a1b840924f,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3512789377983596536, guid: aac99e1e76663f142b05e5a1b840924f,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3729853093579416252, guid: aac99e1e76663f142b05e5a1b840924f,
         type: 3}
       propertyPath: m_Materials.Array.size
@@ -10699,7 +10718,7 @@ PrefabInstance:
     - target: {fileID: 7444615369609778791, guid: aac99e1e76663f142b05e5a1b840924f,
         type: 3}
       propertyPath: m_Name
-      value: Shield (5)
+      value: EnergyShield
       objectReference: {fileID: 0}
     - target: {fileID: 7474259039726771184, guid: aac99e1e76663f142b05e5a1b840924f,
         type: 3}
@@ -10729,7 +10748,7 @@ PrefabInstance:
     - target: {fileID: 8093590677404344126, guid: aac99e1e76663f142b05e5a1b840924f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7338769
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8093590677404344126, guid: aac99e1e76663f142b05e5a1b840924f,
         type: 3}
@@ -11064,5 +11083,5 @@ SceneRoots:
   - {fileID: 1323669736}
   - {fileID: 1801737359}
   - {fileID: 1892668269}
-  - {fileID: 193244274}
   - {fileID: 1163680248}
+  - {fileID: 1525869112}
