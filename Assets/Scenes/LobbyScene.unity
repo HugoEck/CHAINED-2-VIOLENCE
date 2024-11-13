@@ -723,52 +723,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!1 &361176652
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 361176654}
-  - component: {fileID: 361176653}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &361176653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361176652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &361176654
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361176652}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &370033212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1629,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2673040087041862345, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: swingSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673040087041862345, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: swingEffectPrefab
+      value: 
+      objectReference: {fileID: 1396618616648682, guid: 0f91ba3e8745a3144a3d9862ff4ca471,
+        type: 3}
     - target: {fileID: 2729135737035725014, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
       propertyPath: m_IsActive
@@ -1735,6 +1700,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3873123668886611004, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 1555253889}
+    - target: {fileID: 3873123668886611004, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: playerDirection
+      value: 
+      objectReference: {fileID: 1555253889}
+    - target: {fileID: 3873123668886611004, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 1834646129351440, guid: b6bf2ef69d854b04a88c25efb8e71ed6,
+        type: 3}
     - target: {fileID: 3903829308009327339, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
       propertyPath: uiPrompt
@@ -1745,6 +1726,17 @@ PrefabInstance:
       propertyPath: _maxHealth
       value: 1000000
       objectReference: {fileID: 0}
+    - target: {fileID: 6919952620552269569, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: coneAnchor
+      value: 
+      objectReference: {fileID: 1555253889}
+    - target: {fileID: 6919952620552269569, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: coneEffectPrefab
+      value: 
+      objectReference: {fileID: 1201505000128532, guid: 94d1dad0b582213478d67185f26aaa47,
+        type: 3}
     - target: {fileID: 7079573598015526987, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
       propertyPath: uiPrompt
@@ -3418,6 +3410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2137b0cc9bbb24ab2735c9eb3df6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentUltimateAbility: 1
   _timeForOtherPlayerToUseUltimate: 3
   _bIsBothPlayersUsingUltimate: 0
 --- !u!4 &1305177482
@@ -3467,6 +3460,52 @@ Transform:
   - {fileID: 2144416016}
   - {fileID: 318395484}
   - {fileID: 1240486108}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1324519117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1324519119}
+  - component: {fileID: 1324519118}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1324519118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324519117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1324519119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324519117}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1334417915
@@ -3913,6 +3952,12 @@ Transform:
 --- !u!1 &1555253888 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8057992993270712755, guid: 93f23453abf717348acaacf7b6f06f4e,
+    type: 3}
+  m_PrefabInstance: {fileID: 883163467}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1555253889 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3836763609996793922, guid: 93f23453abf717348acaacf7b6f06f4e,
     type: 3}
   m_PrefabInstance: {fileID: 883163467}
   m_PrefabAsset: {fileID: 0}
@@ -5114,4 +5159,4 @@ SceneRoots:
   - {fileID: 1061841590}
   - {fileID: 948568348}
   - {fileID: 949239116}
-  - {fileID: 361176654}
+  - {fileID: 1324519119}
