@@ -2428,15 +2428,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   otherPlayer: {fileID: 3836763609996793922}
   swingDuration: 3
-  swingSpeed: 200
+  swingSpeed: 400
   swingRadius: 5
   swingDamage: 20
+  cooldown: 33
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  swingEffectPrefab: {fileID: 1396618616648682, guid: 0f91ba3e8745a3144a3d9862ff4ca471,
+    type: 3}
 --- !u!114 &243103856076282265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2483,6 +2486,10 @@ MonoBehaviour:
   coneRange: 10
   coneAngle: 90
   coneDamage: 50
+  coneEffectPrefab: {fileID: 1201505000128532, guid: 94d1dad0b582213478d67185f26aaa47,
+    type: 3}
+  coneAnchor: {fileID: 4889678002812363050}
+  cooldown: 7
 --- !u!114 &4104196438329042504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2498,6 +2505,7 @@ MonoBehaviour:
   maxShieldHealth: 20
   shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
     type: 3}
+  cooldown: 10
   otherPlayer: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
     type: 3}
 --- !u!114 &4169235365561965082
@@ -2512,11 +2520,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2069301f64bcc4d8e4aa76866ea7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8430580474095380351, guid: e9d4644974641b04e88340a2ee92c946,
+  projectilePrefab: {fileID: 1834646129351440, guid: b6bf2ef69d854b04a88c25efb8e71ed6,
     type: 3}
   firePoint: {fileID: 4053205714226101396}
   playerDirection: {fileID: 4053205714226101396}
   projectileSpeed: 20
+  cooldown: 12
 --- !u!114 &3903829308009327339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3202,15 +3211,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   otherPlayer: {fileID: 4889678002812363050}
   swingDuration: 3
-  swingSpeed: 200
+  swingSpeed: 400
   swingRadius: 5
   swingDamage: 20
+  cooldown: 33
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  swingEffectPrefab: {fileID: 1396618616648682, guid: 0f91ba3e8745a3144a3d9862ff4ca471,
+    type: 3}
 --- !u!114 &5776628171920410961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3257,6 +3269,10 @@ MonoBehaviour:
   coneRange: 10
   coneAngle: 90
   coneDamage: 50
+  coneEffectPrefab: {fileID: 1201505000128532, guid: 94d1dad0b582213478d67185f26aaa47,
+    type: 3}
+  coneAnchor: {fileID: 3836763609996793922}
+  cooldown: 7
 --- !u!114 &8472543195992861203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3272,6 +3288,7 @@ MonoBehaviour:
   maxShieldHealth: 20
   shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
     type: 3}
+  cooldown: 10
   otherPlayer: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
     type: 3}
 --- !u!114 &3873123668886611004
@@ -3286,11 +3303,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2069301f64bcc4d8e4aa76866ea7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8430580474095380351, guid: e9d4644974641b04e88340a2ee92c946,
+  projectilePrefab: {fileID: 1834646129351440, guid: b6bf2ef69d854b04a88c25efb8e71ed6,
     type: 3}
   firePoint: {fileID: 4026770230506929579}
   playerDirection: {fileID: 4026770230506929579}
   projectileSpeed: 20
+  cooldown: 12
 --- !u!114 &7079573598015526987
 MonoBehaviour:
   m_ObjectHideFlags: 0
