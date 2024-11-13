@@ -244,7 +244,7 @@ public class CyberGiantManager : BaseManager
         Sequence chase = new Sequence (new List<Node> { isInMeleeRange, chasePlayer });
 
         //-------------------------------------------------------------------------------------------------------
-        rootNode = new Selector(new List<Node>() { isDead, attack, chase, idle });
+        rootNode = new Selector(new List<Node>() { isDead, closeRange, chase, idle });
     }
 }
 
