@@ -122,9 +122,15 @@ public class itemAreaSpawner : MonoBehaviour
                 spawnedObjects.Add(clone);
 
 
-               
-                float updateRadius = (Mathf.Max(clone.transform.localScale.x, clone.transform.localScale.z) / 2.0f) + 1;
-                
+
+                //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
+                float updateRadius = 0;
+                Collider collider = clone.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    Bounds bounds = collider.bounds;
+                    updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2.0f) + 1;
+                }
                 if (!clone.CompareTag("Decor"))
                 {
                     gridGraphUpdater.UpdateGrid(clone.transform.position, updateRadius);
@@ -136,7 +142,7 @@ public class itemAreaSpawner : MonoBehaviour
         return false;  // Failed to spawn due to overlap
     }   
 
-    void DespawnObjects() //HÄR SAM
+    void DespawnObjects() 
     {
         foreach (GameObject obj in spawnedObjects)
         {
@@ -162,12 +168,20 @@ public class itemAreaSpawner : MonoBehaviour
                 }
               
             }
-            //float updateRadius = Mathf.Max(obj.transform.localScale.x,
-            //    obj.transform.localScale.y, obj.transform.localScale.z) / 2.0f;
 
-            float updateRadius = (Mathf.Max(obj.transform.localScale.x, obj.transform.localScale.z) / 2.0f) +1;
 
-            gridGraphUpdater.RemoveObstacleUpdate(obj.transform.position, updateRadius);
+            //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
+            float updateRadius = 0;
+            Collider collider = obj.GetComponent<Collider>();
+            if (collider != null)
+            {
+                Bounds bounds = collider.bounds;
+                updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2.0f) + 1;
+            }
+            if (!obj.CompareTag("Decor"))
+            {
+                gridGraphUpdater.RemoveObstacleUpdate(obj.transform.position, updateRadius);
+            }
         }
         spawnedObjects.Clear();
     }
