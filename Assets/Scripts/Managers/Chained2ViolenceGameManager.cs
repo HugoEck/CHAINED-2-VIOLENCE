@@ -257,7 +257,15 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         if (bIsPlayer2Assigned)
         {
             _player2GameObject.GetComponent<Player>().enabled = true;
+            _player2GameObject.GetComponentInChildren<Animator>(false).enabled = true;
+            _player2GameObject.GetComponent<CapsuleCollider>().enabled = true;
+
             Debug.Log("Player 2 joined the game");
+        }
+        else
+        {
+            _player2GameObject.GetComponentInChildren<Animator>(false).enabled = false;
+            _player2GameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
     }
     public bool BIsPlayer2Assigned
