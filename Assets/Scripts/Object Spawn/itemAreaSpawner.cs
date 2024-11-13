@@ -49,6 +49,11 @@ public class itemAreaSpawner : MonoBehaviour
     private bool itemsSpawnedForSciFiWave = false;
 
     private bool isDespawning = false;
+    
+
+    //-------------SAMS SCRIPTS-------------------------
+
+    public GridGraphUpdater gridGraphUpdater;
 
     #endregion
 
@@ -61,11 +66,11 @@ public class itemAreaSpawner : MonoBehaviour
     {
         SpawnWithWaves();
 
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    WaveManager.currentWave++;
-        //    Debug.Log(WaveManager.currentWave);
-        //}
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            WaveManager.currentWave++;
+            Debug.Log(WaveManager.currentWave);
+        }
     }
 
     void SpawnItems(GameObject[] objectArray)
@@ -116,13 +121,28 @@ public class itemAreaSpawner : MonoBehaviour
                 GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
                 spawnedObjects.Add(clone);
 
+
+
+                //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
+                float updateRadius = 0;
+                Collider collider = clone.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    Bounds bounds = collider.bounds;
+                    updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2.0f) + 1;
+                }
+                if (!clone.CompareTag("Decor"))
+                {
+                    gridGraphUpdater.UpdateGrid(clone.transform.position, updateRadius);
+                }
+
                 return true;  // Successfully spawned an item
             }
         }
         return false;  // Failed to spawn due to overlap
     }   
 
-    void DespawnObjects()
+    void DespawnObjects() 
     {
         foreach (GameObject obj in spawnedObjects)
         {
@@ -146,6 +166,21 @@ public class itemAreaSpawner : MonoBehaviour
                     //obj.AddComponent<MoveDownwards>();
                     objectShader.StartDespawn();
                 }
+              
+            }
+
+
+            //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
+            float updateRadius = 0;
+            Collider collider = obj.GetComponent<Collider>();
+            if (collider != null)
+            {
+                Bounds bounds = collider.bounds;
+                updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2.0f) + 1;
+            }
+            if (!obj.CompareTag("Decor"))
+            {
+                gridGraphUpdater.RemoveObstacleUpdate(obj.transform.position, updateRadius);
             }
         }
         spawnedObjects.Clear();
