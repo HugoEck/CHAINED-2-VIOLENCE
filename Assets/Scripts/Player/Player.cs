@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using static NPC_Customization;
 
@@ -50,6 +51,9 @@ public class Player : MonoBehaviour
     private static int playersDefeated = 0;
 
     public event Action<float> PlayerSpawnedIn;
+
+    private float _respawnCooldown = 10;
+    private float _respawnTime;
     
     private void Awake()
     {          
@@ -129,13 +133,13 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        HandleKnockout();
+
         if (_bIsPlayerDisabled) return;
 
         GetPlayerMovementInput();
              
         UpdatePlayerCombat();
-
-        HandleKnockout();
 
         GhostChainIgnoreCollision();
     }
@@ -262,6 +266,7 @@ public class Player : MonoBehaviour
                 player1Obj.GetComponent<CapsuleCollider>().enabled = false;
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
+            
             }
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
             {
@@ -269,6 +274,12 @@ public class Player : MonoBehaviour
                 player2Obj.GetComponent<CapsuleCollider>().enabled = false;
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
+                
+            }
+
+            if(_bIsPlayerDisabled)
+            {
+                Respawn();
             }
 
             if (playersDefeated == 2)
@@ -286,13 +297,8 @@ public class Player : MonoBehaviour
                 player1Obj.GetComponent<CapsuleCollider>().enabled = false;
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
-            }
-            else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
-            {
-                player2Obj.GetComponentInChildren<Animator>(false).enabled = false;
-                player2Obj.GetComponent<CapsuleCollider>().enabled = false;
-                _bIsPlayerDisabled = true;
-            }
+
+            }        
 
             if (playersDefeated == 1)
             {                
@@ -302,7 +308,38 @@ public class Player : MonoBehaviour
         }
         
     }
+    private bool respawnTimerSet = false;
+    private void Respawn()
+    {
+        if(!respawnTimerSet)
+        {
+            _respawnTime = _respawnCooldown;
+            respawnTimerSet = true;
+        }
+        
+        _respawnTime -= Time.deltaTime;
 
+        if(_respawnTime <= 0)
+        {
+            playersDefeated--;
+            currentHealth = InitialMaxHealth;
+            _bIsPlayerDisabled = false;
+            respawnTimerSet = false;
+
+            if(_playerId == 1)
+            {
+                player1Obj.GetComponentInChildren<Animator>(false).enabled = true;
+                player1Obj.GetComponent<CapsuleCollider>().enabled = true;
+            }
+            else if(_playerId == 2)
+            {
+                player2Obj.GetComponentInChildren<Animator>(false).enabled = true;
+                player2Obj.GetComponent<CapsuleCollider>().enabled = true;
+            }
+
+        }
+    }
+    
     public void SetHealth(float damage)
     {
         if (GhostChain._bIsGhostChainActive) return;
@@ -330,6 +367,7 @@ public class Player : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            
             // Handle player's death here if needed
             //Debug.Log(gameObject.tag + " has died.");
         }
