@@ -22,7 +22,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         LobbyScene,
         ArenaScene
     };
-    
+
     public enum GameState
     {
         Playing,
@@ -60,7 +60,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
     ShaderScript arenaShader;
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -68,13 +68,17 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }       
+        }
+
+
     }
-    
+
     private void Start()
     {
         _player2GameObject = GameObject.FindGameObjectWithTag("Player2");
         _player2GameObject.GetComponent<Player>().enabled = false;
+
+
 
     }
     private void Update()
@@ -83,6 +87,14 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         if (arenaShader == null && currentSceneState == SceneState.ArenaScene)
         {
             arenaShader = GameObject.FindAnyObjectByType<ShaderScript>();
+        }
+
+        if (!bIsPlayer2Assigned)
+        {
+            _player2GameObject = GameObject.FindGameObjectWithTag("Player2");
+
+            _player2GameObject.GetComponentInChildren<Animator>(false).enabled = false;
+            _player2GameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
     }
 
@@ -147,13 +159,13 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newGameState);
     }
 
-    
+
 
     public void UpdateSceneState(SceneState newSceneState)
     {
         currentSceneState = newSceneState;
 
-        switch(currentSceneState)
+        switch (currentSceneState)
         {
             case SceneState.LobbyScene:
 
@@ -182,7 +194,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         switch (currentLobbyState)
         {
             case LobbyState.Playing:
-               
+
                 // Should call the same handling method as in UpdateGameState "Playing"
 
                 break;
@@ -245,7 +257,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
 
     public void OnDestroy()
     {
-        
+
     }
 
     #region Assign player 2
@@ -262,11 +274,9 @@ public class Chained2ViolenceGameManager : MonoBehaviour
 
             Debug.Log("Player 2 joined the game");
         }
-        else
-        {
-            _player2GameObject.GetComponentInChildren<Animator>(false).enabled = false;
-            _player2GameObject.GetComponent<CapsuleCollider>().enabled = false;
-        }
+
+
+
     }
     public bool BIsPlayer2Assigned
     {
