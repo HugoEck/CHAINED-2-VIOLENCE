@@ -8,6 +8,7 @@ public class KillAgent : Node
     float deathDurationTime = 5;
     float deathTimerStart = 0;
     private bool isTimerInitialized = false;
+    private bool giveGold = false;
 
 
 
@@ -25,9 +26,17 @@ public class KillAgent : Node
             isTimerInitialized = true;
         }
 
+        if (giveGold == false)
+        {
+            if (GoldDropManager.Instance != null)
+            {
+                GoldDropManager.Instance.AddGold(agent.unitCost);
+                giveGold = true;
+            }
+        }
+
         if (Time.time >= deathTimerStart + deathDurationTime)
         {
-            //ADDERA PENGAR HÄR: totalaPengar += agent.cost;
             GameObject.Destroy(agent.gameObject);
             return NodeState.SUCCESS;
         }
