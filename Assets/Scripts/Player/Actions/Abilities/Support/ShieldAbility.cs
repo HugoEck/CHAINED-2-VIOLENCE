@@ -12,13 +12,23 @@ public class ShieldAbility : MonoBehaviour, IAbility
 
     private bool isShieldActive = false;
 
-    // Reference to the other player
-    [SerializeField] private GameObject otherPlayer; // Assign the other player's GameObject in the Inspector or via code
+    [Header("Cooldown Settings")]
+    [SerializeField] private float cooldown = 5f; // Cooldown duration in seconds
+    private float lastBreakTime = -Mathf.Infinity; // Time when the shield last broke
+
+    [SerializeField] private GameObject otherPlayer; // Reference to the other player
 
     public void UseAbility()
     {
-        ActivateShield();
-        ApplyShieldToOtherPlayer(); // Activate shield for the other player as well
+        if (Time.time >= lastBreakTime + cooldown) // Check if cooldown has elapsed
+        {
+            ActivateShield();
+            ApplyShieldToOtherPlayer();
+        }
+        else
+        {
+            Debug.Log("Shield ability is on cooldown.");
+        }
     }
 
     private void ActivateShield()
@@ -32,8 +42,6 @@ public class ShieldAbility : MonoBehaviour, IAbility
         if (shieldVisualPrefab != null)
         {
             activeShieldVisual = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity, transform);
-
-            // Adjust the local position after instantiation to move it to the correct height
             activeShieldVisual.transform.localPosition = new Vector3(0, -3.0f, 0); // Adjust Y value as needed
         }
 
@@ -57,7 +65,6 @@ public class ShieldAbility : MonoBehaviour, IAbility
         }
     }
 
-    // Call this method when damage is taken while the shield is active
     public float AbsorbDamage(float damage)
     {
         if (!isShieldActive) return damage; // If shield is not active, pass damage through
@@ -65,24 +72,22 @@ public class ShieldAbility : MonoBehaviour, IAbility
         currentShieldHealth -= damage;
         Debug.Log(gameObject.name + " Shield absorbed " + damage + " damage. Remaining Shield Health: " + currentShieldHealth);
 
-        // If shield health goes below or equals zero, break the shield and calculate remaining damage
         if (currentShieldHealth <= 0)
         {
-            float remainingDamage = Mathf.Abs(currentShieldHealth); // Any excess damage over the shield's health
+            float remainingDamage = Mathf.Abs(currentShieldHealth);
             BreakShield();
             return remainingDamage; // Return leftover damage that needs to be applied to the player
         }
 
-        // If shield is still active and absorbed all damage, return 0 damage
-        return 0;
+        return 0; // Shield absorbed all damage
     }
 
     private void BreakShield()
     {
         isShieldActive = false;
         currentShieldHealth = 0;
+        lastBreakTime = Time.time; // Start the cooldown timer when the shield breaks
 
-        // Destroy the shield visual when the shield breaks
         if (activeShieldVisual != null)
         {
             Destroy(activeShieldVisual);
@@ -91,7 +96,6 @@ public class ShieldAbility : MonoBehaviour, IAbility
         Debug.Log(gameObject.name + " Shield has broken.");
     }
 
-    // Check if shield is active
     public bool IsShieldActive()
     {
         return isShieldActive;
@@ -99,10 +103,8 @@ public class ShieldAbility : MonoBehaviour, IAbility
 
     private void Update()
     {
-        // Optional: If you want the shield to follow the player’s movement
         if (isShieldActive && activeShieldVisual != null)
         {
-            // Apply an offset to the shield's position relative to the player
             Vector3 offset = new Vector3(0, -1.0f, 0); // Adjust Y value as needed
             activeShieldVisual.transform.position = transform.position + offset;
         }

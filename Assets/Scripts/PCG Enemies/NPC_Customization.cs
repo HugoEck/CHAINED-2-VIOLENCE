@@ -245,6 +245,10 @@ public class NPC_Customization : MonoBehaviour
         ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
         SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
         BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
+        IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
+        ignoreChain.ObjectIgnoresLaserChain();
+
+        enemy.transform.localScale *= 1.5f;
 
         GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
         
@@ -273,8 +277,6 @@ public class NPC_Customization : MonoBehaviour
         if (Class == NPCClass.Basic)
         {
             PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
-
-            behaviour.navigation.maxSpeed = 1;
 
         }
         else if (Class == NPCClass.Runner)

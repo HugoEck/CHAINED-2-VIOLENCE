@@ -6,14 +6,30 @@ public class ConeAbility : MonoBehaviour, IAbility
     public float coneAngle = 90f;
     public float coneDamage = 50f;
     public GameObject coneEffectPrefab;
-    public Transform coneAnchor;            // Anchor object for the effect to follow
+    public Transform coneAnchor;           // Anchor object for the effect to follow
+
+    public float cooldown = 5f;            // Cooldown duration in seconds
+    private float lastUseTime = -Mathf.Infinity;  // Time when the ability was last used
 
     public void UseAbility()
     {
-        // Check if the cone anchor and effect prefab are assigned
+        // Check if the cooldown has elapsed
+        if (Time.time >= lastUseTime + cooldown)
+        {
+            ActivateConeAbility();
+            lastUseTime = Time.time; // Update the last use time
+        }
+        else
+        {
+            Debug.Log("Cone ability is on cooldown.");
+        }
+    }
+
+    void ActivateConeAbility()
+    {
+        // Instantiate the visual effect at the anchor's position
         if (coneEffectPrefab != null && coneAnchor != null)
         {
-            // Instantiate the visual effect at the anchor's position
             GameObject coneEffect = Instantiate(coneEffectPrefab, coneAnchor.position, Quaternion.identity);
 
             // Make the effect follow the cone anchor
@@ -21,10 +37,9 @@ public class ConeAbility : MonoBehaviour, IAbility
 
             // Align and scale the visual effect to match the cone
             coneEffect.transform.localRotation = Quaternion.identity; // Keep aligned with the anchor's forward direction
-            coneEffect.transform.localScale = new Vector3(coneRange, coneRange, coneRange); // Scale as needed
+            coneEffect.transform.localScale = new Vector3(coneRange, coneRange, coneRange);
 
-            // Optionally destroy the effect after some time if it's temporary
-            Destroy(coneEffect, 2.0f);
+            Destroy(coneEffect, 2.0f); // Destroy the effect after some time if it's temporary
         }
 
         // Find all enemies within the range
@@ -43,6 +58,7 @@ public class ConeAbility : MonoBehaviour, IAbility
                 {
                     enemyManager.DealDamageToEnemy(coneDamage);
                     Debug.Log("Cone hit enemy: " + enemy.name);
+                   // enemyManager.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 150, ForceMode.Force);
                 }
             }
         }
@@ -52,29 +68,23 @@ public class ConeAbility : MonoBehaviour, IAbility
 
     private void OnDrawGizmosSelected()
     {
-        if (!Application.isPlaying) return; // Optional: Only show in Play Mode
+        if (!Application.isPlaying) return;
 
-        // Draw the cone range as a sphere
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, coneRange);
 
-        // Draw lines representing the cone edges
         Vector3 forwardDirection = transform.forward * coneRange;
 
-        // Calculate the left edge of the cone
         Quaternion leftRotation = Quaternion.AngleAxis(-coneAngle / 2, Vector3.up);
         Vector3 leftEdge = leftRotation * forwardDirection;
 
-        // Calculate the right edge of the cone
         Quaternion rightRotation = Quaternion.AngleAxis(coneAngle / 2, Vector3.up);
         Vector3 rightEdge = rightRotation * forwardDirection;
 
-        // Draw cone edges
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + leftEdge);
         Gizmos.DrawLine(transform.position, transform.position + rightEdge);
 
-        // Optionally, draw arc lines to better visualize the cone
         Gizmos.color = Color.yellow;
         for (float i = -coneAngle / 2; i <= coneAngle / 2; i += coneAngle / 10)
         {

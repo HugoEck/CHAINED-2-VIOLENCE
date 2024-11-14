@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
@@ -6,14 +7,39 @@ public class Projectile : MonoBehaviour, IAbility
     public Transform firePoint;
     public Transform playerDirection;
     public float projectileSpeed = 20f;
+    public float cooldown = 3f;        // Cooldown duration in seconds
+    private float shootTimer;
+
+    private bool bHasshot = false;
+
+    void Start()
+    {
+        shootTimer = cooldown;
+    }
 
     public void UseAbility()
+    {      
+        Shoot();    
+    }
+    private void Update()
     {
-        Shoot();
+        if (bHasshot)
+        {
+            shootTimer -= Time.deltaTime;
+
+            if (shootTimer <= 0)
+            {
+                bHasshot = false;
+                shootTimer = cooldown;
+            }
+        }
     }
 
     void Shoot()
     {
+        if (bHasshot) return;
+
+        shootTimer = cooldown;
         Vector3 direction = playerDirection.forward.normalized;
 
         // Instantiate the projectile at a slight offset to avoid immediate collision
@@ -21,6 +47,7 @@ public class Projectile : MonoBehaviour, IAbility
 
         projectile.layer = LayerMask.NameToLayer("Projectile");
 
+        // Ignore collision between the player and the projectile
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Projectile"));
 
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
@@ -33,5 +60,6 @@ public class Projectile : MonoBehaviour, IAbility
         {
             Debug.LogError("Projectile is missing Rigidbody component.");
         }
+        bHasshot = true;
     }
 }
