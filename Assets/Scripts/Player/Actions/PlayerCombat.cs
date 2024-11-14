@@ -54,6 +54,8 @@ public class PlayerCombat : MonoBehaviour
     private ShieldAbility shieldAbility;
     private ConeAbility coneAbility;
 
+    private BasicAttackComboManager basicAttackComboManager;
+
     #endregion
    
     private void Awake()
@@ -89,6 +91,7 @@ public class PlayerCombat : MonoBehaviour
         projectile = GetComponent<Projectile>();
         shieldAbility = GetComponent<ShieldAbility>();
         coneAbility = GetComponent<ConeAbility>();
+        basicAttackComboManager = GetComponent<BasicAttackComboManager>();
     }
     private void OnDestroy()
     {
@@ -121,6 +124,7 @@ public class PlayerCombat : MonoBehaviour
     /// </summary>
     public void UseBaseAttack()
     {
+        basicAttackComboManager.PerformComboAttack();
         // Find all enemies within the attack range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
         foreach (Collider enemy in hitEnemies)
