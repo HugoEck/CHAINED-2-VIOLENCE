@@ -4,13 +4,20 @@
 /// </summary>
 public class BasicAttackComboOne : BasicAttackComboDecorator
 {
-    public BasicAttackComboOne(IBasicAttack wrappedBasicAttack) : base(wrappedBasicAttack)
+    
+    public BasicAttackComboOne(IBasicAttack wrappedBasicAttack) 
+        : base(wrappedBasicAttack)
     {
-
+                
     }
 
     public override void Execute()
     {
         _wrappedBasicAttack.Execute();
+    }
+
+    protected override void SwitchWeapon()
+    {
+
     }
 }

@@ -18,9 +18,9 @@ public class BasicAttackComboManager : MonoBehaviour
         // Initialize the list of combo stages, starting with the basic attack
         _comboAttacks = new List<IBasicAttack>
         {
-            new BasicAttackComboOne(new BasicAttack()), // Combo stage 1
-            new BasicAttackComboTwo(new BasicAttack()), // Combo stage 2
-            new BasicAttackComboThree(new BasicAttack()), // Combo stage 3
+            new BasicAttackComboOne(new BasicAttack(transform.position)), // Combo stage 1
+            new BasicAttackComboTwo(new BasicAttack(transform.position)), // Combo stage 2
+            new BasicAttackComboThree(new BasicAttack(transform.position)), // Combo stage 3
         };
     }
 
@@ -36,7 +36,7 @@ public class BasicAttackComboManager : MonoBehaviour
         {
             StopCoroutine(comboResetCoroutine);
         }
-
+        
         // Execute the current attack
         currentAttack.Execute();
         Debug.Log("Combo attack: " + _comboAttacks[_comboStage]);

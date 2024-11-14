@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public abstract class BasicAttackComboDecorator : IBasicAttack
@@ -13,5 +12,10 @@ public abstract class BasicAttackComboDecorator : IBasicAttack
     public virtual void Execute()
     {
         _wrappedBasicAttack.Execute();
-    } 
+    }
+
+    protected virtual void SwitchWeapon()
+    {
+        
+    }
 }
