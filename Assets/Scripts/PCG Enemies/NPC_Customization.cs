@@ -278,8 +278,6 @@ public class NPC_Customization : MonoBehaviour
         {
             PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
 
-            behaviour.navigation.maxSpeed = 2;
-
         }
         else if (Class == NPCClass.Runner)
         {
