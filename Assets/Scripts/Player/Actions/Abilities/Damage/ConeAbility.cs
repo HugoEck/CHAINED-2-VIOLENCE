@@ -58,6 +58,7 @@ public class ConeAbility : MonoBehaviour, IAbility
                 {
                     enemyManager.DealDamageToEnemy(coneDamage);
                     Debug.Log("Cone hit enemy: " + enemy.name);
+                   // enemyManager.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 150, ForceMode.Force);
                 }
             }
         }

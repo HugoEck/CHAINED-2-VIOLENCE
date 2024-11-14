@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
@@ -6,25 +7,39 @@ public class Projectile : MonoBehaviour, IAbility
     public Transform firePoint;
     public Transform playerDirection;
     public float projectileSpeed = 20f;
-    public float cooldown = 2f;        // Cooldown duration in seconds
-    private float lastShootTime = -Mathf.Infinity; // Time when the ability was last used
+    public float cooldown = 3f;        // Cooldown duration in seconds
+    private float shootTimer;
+
+    private bool bHasshot = false;
+
+    void Start()
+    {
+        shootTimer = cooldown;
+    }
 
     public void UseAbility()
+    {      
+        Shoot();    
+    }
+    private void Update()
     {
-        // Check if the ability is ready (cooldown has elapsed)
-        if (Time.time >= lastShootTime + cooldown)
+        if (bHasshot)
         {
-            Shoot();
-            lastShootTime = Time.time; // Update the last use time
-        }
-        else
-        {
-            Debug.Log("Projectile ability is on cooldown.");
+            shootTimer -= Time.deltaTime;
+
+            if (shootTimer <= 0)
+            {
+                bHasshot = false;
+                shootTimer = cooldown;
+            }
         }
     }
 
     void Shoot()
     {
+        if (bHasshot) return;
+
+        shootTimer = cooldown;
         Vector3 direction = playerDirection.forward.normalized;
 
         // Instantiate the projectile at a slight offset to avoid immediate collision
@@ -45,5 +60,6 @@ public class Projectile : MonoBehaviour, IAbility
         {
             Debug.LogError("Projectile is missing Rigidbody component.");
         }
+        bHasshot = true;
     }
 }

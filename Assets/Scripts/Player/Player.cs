@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,7 +9,7 @@ using static NPC_Customization;
 /// <summary>
 /// This script handles updating all the player actions (i.e, movement, combat etc)
 /// </summary>
-public class Player : MonoBehaviour 
+public class Player : MonoBehaviour
 {
     // References for all player functionality (components) here
     #region Player components
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
 
     GameObject player1Obj;
     GameObject player2Obj;
-    public int _playerId {  get; private set; }
+    public int _playerId { get; private set; }
 
     private LayerMask _defaultIgnoreCollisionLayer;
     #endregion
@@ -54,15 +55,19 @@ public class Player : MonoBehaviour
 
     private float _respawnCooldown = 10;
     private float _respawnTime;
-    
+
+    // Arrays to store the found colliders
+    private List<Collider> capsuleColliders = new List<Collider>();
+    private List<Collider> boxColliders = new List<Collider>();
+
     private void Awake()
-    {          
-        if(gameObject.tag == "Player1")
+    {
+        if (gameObject.tag == "Player1")
         {
             player1Obj = gameObject;
             _playerId = 1;
         }
-        else if(gameObject.tag == "Player2")
+        else if (gameObject.tag == "Player2")
         {
             player2Obj = gameObject;
             _playerId = 2;
@@ -95,11 +100,11 @@ public class Player : MonoBehaviour
         currentHealth = _maxHealth;
 
         if (_playerId == 1)
-        {       
+        {
             //_maxHealth = StatsTransfer.Player1MaxHealth > 0 ? StatsTransfer.Player1MaxHealth : _maxHealth;
             //currentHealth = StatsTransfer.Player1Health > 0 ? StatsTransfer.Player1Health : _maxHealth;
-           
-            
+
+
             PlayerSpawnedIn?.Invoke(_maxHealth);
             _maxHealth = StatsTransfer.Player1Health;
         }
@@ -107,13 +112,13 @@ public class Player : MonoBehaviour
         {
             //_maxHealth = StatsTransfer.Player2MaxHealth > 0 ? StatsTransfer.Player2MaxHealth : _maxHealth;
             //currentHealth = StatsTransfer.Player2Health > 0 ? StatsTransfer.Player2Health : _maxHealth;
-            
+
             PlayerSpawnedIn?.Invoke(_maxHealth);
             _maxHealth = StatsTransfer.Player2Health;
         }
 
         InitialMaxHealth = _maxHealth;
-        currentHealth = _maxHealth; 
+        currentHealth = _maxHealth;
 
         _defaultIgnoreCollisionLayer = _playerCollider.excludeLayers.value;
 
@@ -124,12 +129,18 @@ public class Player : MonoBehaviour
         Chained2ViolenceGameManager.Instance.OnSceneStateChanged += Chained2ViolenceGameManagerOnSceneStateChanged;
 
         StartCoroutine(DisablePlayerMovementTmp());
+
+        // Find and add all CapsuleColliders and BoxColliders to the arrays
+        FindAndStoreColliders(transform);
+
+        // Turn off the colliders (disable their components)
+        DisableColliders();
     }
     private void FixedUpdate()
     {
         if (_bIsPlayerDisabled) return;
 
-        UpdatePlayerMovement();      
+        UpdatePlayerMovement();
     }
     private void Update()
     {
@@ -138,7 +149,7 @@ public class Player : MonoBehaviour
         if (_bIsPlayerDisabled) return;
 
         GetPlayerMovementInput();
-             
+
         UpdatePlayerCombat();
 
         GhostChainIgnoreCollision();
@@ -150,7 +161,7 @@ public class Player : MonoBehaviour
 
         _playerMovement.MovePlayer(_movementInput);
 
-        if(_playerId == 1)
+        if (_playerId == 1)
         {
             // Player 1 can use both gamepad and keyboard when player 2 hasn't joined
             if (InputManager.Instance.currentInputType == InputManager.InputType.Gamepad)
@@ -162,11 +173,11 @@ public class Player : MonoBehaviour
                 _playerMovement.RotatePlayerToCursor();
             }
         }
-        else if( _playerId == 2)
+        else if (_playerId == 2)
         {
             _playerMovement.RotatePlayerWithJoystick(_rotationInput);
         }
-       
+
     }
 
     private void GetPlayerMovementInput()
@@ -210,14 +221,14 @@ public class Player : MonoBehaviour
             {
                 _animationStateController.StartAttackAnimation();
                 Debug.Log("Player 1 is using basic attack");
-                
+
             }
-            else if(_bIsUsingAbilityAttack)
+            else if (_bIsUsingAbilityAttack)
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 1 is using Ability");
             }
-            else if(_bIsUsingUltimateAttack)
+            else if (_bIsUsingUltimateAttack)
             {
                 UltimateAbilityManager.instance.UseUltimateAbilityPlayer1();
                 Debug.Log("Player 1 is using Ultimate ability");
@@ -234,12 +245,12 @@ public class Player : MonoBehaviour
                 _animationStateController.StartAttackAnimation();
                 Debug.Log("Player 2 is using basic attack");
             }
-            else if(_bIsUsingAbilityAttack)
+            else if (_bIsUsingAbilityAttack)
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 2 is using Ability");
             }
-            else if(_bIsUsingUltimateAttack)
+            else if (_bIsUsingUltimateAttack)
             {
                 UltimateAbilityManager.instance.UseUltimateAbilityPlayer2();
                 Debug.Log("Player 2 is using Ultimate ability");
@@ -256,9 +267,9 @@ public class Player : MonoBehaviour
     /// </summary>
     private void HandleKnockout()
     {
-        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;    
+        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;
 
-        if(Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
         {
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
@@ -266,7 +277,7 @@ public class Player : MonoBehaviour
                 player1Obj.GetComponent<CapsuleCollider>().enabled = false;
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
-            
+
             }
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
             {
@@ -274,16 +285,17 @@ public class Player : MonoBehaviour
                 player2Obj.GetComponent<CapsuleCollider>().enabled = false;
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
-                
+
             }
 
-            if(_bIsPlayerDisabled)
+            if (_bIsPlayerDisabled)
             {
+                EnableColliders();
                 Respawn();
             }
 
             if (playersDefeated == 2)
-            {                
+            {
                 playersDefeated = 0;
                 Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
             }
@@ -298,48 +310,52 @@ public class Player : MonoBehaviour
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
 
-            }        
+            }
 
             if (playersDefeated == 1)
-            {                
+            {
                 playersDefeated = 0;
-                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);             
+                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
             }
         }
-        
+
     }
     private bool respawnTimerSet = false;
     private void Respawn()
     {
-        if(!respawnTimerSet)
+        if (!respawnTimerSet)
         {
             _respawnTime = _respawnCooldown;
             respawnTimerSet = true;
         }
-        
+
         _respawnTime -= Time.deltaTime;
 
-        if(_respawnTime <= 0)
+        if (_respawnTime <= 0)
         {
             playersDefeated--;
             currentHealth = InitialMaxHealth;
             _bIsPlayerDisabled = false;
             respawnTimerSet = false;
 
-            if(_playerId == 1)
+            if (_playerId == 1)
             {
                 player1Obj.GetComponentInChildren<Animator>(false).enabled = true;
                 player1Obj.GetComponent<CapsuleCollider>().enabled = true;
+
+                DisableColliders();
             }
-            else if(_playerId == 2)
+            else if (_playerId == 2)
             {
                 player2Obj.GetComponentInChildren<Animator>(false).enabled = true;
                 player2Obj.GetComponent<CapsuleCollider>().enabled = true;
+
+                DisableColliders();
             }
 
         }
     }
-    
+
     public void SetHealth(float damage)
     {
         if (GhostChain._bIsGhostChainActive) return;
@@ -367,7 +383,7 @@ public class Player : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            
+
             // Handle player's death here if needed
             //Debug.Log(gameObject.tag + " has died.");
         }
@@ -397,14 +413,14 @@ public class Player : MonoBehaviour
     #region Events
 
     private void Chained2ViolenceGameManagerOnGameStateChanged(Chained2ViolenceGameManager.GameState state)
-    {      
+    {
 
         if (state == Chained2ViolenceGameManager.GameState.Paused || state == Chained2ViolenceGameManager.GameState.GameOver)
         {
             _bIsPlayerDisabled = true;
         }
-        else if(state == Chained2ViolenceGameManager.GameState.Playing)
-        {           
+        else if (state == Chained2ViolenceGameManager.GameState.Playing)
+        {
             _bIsPlayerDisabled = false;
         }
     }
@@ -424,7 +440,7 @@ public class Player : MonoBehaviour
 
     private void Chained2ViolenceGameManagerOnSceneStateChanged(Chained2ViolenceGameManager.SceneState state)
     {
-             
+
     }
 
     private IEnumerator DisablePlayerMovementTmp()
@@ -441,18 +457,79 @@ public class Player : MonoBehaviour
 
     private void GhostChainIgnoreCollision()
     {
-        
+        CapsuleCollider[] ragdollCapsules;
+
         if (GhostChain._bIsGhostChainActive)
         {
             _playerCollider.excludeLayers = GhostChain.ignoreCollisionLayers;
-            
+
         }
         else
         {
             _playerCollider.excludeLayers = _defaultIgnoreCollisionLayer;
         }
-       
+
     }
+
+    void FindAndStoreColliders(Transform parentTransform)
+    {
+        // Iterate through all the colliders in this GameObject and its children
+        Collider[] colliders = parentTransform.GetComponentsInChildren<Collider>();
+
+        // Iterate through the colliders and add them to the appropriate list
+        foreach (var collider in colliders)
+        {
+            if(collider == colliders[0])
+            {
+                continue;
+            }
+
+            if (collider is CapsuleCollider)
+            {
+                capsuleColliders.Add(collider);
+            }
+            else if (collider is BoxCollider)
+            {
+                boxColliders.Add(collider);
+            }
+        }
+    }
+
+    // Method to disable the colliders by turning off the components
+    void DisableColliders()
+    {
+        // Disable all CapsuleColliders
+        foreach (var capsuleCollider in capsuleColliders)
+        {
+            capsuleCollider.enabled = false;
+        }
+
+        // Disable all BoxColliders
+        foreach (var boxCollider in boxColliders)
+        {
+            boxCollider.enabled = false;
+        }
+
+        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+    }
+
+    void EnableColliders()
+    {
+        // Disable all CapsuleColliders
+        foreach (var capsuleCollider in capsuleColliders)
+        {
+            capsuleCollider.enabled = true;
+        }
+
+        // Disable all BoxColliders
+        foreach (var boxCollider in boxColliders)
+        {
+            boxCollider.enabled = true;
+        }
+
+        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+    }
+
 
     #endregion
 }
