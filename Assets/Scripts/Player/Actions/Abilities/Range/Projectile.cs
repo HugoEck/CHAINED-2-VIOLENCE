@@ -12,6 +12,11 @@ public class Projectile : MonoBehaviour, IAbility
 
     private bool bHasshot = false;
 
+    void Start()
+    {
+        shootTimer = cooldown;
+    }
+
     public void UseAbility()
     {      
         Shoot();    
