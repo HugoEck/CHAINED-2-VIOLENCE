@@ -78,7 +78,7 @@ public class CyberGiantManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 100;
+        maxHealth = 1000;
         currentHealth = maxHealth;
         navigation.maxSpeed = speed;
         baseDefense = defense;
