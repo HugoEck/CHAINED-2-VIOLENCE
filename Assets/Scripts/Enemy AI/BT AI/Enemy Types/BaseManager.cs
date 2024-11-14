@@ -44,6 +44,13 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
 
+    [HideInInspector] private Material material; // Assign the material in the Inspector
+    [HideInInspector] private Color flashColor = Color.white; // The color you want it to flash
+    [HideInInspector] private float flashDuration = 0.1f; // Duration of the flash
+    [HideInInspector] private Color originalColor;
+    [HideInInspector] private bool isFlashing = false;
+    Renderer renderer;
+
     public virtual void Awake()
     {
         chainEffects = new AIChainEffects();
@@ -67,6 +74,26 @@ public class BaseManager : MonoBehaviour
 
         playerManager1 = player1.GetComponent<Player>();
         playerManager2 = player2.GetComponent<Player>();
+
+        renderer = GetComponentInChildren<Renderer>(false);
+        foreach (Transform child in transform)
+        {
+            // Skip if the GameObject is inactive or is the "Root" GameObject
+            if (!child.gameObject.activeInHierarchy || child.name == "Root")
+            {
+                continue;
+            }
+
+            // Get the Renderer component from active, direct children
+            renderer = child.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                material = renderer.material;
+                break;
+            }
+        }
+        material.EnableKeyword("_EMISSION");
+        originalColor = material.GetColor("_EmissionColor");
     }
     private void Update()
     {
@@ -81,7 +108,55 @@ public class BaseManager : MonoBehaviour
         {
             particleEffects.ActivateBloodParticles(transform);
             currentHealth = currentHealth + defense - damage;
+
+
+            //Trigger Flash effect here
+            if(!isFlashing)
+            {
+                StartCoroutine(FlashCoroutine());
+            }
         }
+    }
+
+    private IEnumerator FlashCoroutine()
+    {
+        isFlashing = true;
+
+        float elapsedTime = 0f;
+
+        // Enable emission if it's off
+        material.EnableKeyword("_EMISSION");
+
+        while (elapsedTime < flashDuration)
+        {
+            // Calculate the current color by interpolating between the original and flash colors
+            Color currentColor = Color.Lerp(originalColor, flashColor, elapsedTime / flashDuration);
+            material.SetColor("_EmissionColor", currentColor);
+
+            // Increment elapsed time
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Set to the flash color at the end of the flashDuration
+        material.SetColor("_EmissionColor", flashColor);
+
+        // Lerp back to the original color
+        elapsedTime = 0f;
+        while (elapsedTime < flashDuration)
+        {
+            Color currentColor = Color.Lerp(flashColor, originalColor, elapsedTime / flashDuration);
+            material.SetColor("_EmissionColor", currentColor);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Reset to the original color and disable emission if it was off
+        material.SetColor("_EmissionColor", originalColor);
+        material.DisableKeyword("_EMISSION");
+
+        isFlashing = false;
     }
 
 }
