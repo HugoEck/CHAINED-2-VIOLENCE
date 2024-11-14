@@ -21,7 +21,6 @@ public class WeaponManager : MonoBehaviour
 
     private void Start()
     {
-        // Convert List to Dictionary for faster lookups
         foreach (var entry in classWeaponsParentsList)
         {
             if (!classWeaponsParents.ContainsKey(entry.playerClass))
@@ -29,8 +28,6 @@ public class WeaponManager : MonoBehaviour
                 classWeaponsParents.Add(entry.playerClass, entry.weaponsParent);
             }
         }
-
-        // Load weapons for the default class, if available
         if (classWeaponsParents.TryGetValue(PlayerCombat.PlayerClass.Default, out var defaultWeaponsParent))
         {
             LoadWeapons(defaultWeaponsParent);
@@ -60,7 +57,7 @@ public class WeaponManager : MonoBehaviour
                 if (weapon != null)
                 {
                     weaponDictionary[weapon.weaponId] = weaponObject;
-                    weaponObject.SetActive(false);  // Deactivate initially
+                    weaponObject.SetActive(false);
                 }
             }
         }

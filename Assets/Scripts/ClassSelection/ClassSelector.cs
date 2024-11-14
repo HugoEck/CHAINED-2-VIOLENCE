@@ -34,7 +34,6 @@ public class ClassSelector : MonoBehaviour
 
         if(other.CompareTag("Tank"))
         {
-            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Tank);
             classType = PlayerCombat.PlayerClass.Tank;
             ShowClassPrompt(other.gameObject, classType);
         }
@@ -47,13 +46,11 @@ public class ClassSelector : MonoBehaviour
         else if(other.CompareTag("Ranged"))
         {
 
-            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Ranged);
             classType = PlayerCombat.PlayerClass.Ranged;
             ShowClassPrompt(other.gameObject, classType);
         }
         else if(other.CompareTag("Support"))
         {
-            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Support);
             classType = PlayerCombat.PlayerClass.Support;
             ShowClassPrompt(other.gameObject, classType);
         }

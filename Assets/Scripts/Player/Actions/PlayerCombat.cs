@@ -25,6 +25,8 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject _rangedObject;
     [SerializeField] private GameObject _warriorObject;
 
+    private WeaponManager _weaponManager;
+
 
     public PlayerClass currentPlayerClass;   
 
@@ -53,7 +55,7 @@ public class PlayerCombat : MonoBehaviour
     private ConeAbility coneAbility;
 
     #endregion
-
+   
     private void Awake()
     {
         classSelector = FindObjectOfType<ClassSelector>();
@@ -65,26 +67,6 @@ public class PlayerCombat : MonoBehaviour
 
         classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
     }
-    private void OnDestroy()
-    {
-        classSelector.OnClassSwitched -= ClassSelectorOnClassSwitched;
-    }
-
-    private void ClassSelectorOnClassSwitched(GameObject player, PlayerClass targetClass)
-    {
-        string activeClass = targetClass.ToString();
-
-        AnimationStateController animator = gameObject.GetComponent<AnimationStateController>();
-
-        Transform findActiveClass = transform.Find("Classes:").transform.Find(activeClass);
-
-        animator._animator = findActiveClass.gameObject.GetComponentInChildren<Animator>();
-        if (animator != null)
-        {
-            animator._animator.Rebind();
-        }
-    }
-
     private void Start()
     {
         playerId = gameObject.GetComponent<Player>()._playerId;
@@ -108,6 +90,31 @@ public class PlayerCombat : MonoBehaviour
         shieldAbility = GetComponent<ShieldAbility>();
         coneAbility = GetComponent<ConeAbility>();
     }
+    private void OnDestroy()
+    {
+        classSelector.OnClassSwitched -= ClassSelectorOnClassSwitched;
+    }
+
+    private void ClassSelectorOnClassSwitched(GameObject player, PlayerClass targetClass)
+    {
+        string activeClass = targetClass.ToString();
+
+        AnimationStateController animator = gameObject.GetComponent<AnimationStateController>();
+
+        Transform findActiveClass = transform.Find("Classes:").transform.Find(activeClass);
+
+        animator._animator = findActiveClass.gameObject.GetComponentInChildren<Animator>();
+        WeaponManager _weaponManager = player.GetComponent<WeaponManager>();
+        _weaponManager.OnClassSwitch(targetClass);
+
+        if (animator != null)
+        {
+            animator._animator.Rebind();
+        }
+
+    }
+
+
 
     /// <summary>
     /// This method is used for basic attacks (Called in Player script)
@@ -228,6 +235,8 @@ public class PlayerCombat : MonoBehaviour
         
         if (currentPlayerClass == PlayerClass.Tank)
         {
+
+
             _defaultObject.SetActive(false);
 
             _rangedObject.SetActive(false);
@@ -235,6 +244,7 @@ public class PlayerCombat : MonoBehaviour
             _warriorObject.SetActive(false);
 
             _tankObject.SetActive(true);
+            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Tank);
 
 
         }
@@ -247,6 +257,7 @@ public class PlayerCombat : MonoBehaviour
             _tankObject.SetActive(false);
 
             _rangedObject.SetActive(true);
+            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Ranged);
         }
         else if(currentPlayerClass == PlayerClass.Warrior)
         {
@@ -257,6 +268,7 @@ public class PlayerCombat : MonoBehaviour
             _rangedObject.SetActive(false);
 
             _warriorObject.SetActive(true);
+            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Warrior);
         }
         else if(currentPlayerClass == PlayerClass.Support)
         {
@@ -267,6 +279,7 @@ public class PlayerCombat : MonoBehaviour
             _warriorObject.SetActive(false);
 
             _supportObject.SetActive(true);
+            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Support);
         }
 
 
