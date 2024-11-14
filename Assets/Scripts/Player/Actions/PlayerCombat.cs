@@ -67,6 +67,8 @@ public class PlayerCombat : MonoBehaviour
 
         classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
     }
+
+
     private void Start()
     {
         playerId = gameObject.GetComponent<Player>()._playerId;
@@ -244,7 +246,7 @@ public class PlayerCombat : MonoBehaviour
             _warriorObject.SetActive(false);
 
             _tankObject.SetActive(true);
-            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Tank);
+           // _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Tank);
 
 
         }
@@ -257,7 +259,7 @@ public class PlayerCombat : MonoBehaviour
             _tankObject.SetActive(false);
 
             _rangedObject.SetActive(true);
-            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Ranged);
+  //     _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Ranged);
         }
         else if(currentPlayerClass == PlayerClass.Warrior)
         {
@@ -268,7 +270,7 @@ public class PlayerCombat : MonoBehaviour
             _rangedObject.SetActive(false);
 
             _warriorObject.SetActive(true);
-            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Warrior);
+        //    _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Warrior);
         }
         else if(currentPlayerClass == PlayerClass.Support)
         {
@@ -279,7 +281,7 @@ public class PlayerCombat : MonoBehaviour
             _warriorObject.SetActive(false);
 
             _supportObject.SetActive(true);
-            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Support);
+         //   _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Support);
         }
 
 

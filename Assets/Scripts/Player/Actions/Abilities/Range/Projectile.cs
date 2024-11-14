@@ -1,49 +1,55 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
 {
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public Transform playerDirection;
     public float projectileSpeed = 20f;
-    public float cooldown = 3f;        // Cooldown duration in seconds
-    private float shootTimer;
-
-    private bool bHasshot = false;
-
-    void Start()
-    {
-        shootTimer = cooldown;
-    }
+    public float cooldown = 2f;        // Cooldown duration in seconds
+    private float lastShootTime = -Mathf.Infinity; // Time when the ability was last used
 
     public void UseAbility()
-    {      
-        Shoot();    
-    }
-    private void Update()
     {
-        if (bHasshot)
+        if (Time.time >= lastShootTime + cooldown)
         {
-            shootTimer -= Time.deltaTime;
-
-            if (shootTimer <= 0)
-            {
-                bHasshot = false;
-                shootTimer = cooldown;
-            }
+            Shoot();
+            lastShootTime = Time.time;
+        }
+        else
+        {
+            Debug.Log("Projectile ability is on cooldown.");
         }
     }
 
     void Shoot()
     {
-        if (bHasshot) return;
+        if (projectilePrefab == null)
+        {
+            Debug.LogError("Projectile prefab is not assigned.");
+            return;
+        }
 
-        shootTimer = cooldown;
-        Vector3 direction = playerDirection.forward.normalized;
+        if (firePoint == null)
+        {
+            Debug.LogError("Fire point is not assigned.");
+            return;
+        }
 
-        // Instantiate the projectile at a slight offset to avoid immediate collision
+        Vector3 direction = transform.forward.normalized;
+        Debug.Log("Spawning projectile with direction: " + direction);
+
+        // Instantiate the projectile
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 1f, Quaternion.LookRotation(direction));
+
+        if (projectile != null)
+        {
+            Debug.Log("Projectile spawned: " + projectile.name);
+        }
+        else
+        {
+            Debug.LogError("Failed to spawn projectile.");
+            return;
+        }
 
         projectile.layer = LayerMask.NameToLayer("Projectile");
 
@@ -60,6 +66,5 @@ public class Projectile : MonoBehaviour, IAbility
         {
             Debug.LogError("Projectile is missing Rigidbody component.");
         }
-        bHasshot = true;
     }
 }
