@@ -56,17 +56,18 @@ public class PlayerCombat : MonoBehaviour
 
     #endregion
    
-    private void Awake()
+private void Awake()
+{
+    classSelector = GetComponent<ClassSelector>();
+    if (classSelector == null)
     {
-        classSelector = FindObjectOfType<ClassSelector>();
-        if (classSelector == null)
-        {
-            Debug.LogError("ClassSelector not found in the scene.");
-            return;
-        }
-
-        classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
+        Debug.LogError("ClassSelector not found in the scene.");
+        return;
     }
+
+    Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
+    classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
+}
 
 
     private void Start()
@@ -101,19 +102,23 @@ public class PlayerCombat : MonoBehaviour
     {
         string activeClass = targetClass.ToString();
 
-        AnimationStateController animator = gameObject.GetComponent<AnimationStateController>();
-
-        Transform findActiveClass = transform.Find("Classes:").transform.Find(activeClass);
-
-        animator._animator = findActiveClass.gameObject.GetComponentInChildren<Animator>();
+        AnimationStateController animator = player.GetComponent<AnimationStateController>();
         WeaponManager _weaponManager = player.GetComponent<WeaponManager>();
-        _weaponManager.OnClassSwitch(targetClass);
 
-        if (animator != null)
+        Transform findActiveClass = player.transform.Find("Classes:").Find(activeClass);
+
+        if (animator != null && findActiveClass != null)
         {
+            animator._animator = findActiveClass.GetComponentInChildren<Animator>();
             animator._animator.Rebind();
         }
 
+        if (_weaponManager != null)
+        {
+            _weaponManager.OnClassSwitch(targetClass);
+        }
+
+        Debug.Log($"Class switched to {targetClass} for player: {player.name}");
     }
 
 
