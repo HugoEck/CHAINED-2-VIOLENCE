@@ -8,19 +8,19 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class CyberGiantManager : BaseManager
 {
-    //[HideInInspector]
-    private bool testBool = false;
+
     Node rootNode;
 
     [Header("CYBERGIANT MANAGER")]
     public GameObject bombPrefab;
     public GameObject missilePrefab;
+    public GameObject weaponPrefab;
     public Transform bombShootPoint;
     public Transform missileShootPoint;
     public GameObject energyShield;
     private CapsuleCollider damageCollider;
+    private CapsuleCollider weaponCollider;
 
-    public float currentTime = 0;
     [Header("CG STATS")]
 
     public float energyShieldDefense;
@@ -42,38 +42,27 @@ public class CyberGiantManager : BaseManager
     [Header("BOOLS")]
 
     [HideInInspector] public Vector3 bombVelocity;
-    [HideInInspector] public Vector3 p1_LastPosition;
-    [HideInInspector] public Vector3 p2_LastPosition;
-    [HideInInspector] public Vector3 chain_LastPosition;
-    [HideInInspector] public Vector3 p1_Velocity;
-    [HideInInspector] public Vector3 p2_Velocity;
-    [HideInInspector] public Vector3 chain_Velocity;
 
-    public bool abilityInProgress = false;
-    public bool missileRainActive = false;
-    public bool missileReady = false;
-    public bool jumpEngageActive = false;
-    public bool overheadSmashActive = false;
-    public bool shieldWalkActive = false;
+    [HideInInspector] public bool abilityInProgress = false;
+    [HideInInspector] public bool missileRainActive = false;
+    [HideInInspector] public bool missileReady = false;
+    [HideInInspector] public bool jumpEngageActive = false;
+    [HideInInspector] public bool overheadSmashActive = false;
+    [HideInInspector] public bool shieldWalkActive = false;
     
-
     private float lastBombShotTime = 0;
     private float lastLongRangeTime = -5;
-    private float lastMidRangeTime = -5;
+    private float lastMidRangeTime = -10;
     private float lastCloseRangeTime = -5;
-
-    //[HideInInspector] public float longRangeCooldownTimer;
-    //[HideInInspector] public float midRangeCooldownTimer;   
-    //[HideInInspector] public float closeRangeCooldownTimer;
 
     void Start()
     {
         enemyID = "CyberGiant";
-
         animator.SetBool("CyberGiant_StartChasing", true);
-
         damageCollider = gameObject.AddComponent<CapsuleCollider>();
         damageCollider.isTrigger = true;
+        weaponCollider = weaponPrefab.GetComponent<CapsuleCollider>();
+        weaponCollider.enabled = true;
         LoadStats();
         ConstructBT();
         rb.isKinematic = true;
@@ -81,17 +70,10 @@ public class CyberGiantManager : BaseManager
     }
 
     private void Update()
-    {
-
-        
+    { 
         rootNode.Evaluate(this);
 
-        abilityInProgress = CheckIfAbilityInProgress();
-
         ToggleEnergyShield();
-
-        //midRangeCooldownTimer = Time.time;
-        //longRangeCooldownTimer = Time.time;
     }
 
     private void LoadStats()
@@ -100,15 +82,6 @@ public class CyberGiantManager : BaseManager
         currentHealth = maxHealth;
         navigation.maxSpeed = speed;
         baseDefense = defense;
-
-        //minimumBombDistance = 20;
-        //minimumLongRangeDistance = 25;
-        //bombCooldown = 3;
-        //bombDamage = 10;
-        //longRangeCooldown = 15;
-        //midRangeCooldown = 15;
-        //missileDamage = 20;
-        //attackRange = 8;
 
         c_collider.center = new Vector3(0, 0.7f, 0);
         c_collider.radius = 0.75f;
@@ -216,9 +189,8 @@ public class CyberGiantManager : BaseManager
         CalculateBombPosition calculateBombPosition = new CalculateBombPosition();
         ShootBomb shootBomb = new ShootBomb();
         LongRangeConditions longRangeConditions = new LongRangeConditions();
-        PrepareMissiles prepareMissiles = new PrepareMissiles();
-        CalculateMissilePosition calculateMissilePosition = new CalculateMissilePosition();
-        ShootMissiles shootMissiles = new ShootMissiles();
+        IsMissileRainChosen isMissileRainChosen = new IsMissileRainChosen();
+        MissileRain missileRain = new MissileRain();
         MidRangeConditions midRangeConditions = new MidRangeConditions();
         IsJumpEngageChosen isJumpEngageChosen = new IsJumpEngageChosen();
         JumpEngage jumpEngage = new JumpEngage();
@@ -240,7 +212,7 @@ public class CyberGiantManager : BaseManager
 
         //Long-Range Branch
         Sequence bomb = new Sequence(new List<Node> { calculateBombPosition, shootBomb });
-        Sequence ability_missileRain = new Sequence(new List<Node> { prepareMissiles, calculateMissilePosition, shootMissiles });
+        Sequence ability_missileRain = new Sequence(new List<Node> { isMissileRainChosen, missileRain });
         Selector LR_Ability = new Selector(new List<Node> { ability_missileRain});
         Sequence longRange = new Sequence(new List<Node> { bomb, longRangeConditions, LR_Ability });
 
