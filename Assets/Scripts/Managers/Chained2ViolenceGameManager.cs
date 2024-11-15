@@ -58,6 +58,8 @@ public class Chained2ViolenceGameManager : MonoBehaviour
 
     private GameObject _player2GameObject;
     ShaderScript arenaShader;
+    private float _gameDurationTimer;
+
     private void Awake()
     {
         if (Instance == null)
@@ -92,7 +94,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         if (!bIsPlayer2Assigned)
         {
             _player2GameObject = GameObject.FindGameObjectWithTag("Player2");
-
+           
             _player2GameObject.GetComponentInChildren<Animator>(false).enabled = false;
             _player2GameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
@@ -176,7 +178,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
             case SceneState.ArenaScene:
 
                 // Special handling for when the players are in the arena
-
+                SetArenaStartTime();
                 break;
         }
 
@@ -286,6 +288,18 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Player UI Stuff
+    public void SetArenaStartTime()
+    {
+        _gameDurationTimer = Time.time;
+    }
+
+    public float GetElapsedTimeInArena()
+    {
+        return Time.time - _gameDurationTimer;
+    }
     #endregion
 
 }

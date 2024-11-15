@@ -27,6 +27,7 @@ public class ProjectileBehavior : MonoBehaviour
             if (explosionEffectPrefab != null)
             {
                 GameObject explosionInstance = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+
                 Destroy(explosionInstance, 2f);  // Destroy the explosion effect after 2 seconds
             }
 

@@ -81,7 +81,7 @@ public class ChargerManager : BaseManager
         currentHealth = maxHealth;
         attack = 5;
         defense = 1;
-        navigation.maxSpeed = 6;
+        navigation.maxSpeed = 5;
         attackSpeed = 1.5f;
         attackRange = 4f;
         unitCost = 50;

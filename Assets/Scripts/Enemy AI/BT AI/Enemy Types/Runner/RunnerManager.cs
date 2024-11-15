@@ -35,7 +35,7 @@ public class RunnerManager : BaseManager
         currentHealth = maxHealth;
         attack = 2;
         defense = 0;
-        navigation.maxSpeed = 6;
+        navigation.maxSpeed = 9;
         attackSpeed = 1;
         attackRange = 3f;
         unitCost = 2;

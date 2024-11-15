@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject _rangedObject;
     [SerializeField] private GameObject _warriorObject;
 
+    private WeaponManager _weaponManager;
 
     public PlayerClass currentPlayerClass;   
 
@@ -53,37 +55,20 @@ public class PlayerCombat : MonoBehaviour
     private ConeAbility coneAbility;
 
     #endregion
-
-    private void Awake()
+   
+private void Awake()
+{
+    classSelector = GetComponent<ClassSelector>();
+    if (classSelector == null)
     {
-        classSelector = FindObjectOfType<ClassSelector>();
-        if (classSelector == null)
-        {
-            Debug.LogError("ClassSelector not found in the scene.");
-            return;
-        }
-
-        classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
-    }
-    private void OnDestroy()
-    {
-        classSelector.OnClassSwitched -= ClassSelectorOnClassSwitched;
+        Debug.LogError("ClassSelector not found in the scene.");
+        return;
     }
 
-    private void ClassSelectorOnClassSwitched(GameObject player, PlayerClass targetClass)
-    {
-        string activeClass = targetClass.ToString();
+    Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
+    classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
+}
 
-        AnimationStateController animator = gameObject.GetComponent<AnimationStateController>();
-
-        Transform findActiveClass = transform.Find("Classes:").transform.Find(activeClass);
-
-        animator._animator = findActiveClass.gameObject.GetComponentInChildren<Animator>();
-        if (animator != null)
-        {
-            animator._animator.Rebind();
-        }
-    }
 
     private void Start()
     {
@@ -108,12 +93,42 @@ public class PlayerCombat : MonoBehaviour
         shieldAbility = GetComponent<ShieldAbility>();
         coneAbility = GetComponent<ConeAbility>();
     }
+    private void OnDestroy()
+    {
+        classSelector.OnClassSwitched -= ClassSelectorOnClassSwitched;
+    }
+
+    private void ClassSelectorOnClassSwitched(GameObject player, PlayerClass targetClass)
+    {
+        string activeClass = targetClass.ToString();
+
+        AnimationStateController animator = player.GetComponent<AnimationStateController>();
+        WeaponManager _weaponManager = player.GetComponent<WeaponManager>();
+
+        Transform findActiveClass = player.transform.Find("Classes:").Find(activeClass);
+
+        if (animator != null && findActiveClass != null)
+        {
+            animator._animator = findActiveClass.GetComponentInChildren<Animator>();
+            animator._animator.Rebind();
+        }
+
+        if (_weaponManager != null)
+        {
+            _weaponManager.OnClassSwitch(targetClass);
+        }
+
+        Debug.Log($"Class switched to {targetClass} for player: {player.name}");
+    }
+
+
 
     /// <summary>
     /// This method is used for basic attacks (Called in Player script)
     /// </summary>
     public void UseBaseAttack()
     {
+        bool durabilityReduced = false;
         // Find all enemies within the attack range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
         foreach (Collider enemy in hitEnemies)
@@ -130,6 +145,12 @@ public class PlayerCombat : MonoBehaviour
                     // Deal damage if within cone
                     enemyManager.DealDamageToEnemy(attackDamage);
                     Debug.Log("Hit enemy: " + enemy.name);
+
+                    if (!durabilityReduced)
+                    {
+                        ReduceWeaponDurabilility();
+                        durabilityReduced = true;
+                    }
                 }
             }
         }
@@ -148,40 +169,59 @@ public class PlayerCombat : MonoBehaviour
             return false;
         }
     }
+    private void ReduceWeaponDurabilility()
+    {
+        WeaponManager weaponManager = GetComponent<WeaponManager>();
+        if (weaponManager != null) 
+        {
+            weaponManager.Attack();
+        
+        }
+
+    }
 
     /// <summary>
     /// This method uses the ability that the player has for its class (Called in Player script)
     /// </summary>
     public void UseAbility()
     {
+        float cooldown = 0f;
+
         switch (currentPlayerClass)
         {
 
             case PlayerClass.Warrior:
 
                 coneAbility.UseAbility();
-
+                cooldown = coneAbility.cooldown;
                 break;
 
             case PlayerClass.Support:
 
                 shieldAbility.UseAbility();
 
+                if (shieldAbility.IsShieldActive() == false)
+                {
+                    cooldown = shieldAbility.cooldown;
+                }
+
                 break;
 
             case PlayerClass.Ranged:
 
                 projectile.UseAbility();
+                cooldown = projectile.cooldown;
 
                 break;
 
             case PlayerClass.Tank:
 
                 swingAbility.UseAbility();
-
+                cooldown = swingAbility.cooldown;
                 break;
 
         }
+        AbilityCdEventsUI.AbilityUsed(playerId, currentPlayerClass, cooldown);
     }
 
     // Method to set the player's attack damage (used for upgrades)
@@ -225,9 +265,13 @@ public class PlayerCombat : MonoBehaviour
     }
     private void SetActiveClassModel(PlayerClass currentPlayerClass)
     {
+        WeaponManager weaponManager = GetComponent<WeaponManager>();
+        weaponManager.OnClassSwitch(currentPlayerClass);
         
         if (currentPlayerClass == PlayerClass.Tank)
         {
+
+
             _defaultObject.SetActive(false);
 
             _rangedObject.SetActive(false);
@@ -235,6 +279,7 @@ public class PlayerCombat : MonoBehaviour
             _warriorObject.SetActive(false);
 
             _tankObject.SetActive(true);
+           // _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Tank);
 
 
         }
@@ -247,6 +292,7 @@ public class PlayerCombat : MonoBehaviour
             _tankObject.SetActive(false);
 
             _rangedObject.SetActive(true);
+  //     _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Ranged);
         }
         else if(currentPlayerClass == PlayerClass.Warrior)
         {
@@ -257,6 +303,7 @@ public class PlayerCombat : MonoBehaviour
             _rangedObject.SetActive(false);
 
             _warriorObject.SetActive(true);
+        //    _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Warrior);
         }
         else if(currentPlayerClass == PlayerClass.Support)
         {
@@ -267,6 +314,7 @@ public class PlayerCombat : MonoBehaviour
             _warriorObject.SetActive(false);
 
             _supportObject.SetActive(true);
+         //   _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Support);
         }
 
 

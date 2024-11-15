@@ -4,18 +4,16 @@ public class Projectile : MonoBehaviour, IAbility
 {
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public Transform playerDirection;
     public float projectileSpeed = 20f;
     public float cooldown = 2f;        // Cooldown duration in seconds
     private float lastShootTime = -Mathf.Infinity; // Time when the ability was last used
 
     public void UseAbility()
     {
-        // Check if the ability is ready (cooldown has elapsed)
         if (Time.time >= lastShootTime + cooldown)
         {
             Shoot();
-            lastShootTime = Time.time; // Update the last use time
+            lastShootTime = Time.time;
         }
         else
         {
@@ -25,10 +23,33 @@ public class Projectile : MonoBehaviour, IAbility
 
     void Shoot()
     {
-        Vector3 direction = playerDirection.forward.normalized;
+        if (projectilePrefab == null)
+        {
+            Debug.LogError("Projectile prefab is not assigned.");
+            return;
+        }
 
-        // Instantiate the projectile at a slight offset to avoid immediate collision
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 1f, Quaternion.LookRotation(direction));
+        if (firePoint == null)
+        {
+            Debug.LogError("Fire point is not assigned.");
+            return;
+        }
+
+        Vector3 direction = transform.forward.normalized;
+        Debug.Log("Spawning projectile with direction: " + direction);
+
+        // Instantiate the projectile
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 3f, Quaternion.LookRotation(direction));
+
+        if (projectile != null)
+        {
+            Debug.Log("Projectile spawned: " + projectile.name);
+        }
+        else
+        {
+            Debug.LogError("Failed to spawn projectile.");
+            return;
+        }
 
         projectile.layer = LayerMask.NameToLayer("Projectile");
 

@@ -248,6 +248,8 @@ public class NPC_Customization : MonoBehaviour
         IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
         ignoreChain.ObjectIgnoresLaserChain();
 
+        enemy.transform.localScale *= 1.5f;
+
         GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
         
         //Physics.SyncTransforms();
@@ -275,8 +277,6 @@ public class NPC_Customization : MonoBehaviour
         if (Class == NPCClass.Basic)
         {
             PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
-
-            behaviour.navigation.maxSpeed = 1;
 
         }
         else if (Class == NPCClass.Runner)

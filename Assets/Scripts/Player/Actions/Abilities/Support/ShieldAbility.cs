@@ -13,7 +13,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
     private bool isShieldActive = false;
 
     [Header("Cooldown Settings")]
-    [SerializeField] private float cooldown = 5f; // Cooldown duration in seconds
+    [SerializeField] public float cooldown = 5f; // Cooldown duration in seconds
     private float lastBreakTime = -Mathf.Infinity; // Time when the shield last broke
 
     [SerializeField] private GameObject otherPlayer; // Reference to the other player
