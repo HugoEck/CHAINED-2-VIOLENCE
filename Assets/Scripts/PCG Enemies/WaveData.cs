@@ -9,73 +9,70 @@ public class WaveData : MonoBehaviour
         waves.Add(CreateWave("Wave 1",
             new List<EnemyConfig>
             {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Warrior, waveSize = 1 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 5 }
             }
         ));
 
         waves.Add(CreateWave("Wave 2",
             new List<EnemyConfig>
             {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 50 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 10 }
             }
         ));
 
         waves.Add(CreateWave("Wave 3",
             new List<EnemyConfig>
             {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 40 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 7 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 10 }
             }
         ));
 
         waves.Add(CreateWave("Wave 4",
             new List<EnemyConfig>
             {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 50 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 15 }
             }
         ));
         waves.Add(CreateWave("Wave 5",
             new List<EnemyConfig>
             {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 20 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 5},
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1}
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 20 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Warrior, waveSize = 1 }
             }
         ));
         waves.Add(CreateWave("Wave 6",
                 new List<EnemyConfig>
                 {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 70 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 10 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 25 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Warrior, waveSize = 3 }
                 }
             ));
         waves.Add(CreateWave("Wave 7",
                 new List<EnemyConfig>
                 {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 50 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 5 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 30 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Warrior, waveSize = 3 }
                 }
             ));
         waves.Add(CreateWave("Wave 8",
                 new List<EnemyConfig>
                 {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 30 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 7 }
+               new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 30 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Warrior, waveSize = 3 }
                 }
             ));
         waves.Add(CreateWave("Wave 9",
                 new List<EnemyConfig>
                 {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 50 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 7 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 60 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Warrior, waveSize = 6 }
                 }
             ));
         waves.Add(CreateWave("Wave 10",
                 new List<EnemyConfig>
                 {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Pirate, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 60 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Pirate, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 7 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 60 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 7 }
                 }
             ));
         waves.Add(CreateWave("Wave 11",
@@ -115,8 +112,6 @@ public class WaveData : MonoBehaviour
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 50 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 10 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 10 }
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 },
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 }
             }
         ));
         waves.Add(CreateWave("Wave 16",
@@ -126,8 +121,6 @@ public class WaveData : MonoBehaviour
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 20 }
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 },
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 }
             }
         ));
         waves.Add(CreateWave("Wave 17",
@@ -137,8 +130,6 @@ public class WaveData : MonoBehaviour
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 20 }
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 },
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 }
             }
         ));
         waves.Add(CreateWave("Wave 18",
@@ -148,8 +139,6 @@ public class WaveData : MonoBehaviour
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 20 }
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 },
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 }
             }
         ));
         waves.Add(CreateWave("Wave 19",
@@ -159,8 +148,6 @@ public class WaveData : MonoBehaviour
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 50 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 10 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 10 }
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Cowboys, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 },
-                //new EnemyConfig { theme = NPC_Customization.NPCTheme.Indians, enemyClass = NPC_Customization.NPCClass.RockThrower, waveSize = 10 }
             }
         ));
         waves.Add(CreateWave("Wave 20",
