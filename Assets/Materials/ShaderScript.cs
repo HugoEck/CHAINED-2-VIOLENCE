@@ -68,27 +68,32 @@ public class ShaderScript : MonoBehaviour
             ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f);
             hasChangedToRoman = true;
         }
-        if (WaveManager.currentWave == 5 && !hasChangedToFantasy)
+        if (WaveManager.currentWave == 10 && !hasChangedToFantasy)
         {
             ChangeArena(fantasyMaterials, 25f, initialOffsetsFantasy);
             hasChangedToFantasy = true;
         }
-        if (WaveManager.currentWave == 10 && !hasChangedToPirate)
+        if (WaveManager.currentWave == 20 && !hasChangedToPirate)
         {
             ChangeArena(pirateMaterials, 25f, initialOffsetsPirate);
             hasChangedToPirate = true;
         }
-        if (WaveManager.currentWave == 15 && !hasChangedToWestern)
+        if (WaveManager.currentWave == 30 && !hasChangedToWestern)
         {
             ChangeArena(westernMaterials, 25f, initialOffsetsWestern);
             hasChangedToWestern = true;
         }
-        if (WaveManager.currentWave == 20 && !hasChangedToCurrentDay)
+        if (WaveManager.currentWave == 40 && !hasChangedToFarm)
+        {
+            ChangeArena(farmMaterials, 10f, initialOffsetsFarm);
+            hasChangedToFarm = true;
+        }
+        if (WaveManager.currentWave == 50 && !hasChangedToCurrentDay)
         {
             ChangeArena(currentDayMaterials, 25f, initialOffsetsCurrentDay);
             hasChangedToCurrentDay = true;
         }
-        if (WaveManager.currentWave == 25 && !hasChangedToSciFi)
+        if (WaveManager.currentWave == 60 && !hasChangedToSciFi)
         {
             ChangeArena(sciFiMaterials, 25f, initialOffsetsSciFi);
             hasChangedToSciFi = true;
