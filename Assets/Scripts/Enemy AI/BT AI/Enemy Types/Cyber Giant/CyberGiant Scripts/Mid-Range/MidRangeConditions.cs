@@ -22,7 +22,7 @@ public class MidRangeConditions : Node
 
             return NodeState.SUCCESS;
         }
-        else if (cg.CheckIfAbilityInProgress() == false  && CheckMidRangeDistance(cg) && cg.IsMidRangeAbilityReady())
+        else if (cg.CheckIfAbilityInProgress() == false && CheckMidRangeDistance(cg) && cg.IsMidRangeAbilityReady())
         {
 
             ChooseAbility(cg);
@@ -33,7 +33,7 @@ public class MidRangeConditions : Node
         else
         {
             return NodeState.FAILURE;
-        }    
+        }
     }
     private bool CheckMidRangeDistance(CyberGiantManager cg)
     {

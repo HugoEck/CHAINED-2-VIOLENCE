@@ -2,29 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
-public class IsMissileReady : Node
+public class ChaseConditions : Node
 {
+
     float distance;
-    
     public override NodeState Evaluate(BaseManager agent)
     {
 
         CyberGiantManager cg = agent as CyberGiantManager;
+        ChooseAbility(cg);
 
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
-        if (cg.missileRainActive) // || annan range ability)
+        if (distance > agent.attackRange)
         {
-            
-            return NodeState.SUCCESS;
-        }
-        else if (cg.CheckIfAbilityInProgress() == false && cg.IsLongRangeAbilityReady() && CheckLongRangeDistance(cg))
-        {
-            cg.abilityInProgress = true;
-            cg.missileReady = false;
             return NodeState.SUCCESS;
         }
         else
@@ -34,15 +27,15 @@ public class IsMissileReady : Node
 
     }
 
-    public bool CheckLongRangeDistance(CyberGiantManager cg)
+    private void ChooseAbility(CyberGiantManager cg)
     {
-        if (distance > cg.minLongRangeDistance)
+        if (distance > cg.maxMidRangeDistance)
         {
-            return true;
+            cg.shieldWalkActive = true;
         }
         else
         {
-            return false;
+            cg.shieldWalkActive = false;
         }
     }
 }

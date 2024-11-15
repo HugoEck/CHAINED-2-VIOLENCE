@@ -39,7 +39,6 @@ public class ClassSelector : MonoBehaviour
         }
         else if(other.CompareTag("Warrior"))
         {
-            _weaponManager.OnClassSwitch(PlayerCombat.PlayerClass.Warrior);
             classType = PlayerCombat.PlayerClass.Warrior;
             ShowClassPrompt(other.gameObject, classType);
         }

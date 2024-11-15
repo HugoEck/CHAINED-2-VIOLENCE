@@ -13,10 +13,8 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField] private List<ClassWeaponParent> classWeaponsParentsList;
     private Dictionary<PlayerCombat.PlayerClass, Transform> classWeaponsParents = new Dictionary<PlayerCombat.PlayerClass, Transform>();
-
     private GameObject currentWeapon;
     private Dictionary<int, GameObject> weaponDictionary = new Dictionary<int, GameObject>();
-
     public bool hasWeapon => currentWeapon != null;
 
     private void Start()

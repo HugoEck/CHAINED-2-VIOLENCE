@@ -7,17 +7,25 @@ public class WeaponSpawner : MonoBehaviour
     [SerializeField] private GameObject farmWeaponsPrefab;
     [SerializeField] private GameObject warriorWeaponsPrefab;
     [SerializeField] private GameObject medievalWeaponsPrefab;
-    [SerializeField] private Transform[] spawnPoints;       
-    [SerializeField] private float respawnTime = 10f;   
+    [SerializeField] private Transform waypointsParent;  // Reference to the parent GameObject containing waypoints as child objects
+    [SerializeField] private float respawnTime = 10f;
 
     private List<GameObject> weaponPrefabs = new List<GameObject>();
+    private Transform[] spawnPoints;
     private bool[] spawnPointOccupied;
 
     private void Start()
     {
+        // Automatically populate the spawnPoints array from waypointsParent's children
+        spawnPoints = new Transform[waypointsParent.childCount];
         spawnPointOccupied = new bool[spawnPoints.Length];
 
+        for (int i = 0; i < waypointsParent.childCount; i++)
+        {
+            spawnPoints[i] = waypointsParent.GetChild(i);
+        }
 
+        // Add all weapons from the different categories
         foreach (Transform weapon in farmWeaponsPrefab.transform)
         {
             weaponPrefabs.Add(weapon.gameObject);
@@ -30,6 +38,7 @@ public class WeaponSpawner : MonoBehaviour
         {
             weaponPrefabs.Add(weapon.gameObject);
         }
+
         PlaceInitialWeapons();
         StartCoroutine(RespawnWeapons());
     }
