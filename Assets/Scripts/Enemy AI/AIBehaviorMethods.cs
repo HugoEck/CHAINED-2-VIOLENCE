@@ -10,6 +10,15 @@ public class AIBehaviorMethods
     BaseManager agent;
     float lastAttackedTime;
 
+    //---------------RAGDOLL---------------------------
+    AIPath aiPath;
+    AIDestinationSetter destinationSetter;
+    ObiCollider obiCollider;
+    ObiRigidbody obiRb;
+    Rigidbody[] rigidbodies;
+    SimpleSmoothModifier smoothing;
+    Collider[] capsuleColliders;
+
     public AIBehaviorMethods(BaseManager manager)
     {
         agent = manager;
@@ -29,21 +38,6 @@ public class AIBehaviorMethods
             return agent.player2.transform;
         }
     }
-    //public Transform CalculateClosestTarget()
-    //{
-    //    if (Vector3.Distance(agent.transform.position, agent.player1.transform.position) < Vector3.Distance(agent.transform.position, agent.player2.transform.position))
-    //    {
-    //        return agent.player1.transform;
-    //    }
-    //    else if ((Vector3.Distance(agent.transform.position, agent.player2.transform.position) < Vector3.Distance(agent.transform.position, agent.player1.transform.position)))
-    //    {
-    //        return agent.player2.transform;
-    //    }
-    //    else
-    //    {
-    //        return null;
-    //    }
-    //}
 
     public bool IsAttackAllowed()
     {
@@ -95,45 +89,54 @@ public class AIBehaviorMethods
     {
         if (!enabled)
         {
-            Rigidbody[] rigidbodies = agent.GetComponentsInChildren<Rigidbody>();
+            agent.animator.enabled = true;
+
             foreach (Rigidbody rbs in rigidbodies)
             {
-                rbs.isKinematic = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                rbs.isKinematic = true;
                 rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
             }
-            Collider[] capsuleColliders = agent.GetComponentsInChildren<Collider>();
+
             foreach (Collider capsule1 in capsuleColliders)
             {
-                capsule1.enabled = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                capsule1.enabled = false;
             }
             agent.c_collider.enabled = true;
             agent.rb.isKinematic = false;
+            obiCollider.enabled = true;
+            obiRb.enabled = true;
+            aiPath.enabled = true;
+            smoothing.enabled = true;
+            destinationSetter.enabled = true;
         }
         else
         {
-            AIPath aiPath = agent.GetComponent<AIPath>();
-            AIDestinationSetter destinationSetter = agent.GetComponent<AIDestinationSetter>();
-            ObiCollider obiCollider = agent.GetComponent<ObiCollider>();
-            ObiRigidbody obiRb = agent.GetComponent<ObiRigidbody>();
-            Rigidbody[] rigidbodies = agent.GetComponentsInChildren<Rigidbody>();
-            SimpleSmoothModifier smoothing = agent.GetComponent<SimpleSmoothModifier>();
+            agent.animator.enabled = false;
+
             foreach (Rigidbody rbs in rigidbodies)
             {
-                rbs.isKinematic = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                rbs.isKinematic = false;
                 rbs.constraints = RigidbodyConstraints.None;
-                Collider[] capsuleColliders = agent.GetComponentsInChildren<Collider>();
-                foreach (Collider capsule1 in capsuleColliders)
-                {
-                    capsule1.enabled = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
-                }
             }
-            //c_collider.enabled = false;
-            //rb.isKinematic = true;
+            foreach (Collider capsule1 in capsuleColliders)
+            {
+                capsule1.enabled = true;
+            }
             obiCollider.enabled = false;
             obiRb.enabled = false;
             aiPath.enabled = false;
             smoothing.enabled = false;
             destinationSetter.enabled = false;
         }
+    }
+    public void GetRagdollComponents(BaseManager agent)
+    {
+        aiPath = agent.GetComponent<AIPath>();
+        destinationSetter = agent.GetComponent<AIDestinationSetter>();
+        obiCollider = agent.GetComponent<ObiCollider>();
+        capsuleColliders = agent.GetComponentsInChildren<Collider>();
+        obiRb = agent.GetComponent<ObiRigidbody>();
+        rigidbodies = agent.GetComponentsInChildren<Rigidbody>();
+        smoothing = agent.GetComponent<SimpleSmoothModifier>();
     }
 }

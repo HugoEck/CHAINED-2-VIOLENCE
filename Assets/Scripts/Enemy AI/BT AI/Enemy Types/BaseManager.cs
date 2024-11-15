@@ -44,10 +44,11 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public string enemyID;
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
+    [HideInInspector] public bool PCG_componentsInstantiated = false;
 
     public virtual void Awake()
     {
-        chainEffects = new AIChainEffects();
+        chainEffects = new AIChainEffects(this);
         particleEffects = new AIParticleEffects();
         behaviorMethods = new AIBehaviorMethods(this);
         visuals= new AIVisuals(this);
@@ -61,22 +62,30 @@ public class BaseManager : MonoBehaviour
         c_collider.radius = 0.5f;
         c_collider.height = 2;
 
-        behaviorMethods.ToggleRagdoll(false);
 
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
 
         animator = gameObject.GetComponent<Animator>();
+
         navigation = GetComponent<AIPath>();
+
 
         playerManager1 = player1.GetComponent<Player>();
         playerManager2 = player2.GetComponent<Player>();
+
+        //behaviorMethods.ToggleRagdoll(false);
+        behaviorMethods.GetRagdollComponents(this);
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
             currentHealth = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            chainEffects.ActivateRagdollStun(4);
         }
         visuals.FlashColor();
     }
