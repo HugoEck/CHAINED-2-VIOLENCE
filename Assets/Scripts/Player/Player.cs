@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    private bool _bIsPlayerDisabled = false;
+    public bool _bIsPlayerDisabled = false;
 
     private static int playersDefeated = 0;
 
