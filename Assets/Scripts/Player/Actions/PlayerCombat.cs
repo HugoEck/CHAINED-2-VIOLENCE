@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,7 +27,6 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject _warriorObject;
 
     private WeaponManager _weaponManager;
-
 
     public PlayerClass currentPlayerClass;   
 
@@ -168,34 +168,43 @@ private void Awake()
     /// </summary>
     public void UseAbility()
     {
+        float cooldown = 0f;
+
         switch (currentPlayerClass)
         {
 
             case PlayerClass.Warrior:
 
                 coneAbility.UseAbility();
-
+                cooldown = coneAbility.cooldown;
                 break;
 
             case PlayerClass.Support:
 
                 shieldAbility.UseAbility();
 
+                if (shieldAbility.IsShieldActive() == false)
+                {
+                    cooldown = shieldAbility.cooldown;
+                }
+
                 break;
 
             case PlayerClass.Ranged:
 
                 projectile.UseAbility();
+                cooldown = projectile.cooldown;
 
                 break;
 
             case PlayerClass.Tank:
 
                 swingAbility.UseAbility();
-
+                cooldown = swingAbility.cooldown;
                 break;
 
         }
+        AbilityCdEventsUI.AbilityUsed(playerId, currentPlayerClass, cooldown);
     }
 
     // Method to set the player's attack damage (used for upgrades)
