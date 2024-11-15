@@ -9,7 +9,7 @@ public class StunAgent : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        //MÅSTE FIXA ANIMATION
+
         agent.navigation.isStopped = true;
         agent.chainEffects.stunActivated = true;
 
@@ -22,11 +22,6 @@ public class StunAgent : Node
         // Check if the stun duration has elapsed
         if (Time.time >= agent.chainEffects.stunStartTime + agent.chainEffects.stunDurationTime)
         {
-            if(agent.chainEffects.stunType == "Ragdoll")
-            {
-                agent.behaviorMethods.ToggleRagdoll(false);
-            }
-
             agent.chainEffects.stunActivated = false;
             agent.navigation.isStopped = false;
             isStunInitialized = false;

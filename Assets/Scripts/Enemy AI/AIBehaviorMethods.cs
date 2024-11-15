@@ -95,7 +95,6 @@ public class AIBehaviorMethods
     {
         if (!enabled)
         {
-            agent.animator.enabled = true;
             Rigidbody[] rigidbodies = agent.GetComponentsInChildren<Rigidbody>();
             foreach (Rigidbody rbs in rigidbodies)
             {
@@ -112,7 +111,6 @@ public class AIBehaviorMethods
         }
         else
         {
-            agent.animator.enabled = false;
             AIPath aiPath = agent.GetComponent<AIPath>();
             AIDestinationSetter destinationSetter = agent.GetComponent<AIDestinationSetter>();
             ObiCollider obiCollider = agent.GetComponent<ObiCollider>();

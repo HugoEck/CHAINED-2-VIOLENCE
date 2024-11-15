@@ -880,7 +880,6 @@ MonoBehaviour:
   attackRange: 20
   unitCost: 0
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -1061,52 +1060,6 @@ MonoBehaviour:
   filter: -65535
   m_SourceCollider: {fileID: 630983141}
   m_DistanceField: {fileID: 0}
---- !u!1 &699476132
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 699476134}
-  - component: {fileID: 699476133}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &699476133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 699476132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &699476134
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 699476132}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &702823651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1450,7 +1403,6 @@ MonoBehaviour:
   attackRange: 3
   unitCost: 0
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -1627,6 +1579,52 @@ MonoBehaviour:
   filter: -65535
   m_SourceCollider: {fileID: 702823662}
   m_DistanceField: {fileID: 0}
+--- !u!1 &712927674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 712927676}
+  - component: {fileID: 712927675}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &712927675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712927674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &712927676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712927674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &775815861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,7 +2196,6 @@ MonoBehaviour:
   attackRange: 2.5
   unitCost: 1
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -8572,7 +8569,6 @@ MonoBehaviour:
   attackRange: 4
   unitCost: 10
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -8892,11 +8888,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CyberGiant
       objectReference: {fileID: 0}
-    - target: {fileID: 5695295831712289982, guid: f80a14bf6151a4041b02c812dd1b9e2a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8914,11 +8905,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Charger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1551378380624434753, guid: e90d25a99ee983f41bf6edd6ef9f4328,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554480285341323755, guid: e90d25a99ee983f41bf6edd6ef9f4328,
         type: 3}
@@ -8997,5 +8983,5 @@ SceneRoots:
   - {fileID: 525621952}
   - {fileID: 1323669736}
   - {fileID: 1533911516}
+  - {fileID: 712927676}
   - {fileID: 5289781196094403584}
-  - {fileID: 699476134}
