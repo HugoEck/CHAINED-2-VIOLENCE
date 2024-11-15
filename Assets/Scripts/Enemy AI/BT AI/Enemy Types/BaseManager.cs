@@ -47,7 +47,7 @@ public class BaseManager : MonoBehaviour
 
     public virtual void Awake()
     {
-        chainEffects = new AIChainEffects();
+        chainEffects = new AIChainEffects(this);
         particleEffects = new AIParticleEffects();
         behaviorMethods = new AIBehaviorMethods(this);
         visuals = new AIVisuals(this);
@@ -62,7 +62,7 @@ public class BaseManager : MonoBehaviour
         c_collider.height = 2;
 
         behaviorMethods.ToggleRagdoll(false);
-
+        
         player1 = GameObject.FindGameObjectWithTag("Player1");
         player2 = GameObject.FindGameObjectWithTag("Player2");
 
@@ -79,6 +79,7 @@ public class BaseManager : MonoBehaviour
             currentHealth = 0;
         }
         visuals.FlashColor();
+        
     }
     public virtual void DealDamageToEnemy(float damage)
     {

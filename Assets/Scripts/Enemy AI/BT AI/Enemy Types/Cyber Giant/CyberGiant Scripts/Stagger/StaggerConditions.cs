@@ -22,9 +22,27 @@ public class StaggerConditions : Node
         }
 
 
-        if (agent.currentHealth < agent.maxHealth * )
+        if (cg.CheckIfAbilityInProgress() == false && HealthCheck(agent) && stagger1Activated == false)
+        {
+            stagger1Activated = true;
+            cg.staggerActive = true;
+
+
+        }
         
         return NodeState.SUCCESS;
+    }
+
+    private bool HealthCheck(BaseManager agent)
+    {
+        if(agent.currentHealth < agent.maxHealth * 0.5f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
 }
