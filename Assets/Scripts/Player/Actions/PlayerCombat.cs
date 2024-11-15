@@ -128,6 +128,7 @@ private void Awake()
     /// </summary>
     public void UseBaseAttack()
     {
+        bool durabilityReduced = false;
         // Find all enemies within the attack range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
         foreach (Collider enemy in hitEnemies)
@@ -144,6 +145,12 @@ private void Awake()
                     // Deal damage if within cone
                     enemyManager.DealDamageToEnemy(attackDamage);
                     Debug.Log("Hit enemy: " + enemy.name);
+
+                    if (!durabilityReduced)
+                    {
+                        ReduceWeaponDurabilility();
+                        durabilityReduced = true;
+                    }
                 }
             }
         }
@@ -161,6 +168,16 @@ private void Awake()
         {
             return false;
         }
+    }
+    private void ReduceWeaponDurabilility()
+    {
+        WeaponManager weaponManager = GetComponent<WeaponManager>();
+        if (weaponManager != null) 
+        {
+            weaponManager.Attack();
+        
+        }
+
     }
 
     /// <summary>
@@ -248,6 +265,8 @@ private void Awake()
     }
     private void SetActiveClassModel(PlayerClass currentPlayerClass)
     {
+        WeaponManager weaponManager = GetComponent<WeaponManager>();
+        weaponManager.OnClassSwitch(currentPlayerClass);
         
         if (currentPlayerClass == PlayerClass.Tank)
         {
