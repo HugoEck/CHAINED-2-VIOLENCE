@@ -101,6 +101,14 @@ public class SwingAbility : MonoBehaviour, IAbility
                 {
                     enemyManager.DealDamageToEnemy(swingDamage);
                     Debug.Log("Hit enemy during swing: " + enemy.name);
+                    
+                    //APPLY FORCE
+                    Rigidbody enemyRb = enemy.GetComponent<Rigidbody>();
+                    if (enemyRb != null)
+                    {
+                        Vector3 knockbackDirection = (enemy.transform.position - swingCenter).normalized;
+                        enemyRb.AddForce(knockbackDirection * 15f, ForceMode.Impulse); // Adjust force value as needed
+                    }
                 }
             }
 
