@@ -9,7 +9,7 @@ public class StunAgent : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        //MÅSTE FIXA ANIMATION
+
         agent.navigation.isStopped = true;
         agent.chainEffects.stunActivated = true;
 
@@ -19,14 +19,12 @@ public class StunAgent : Node
             isStunInitialized = true;
         }
 
-        // Check if the stun duration has elapsed
         if (Time.time >= agent.chainEffects.stunStartTime + agent.chainEffects.stunDurationTime)
         {
             if (agent.chainEffects.stunType == "Ragdoll")
             {
                 agent.behaviorMethods.ToggleRagdoll(false);
             }
-
             agent.chainEffects.stunActivated = false;
             agent.navigation.isStopped = false;
             isStunInitialized = false;
@@ -36,6 +34,21 @@ public class StunAgent : Node
         {
             return NodeState.RUNNING;
         }
+    }
+
+    private void SetAnimation(BaseManager agent)
+    {
+        if (agent.chainEffects.stunType == "Ghost")
+        {
+            //IMPLEMENTERA GHOST ANIMATION HÄR
+        }
+
+        if (agent.chainEffects.stunType == "Shock")
+        {
+            //IMPLEMENTERA SHOCK ANIMATION HÄR
+        }
+
+        //STÄNG AV ALLA ANDRA ANIMATIONER
     }
 }
 
