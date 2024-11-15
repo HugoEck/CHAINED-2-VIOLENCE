@@ -12,7 +12,7 @@ public static class Loader
         ArnTestScene, // FOR TESTING PURPOSES ONLY
         LobbyScene,
         PlaygroundScene,
-        ArenaDuplicate // FOR TESTING PURPOSES ONLY
+        ArenaDuplicate, // FOR TESTING PURPOSES ONLY
     };
 
     private static Scene targetScene;
