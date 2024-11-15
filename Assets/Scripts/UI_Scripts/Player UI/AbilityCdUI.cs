@@ -22,11 +22,13 @@ public class AbilityCdUI : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerCombat.OnClassSwitched += HandleClassSwitched;
         AbilityCdEventsUI.OnAbilityUsed += HandleAbilityUsed;
     }
 
     private void OnDisable()
     {
+        PlayerCombat.OnClassSwitched -= HandleClassSwitched;
         AbilityCdEventsUI.OnAbilityUsed -= HandleAbilityUsed;
     }
 
@@ -77,6 +79,17 @@ public class AbilityCdUI : MonoBehaviour
                 abilityImage.fillAmount = 1;
                 abilityImage.gameObject.SetActive(true);
             }
+        }
+    }
+    private void HandleClassSwitched(int playerId, PlayerCombat.PlayerClass playerClass)
+    {
+        if (playerId == 1)
+        {
+            SetAbilityIcon(player1AbilityImage, playerClass);
+        }
+        else if (playerId == 2)
+        {
+            SetAbilityIcon(player2AbilityImage, playerClass);
         }
     }
 
