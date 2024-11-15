@@ -134,7 +134,10 @@ public class Player : MonoBehaviour
         FindAndStoreColliders(transform);
 
         // Turn off the colliders (disable their components)
-        DisableColliders();
+        if (_playerId == 1)
+            DisableColliders();
+        else
+            EnableColliders();
     }
     private void FixedUpdate()
     {

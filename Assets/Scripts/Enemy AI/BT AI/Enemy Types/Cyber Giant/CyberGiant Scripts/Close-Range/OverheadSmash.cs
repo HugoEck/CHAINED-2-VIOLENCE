@@ -23,9 +23,9 @@ public class OverheadSmash : Node
             agent.behaviorMethods.RotateTowardsClosestPlayer();
             agent.animator.SetBool("CyberGiant_OverheadSmash1", true);
             agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
-   
+
         }
-        else if(animationTimer < 3.2f && animationTimer > 2f)
+        else if (animationTimer < 3.2f && animationTimer > 2f)
         {
             agent.animator.SetBool("CyberGiant_OverheadSmash2", true);
             agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
@@ -46,15 +46,17 @@ public class OverheadSmash : Node
         {
             return NodeState.RUNNING;
         }
-        
+
     }
 
     private void SetAnimation(BaseManager agent)
     {
         agent.animator.SetBool("CyberGiant_MissileRain", false);
         agent.animator.SetBool("CyberGiant_Walk", false);
+        agent.animator.SetBool("CyberGiant_ShieldWalk", false);
         agent.animator.SetBool("CyberGiant_JumpEngage", false);
+        agent.animator.SetBool("CyberGiant_Idle", false);
 
     }
-    
 }
+

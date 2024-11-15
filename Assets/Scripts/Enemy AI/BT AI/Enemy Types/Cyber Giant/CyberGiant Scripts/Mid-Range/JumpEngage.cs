@@ -12,9 +12,10 @@ public class JumpEngage : Node
     float jumpSpeed;
     Vector3 targetedPlayerLastPos;
     Vector3 jumpDirection;
-    
+
     public override NodeState Evaluate(BaseManager agent)
     {
+        agent.navigation.rotationSpeed = 360;
         SetAnimation(agent);
 
         CyberGiantManager cg = agent as CyberGiantManager;
@@ -24,9 +25,9 @@ public class JumpEngage : Node
 
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
 
-        if(animationTimer < 5.5f && animationTimer > 3.5f)
+        if (animationTimer < 5.5f && animationTimer > 3.5f)
         {
-            RotateTowardsPlayer(agent);
+            //RotateTowardsPlayer(agent);
             targetedPlayerLastPos = agent.targetedPlayer.transform.position;
             agent.behaviorMethods.RotateTowardsClosestPlayer();
             jumpSpeed = distance / jumpAnimationTime;
@@ -34,9 +35,9 @@ public class JumpEngage : Node
         }
         else if (animationTimer < 3.5f && animationTimer > 2.5f)
         {
-            if(distance > cg.maxCloseRangeDistance - 7)
+            if (distance > cg.maxCloseRangeDistance - 7)
             {
-                RotateTowardsPlayer(agent);
+                OffsetRotation(agent);
                 agent.transform.position += jumpDirection * jumpSpeed * Time.deltaTime;
             }
 
@@ -54,9 +55,9 @@ public class JumpEngage : Node
         {
             return NodeState.RUNNING;
         }
-        
+
     }
-    private void RotateTowardsPlayer(BaseManager agent)
+    private void OffsetRotation(BaseManager agent)
     {
         Vector3 direction = (agent.targetedPlayer.position - agent.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -70,7 +71,9 @@ public class JumpEngage : Node
         agent.animator.SetBool("CyberGiant_JumpEngage", true);
         agent.animator.SetBool("CyberGiant_MissileRain", false);
         agent.animator.SetBool("CyberGiant_Walk", false);
+        agent.animator.SetBool("CyberGiant_ShieldWalk", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
+        agent.animator.SetBool("CyberGiant_Idle", false);
     }
 }
