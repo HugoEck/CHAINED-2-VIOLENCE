@@ -16977,6 +16977,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3613874697403409015}
+  - component: {fileID: 4994180984470151645}
   m_Layer: 0
   m_Name: Players
   m_TagString: PlayerParent
@@ -17003,6 +17004,27 @@ Transform:
   - {fileID: 7057978326324187399}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4994180984470151645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581291613882826159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa95bfb505de3549b9889fa5acb7fe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farmWeaponsPrefab: {fileID: 6863018921030014949, guid: ccc2a7d39006d11419b9b56c16b8662e,
+    type: 3}
+  warriorWeaponsPrefab: {fileID: 700997260924860229, guid: b3a4a25c73de703428203f51cc5687b0,
+    type: 3}
+  medievalWeaponsPrefab: {fileID: 3129833799009603502, guid: 95d199657b548f64996651afb42591be,
+    type: 3}
+  waypointsParent: {fileID: 2521515215381028128, guid: 33ef85e4b153817459a971047321bf5e,
+    type: 3}
+  respawnTime: 10
 --- !u!1 &3631464147321349483
 GameObject:
   m_ObjectHideFlags: 0
@@ -56579,13 +56601,13 @@ MonoBehaviour:
   - playerClass: 0
     weaponsParent: {fileID: 3636620681593001955}
   - playerClass: 1
-    weaponsParent: {fileID: 0}
+    weaponsParent: {fileID: 6875159950410899602}
   - playerClass: 2
-    weaponsParent: {fileID: 0}
+    weaponsParent: {fileID: 5883918041219858182}
   - playerClass: 4
-    weaponsParent: {fileID: 0}
+    weaponsParent: {fileID: 6268251655228344053}
   - playerClass: 3
-    weaponsParent: {fileID: 0}
+    weaponsParent: {fileID: 5930039983592703686}
 --- !u!1 &8114625879205255699
 GameObject:
   m_ObjectHideFlags: 0
