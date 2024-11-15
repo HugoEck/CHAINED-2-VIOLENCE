@@ -49,6 +49,7 @@ public class CyberGiantManager : BaseManager
     [HideInInspector] public bool jumpEngageActive = false;
     [HideInInspector] public bool overheadSmashActive = false;
     [HideInInspector] public bool shieldWalkActive = false;
+    [HideInInspector] public bool staggerActive = false;
 
     private float lastBombShotTime = 0;
     private float lastLongRangeTime = -5;
@@ -93,7 +94,7 @@ public class CyberGiantManager : BaseManager
     }
     public bool CheckIfAbilityInProgress()
     {
-        if (missileRainActive || jumpEngageActive || overheadSmashActive)
+        if (missileRainActive || jumpEngageActive || overheadSmashActive || staggerActive)
         {
             return true;
         }

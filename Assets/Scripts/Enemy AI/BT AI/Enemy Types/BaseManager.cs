@@ -50,7 +50,7 @@ public class BaseManager : MonoBehaviour
         chainEffects = new AIChainEffects();
         particleEffects = new AIParticleEffects();
         behaviorMethods = new AIBehaviorMethods(this);
-        visuals= new AIVisuals(this);
+        visuals = new AIVisuals(this);
 
         visuals.InitializeVisuals(this);
 
