@@ -400,6 +400,10 @@ public class Player : MonoBehaviour
             //Debug.Log(gameObject.tag + " has died.");
         }
 
+        if (HealthBar.Instance != null)
+        {
+            HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
+        }
 
         //Flash indication
         ActivateVisuals();
