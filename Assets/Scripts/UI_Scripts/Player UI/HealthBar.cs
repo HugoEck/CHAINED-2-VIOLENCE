@@ -48,4 +48,13 @@ public class HealthBar : MonoBehaviour
         }
     }
 
+    public void ResetPlayerHealthBars()
+    {
+        healthBarFillPlayer1.fillAmount = 1f;
+        healthBarFillPlayer1.color = colorGradient.Evaluate(1f);
+
+        healthBarFillPlayer2.fillAmount = 1f;
+        healthBarFillPlayer2.color = colorGradient.Evaluate(1f);
+    }
+
 }

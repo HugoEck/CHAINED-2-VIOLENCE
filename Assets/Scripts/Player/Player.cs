@@ -328,6 +328,7 @@ public class Player : MonoBehaviour
             {
                 playersDefeated = 0;
                 Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+                HealthBar.Instance.ResetPlayerHealthBars();
             }
         }
 
