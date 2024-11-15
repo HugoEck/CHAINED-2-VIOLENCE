@@ -137,6 +137,7 @@ public class TrapManager : MonoBehaviour
     {
         Debug.Log("Collision detected with: " + collision.gameObject.name);
 
+        // DAMAGE PLAYER
         if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
@@ -152,6 +153,24 @@ public class TrapManager : MonoBehaviour
                 Debug.Log("No Player component found on " + collision.gameObject.name);
             }
         }
+        
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            BaseManager enemy = collision.gameObject.GetComponent<BaseManager>();
+
+            if (enemy != null)
+            {
+                Debug.Log("Enemy health before damage: " + enemy.currentHealth);
+                enemy.DealDamageToEnemy(trapDamage);
+                Debug.Log("Enemy hit by trap, Dealt " + " damage, current health: " + enemy.currentHealth);
+            }
+            else
+            {
+                Debug.Log("No BaseManager component found on " + collision.gameObject.name);
+            }
+        }
+
+
     }
     #endregion
 }
