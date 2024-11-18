@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 3369008}
   - component: {fileID: 2382796}
   - component: {fileID: 8480791172467909356}
-  - component: {fileID: -2990405027574808904}
   - component: {fileID: 105480070261768489}
+  - component: {fileID: -6454358298556551784}
   m_Layer: 0
   m_Name: SM_Prop_CannonBalls_01
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,19 +114,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-2990405027574808904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 127120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12f0c14eb36b4384c988ad2c462aec35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
 --- !u!135 &105480070261768489
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -148,6 +135,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.08984923
   m_Center: {x: 0.00000047683716, y: 0.08984922, z: 0.000000059604645}
+--- !u!114 &-6454358298556551784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f89d61ce6f122847ab2d4d568a0d67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1001 &7139165995326515220
 PrefabInstance:
   m_ObjectHideFlags: 0
