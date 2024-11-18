@@ -22,30 +22,30 @@ public class BoulderManager : MonoBehaviour
                 // Apply damage to the player
                 player.SetHealth(boulderDamage);
 
-                // Attempt to apply ragdoll stun using chainEffects
-                BaseManager baseManager = collision.gameObject.GetComponent<BaseManager>();
-                if (baseManager != null && baseManager.chainEffects != null)
-                {
-                    Debug.Log("Activating ragdoll stun on: " + collision.gameObject.name);
+                //// Attempt to apply ragdoll stun using chainEffects
+                //BaseManager baseManager = collision.gameObject.GetComponent<BaseManager>();
+                //if (baseManager != null && baseManager.chainEffects != null)
+                //{
+                //    Debug.Log("Activating ragdoll stun on: " + collision.gameObject.name);
 
-                    // Activate the ragdoll stun for 4 seconds
-                    baseManager.chainEffects.ActivateRagdollStun(4f);
-                }
-                else
-                {
-                    Debug.LogError("BaseManager or chainEffects not found on: " + collision.gameObject.name);
-                }
+                //    // Activate the ragdoll stun for 4 seconds
+                //    baseManager.chainEffects.ActivateRagdollStun(4f);
+                //}
+                //else
+                //{
+                //    Debug.LogError("BaseManager or chainEffects not found on: " + collision.gameObject.name);
+                //}
             }
         }
     }
 
-    private IEnumerator DeactivateRagdoll(BaseManager baseManager, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (baseManager != null && baseManager.behaviorMethods != null)
-        {
-            baseManager.behaviorMethods.ToggleRagdoll(false);
-            Debug.Log("Ragdoll deactivated for: " + baseManager.gameObject.name);
-        }
-    }
+    //private IEnumerator DeactivateRagdoll(BaseManager baseManager, float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    if (baseManager != null && baseManager.behaviorMethods != null)
+    //    {
+    //        baseManager.behaviorMethods.ToggleRagdoll(false);
+    //        Debug.Log("Ragdoll deactivated for: " + baseManager.gameObject.name);
+    //    }
+    //}
 }
