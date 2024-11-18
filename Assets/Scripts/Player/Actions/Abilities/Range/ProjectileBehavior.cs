@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
-    public float explosionRadius = 5f;   // Radius for explosion
-    public float explosionDamage = 50f;  // Damage dealt by the explosion
-    public LayerMask enemyLayer;         // Layer to identify enemies
-    public GameObject explosionEffectPrefab;  // Reference to the explosion particle effect prefab
+    public float explosionRadius = 5f;
+    public float explosionDamage = 50f;
+    public LayerMask enemyLayer;
+    public GameObject explosionEffectPrefab;
 
-    private bool hasExploded = false;  // Flag to ensure the explosion happens only once
-
-    // Detect collision with an enemy or another object
+    private bool hasExploded = false;
     void OnCollisionEnter(Collision collision)
     {
         // Ensure the explosion happens only once
