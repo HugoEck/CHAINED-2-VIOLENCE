@@ -101,6 +101,19 @@ public class SwingAbility : MonoBehaviour, IAbility
                 {
                     enemyManager.DealDamageToEnemy(swingDamage);
                     Debug.Log("Hit enemy during swing: " + enemy.name);
+
+                    // Apply knockback force
+                    Rigidbody enemyRb = enemy.GetComponent<Rigidbody>();
+                    if (enemyRb != null)
+                    {
+                        // Temporarily remove Y-axis constraints
+                        //RigidbodyConstraints originalConstraints = enemyRb.constraints;
+                        //enemyRb.constraints = RigidbodyConstraints.None;
+                        //enemyManager.behaviorMethods.ToggleRagdoll(true);
+                        
+                        Vector3 knockbackDirection = (enemy.transform.position - swingCenter).normalized;
+                        enemyRb.AddForce(knockbackDirection * 100f, ForceMode.Impulse); // Adjust force value as needed
+                    }
                 }
             }
 
