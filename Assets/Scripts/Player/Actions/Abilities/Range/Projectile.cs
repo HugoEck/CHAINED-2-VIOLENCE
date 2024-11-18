@@ -4,9 +4,10 @@ public class Projectile : MonoBehaviour, IAbility
 {
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public float cooldown = 2f;        // Cooldown duration in seconds
+    public float cooldown;        // Cooldown duration in seconds
     private float lastShootTime = -Mathf.Infinity; // Time when the ability was last used
     private float projectileSpeed = 20f; // Default speed in case the prefab is missing a particle system
+    private float projectileLifeTime = 5f;
 
     public void UseAbility()
     {
@@ -35,7 +36,7 @@ public class Projectile : MonoBehaviour, IAbility
             return;
         }
 
-        // Retrieve the start speed from the ParticleSystem of the prefab
+        // Retrieve speed from the particle system.
         ParticleSystem particleSystem = projectilePrefab.GetComponent<ParticleSystem>();
         if (particleSystem != null)
         {
@@ -78,5 +79,7 @@ public class Projectile : MonoBehaviour, IAbility
         {
             Debug.LogError("Projectile is missing Rigidbody component.");
         }
+
+        Destroy(projectile, projectileLifeTime);
     }
 }
