@@ -209,7 +209,15 @@ public class NPC_Customization : MonoBehaviour
                         {
                             currentWeapon.transform.localScale *= 100;
                         }
+                        else if(Theme == NPCTheme.Roman)
+                        {
                             currentWeapon.transform.rotation = Quaternion.Euler(90, 0, -3);
+                        }
+                        else if (Theme == NPCTheme.Farm)
+                        {
+                            currentWeapon.transform.rotation = Quaternion.Euler(90, 0, 0);
+                            currentWeapon.transform.localPosition = new Vector3(0, 0, -0.5f);
+                        }
                     }
                 }
 
@@ -229,6 +237,10 @@ public class NPC_Customization : MonoBehaviour
                     {
                         currentShield = InstantiateRandomAsset(shields, lHandBone);
                         currentShield.transform.rotation = Quaternion.Euler(0, -150, -95);
+                    }
+                    if (Theme == NPCTheme.Farm)
+                    {
+                        currentShield.transform.rotation = Quaternion.Euler(180, 90, 0);
                     }
                 }
             }

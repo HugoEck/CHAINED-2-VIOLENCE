@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 23547959542496684}
   - component: {fileID: 64327693373200112}
   - component: {fileID: 7977000633753705801}
-  - component: {fileID: 1361928378275602005}
   - component: {fileID: -5750705077189524943}
+  - component: {fileID: 3307128592232837743}
   m_Layer: 0
   m_Name: SM_Prop_Can_01
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,19 +137,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1361928378275602005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1515059967122666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12f0c14eb36b4384c988ad2c462aec35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
 --- !u!135 &-5750705077189524943
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -171,6 +158,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.09574401
   m_Center: {x: 0, y: 0.09574401, z: 0}
+--- !u!114 &3307128592232837743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515059967122666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f89d61ce6f122847ab2d4d568a0d67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1001 &7911988588845896929
 PrefabInstance:
   m_ObjectHideFlags: 0
