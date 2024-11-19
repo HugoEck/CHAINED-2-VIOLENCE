@@ -3,24 +3,35 @@ using UnityEngine;
 public class ShieldAbility : MonoBehaviour, IAbility
 {
     [Header("Shield Settings")]
-    [SerializeField] private float maxShieldHealth = 20.0f; // Max amount of damage the shield can absorb
+    [SerializeField] private float maxShieldHealth = 20.0f;
     private float currentShieldHealth;
 
     [Header("Shield Visual")]
-    [SerializeField] private GameObject shieldVisualPrefab;  // Assign your shield visual prefab here
-    private GameObject activeShieldVisual; // To keep track of the instantiated shield visual
+    [SerializeField] private GameObject shieldVisualPrefab;
+    private GameObject activeShieldVisual;
 
     private bool isShieldActive = false;
 
     [Header("Cooldown Settings")]
-    [SerializeField] public float cooldown = 5f; // Cooldown duration in seconds
-    private float lastBreakTime = -Mathf.Infinity; // Time when the shield last broke
+    [SerializeField] public float cooldown = 5f;
+    private float lastBreakTime = -Mathf.Infinity;
 
-    [SerializeField] private GameObject otherPlayer; // Reference to the other player
+    [SerializeField] private GameObject otherPlayer;
+    private GameObject activatingPlayer;
+
+    private void OnEnable()
+    {
+        PlayerCombat.OnClassSwitched += HandleClassSwitch;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCombat.OnClassSwitched -= HandleClassSwitch;
+    }
 
     public void UseAbility()
     {
-        if (Time.time >= lastBreakTime + cooldown) // Check if cooldown has elapsed
+        if (Time.time >= lastBreakTime + cooldown)
         {
             ActivateShield();
             ApplyShieldToOtherPlayer();
@@ -33,19 +44,21 @@ public class ShieldAbility : MonoBehaviour, IAbility
 
     private void ActivateShield()
     {
-        if (isShieldActive) return; // Avoid reactivating an already active shield
+        if (isShieldActive) return;
 
         currentShieldHealth = maxShieldHealth;
         isShieldActive = true;
 
-        // Instantiate the shield visual
+        // Set the activating player
+        activatingPlayer = gameObject;
+
         if (shieldVisualPrefab != null)
         {
             activeShieldVisual = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity, transform);
-            activeShieldVisual.transform.localPosition = new Vector3(0, -3.0f, 0); // Adjust Y value as needed
+            activeShieldVisual.transform.localPosition = new Vector3(0, -3.0f, 0);
         }
 
-        Debug.Log(gameObject.name + " Shield Activated. Max Shield Health: " + maxShieldHealth);
+        Debug.Log($"{gameObject.name} Shield Activated. Max Shield Health: {maxShieldHealth}");
     }
 
     private void ApplyShieldToOtherPlayer()
@@ -55,13 +68,49 @@ public class ShieldAbility : MonoBehaviour, IAbility
             ShieldAbility otherPlayerShield = otherPlayer.GetComponent<ShieldAbility>();
             if (otherPlayerShield != null)
             {
-                otherPlayerShield.ActivateShield(); // Activate shield for the other player
+                otherPlayerShield.ActivateShieldFromExternal(gameObject); // Activate shield with reference
                 Debug.Log("Shield applied to other player: " + otherPlayer.name);
             }
         }
         else
         {
             Debug.LogWarning("Other player is not assigned!");
+        }
+    }
+
+    public void ActivateShieldFromExternal(GameObject activator)
+    {
+        if (isShieldActive) return;
+
+        currentShieldHealth = maxShieldHealth;
+        isShieldActive = true;
+        activatingPlayer = activator;
+
+        if (shieldVisualPrefab != null)
+        {
+            activeShieldVisual = Instantiate(shieldVisualPrefab, transform.position, Quaternion.identity, transform);
+            activeShieldVisual.transform.localPosition = new Vector3(0, -3.0f, 0);
+        }
+
+        Debug.Log($"{gameObject.name} Shield Activated by {activator.name}. Max Shield Health: {maxShieldHealth}");
+    }
+
+    private void HandleClassSwitch(int playerId, PlayerCombat.PlayerClass newClass)
+    {
+        // Check if the activating player or other player is the one switching classes
+        if (isShieldActive &&
+            ((activatingPlayer != null && activatingPlayer.GetComponent<Player>()._playerId == playerId) ||
+             (otherPlayer != null && otherPlayer.GetComponent<Player>()._playerId == playerId)))
+        {
+            BreakShield();
+
+            if (otherPlayer != null)
+            {
+                ShieldAbility otherPlayerShield = otherPlayer.GetComponent<ShieldAbility>();
+                otherPlayerShield?.BreakShield();
+            }
+
+            Debug.Log("Shield broken due to class switch.");
         }
     }
 
@@ -82,11 +131,14 @@ public class ShieldAbility : MonoBehaviour, IAbility
         return 0; // Shield absorbed all damage
     }
 
+
     private void BreakShield()
     {
+        if (!isShieldActive) return;
+
         isShieldActive = false;
         currentShieldHealth = 0;
-        lastBreakTime = Time.time; // Start the cooldown timer when the shield breaks
+        lastBreakTime = Time.time;
 
         if (activeShieldVisual != null)
         {
@@ -105,7 +157,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
     {
         if (isShieldActive && activeShieldVisual != null)
         {
-            Vector3 offset = new Vector3(0, -1.0f, 0); // Adjust Y value as needed
+            Vector3 offset = new Vector3(0, -1.0f, 0);
             activeShieldVisual.transform.position = transform.position + offset;
         }
     }

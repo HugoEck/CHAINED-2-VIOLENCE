@@ -107,12 +107,11 @@ public class SwingAbility : MonoBehaviour, IAbility
                     if (enemyRb != null)
                     {
                         // Temporarily remove Y-axis constraints
-                        //RigidbodyConstraints originalConstraints = enemyRb.constraints;
-                        //enemyRb.constraints = RigidbodyConstraints.None;
-                        //enemyManager.behaviorMethods.ToggleRagdoll(true);
+                        RigidbodyConstraints originalConstraints = enemyRb.constraints;
+                        enemyRb.constraints = RigidbodyConstraints.None;
                         
                         Vector3 knockbackDirection = (enemy.transform.position - swingCenter).normalized;
-                        enemyRb.AddForce(knockbackDirection * 100f, ForceMode.Impulse); // Adjust force value as needed
+                        enemyRb.AddForce(knockbackDirection * 20f, ForceMode.Impulse); // Adjust force value as needed
                     }
                 }
             }
