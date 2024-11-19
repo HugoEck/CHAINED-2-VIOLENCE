@@ -6,8 +6,8 @@ public class UIUltimateBar : MonoBehaviour
     public static UIUltimateBar instance;
 
     [Header("UI Elements")]
-    [SerializeField] private Image player1Bar;
-    [SerializeField] private Image player2Bar;
+    [SerializeField] private Image player1BarFill;
+    [SerializeField] private Image player2BarFill;
 
     [Header("Settings")]
     [SerializeField] private float ultimateDuration = 3f;
@@ -15,46 +15,41 @@ public class UIUltimateBar : MonoBehaviour
     private bool player1Activated = false;
     private bool player2Activated = false;
 
-    private float timer1 = 0f;
-    private float timer2 = 0f;
+    private float countdownTimer = 0f;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Ensure this object persists between scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Prevent duplicate instances
+            Destroy(gameObject);
         }
     }
 
     private void Update()
     {
-        if (player1Activated)
+        if (player1Activated || player2Activated)
         {
-            timer1 -= Time.deltaTime;
-            player1Bar.fillAmount = timer1 / ultimateDuration;
+            countdownTimer -= Time.deltaTime;
+            float fillAmount = Mathf.Clamp01(countdownTimer / ultimateDuration);
 
-            if (timer1 <= 0)
+            if (player1Activated)
+                player1BarFill.fillAmount = fillAmount;
+
+            if (player2Activated)
+                player2BarFill.fillAmount = fillAmount;
+
+            if (countdownTimer <= 0f)
             {
-                ResetPlayer1();
+                ResetBars();
             }
         }
 
-        if (player2Activated)
-        {
-            timer2 -= Time.deltaTime;
-            player2Bar.fillAmount = timer2 / ultimateDuration;
-
-            if (timer2 <= 0)
-            {
-                ResetPlayer2();
-            }
-        }
-
+        // Check if both players have activated their ultimate within the time window
         if (player1Activated && player2Activated)
         {
             ActivateUltimate();
@@ -63,38 +58,43 @@ public class UIUltimateBar : MonoBehaviour
 
     public void Player1Activate()
     {
-        player1Activated = true;
-        timer1 = ultimateDuration;
-        player1Bar.fillAmount = 1f;
-        player1Bar.color = Color.yellow;
+        if (!player1Activated)
+        {
+            player1Activated = true;
+            countdownTimer = ultimateDuration;
+            player1BarFill.fillAmount = 1f;
+            player1BarFill.color = Color.yellow;
+        }
     }
 
     public void Player2Activate()
     {
-        player2Activated = true;
-        timer2 = ultimateDuration;
-        player2Bar.fillAmount = 1f;
-        player2Bar.color = Color.yellow;
+        if (!player2Activated)
+        {
+            player2Activated = true;
+            countdownTimer = ultimateDuration;
+            player2BarFill.fillAmount = 1f;
+            player2BarFill.color = Color.yellow;
+        }
     }
 
-    private void ResetPlayer1()
+    private void ResetBars()
     {
         player1Activated = false;
-        player1Bar.fillAmount = 0f;
-        player1Bar.color = Color.gray;
-    }
-
-    private void ResetPlayer2()
-    {
         player2Activated = false;
-        player2Bar.fillAmount = 0f;
-        player2Bar.color = Color.gray;
+
+        player1BarFill.fillAmount = 0f;
+        player1BarFill.color = Color.gray;
+
+        player2BarFill.fillAmount = 0f;
+        player2BarFill.color = Color.gray;
+
+        countdownTimer = 0f;
     }
 
     private void ActivateUltimate()
     {
         Debug.Log("Ultimate Activated!");
-        ResetPlayer1();
-        ResetPlayer2();
+        ResetBars();
     }
 }
