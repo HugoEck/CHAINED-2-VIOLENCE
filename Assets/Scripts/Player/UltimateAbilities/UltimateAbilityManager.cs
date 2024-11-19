@@ -135,6 +135,11 @@ public class UltimateAbilityManager : MonoBehaviour
     /// </summary>
     public void UseUltimateAbility()
     {
+        if (UIUltimateBar.instance.CanActivateUltimate())
+        {
+            UIUltimateBar.instance.ActivateUltimate(); // Keeps track of when ultimates are activated for the UI bar.
+        }
+
         switch (_currentUltimateAbility)
         {
             case UltimateAbilities.LaserChain:
