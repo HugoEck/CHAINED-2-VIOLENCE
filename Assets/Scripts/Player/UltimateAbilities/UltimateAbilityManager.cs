@@ -161,6 +161,7 @@ public class UltimateAbilityManager : MonoBehaviour
     public void UseUltimateAbilityPlayer1()
     {
         _bIsPlayer1UsingUltimateAbility = true;
+        UIUltimateBar.instance.Player1Activate();
 
         if (_bIsPlayer2UsingUltimateAbility && !_bIsUltimateUsed)
         {
@@ -184,7 +185,8 @@ public class UltimateAbilityManager : MonoBehaviour
     public void UseUltimateAbilityPlayer2()
     {
         _bIsPlayer2UsingUltimateAbility = true;
-
+        UIUltimateBar.instance.Player2Activate();
+    
         if (_bIsPlayer1UsingUltimateAbility && !_bIsUltimateUsed)
         {
             // Both players have activated, use the ultimate
