@@ -19,6 +19,15 @@ public class ShaderScript : MonoBehaviour
     private List<Material> allMaterials = new List<Material>();
     private Coroutine dissolveCoroutine;
 
+    public GameObject romanArena;
+    public GameObject fantasyArena;
+    public GameObject pirateArena;
+    public GameObject westernArena; 
+    public GameObject farmArena;
+    public GameObject currentDayArena;
+    public GameObject sciFiArena;
+
+
     private bool hasChangedToRoman = false;
     private bool hasChangedToFarm = false;
     private bool hasChangedToPirate = false;
@@ -65,59 +74,63 @@ public class ShaderScript : MonoBehaviour
         Debug.Log(WaveManager.currentWave);
         if (WaveManager.currentWave == 1 && !hasChangedToRoman)
         {
-            ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f);
+            romanArena.SetActive(true);
+            ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f, sciFiArena);
             hasChangedToRoman = true;
         }
         if (WaveManager.currentWave == 10 && !hasChangedToFantasy)
         {
-            ChangeArena(fantasyMaterials, 25f, initialOffsetsFantasy);
+            
+            fantasyArena.SetActive(true);
+            ChangeArena(fantasyMaterials, 25f, initialOffsetsFantasy, romanArena);
             hasChangedToFantasy = true;
         }
         if (WaveManager.currentWave == 20 && !hasChangedToPirate)
         {
-            ChangeArena(pirateMaterials, 25f, initialOffsetsPirate);
+
+            ChangeArena(pirateMaterials, 25f, initialOffsetsPirate, fantasyArena);
             hasChangedToPirate = true;
         }
         if (WaveManager.currentWave == 30 && !hasChangedToWestern)
         {
-            ChangeArena(westernMaterials, 25f, initialOffsetsWestern);
+            ChangeArena(westernMaterials, 25f, initialOffsetsWestern, pirateArena);
             hasChangedToWestern = true;
         }
         if (WaveManager.currentWave == 40 && !hasChangedToFarm)
         {
-            ChangeArena(farmMaterials, 10f, initialOffsetsFarm);
+            ChangeArena(farmMaterials, 10f, initialOffsetsFarm, westernArena);
             hasChangedToFarm = true;
         }
         if (WaveManager.currentWave == 50 && !hasChangedToCurrentDay)
         {
-            ChangeArena(currentDayMaterials, 3f, initialOffsetsCurrentDay);
+            ChangeArena(currentDayMaterials, 3f, initialOffsetsCurrentDay, farmArena);
             hasChangedToCurrentDay = true;
         }
         if (WaveManager.currentWave == 60 && !hasChangedToSciFi)
         {
-            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi);
+            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
             hasChangedToSciFi = true;
         }
 
     }
-    public void ChangeArena(Material[] desiredArena, float stopY, float startY)
+    public void ChangeArena(Material[] desiredArena, float stopY, float startY, GameObject oldArena)
     {
         if (dissolveCoroutine != null)
         {
             StopCoroutine(dissolveCoroutine);
         }
         
-        dissolveCoroutine = StartCoroutine(HandleArenaTransition(desiredArena, stopY, startY));
+        dissolveCoroutine = StartCoroutine(HandleArenaTransition(desiredArena, stopY, startY, oldArena));
     }
 
-    private IEnumerator HandleArenaTransition(Material[] desiredArena, float stopY, float startY)
+    private IEnumerator HandleArenaTransition(Material[] desiredArena, float stopY, float startY, GameObject oldArena)
     {
         // Phase 1: Fully dissolve the active arena
         if (activeMaterials != null && activeMaterials.Length > 0)
         {
             yield return StartCoroutine(DissolveArena(activeMaterials, dissolveOut: true));
         }
-
+        oldArena.SetActive(false);
         // Phase 2: Fully reveal the desired arena
         yield return StartCoroutine(DissolveArena(desiredArena, dissolveOut: false));
 

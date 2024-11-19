@@ -4,9 +4,9 @@ public class Projectile : MonoBehaviour, IAbility
 {
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public float cooldown;        // Cooldown duration in seconds
-    private float lastShootTime = -Mathf.Infinity; // Time when the ability was last used
-    private float projectileSpeed = 20f; // Default speed in case the prefab is missing a particle system
+    public float cooldown;
+    private float lastShootTime = -Mathf.Infinity;
+    private float projectileSpeed = 20f;
     private float projectileLifeTime = 5f;
 
     public void UseAbility()
