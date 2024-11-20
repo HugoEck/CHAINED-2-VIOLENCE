@@ -39,6 +39,12 @@ public class AbilityCdUI : MonoBehaviour
         AbilityCdEventsUI.OnAbilityUsed -= HandleAbilityUsed;
     }
 
+    private void Start()
+    {
+        imageCooldownP1.gameObject.SetActive(false);
+        imageCooldownP2.gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         UpdateCooldown(ref player1CooldownRemaining, player1CooldownTime, imageCooldownP1, textCooldownP1);
@@ -53,6 +59,7 @@ public class AbilityCdUI : MonoBehaviour
             {
                 player1CooldownRemaining = cooldown;
                 player1CooldownTime = cooldown;
+                imageCooldownP1.gameObject.SetActive(true);
                 imageCooldownP1.fillAmount = 1;
                 textCooldownP1.text = cooldown.ToString("F1");
             }
@@ -63,6 +70,7 @@ public class AbilityCdUI : MonoBehaviour
             {
                 player2CooldownRemaining = cooldown;
                 player2CooldownTime = cooldown;
+                imageCooldownP2.gameObject.SetActive(true);
                 imageCooldownP2.fillAmount = 1;
                 textCooldownP2.text = cooldown.ToString("F1");
             }
