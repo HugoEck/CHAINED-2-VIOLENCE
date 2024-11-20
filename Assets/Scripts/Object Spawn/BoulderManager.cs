@@ -12,6 +12,7 @@ public class BoulderManager : MonoBehaviour
     
     public List<GameObject> objectsToRemove = new List<GameObject>();
     public itemAreaSpawner spawner;
+    
     [SerializeField] public GameObject destructionParticle;
     [SerializeField] public GameObject portalParticle;
 
@@ -51,8 +52,6 @@ public class BoulderManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision detected with: " + collision.gameObject.name);
-
         // Check for specific collision tags
         if (collision.gameObject.CompareTag("Misc"))
         {
@@ -71,7 +70,6 @@ public class BoulderManager : MonoBehaviour
             }
 
             Destroy(collision.gameObject);
-            Debug.Log($"Object {collision.gameObject.name} has been destroyed.");
 
             // Skip further processing to ensure the boulder keeps its direction
             //return;
@@ -84,7 +82,6 @@ public class BoulderManager : MonoBehaviour
 
 
             Destroy(collision.gameObject);
-            Debug.Log($"Object {collision.gameObject.name} has been deactivated.");
 
             // Skip further processing to ensure the boulder keeps its direction
             return;
@@ -109,8 +106,6 @@ public class BoulderManager : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Map"))
         {
-            Debug.Log("Boulder collided with the map. Destroying the boulder.");
-
             if (portalParticle != null && collision.contacts.Length > 0)
             {
                 Vector3 collisionPoint = collision.contacts[0].point;
@@ -125,13 +120,19 @@ public class BoulderManager : MonoBehaviour
                 Debug.LogWarning("Particles prefab is not assigned or no collision contacts available.");
             }
 
+            #region REMOVE COLLIDERS AT COLLISION
             Collider boulderCollider = GetComponent<Collider>();
             if (boulderCollider != null)
             {
                 boulderCollider.enabled = false;
             }
+            Obi.ObiCollider obiCollider = GetComponent<Obi.ObiCollider>();
+            if (obiCollider != null)
+            {
+                obiCollider.enabled = false;
+            }
+            #endregion
 
-            // Notify the spawner to remove this boulder
             if (spawner != null)
             {
                 spawner.RemoveObjectFromCollision(gameObject);

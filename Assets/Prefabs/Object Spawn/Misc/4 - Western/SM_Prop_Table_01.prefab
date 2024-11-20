@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4445125547059492}
   - component: {fileID: 33091230634297054}
   - component: {fileID: 23862989904128044}
-  - component: {fileID: 64575799814182998}
   - component: {fileID: 5052300575552708665}
-  - component: {fileID: -6302905491093872947}
+  - component: {fileID: 4075159636208065952}
+  - component: {fileID: 545386132974109379}
   m_Layer: 8
   m_Name: SM_Prop_Table_01
   m_TagString: Misc
@@ -94,8 +94,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64575799814182998
-MeshCollider:
+--- !u!114 &5052300575552708665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819642565574344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
+  dissolveYRange: {x: -0.1, y: 15}
+--- !u!65 &4075159636208065952
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -112,25 +126,10 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43926824577975002, guid: d316371e1eafff740ba1aef65122af06, type: 2}
---- !u!114 &5052300575552708665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819642565574344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
-  dissolveYRange: {x: -0.1, y: 15}
---- !u!114 &-6302905491093872947
+  serializedVersion: 3
+  m_Size: {x: 1.086567, y: 0.6244814, z: 1.6262887}
+  m_Center: {x: -0.036598265, y: 0.3122407, z: -0.22547743}
+--- !u!114 &545386132974109379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +145,7 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64575799814182998}
+  m_SourceCollider: {fileID: 4075159636208065952}
   m_DistanceField: {fileID: 0}
 --- !u!1001 &3539210124805750530
 PrefabInstance:
@@ -200,7 +199,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64218197897977302, guid: 03e79d7f6f4d78e4ba3389d022cecbe8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -326,7 +326,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64050949465896690, guid: 05679acf00edfbd4395747ca69bde7c1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -602,7 +603,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64177707732202074, guid: 3a5ca6d26bbee6c4397264f41fff6ec7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -665,11 +667,66 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -38027169289312537, guid: 5536424f6a56c4d44bb3946128559cbf, type: 3}
+    - {fileID: 64341298985501670, guid: 5536424f6a56c4d44bb3946128559cbf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1525683199249490, guid: 5536424f6a56c4d44bb3946128559cbf,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3357394197625609383}
+    - targetCorrespondingSourceObject: {fileID: 1525683199249490, guid: 5536424f6a56c4d44bb3946128559cbf,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1979705382121584436}
   m_SourcePrefab: {fileID: 100100000, guid: 5536424f6a56c4d44bb3946128559cbf, type: 3}
+--- !u!1 &9173952395018613850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1525683199249490, guid: 5536424f6a56c4d44bb3946128559cbf,
+    type: 3}
+  m_PrefabInstance: {fileID: 9175246967868766216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3357394197625609383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173952395018613850}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.73488957, y: 1.2233049, z: 0.8821496}
+  m_Center: {x: 0.059897274, y: 0.61165243, z: -0.07739955}
+--- !u!114 &1979705382121584436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173952395018613850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 3357394197625609383}
+  m_DistanceField: {fileID: 0}
 --- !u!4 &9176848198242504334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4415988797912710, guid: 5536424f6a56c4d44bb3946128559cbf,
