@@ -23,9 +23,6 @@ public class TrapManager : MonoBehaviour
 
     public float trapDamage = 1f;
 
-    public GameObject surfaceIndicator;
-    private bool indicatorVisible = false;
-
     #endregion
 
     void Start()
@@ -33,13 +30,6 @@ public class TrapManager : MonoBehaviour
         // Start the trap below the surface
         transform.position = new Vector3(transform.position.x, spawnY, transform.position.z);
         timer = Random.Range(minWaitTime, maxWaitTime);
-
-        // Initialize the indicator at the surface position and hide it
-        if (surfaceIndicator != null)
-        {
-            surfaceIndicator.transform.position = new Vector3(transform.position.x, surfaceY, transform.position.z);
-            surfaceIndicator.SetActive(false);
-        }
     }
 
     void Update()
@@ -77,13 +67,6 @@ public class TrapManager : MonoBehaviour
                 if (transform.position.y < surfaceY)
                 {
                     transform.position += Vector3.up * riseSpeed * Time.deltaTime;
-
-                    // Show the indicator if it’s not already visible
-                    if (!indicatorVisible && surfaceIndicator != null)
-                    {
-                        surfaceIndicator.SetActive(true);
-                        indicatorVisible = true;
-                    }
                 }
                 else
                 {
@@ -91,13 +74,6 @@ public class TrapManager : MonoBehaviour
                     isMovingUp = false;
                     waitingAbove = true;
                     timer = Random.Range(minWaitTime, maxWaitTime);
-
-                    // Hide the indicator as the trap has surfaced
-                    if (surfaceIndicator != null)
-                    {
-                        surfaceIndicator.SetActive(false);
-                        indicatorVisible = false;
-                    }
                 }
             }
             else
@@ -135,7 +111,6 @@ public class TrapManager : MonoBehaviour
     #region Deal Damage
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision detected with: " + collision.gameObject.name);
 
         // DAMAGE PLAYER
         if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
@@ -144,13 +119,7 @@ public class TrapManager : MonoBehaviour
 
             if (player != null)
             {
-                Debug.Log("Current health " +  player.name + " is " + player.currentHealth);
                 player.SetHealth(trapDamage);
-                Debug.Log(collision.gameObject.tag + " hit by trap. Dealt " + trapDamage + " damage. Current health: " + player.currentHealth);
-            }
-            else
-            {
-                Debug.Log("No Player component found on " + collision.gameObject.name);
             }
         }
         
@@ -160,17 +129,9 @@ public class TrapManager : MonoBehaviour
 
             if (enemy != null)
             {
-                Debug.Log("Enemy health before damage: " + enemy.currentHealth);
                 enemy.DealDamageToEnemy(trapDamage);
-                Debug.Log("Enemy hit by trap, Dealt " + " damage, current health: " + enemy.currentHealth);
-            }
-            else
-            {
-                Debug.Log("No BaseManager component found on " + collision.gameObject.name);
             }
         }
-
-
     }
     #endregion
 }

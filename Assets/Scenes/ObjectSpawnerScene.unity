@@ -169,52 +169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _otherPlayerChainJointTransform: {fileID: 550922372}
---- !u!1 &53388094
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 53388096}
-  - component: {fileID: 53388095}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &53388095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53388094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &53388096
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53388094}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &109889340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1345886e61811614693b86d765f420d0,
@@ -659,12 +613,14 @@ MonoBehaviour:
   swingSpeed: 200
   swingRadius: 5
   swingDamage: 20
+  cooldown: 5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
+  swingEffectPrefab: {fileID: 0}
 --- !u!114 &440461378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,6 +715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 10
+  isFlashing: 0
 --- !u!54 &440461383
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1102,6 +1059,12 @@ PrefabInstance:
       objectReference: {fileID: 426050750}
     - target: {fileID: 5970659634268736419, guid: a0a3437c31096bd408a80a021364abfa,
         type: 3}
+      propertyPath: boulder
+      value: 
+      objectReference: {fileID: 7098736691664792862, guid: bce332d26c493e04daed52371798ec57,
+        type: 3}
+    - target: {fileID: 5970659634268736419, guid: a0a3437c31096bd408a80a021364abfa,
+        type: 3}
       propertyPath: aiPathPrefab
       value: 
       objectReference: {fileID: 426050750}
@@ -1110,6 +1073,16 @@ PrefabInstance:
       propertyPath: gridGraphUpdater
       value: 
       objectReference: {fileID: 1692651908}
+    - target: {fileID: 5970659634268736419, guid: a0a3437c31096bd408a80a021364abfa,
+        type: 3}
+      propertyPath: numObjectsToSpawn
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5970659634268736419, guid: a0a3437c31096bd408a80a021364abfa,
+        type: 3}
+      propertyPath: overlapTestBoxSize
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8171475807585954754, guid: a0a3437c31096bd408a80a021364abfa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1165,6 +1138,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0a3437c31096bd408a80a021364abfa, type: 3}
+--- !u!1 &997971598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 997971600}
+  - component: {fileID: 997971599}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &997971599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997971598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &997971600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997971598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1142426573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,13 +1380,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152424574}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20602252, y: -0.22458746, z: 0.04868267, w: 0.951181}
-  m_LocalPosition: {x: 28.085953, y: 22.226562, z: -45.172157}
+  m_LocalRotation: {x: -0.31407595, y: 0.17347161, z: -0.058668926, w: -0.9315696}
+  m_LocalPosition: {x: 29.048527, y: 48.984524, z: -66.404785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 39.784, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 37.7, y: 14.696, z: 3.773}
 --- !u!114 &1152424578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1671,12 +1690,14 @@ MonoBehaviour:
   swingSpeed: 200
   swingRadius: 5
   swingDamage: 20
+  cooldown: 5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
+  swingEffectPrefab: {fileID: 0}
 --- !u!114 &1430627308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1771,6 +1792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 10
+  isFlashing: 0
 --- !u!54 &1430627313
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3350,4 +3372,4 @@ SceneRoots:
   - {fileID: 997227116}
   - {fileID: 426050752}
   - {fileID: 1692651909}
-  - {fileID: 53388096}
+  - {fileID: 997971600}

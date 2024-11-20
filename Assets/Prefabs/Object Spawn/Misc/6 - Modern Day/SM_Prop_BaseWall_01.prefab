@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 4646407613516282}
   - component: {fileID: 33468078285660612}
   - component: {fileID: 23476354590756490}
-  - component: {fileID: 64986660292041380}
   - component: {fileID: 846082347260595950}
   - component: {fileID: -3806433888454007718}
-  - component: {fileID: 3820933273564742561}
+  - component: {fileID: 1408441381491817063}
+  - component: {fileID: 4479008039487760223}
   m_Layer: 8
   m_Name: SM_Prop_BaseWall_01
-  m_TagString: Untagged
+  m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,28 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64986660292041380
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630052041012002}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43309315396966918, guid: df9e58a04b5a9db48ba7910a2d79985c, type: 2}
 --- !u!114 &846082347260595950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +115,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 5e56c1b8a99fb5a4e962dbaaf179ef60, type: 2}
   dissolveYRange: {x: -0.1, y: 15}
---- !u!114 &3820933273564742561
+--- !u!65 &1408441381491817063
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630052041012002}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2.7778685, z: 0.5070886}
+  m_Center: {x: -1, y: 1.3889343, z: 0}
+--- !u!114 &4479008039487760223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,7 +152,7 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64986660292041380}
+  m_SourceCollider: {fileID: 1408441381491817063}
   m_DistanceField: {fileID: 0}
 --- !u!1001 &5034573362744363271
 PrefabInstance:
@@ -166,6 +165,10 @@ PrefabInstance:
     - target: {fileID: 1279273032208474, guid: 19542375af87b724dac6a4780bf66a36, type: 3}
       propertyPath: m_Name
       value: SM_Prop_BaseWall_Broken_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1279273032208474, guid: 19542375af87b724dac6a4780bf66a36, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4189689255565714, guid: 19542375af87b724dac6a4780bf66a36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -230,6 +233,10 @@ PrefabInstance:
     - target: {fileID: 1520938048520990, guid: 7009328d184126a42b40077c9dbb1faa, type: 3}
       propertyPath: m_Name
       value: SM_Prop_BaseWall_Broken_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520938048520990, guid: 7009328d184126a42b40077c9dbb1faa, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4853669681028870, guid: 7009328d184126a42b40077c9dbb1faa, type: 3}
       propertyPath: m_LocalPosition.x
