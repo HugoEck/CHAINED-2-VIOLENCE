@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    private bool _bIsPlayerDisabled = false;
+    public bool _bIsPlayerDisabled = false;
 
     private static int playersDefeated = 0;
 
@@ -277,6 +277,20 @@ public class Player : MonoBehaviour
     /// <summary>
     /// MAYBE SEPERATE SCRIPT FOR HANDLING PLAYER DEFEAT
     /// </summary>
+    public void ToggleRagdoll(bool turnOn, GameObject player)
+    {
+        if(turnOn)
+        {
+            player.GetComponentInChildren<Animator>(false).enabled = false;
+            player.GetComponent<CapsuleCollider>().enabled = false;
+        }
+        else if(!turnOn)
+        {
+            player.GetComponentInChildren<Animator>(false).enabled = true;
+            player.GetComponent<CapsuleCollider>().enabled = true;
+        }
+    }
+    
     private void HandleKnockout()
     {
         if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;
@@ -285,16 +299,14 @@ public class Player : MonoBehaviour
         {
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
-                player1Obj.GetComponentInChildren<Animator>(false).enabled = false;
-                player1Obj.GetComponent<CapsuleCollider>().enabled = false;
+                ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
 
             }
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
             {
-                player2Obj.GetComponentInChildren<Animator>(false).enabled = false;
-                player2Obj.GetComponent<CapsuleCollider>().enabled = false;
+                ToggleRagdoll(true, player2Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
 
@@ -317,8 +329,7 @@ public class Player : MonoBehaviour
 
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
-                player1Obj.GetComponentInChildren<Animator>(false).enabled = false;
-                player1Obj.GetComponent<CapsuleCollider>().enabled = false;
+                ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
 
@@ -353,15 +364,13 @@ public class Player : MonoBehaviour
 
             if (_playerId == 1)
             {
-                player1Obj.GetComponentInChildren<Animator>(false).enabled = true;
-                player1Obj.GetComponent<CapsuleCollider>().enabled = true;
+                ToggleRagdoll(false, player1Obj);
 
                 DisableColliders();
             }
             else if (_playerId == 2)
             {
-                player2Obj.GetComponentInChildren<Animator>(false).enabled = true;
-                player2Obj.GetComponent<CapsuleCollider>().enabled = true;
+                ToggleRagdoll(false, player2Obj);
 
                 DisableColliders();
             }
