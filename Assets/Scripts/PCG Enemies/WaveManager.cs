@@ -29,9 +29,9 @@ public class WaveManager : MonoBehaviour
     WaveData waveData = new WaveData();
 
     [SerializeField] TextMeshProUGUI text;
-    public static int currentWave = 1;
+    public static int currentWave = 0;
 
-    enum CurrentEra
+    public enum CurrentEra
     {
         Roman,
         Fantasy,
@@ -41,7 +41,7 @@ public class WaveManager : MonoBehaviour
         CurrentDay,
         SciFi
     }
-    CurrentEra currentEra = new CurrentEra();
+    public CurrentEra currentEra = new CurrentEra();
 
 
 
@@ -49,7 +49,7 @@ public class WaveManager : MonoBehaviour
     private void OnEnable()
     {
         ActiveEnemies = 0;
-        currentWave = 1;
+        currentWave = 0;
     }
 
 
@@ -61,19 +61,6 @@ public class WaveManager : MonoBehaviour
         //StartCoroutine(SpawnWavesRegularly());
     }
 
-    private IEnumerator SpawnWavesRegularly()
-    {
-        while (true)
-        {
-            if (currentWave < waves.Count)
-            {
-                SpawnWave(waves[currentWave]);
-                text.text = "Wave " + currentWave;
-                currentWave++;
-            }
-            yield return new WaitForSeconds(20f); // Wait for 60 seconds before spawning the next wave
-        }
-    }
 
     private void Update()
     {
@@ -81,6 +68,7 @@ public class WaveManager : MonoBehaviour
         if (ActiveEnemies == 0 || timer > targetTime)
         {
             timer = 0;
+            ChangeEra();
             SpawnWave(waves[currentWave]);
             currentWave++;
         }
@@ -88,28 +76,11 @@ public class WaveManager : MonoBehaviour
         //Debug spawner
         if (Input.GetKeyDown(KeyCode.L))
         {
+            ChangeEra();
             SpawnWave(waves[currentWave]);
             currentWave++;
             timer = 0;
         }
-
-        //Debug Wave
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    Wave wave = new Wave();
-        //    wave.waveName = "testWave";
-        //    EnemyConfig enemy = new EnemyConfig();
-
-        //    //Set enemy theme and class to debug here
-        //    enemy.enemyClass = NPC_Customization.NPCClass.RockThrower;
-        //    enemy.theme = NPC_Customization.NPCTheme.Roman;
-
-        //    enemy.waveSize = 10;
-        //    wave.enemyConfigs = new List<EnemyConfig>();
-        //    wave.enemyConfigs.Add(enemy);
-        //    SpawnWave(wave);
-        //    text.text = "Trying out " + enemy.theme.ToString() + " "+ enemy.enemyClass.ToString();
-        //}
 
         //FPS writer
         //deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
