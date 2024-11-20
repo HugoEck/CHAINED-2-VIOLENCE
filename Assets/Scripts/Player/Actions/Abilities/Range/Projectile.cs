@@ -4,9 +4,10 @@ public class Projectile : MonoBehaviour, IAbility
 {
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public float projectileSpeed = 20f;
-    public float cooldown = 2f;        // Cooldown duration in seconds
-    private float lastShootTime = -Mathf.Infinity; // Time when the ability was last used
+    public float cooldown;
+    private float lastShootTime = -Mathf.Infinity;
+    private float projectileSpeed = 20f;
+    private float projectileLifeTime = 5f;
 
     public void UseAbility()
     {
@@ -33,6 +34,18 @@ public class Projectile : MonoBehaviour, IAbility
         {
             Debug.LogError("Fire point is not assigned.");
             return;
+        }
+
+        // Retrieve speed from the particle system.
+        ParticleSystem particleSystem = projectilePrefab.GetComponent<ParticleSystem>();
+        if (particleSystem != null)
+        {
+            ParticleSystem.MainModule mainModule = particleSystem.main;
+            projectileSpeed = mainModule.startSpeed.constant;
+        }
+        else
+        {
+            Debug.LogWarning("Projectile prefab is missing a ParticleSystem. Using default projectile speed.");
         }
 
         Vector3 direction = transform.forward.normalized;
@@ -66,5 +79,7 @@ public class Projectile : MonoBehaviour, IAbility
         {
             Debug.LogError("Projectile is missing Rigidbody component.");
         }
+
+        Destroy(projectile, projectileLifeTime);
     }
 }

@@ -24,7 +24,7 @@ public class CyberGiantManager : BaseManager
     [Header("CG STATS")]
 
     public float energyShieldDefense;
-    private float baseDefense;
+    [HideInInspector] public float baseDefense;
     public float bombDamage;
     public float missileDamage;
     public float bombCooldown;
@@ -49,6 +49,7 @@ public class CyberGiantManager : BaseManager
     [HideInInspector] public bool jumpEngageActive = false;
     [HideInInspector] public bool overheadSmashActive = false;
     [HideInInspector] public bool shieldWalkActive = false;
+    [HideInInspector] public bool staggerActive = false;
 
     private float lastBombShotTime = 0;
     private float lastLongRangeTime = -5;
@@ -93,7 +94,7 @@ public class CyberGiantManager : BaseManager
     }
     public bool CheckIfAbilityInProgress()
     {
-        if (missileRainActive || jumpEngageActive || overheadSmashActive)
+        if (missileRainActive || jumpEngageActive || overheadSmashActive || staggerActive)
         {
             return true;
         }
@@ -144,21 +145,25 @@ public class CyberGiantManager : BaseManager
 
     private void ToggleEnergyShield()
     {
-        Transform closestPlayer = behaviorMethods.CalculateClosestTarget();
-        float distance = Vector3.Distance(transform.position, closestPlayer.position);
+        if (!staggerActive)
+        {
+            Transform closestPlayer = behaviorMethods.CalculateClosestTarget();
+            float distance = Vector3.Distance(transform.position, closestPlayer.position);
 
-        if (distance > maxMidRangeDistance && !CheckIfAbilityInProgress())
-        {
-            energyShield.SetActive(true);
-            damageCollider.radius = 1.4f;
-            defense = energyShieldDefense;
+            if (distance > maxMidRangeDistance && !CheckIfAbilityInProgress())
+            {
+                energyShield.SetActive(true);
+                damageCollider.radius = 1.4f;
+                defense = energyShieldDefense;
+            }
+            else
+            {
+                energyShield.SetActive(false);
+                damageCollider.radius = 0.75f;
+                defense = baseDefense;
+            }
         }
-        else
-        {
-            energyShield.SetActive(false);
-            damageCollider.radius = 0.75f;
-            defense = baseDefense;
-        }
+
     }
     public void SetBombVelocity(Vector3 newVelocity)
     {
