@@ -31,6 +31,18 @@ public class WaveManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     public static int currentWave = 0;
 
+    enum CurrentEra
+    {
+        Roman,
+        Fantasy,
+        Pirate,
+        Western,
+        Farm,
+        CurrentDay,
+        SciFi
+    }
+    CurrentEra currentEra = new CurrentEra();
+
 
 
     public float deltaTime;
@@ -220,6 +232,39 @@ public class WaveManager : MonoBehaviour
         // Ensure the final alpha is set to 1
         color.a = 0;
         text.color = color;
+    }
+
+    private void ChangeEra()
+    {
+        if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Roman)
+        {
+            currentEra = CurrentEra.Roman;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.SciFi)
+        {
+            currentEra = CurrentEra.SciFi;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Farm)
+        {
+            currentEra = CurrentEra.Farm;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Fantasy)
+        {
+            currentEra = CurrentEra.Fantasy;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Cowboys)
+        {
+            currentEra = CurrentEra.Western;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Pirate)
+        {
+            currentEra = CurrentEra.Pirate;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.CurrentDay)
+        {
+            currentEra = CurrentEra.CurrentDay;
+        }
+
     }
 
     private TMP_Asset GetFont()
