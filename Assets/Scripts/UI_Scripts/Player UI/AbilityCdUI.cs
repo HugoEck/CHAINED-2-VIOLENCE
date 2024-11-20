@@ -53,6 +53,11 @@ public class AbilityCdUI : MonoBehaviour
 
     private void HandleAbilityUsed(int playerId, PlayerCombat.PlayerClass playerClass, float cooldown)
     {
+        if (playerClass == PlayerCombat.PlayerClass.Default)
+        {
+            return;
+        }
+
         if (playerId == 1)
         {
             if (player1CooldownRemaining <= 0)
