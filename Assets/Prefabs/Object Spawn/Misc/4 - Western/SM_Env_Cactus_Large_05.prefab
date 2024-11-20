@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 4875007101939110}
   - component: {fileID: 33908141816922408}
   - component: {fileID: 23089126194246434}
-  - component: {fileID: 64365599408037176}
   - component: {fileID: 7496379388355903705}
   - component: {fileID: -2378858922178387233}
-  - component: {fileID: 5425834743522417656}
+  - component: {fileID: 8567656745470456993}
+  - component: {fileID: 3094320985948895904}
   m_Layer: 8
   m_Name: SM_Env_Cactus_Large_05
-  m_TagString: Untagged
+  m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,28 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64365599408037176
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291853272559926}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43464755999408902, guid: 038f75e534d666844bcea112ce062286, type: 2}
 --- !u!114 &7496379388355903705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +113,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1acaf8908ef284597bf8c5c6392af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5425834743522417656
+--- !u!136 &8567656745470456993
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291853272559926}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.59865284
+  m_Height: 2.3441143
+  m_Direction: 1
+  m_Center: {x: -0.021728039, y: 1.1720572, z: 0.007037878}
+--- !u!114 &3094320985948895904
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,5 +152,5 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64365599408037176}
+  m_SourceCollider: {fileID: 8567656745470456993}
   m_DistanceField: {fileID: 0}

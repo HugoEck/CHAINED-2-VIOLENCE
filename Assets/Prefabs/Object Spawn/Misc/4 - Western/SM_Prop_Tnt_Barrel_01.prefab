@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4531404097422098}
   - component: {fileID: 33028545495127042}
   - component: {fileID: 23034581184351524}
-  - component: {fileID: 64217964371556344}
   - component: {fileID: 4347055525470874878}
   - component: {fileID: -3775749239684162925}
-  - component: {fileID: 1148640308058413067}
+  - component: {fileID: 5754366366905138198}
+  - component: {fileID: 1307971011715492346}
   m_Layer: 8
   m_Name: SM_Prop_Tnt_Barrel_01
   m_TagString: Untagged
@@ -87,28 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64217964371556344
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996911910993298}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43564266649923022, guid: efafa5ce516e39c4b9bea46f49babc32, type: 2}
 --- !u!114 &4347055525470874878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +113,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1acaf8908ef284597bf8c5c6392af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1148640308058413067
+--- !u!136 &5754366366905138198
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996911910993298}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.30432087
+  m_Height: 0.83357036
+  m_Direction: 1
+  m_Center: {x: 0.006765723, y: 0.3483405, z: 0.0035218}
+--- !u!114 &1307971011715492346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,5 +152,5 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64217964371556344}
+  m_SourceCollider: {fileID: 5754366366905138198}
   m_DistanceField: {fileID: 0}

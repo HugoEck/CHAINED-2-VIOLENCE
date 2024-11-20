@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 4437635691363398}
   - component: {fileID: 33166410157900690}
   - component: {fileID: 23103968603688008}
-  - component: {fileID: 64515855187810532}
   - component: {fileID: -1976235955184723072}
   - component: {fileID: -8397598574491053260}
-  - component: {fileID: 4477563209543846511}
+  - component: {fileID: 3690927538694634526}
+  - component: {fileID: 6637128152230534540}
   m_Layer: 8
   m_Name: SM_Env_Tree_Peach_Grown_01
-  m_TagString: Untagged
+  m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,28 +94,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64515855187810532
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1738070637598736}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43720315156782314, guid: 46cadce828c62fa4590a4a4c4675f782, type: 2}
 --- !u!114 &-1976235955184723072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +120,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1acaf8908ef284597bf8c5c6392af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4477563209543846511
+--- !u!65 &3690927538694634526
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738070637598736}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.9040276, y: 4.511758, z: 0.8264349}
+  m_Center: {x: 0.037625767, y: 2.062453, z: -0.018558407}
+--- !u!114 &6637128152230534540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,7 +157,7 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64515855187810532}
+  m_SourceCollider: {fileID: 3690927538694634526}
   m_DistanceField: {fileID: 0}
 --- !u!1001 &1096937175825997962
 PrefabInstance:

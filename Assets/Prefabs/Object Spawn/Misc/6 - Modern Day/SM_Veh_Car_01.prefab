@@ -501,13 +501,13 @@ GameObject:
   - component: {fileID: 4729576678422248}
   - component: {fileID: 33895431280190370}
   - component: {fileID: 23065182090748536}
-  - component: {fileID: 64543562869724498}
   - component: {fileID: -6001469895064546548}
   - component: {fileID: -4321325419664745238}
-  - component: {fileID: 4356400990741353289}
+  - component: {fileID: 5858955476291013931}
+  - component: {fileID: 461691101512724258}
   m_Layer: 8
   m_Name: SM_Veh_Car_01
-  m_TagString: Untagged
+  m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -583,28 +583,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64543562869724498
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1828845558886990}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43163034405991788, guid: eaf5d6e8a55f37f4191f633273fc402b, type: 2}
 --- !u!114 &-6001469895064546548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,7 +609,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 5e56c1b8a99fb5a4e962dbaaf179ef60, type: 2}
   dissolveYRange: {x: -0.1, y: 15}
---- !u!114 &4356400990741353289
+--- !u!65 &5858955476291013931
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828845558886990}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6876674, y: 1.1775165, z: 4.0308943}
+  m_Center: {x: -0.032361746, y: 0.768607, z: -0.013197303}
+--- !u!114 &461691101512724258
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -647,7 +646,7 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64543562869724498}
+  m_SourceCollider: {fileID: 5858955476291013931}
   m_DistanceField: {fileID: 0}
 --- !u!1 &1977614770275194
 GameObject:

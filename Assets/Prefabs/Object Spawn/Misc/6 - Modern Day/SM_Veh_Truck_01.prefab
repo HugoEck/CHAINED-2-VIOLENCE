@@ -109,13 +109,13 @@ GameObject:
   - component: {fileID: 4671490559699700}
   - component: {fileID: 33478880837364498}
   - component: {fileID: 23512240475489024}
-  - component: {fileID: 64475440655322744}
   - component: {fileID: 4424029737779688603}
   - component: {fileID: -1352545252552751745}
-  - component: {fileID: 6751154998856884317}
+  - component: {fileID: 2086873344955879476}
+  - component: {fileID: 9011483666140436440}
   m_Layer: 8
   m_Name: SM_Veh_Truck_01
-  m_TagString: Untagged
+  m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,28 +194,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64475440655322744
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248582704293972}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43138678090282050, guid: 6324b15095c481248ab69662d6af3c93, type: 2}
 --- !u!114 &4424029737779688603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +220,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 5e56c1b8a99fb5a4e962dbaaf179ef60, type: 2}
   dissolveYRange: {x: -0.1, y: 15}
---- !u!114 &6751154998856884317
+--- !u!65 &2086873344955879476
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248582704293972}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.52492, y: 2.143615, z: 6.40512}
+  m_Center: {x: -0.049933195, y: 1.515304, z: 0.13538611}
+--- !u!114 &9011483666140436440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,7 +257,7 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64475440655322744}
+  m_SourceCollider: {fileID: 2086873344955879476}
   m_DistanceField: {fileID: 0}
 --- !u!1 &1391002002883350
 GameObject:

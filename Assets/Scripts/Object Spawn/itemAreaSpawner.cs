@@ -17,6 +17,7 @@ public class itemAreaSpawner : MonoBehaviour
     public GameObject[] farmObjects;
     public GameObject[] modernDayObjects;
     public GameObject[] scifiObjects;
+    public GameObject boulder;
 
     // List of objects that has been added
     public List<GameObject> spawnedObjects = new List<GameObject>();
@@ -44,8 +45,17 @@ public class itemAreaSpawner : MonoBehaviour
     private bool itemsSpawnedForModernDayWave = false;
     private bool itemsSpawnedForSciFiWave = false;
 
+    private bool boulderForRoman = false;
+    private bool boulderForRoman2 = false;
+    private bool boulderForFantasy = false;
+    private bool boulderForPirate = false;
+    private bool boulderForWestern = false;
+    private bool boulderForFarm = false;
+    private bool boulderForModern = false;
+    private bool boulderForSciFi = false;
+
     private bool isDespawning = false;
-    
+
 
     //-------------SAMS SCRIPTS-------------------------
 
@@ -113,7 +123,7 @@ public class itemAreaSpawner : MonoBehaviour
                 spawnedObjects.Add(clone);
 
 
-
+                #region SAMS KOD
                 //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
                 float updateRadius = 0;
                 Collider collider = clone.GetComponent<Collider>();
@@ -126,14 +136,15 @@ public class itemAreaSpawner : MonoBehaviour
                 {
                     gridGraphUpdater.UpdateGrid(clone.transform.position, updateRadius);
                 }
+                #endregion
 
                 return true;  // Successfully spawned an item
             }
         }
         return false;  // Failed to spawn due to overlap
-    }   
+    }
 
-    void DespawnObjects() 
+    void DespawnObjects()
     {
         foreach (GameObject obj in spawnedObjects)
         {
@@ -142,6 +153,7 @@ public class itemAreaSpawner : MonoBehaviour
                 TrapManager trap = obj.GetComponent<TrapManager>();
                 TrampolineManager trampoline = obj.GetComponent<TrampolineManager>();
                 ObjectShader objectShader = obj.GetComponent<ObjectShader>();
+                BoulderManager boulderManager = obj.GetComponent<BoulderManager>();
 
                 if (trap != null)
                 {
@@ -152,15 +164,24 @@ public class itemAreaSpawner : MonoBehaviour
                 {
                     trampoline.DespawnTrampoline();
                 }
+                if (boulderManager != null)
+                {
+                    //foreach (GameObject misc in boulderManager.objectsToRemove)
+                    //{
+                    //    Destroy(misc);
+                    //    boulderManager.objectsToRemove.Remove(misc);
+                    //}
+                    Destroy(obj);
+                }
                 else
                 {
                     //obj.AddComponent<MoveDownwards>();
                     objectShader.StartDespawn();
                 }
-              
+
             }
 
-
+            #region SAMS KOD
             //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
             float updateRadius = 0;
             Collider collider = obj.GetComponent<Collider>();
@@ -173,6 +194,7 @@ public class itemAreaSpawner : MonoBehaviour
             {
                 gridGraphUpdater.RemoveObstacleUpdate(obj.transform.position, updateRadius);
             }
+            #endregion
         }
         spawnedObjects.Clear();
     }
@@ -185,16 +207,113 @@ public class itemAreaSpawner : MonoBehaviour
             if (WaveManager.currentWave == 1 && !itemsSpawnedForRomanWave)
             {
                 SpawnItems(romanObjects);
+                StartCoroutine(SpawnBoulderWithDelay());
                 itemsSpawnedForRomanWave = true;
             }
 
+            HandleBoulders();
+
             // For each wave with despawning and cooldown before spawning new items
-            HandleWave(5, fantasyObjects, ref itemsSpawnedForFantasyWave);
-            HandleWave(10, pirateObjects, ref itemsSpawnedForPirateWave);
-            HandleWave(15, westernObjects, ref itemsSpawnedForWesternWave);
-            HandleWave(20, farmObjects, ref itemsSpawnedForFarmWave);
-            HandleWave(25, modernDayObjects, ref itemsSpawnedForModernDayWave);
-            HandleWave(30, scifiObjects, ref itemsSpawnedForSciFiWave);
+            HandleWave(10, fantasyObjects, ref itemsSpawnedForFantasyWave);
+            HandleWave(20, pirateObjects, ref itemsSpawnedForPirateWave);
+            HandleWave(30, westernObjects, ref itemsSpawnedForWesternWave);
+            HandleWave(40, farmObjects, ref itemsSpawnedForFarmWave);
+            HandleWave(50, modernDayObjects, ref itemsSpawnedForModernDayWave);
+            HandleWave(60, scifiObjects, ref itemsSpawnedForSciFiWave);
+        }
+    }
+
+    private void HandleBoulders()
+    {
+        if (WaveManager.currentWave == 5 && !boulderForRoman)
+        {
+            StartCoroutine(SpawnBoulderWithDelay());
+            boulderForRoman = true;
+        }
+        if (WaveManager.currentWave == 6 && !boulderForRoman2)
+        {
+            StartCoroutine(SpawnBoulderWithDelay());
+            StartCoroutine(SpawnBoulderWithDelay());
+            boulderForRoman2 = true;
+        }
+        if (WaveManager.currentWave == 11 && !boulderForFantasy)
+        {
+            StartCoroutine(SpawnBoulderWithDelay());
+            boulderForFantasy = true;
+        }
+        if (WaveManager.currentWave == 21 && !boulderForPirate)
+        {
+            StartCoroutine(SpawnBoulderWithDelay());
+            boulderForPirate = true;
+        }
+        if (WaveManager.currentWave == 32 && !boulderForWestern)
+        {
+            StartCoroutine(SpawnBoulderWithDelay());
+            boulderForWestern = true;
+        }
+        if (WaveManager.currentWave == 43 && !boulderForFarm)
+        {
+            StartCoroutine(SpawnBoulderWithDelay());
+            boulderForFarm = true;
+        }
+        if (WaveManager.currentWave == 54 && !boulderForModern)
+        {
+            StartCoroutine(SpawnBoulderWithDelay());
+            boulderForModern = true;
+        }
+        if (WaveManager.currentWave == 60 && !boulderForSciFi)
+        {
+            StartCoroutine(SpawnBoulderWithDelay());
+            boulderForSciFi = true;
+        }
+    }
+
+    private IEnumerator SpawnBoulderWithDelay()
+    {
+        // Generate a random delay between 10 and 20 seconds
+        float delay = Random.Range(10f, 20f);
+        Debug.Log($"Spawning boulder in {delay} seconds.");
+        yield return new WaitForSeconds(delay);
+
+        // Define spawn positions and their corresponding opposite target positions
+        Vector3[] spawnPositions = {
+        new Vector3(0, 0.5f, 45),    // Top-center
+        new Vector3(45, 0.5f, 0),    // Right-center
+        new Vector3(0, 0.5f, -45),   // Bottom-center
+        new Vector3(-45, 0.5f, 0),   // Left-center
+        new Vector3(-35, 0.5f, -35), // New diagonal spawn (bottom-left)
+        new Vector3(-35, 0.5f, 35)   // New diagonal spawn (top-left)
+    };
+
+        Vector3[] targetPositions = {
+        new Vector3(0, 0.5f, -45),   // Opposite of Top-center
+        new Vector3(-45, 0.5f, 0),   // Opposite of Right-center
+        new Vector3(0, 0.5f, 45),    // Opposite of Bottom-center
+        new Vector3(45, 0.5f, 0),    // Opposite of Left-center
+        new Vector3(35, 0.5f, 35),   // New diagonal target (top-right)
+        new Vector3(35, 0.5f, -35)   // New diagonal target (bottom-right)
+    };
+
+        // Randomly pick one of the spawn positions
+        int index = Random.Range(0, spawnPositions.Length);
+        Vector3 spawnPosition = spawnPositions[index];
+        Vector3 targetPosition = targetPositions[index];
+
+        // Instantiate the boulder at the determined spawn position
+        GameObject boulderInstance = Instantiate(boulder, spawnPosition, Quaternion.identity);
+        spawnedObjects.Add(boulderInstance);
+
+        // Set the boulder's movement direction in the BoulderManager
+        BoulderManager boulderManager = boulderInstance.GetComponent<BoulderManager>();
+        if (boulderManager != null)
+        {
+            boulderManager.SetMovementDirection((targetPosition - spawnPosition).normalized);
+            boulderManager.spawner = this; // Set the reference to the spawner
+            Debug.Log($"Boulder spawned at: {spawnPosition}, moving towards: {targetPosition}");
+        }
+        else
+        {
+            Debug.LogError("BoulderManager script not found on boulder prefab.");
         }
     }
 
@@ -218,6 +337,14 @@ public class itemAreaSpawner : MonoBehaviour
                     isDespawning = false; // Reset despawning for next wave
                 }
             }
+        }
+    }
+    public void RemoveObjectFromCollision(GameObject obj)
+    {
+        if (spawnedObjects.Contains(obj))
+        {
+            spawnedObjects.Remove(obj);
+            Debug.Log($"Removed {obj.name} from spawnedObjects list.");
         }
     }
 }

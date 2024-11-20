@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4415988797912710}
   - component: {fileID: 33061231073940196}
   - component: {fileID: 23735173237610028}
-  - component: {fileID: 64341298985501670}
   - component: {fileID: -8997627862757125125}
-  - component: {fileID: -38027169289312537}
+  - component: {fileID: 5253323196835243687}
+  - component: {fileID: 3092498447180331284}
   m_Layer: 0
   m_Name: SM_Wep_Rifle_Stack_01
-  m_TagString: Untagged
+  m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,8 +86,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64341298985501670
-MeshCollider:
+--- !u!114 &-8997627862757125125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525683199249490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
+  dissolveYRange: {x: -0.1, y: 15}
+--- !u!65 &5253323196835243687
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,25 +118,10 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43154580837472604, guid: 64f31e9579d68a44886b21ed47900274, type: 2}
---- !u!114 &-8997627862757125125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525683199249490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfa70727caeb89d42b6ca8abdb51b15f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dissolveMaterial: {fileID: 2100000, guid: 80cd87d69f98dbe49b78064c526d4ec8, type: 2}
-  dissolveYRange: {x: -0.1, y: 15}
---- !u!114 &-38027169289312537
+  serializedVersion: 3
+  m_Size: {x: 0.8524111, y: 1.9209133, z: 0.90275854}
+  m_Center: {x: 0.0033315122, y: 0.96045667, z: 0.0065431893}
+--- !u!114 &3092498447180331284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,5 +137,5 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64341298985501670}
+  m_SourceCollider: {fileID: 5253323196835243687}
   m_DistanceField: {fileID: 0}

@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 4006189482463764}
   - component: {fileID: 33922629842500052}
   - component: {fileID: 23851184977339586}
-  - component: {fileID: 64988707355511858}
   - component: {fileID: -333997983236386162}
   - component: {fileID: 9086898367244551417}
-  - component: {fileID: -173605939376761426}
+  - component: {fileID: 1917743788936176761}
+  - component: {fileID: 5660469965676575302}
   m_Layer: 8
   m_Name: SM_Env_Tree_Desert_01
-  m_TagString: Untagged
+  m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,28 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64988707355511858
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1508417119092054}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43884539381754226, guid: 99132776f344bb146812e407e5e4466c, type: 2}
 --- !u!114 &-333997983236386162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +113,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1acaf8908ef284597bf8c5c6392af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-173605939376761426
+--- !u!65 &1917743788936176761
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508417119092054}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8175559, y: 5.5140724, z: 0.8604852}
+  m_Center: {x: 0.09195371, y: 2.591632, z: -0.07733983}
+--- !u!114 &5660469965676575302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,5 +150,5 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 64988707355511858}
+  m_SourceCollider: {fileID: 1917743788936176761}
   m_DistanceField: {fileID: 0}

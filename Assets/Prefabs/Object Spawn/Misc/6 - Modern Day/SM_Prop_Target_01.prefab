@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 4889387558117824}
   - component: {fileID: 33920960278335828}
   - component: {fileID: 23304885942391806}
-  - component: {fileID: 64814216261905374}
   - component: {fileID: -187663861616027220}
   - component: {fileID: 3290079258012896896}
+  - component: {fileID: 7493242174053549868}
+  - component: {fileID: 1166787788335471065}
   m_Layer: 8
   m_Name: SM_Prop_Target_01
-  m_TagString: Untagged
+  m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,28 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64814216261905374
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301019947510714}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43004275098325928, guid: b167d1e295259224194b5d15dcc007da, type: 2}
 --- !u!114 &-187663861616027220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +113,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 5e56c1b8a99fb5a4e962dbaaf179ef60, type: 2}
   dissolveYRange: {x: -0.1, y: 15}
+--- !u!65 &7493242174053549868
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301019947510714}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.59533566, y: 1.7229208, z: 0.1782434}
+  m_Center: {x: 0, y: 0.8614604, z: 0}
+--- !u!114 &1166787788335471065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301019947510714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  inverted: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 7493242174053549868}
+  m_DistanceField: {fileID: 0}
