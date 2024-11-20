@@ -277,17 +277,21 @@ public class itemAreaSpawner : MonoBehaviour
 
         // Define spawn positions and their corresponding opposite target positions
         Vector3[] spawnPositions = {
-        new Vector3(0, 0.5f, 45),   // Top-center
-        new Vector3(45, 0.5f, 0),   // Right-center
-        new Vector3(0, 0.5f, -45),  // Bottom-center
-        new Vector3(-45, 0.5f, 0)   // Left-center
+        new Vector3(0, 0.5f, 45),    // Top-center
+        new Vector3(45, 0.5f, 0),    // Right-center
+        new Vector3(0, 0.5f, -45),   // Bottom-center
+        new Vector3(-45, 0.5f, 0),   // Left-center
+        new Vector3(-35, 0.5f, -35), // New diagonal spawn (bottom-left)
+        new Vector3(-35, 0.5f, 35)   // New diagonal spawn (top-left)
     };
 
         Vector3[] targetPositions = {
-        new Vector3(0, 0.5f, -45),  // Opposite of Top-center
-        new Vector3(-45, 0.5f, 0),  // Opposite of Right-center
-        new Vector3(0, 0.5f, 45),   // Opposite of Bottom-center
-        new Vector3(45, 0.5f, 0)    // Opposite of Left-center
+        new Vector3(0, 0.5f, -45),   // Opposite of Top-center
+        new Vector3(-45, 0.5f, 0),   // Opposite of Right-center
+        new Vector3(0, 0.5f, 45),    // Opposite of Bottom-center
+        new Vector3(45, 0.5f, 0),    // Opposite of Left-center
+        new Vector3(35, 0.5f, 35),   // New diagonal target (top-right)
+        new Vector3(35, 0.5f, -35)   // New diagonal target (bottom-right)
     };
 
         // Randomly pick one of the spawn positions

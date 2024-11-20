@@ -12,12 +12,15 @@ public class BoulderManager : MonoBehaviour
     
     public List<GameObject> objectsToRemove = new List<GameObject>();
     public itemAreaSpawner spawner;
+    [SerializeField] public GameObject destructionParticle;
+    [SerializeField] public GameObject portalParticle;
 
     // PRIVATE
     private float boulderDamage = 3f;
 
     private Vector3 moveDirection;
     private Vector3 targetPosition;
+
 
     private Rigidbody rb;
     #endregion
@@ -53,14 +56,33 @@ public class BoulderManager : MonoBehaviour
         // Check for specific collision tags
         if (collision.gameObject.CompareTag("Misc"))
         {
-            // Deactivate the collided object (e.g., tree)
-            //collision.gameObject.SetActive(false);
+            if (destructionParticle != null && collision.contacts.Length > 0)
+            {
+                Vector3 collisionPoint = collision.contacts[0].point;
+
+                collisionPoint.y = 0;
+
+                GameObject particlesGo = Instantiate(destructionParticle, collisionPoint, Quaternion.identity);
+                Destroy(particlesGo, 2f); // Destroy the particle system after 2 seconds
+            }
+            else
+            {
+                Debug.LogWarning("Particles prefab is not assigned or no collision contacts available.");
+            }
+
+            Destroy(collision.gameObject);
+            Debug.Log($"Object {collision.gameObject.name} has been destroyed.");
+
+            // Skip further processing to ensure the boulder keeps its direction
+            //return;
 
             if (spawner != null)
             {
                 spawner.RemoveObjectFromCollision(collision.gameObject);
             }
             objectsToRemove.Add(collision.gameObject);
+
+
             Destroy(collision.gameObject);
             Debug.Log($"Object {collision.gameObject.name} has been deactivated.");
 
@@ -89,6 +111,26 @@ public class BoulderManager : MonoBehaviour
         {
             Debug.Log("Boulder collided with the map. Destroying the boulder.");
 
+            if (portalParticle != null && collision.contacts.Length > 0)
+            {
+                Vector3 collisionPoint = collision.contacts[0].point;
+                Vector3 collisionNormal = collision.contacts[0].normal;
+                Quaternion portalRotation = Quaternion.LookRotation(-collisionNormal); // Rotate to face the boulder
+                GameObject particlesGo = Instantiate(portalParticle, collisionPoint, portalRotation);
+                particlesGo.transform.Rotate(0, 180, 0);
+                Destroy(particlesGo, 2f); // Destroy the particle system after 2 seconds
+            }
+            else
+            {
+                Debug.LogWarning("Particles prefab is not assigned or no collision contacts available.");
+            }
+
+            Collider boulderCollider = GetComponent<Collider>();
+            if (boulderCollider != null)
+            {
+                boulderCollider.enabled = false;
+            }
+
             // Notify the spawner to remove this boulder
             if (spawner != null)
             {
@@ -96,11 +138,14 @@ public class BoulderManager : MonoBehaviour
             }
 
             // Destroy the boulder
-            Destroy(gameObject);
-            return;
+            StartCoroutine(DestroyBoulderWithDelay(0.3f));
         }
     }
-
+    private IEnumerator DestroyBoulderWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }
     //private IEnumerator DeactivateRagdoll(BaseManager baseManager, float delay)
     //{
     //    yield return new WaitForSeconds(delay);
