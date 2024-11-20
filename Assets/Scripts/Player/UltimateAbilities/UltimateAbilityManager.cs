@@ -135,6 +135,11 @@ public class UltimateAbilityManager : MonoBehaviour
     /// </summary>
     public void UseUltimateAbility()
     {
+        if (UIUltimateBar.instance.CanActivateUltimate())
+        {
+            UIUltimateBar.instance.ActivateUltimate(); // Keeps track of when ultimates are activated for the UI bar.
+        }
+
         switch (_currentUltimateAbility)
         {
             case UltimateAbilities.LaserChain:
@@ -161,6 +166,7 @@ public class UltimateAbilityManager : MonoBehaviour
     public void UseUltimateAbilityPlayer1()
     {
         _bIsPlayer1UsingUltimateAbility = true;
+        UIUltimateBar.instance.Player1Activate();
 
         if (_bIsPlayer2UsingUltimateAbility && !_bIsUltimateUsed)
         {
@@ -184,7 +190,8 @@ public class UltimateAbilityManager : MonoBehaviour
     public void UseUltimateAbilityPlayer2()
     {
         _bIsPlayer2UsingUltimateAbility = true;
-
+        UIUltimateBar.instance.Player2Activate();
+    
         if (_bIsPlayer1UsingUltimateAbility && !_bIsUltimateUsed)
         {
             // Both players have activated, use the ultimate
