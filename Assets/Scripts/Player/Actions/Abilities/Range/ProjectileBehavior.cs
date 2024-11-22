@@ -4,12 +4,13 @@ using UnityEngine;
 public class ProjectileBehavior : MonoBehaviour
 {
     public float explosionRadius = 5f;
-    public float explosionDamage = 50f;
+    public float baseExplosionDamage = 50f;
+    public float explosionDamage;
     public LayerMask enemyLayer;
     public GameObject explosionEffectPrefab;
 
     private HashSet<Collider> hitEnemiesOnce;
-
+    public PlayerCombat ownerCombat;
     private bool hasExploded = false;
 
     private void Start()
@@ -46,6 +47,8 @@ public class ProjectileBehavior : MonoBehaviour
     // Method to handle the explosion and damage enemies in the radius
     void Explode()
     {
+        explosionDamage = baseExplosionDamage + ownerCombat.attackDamage;
+
         Debug.Log("Projectile exploded!");
 
         // Find all colliders within the explosion radius that are on the enemy layer
@@ -63,7 +66,7 @@ public class ProjectileBehavior : MonoBehaviour
             if (enemyManager != null)
             {
                 enemyManager.DealDamageToEnemy(explosionDamage);
-                Debug.Log("Damaged enemy: " + enemy.name);
+                Debug.Log("Damaged enemy: " + enemy.name + explosionDamage);
             }
         }
     }
