@@ -14,7 +14,6 @@ public class IsFlagReady : Node
 
             return NodeState.SUCCESS;
         }
-
         else
         {
             return NodeState.FAILURE;

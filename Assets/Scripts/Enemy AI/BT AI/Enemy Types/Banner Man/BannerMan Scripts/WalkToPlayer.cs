@@ -6,15 +6,18 @@ public class WalkToPlayer : Node
 {
     public override NodeState Evaluate(BaseManager agent)
     {
+        agent.animator.SetBool("BannerMan_Running", true);
+        
         BannerManManager bm = agent as BannerManManager;
+        agent.navigation.isStopped = false;
 
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
+        agent.navigation.destination = agent.targetedPlayer.position;
         float distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
 
         if (distance > agent.attackRange)
         {
-            agent.navigation.isStopped = false;
-            agent.navigation.destination = agent.targetedPlayer.position;
+
             return NodeState.RUNNING;
         }
 

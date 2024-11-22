@@ -45,6 +45,7 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public bool activateDeathTimer = false;
     [HideInInspector] public bool agentIsDead = false;
     [HideInInspector] public bool PCG_componentsInstantiated = false;
+    [HideInInspector] public Vector3 originalScale;
 
     public virtual void Awake()
     {
@@ -61,6 +62,7 @@ public class BaseManager : MonoBehaviour
         c_collider.center = new Vector3(0, 1, 0);
         c_collider.radius = 0.5f;
         c_collider.height = 2;
+        originalScale = transform.localScale;
 
 
         player1 = GameObject.FindGameObjectWithTag("Player1");
