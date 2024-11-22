@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SwingAbility : MonoBehaviour, IAbility
 {
@@ -21,6 +22,8 @@ public class SwingAbility : MonoBehaviour, IAbility
     private Rigidbody anchorRb;           // Rigidbody of this (anchor) player
 
     public GameObject swingEffectPrefab;
+
+    private HashSet<Collider> hitEnemies;
 
     private void Start()
     {
@@ -54,7 +57,8 @@ public class SwingAbility : MonoBehaviour, IAbility
 
         isSwinging = true;
 
-        // Set both players to be kinematic to prevent normal physics movement during the swing
+        hitEnemies = new HashSet<Collider>();
+
         anchorRb.isKinematic = true;
         otherPlayerRb.isKinematic = true;
 
@@ -93,9 +97,14 @@ public class SwingAbility : MonoBehaviour, IAbility
             otherPlayer.position = newSwingPosition;
             otherPlayer.rotation = Quaternion.LookRotation(newSwingPosition - swingCenter);
 
-            Collider[] hitEnemies = Physics.OverlapSphere(swingCenter, swingRadius);
-            foreach (Collider enemy in hitEnemies)
+            Collider[] hitEnemiesDuringFrame = Physics.OverlapSphere(swingCenter, swingRadius, enemyLayer);
+            foreach (Collider enemy in hitEnemiesDuringFrame)
             {
+                // Check if enemy has been hit
+                if (hitEnemies.Contains(enemy)) continue;
+
+                hitEnemies.Add(enemy);
+
                 BaseManager enemyManager = enemy.GetComponent<BaseManager>();
                 if (enemyManager != null)
                 {
@@ -106,10 +115,6 @@ public class SwingAbility : MonoBehaviour, IAbility
                     Rigidbody enemyRb = enemy.GetComponent<Rigidbody>();
                     if (enemyRb != null)
                     {
-                        // Temporarily remove Y-axis constraints
-                        RigidbodyConstraints originalConstraints = enemyRb.constraints;
-                        enemyRb.constraints = RigidbodyConstraints.None;
-                        
                         Vector3 knockbackDirection = (enemy.transform.position - swingCenter).normalized;
                         enemyRb.AddForce(knockbackDirection * 20f, ForceMode.Impulse); // Adjust force value as needed
                     }

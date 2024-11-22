@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
@@ -7,7 +8,15 @@ public class ProjectileBehavior : MonoBehaviour
     public LayerMask enemyLayer;
     public GameObject explosionEffectPrefab;
 
+    private HashSet<Collider> hitEnemiesOnce;
+
     private bool hasExploded = false;
+
+    private void Start()
+    {
+        hitEnemiesOnce = new HashSet<Collider>();
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         // Ensure the explosion happens only once
@@ -44,6 +53,11 @@ public class ProjectileBehavior : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
+            // Check if enemy has been hit
+            if (hitEnemiesOnce.Contains(enemy)) continue;
+
+            hitEnemiesOnce.Add(enemy);
+
             // Apply damage to each enemy
             BaseManager enemyManager = enemy.GetComponent<BaseManager>();
             if (enemyManager != null)
