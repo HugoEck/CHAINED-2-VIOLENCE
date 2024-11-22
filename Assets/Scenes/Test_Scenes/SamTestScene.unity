@@ -407,7 +407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_TagString
@@ -846,8 +846,13 @@ MonoBehaviour:
   activateDeathTimer: 0
   agentIsDead: 0
   PCG_componentsInstantiated: 0
+  circleRadius: 40
   hasAlreadyReachedPlayer: 0
   isNewFlagReady: 0
+  isNewDestinationCalculated: 0
+  newDestination: {x: 0, y: 0, z: 0}
+  circleCenter: {x: 0, y: 0, z: 0}
+  currentVector: {x: 0, y: 0, z: 0}
   flagPrefab: {fileID: 1066694016725378, guid: bf6bcc42467e885418f4e495a0ecb74d, type: 3}
 --- !u!1 &444890634
 GameObject:
@@ -2425,7 +2430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_TagString
@@ -3550,52 +3555,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1139188242
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1139188244}
-  - component: {fileID: 1139188243}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1139188243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139188242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1139188244
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139188242}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1197989615
 GameObject:
   m_ObjectHideFlags: 0
@@ -6130,6 +6089,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142455387569287952, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: currentPlayerClass
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5151374315944120764, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
@@ -9147,6 +9111,52 @@ MonoBehaviour:
   activateDeathTimer: 0
   agentIsDead: 0
   PCG_componentsInstantiated: 0
+--- !u!1 &1930490515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1930490517}
+  - component: {fileID: 1930490516}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1930490516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930490515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1930490517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930490515}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2108390174
 GameObject:
   m_ObjectHideFlags: 0
@@ -9450,10 +9460,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5292690128385162626, guid: f80a14bf6151a4041b02c812dd1b9e2a,
+        type: 3}
+      propertyPath: midRangeCooldown
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5292690128385162626, guid: f80a14bf6151a4041b02c812dd1b9e2a,
+        type: 3}
+      propertyPath: longRangeCooldown
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5695295831712289982, guid: f80a14bf6151a4041b02c812dd1b9e2a,
         type: 3}
       propertyPath: m_Name
       value: CyberGiant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695295831712289982, guid: f80a14bf6151a4041b02c812dd1b9e2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9472,6 +9497,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Charger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551378380624434753, guid: e90d25a99ee983f41bf6edd6ef9f4328,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1554480285341323755, guid: e90d25a99ee983f41bf6edd6ef9f4328,
         type: 3}
@@ -9552,4 +9582,4 @@ SceneRoots:
   - {fileID: 1323669736}
   - {fileID: 1533911516}
   - {fileID: 5289781196094403584}
-  - {fileID: 1139188244}
+  - {fileID: 1930490517}

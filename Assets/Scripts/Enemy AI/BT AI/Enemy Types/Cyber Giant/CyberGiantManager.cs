@@ -154,12 +154,14 @@ public class CyberGiantManager : BaseManager
             {
                 energyShield.SetActive(true);
                 damageCollider.radius = 1.4f;
+                c_collider.radius = 1.4f;
                 defense = energyShieldDefense;
             }
             else
             {
                 energyShield.SetActive(false);
                 damageCollider.radius = 0.75f;
+                c_collider.radius = 0.75f;
                 defense = baseDefense;
             }
         }
