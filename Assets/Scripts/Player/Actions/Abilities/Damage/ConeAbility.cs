@@ -1,15 +1,28 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ConeAbility : MonoBehaviour, IAbility
 {
     public float coneRange = 10f;
     public float coneAngle = 90f;
-    public float coneDamage = 50f;
+    public float baseConeDamage = 50f;
+    private float coneDamage;
     public GameObject coneEffectPrefab;
     public Transform coneAnchor;           // Anchor object for the effect to follow
+    public PlayerCombat playerCombat;
 
     public float cooldown = 5f;            // Cooldown duration in seconds
     private float lastUseTime = -Mathf.Infinity;  // Time when the ability was last used
+
+    private HashSet<Collider> hitEnemiesOnce;
+
+    private void Start()
+    {
+        playerCombat = GetComponent<PlayerCombat>();
+        hitEnemiesOnce = new HashSet<Collider>();
+    }
 
     public void UseAbility()
     {
@@ -27,6 +40,8 @@ public class ConeAbility : MonoBehaviour, IAbility
 
     void ActivateConeAbility()
     {
+        coneDamage = baseConeDamage + playerCombat.attackDamage;
+
         // Instantiate the visual effect at the anchor's position
         if (coneEffectPrefab != null && coneAnchor != null)
         {
@@ -47,6 +62,11 @@ public class ConeAbility : MonoBehaviour, IAbility
 
         foreach (Collider enemy in hitEnemies)
         {
+            // Check if enemy has been hit
+            if (hitEnemiesOnce.Contains(enemy)) continue;
+
+            hitEnemiesOnce.Add(enemy);
+
             Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
             float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy);
 
