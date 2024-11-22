@@ -229,9 +229,9 @@ public class Player : MonoBehaviour
             _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P1();
             _bIsUsingUltimateAttack = InputManager.Instance.GetUltimateAttackInput_P1();
 
-            if (_bIsUsingBasicAttack && _playerCombat.IsAttackAllowed())
+            if (_bIsUsingBasicAttack)
             {
-                _animationStateController.StartAttackAnimation();
+                _playerCombat.UseBaseAttack();
                 Debug.Log("Player 1 is using basic attack");
 
             }
@@ -252,9 +252,9 @@ public class Player : MonoBehaviour
             _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P2();
             _bIsUsingUltimateAttack = InputManager.Instance.GetUltimateAttackInput_P2();
 
-            if (_bIsUsingBasicAttack && _playerCombat.IsAttackAllowed())
+            if (_bIsUsingBasicAttack)
             {
-                _animationStateController.StartAttackAnimation();
+                _playerCombat.UseBaseAttack();
                 Debug.Log("Player 2 is using basic attack");
             }
             else if (_bIsUsingAbilityAttack)

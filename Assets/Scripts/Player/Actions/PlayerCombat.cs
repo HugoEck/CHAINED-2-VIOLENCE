@@ -129,34 +129,14 @@ private void Awake()
     /// </summary>
     public void UseBaseAttack()
     {
-        bool durabilityReduced = false;
-        // Find all enemies within the attack range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
-        foreach (Collider enemy in hitEnemies)
+        if(playerId == 1)
         {
-            // Calculate the direction to the enemy
-            Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
-
-            // Check if the enemy is within the 120-degree cone
-            if (Vector3.Angle(transform.forward, directionToEnemy) <= 60) // 60 degrees on each side
-            {
-                BaseManager enemyManager = enemy.GetComponent<BaseManager>();
-                if (enemyManager != null)
-                {
-                    // Deal damage if within cone
-                    enemyManager.DealDamageToEnemy(attackDamage);
-                    Debug.Log("Hit enemy: " + enemy.name);
-
-                    if (!durabilityReduced)
-                    {
-                        ReduceWeaponDurabilility();
-                        durabilityReduced = true;
-                    }
-                }
-            }
+            Player1ComboManager.instance.Attack();
         }
-
-        Debug.Log("Base Attack triggered in 120-degree cone.");
+        else if(playerId == 2)
+        {
+            Player2ComboManager.instance.Attack();
+        }
     }
     public bool IsAttackAllowed()
     {
@@ -170,17 +150,7 @@ private void Awake()
             return false;
         }
     }
-    private void ReduceWeaponDurabilility()
-    {
-        WeaponManager weaponManager = GetComponent<WeaponManager>();
-        if (weaponManager != null) 
-        {
-            weaponManager.Attack();
-        
-        }
-
-    }
-
+    
     /// <summary>
     /// This method uses the ability that the player has for its class (Called in Player script)
     /// </summary>
