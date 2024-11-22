@@ -20,5 +20,15 @@ public static class ComboAnimationStatesData
 
     public static string twoHandedSubState = "Base Layer.Attack Combos.Two Handed";
 
+
+    #endregion
+
+    #region COMBO_REALLY_BIG_TWO_HANDED
+
+    public static string[] combosInReallyBigTwoHandedState = { "ReallyBigTwoHandedCombo1", "Combo2", "Combo3", "Combo4"};
+
+    public static string reallyBigTwoHandedSubState = "Base Layer.Attack Combos.Really Big Two Handed";
+
+
     #endregion
 }

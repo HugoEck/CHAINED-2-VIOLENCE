@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
 
         TwoHanded,
         OneHanded,
+        ReallyBigTwoHanded,
     }
 
     public WeaponType currentWeaponType = WeaponType.TwoHanded;

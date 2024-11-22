@@ -151,6 +151,10 @@ public class Player1ComboManager : MonoBehaviour
         {
             currentPlayer1ComboSubstate = "Base Layer.Attack Combos.Two Handed";
         }
+        else if(currentEquippedPlayer1WeaponType == Weapon.WeaponType.ReallyBigTwoHanded)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.reallyBigTwoHandedSubState;
+        }
     }
 
     private void DefaultCombo()

@@ -23,9 +23,9 @@ public class Player1StartCombo : StateMachineBehaviour
 
                     if (animator.GetInteger("PlayerClass") == 0) // Default
                     {
-                        hasComboStarted = true;
-                        Player1ComboManager.instance.currentPlayer1ComboInSequence = "Base Layer.Attack Combos.Unarmed Default.UnarmedCombo1";
-                        animator.Play(/*"UnarmedCombo1"*/Player1ComboManager.instance.currentPlayer1ComboInSequence);
+                        //hasComboStarted = true;
+                        //Player1ComboManager.instance.currentPlayer1ComboInSequence = "Base Layer.Attack Combos.Unarmed Default.UnarmedCombo1";
+                        //animator.Play(/*"UnarmedCombo1"*/Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
                     else if (animator.GetInteger("PlayerClass") == 1) // Tank
                     {
@@ -63,6 +63,14 @@ public class Player1StartCombo : StateMachineBehaviour
                     hasComboStarted = true;
                     animator.Play("OneHandedCombo1");
                     break;
+
+                case Weapon.WeaponType.ReallyBigTwoHanded: 
+                    hasComboStarted = true;
+                    animator.Play(ComboAnimationStatesData.combosInReallyBigTwoHandedState[0]);
+                    break;
+
+                    
+                   
             }
 
             if (hasComboStarted)
