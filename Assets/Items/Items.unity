@@ -862,7 +862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.288, y: -0.755}
+  m_AnchoredPosition: {x: -0.38, y: -0.755}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &141382062
@@ -912,8 +912,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.99
-  m_fontSizeBase: 28.99
+  m_fontSize: 24.9
+  m_fontSizeBase: 24.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2848,7 +2848,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 598591902}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1202041425}
+        m_TargetAssemblyTypeName: ItemGenerator, Assembly-CSharp
+        m_MethodName: CreatePrefab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &598591902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2921,7 +2933,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.285, y: -0.494}
+  m_AnchoredPosition: {x: 0.36, y: -0.494}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &687646911
@@ -2944,7 +2956,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stat 2
+  m_text: Health 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2971,8 +2983,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.99
-  m_fontSizeBase: 28.99
+  m_fontSize: 24.9
+  m_fontSizeBase: 24.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4588,11 +4600,13 @@ MonoBehaviour:
   chain: 0
   health: 0
   itemName: 
+  item: {fileID: 2056337154}
   nameInputField: {fileID: 2122061377}
   damageInputField: {fileID: 381980702}
   speedInputField: {fileID: 1714167483}
   chainInputField: {fileID: 1234673360}
   healthInputField: {fileID: 1446622196}
+  itemPrefab: {fileID: 2056337152}
   rarity: 0
 --- !u!1 &1234673358
 GameObject:
@@ -4860,7 +4874,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.288, y: -0.487}
+  m_AnchoredPosition: {x: -0.38, y: -0.487}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1309552214
@@ -4883,7 +4897,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stat 1
+  m_text: Health 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4910,8 +4924,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.99
-  m_fontSizeBase: 28.99
+  m_fontSize: 24.9
+  m_fontSizeBase: 24.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5581,7 +5595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.287, y: -0.755}
+  m_AnchoredPosition: {x: 0.36, y: -0.755}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1678197931
@@ -5604,7 +5618,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stat 4
+  m_text: Health 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5631,8 +5645,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.99
-  m_fontSizeBase: 28.99
+  m_fontSize: 24.9
+  m_fontSizeBase: 24.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6740,13 +6754,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ecab9e5a204bb40a487c0621220633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  legendaryMaterial: {fileID: 0}
-  rareMaterial: {fileID: 0}
-  commonMaterial: {fileID: 0}
-  stat1: {fileID: 0}
-  stat2: {fileID: 0}
-  stat3: {fileID: 0}
-  stat4: {fileID: 0}
+  legendaryMaterial: {fileID: 2100000, guid: 53d324f527c4c304fbde31376242cab9, type: 2}
+  rareMaterial: {fileID: 2100000, guid: a1a013f3110deac47a34bb481cf4ff69, type: 2}
+  commonMaterial: {fileID: 2100000, guid: eabb9f382af659942af13ad1f21cebf1, type: 2}
+  currentRarity: {fileID: 125316017}
+  stat1: {fileID: 1309552214}
+  stat2: {fileID: 687646911}
+  stat3: {fileID: 141382062}
+  stat4: {fileID: 1678197931}
+  itemName: {fileID: 58383978}
   attackModifier: 0
   speedModifier: 0
   chainkModifier: 0

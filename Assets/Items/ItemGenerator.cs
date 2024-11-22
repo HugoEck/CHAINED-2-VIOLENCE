@@ -16,13 +16,17 @@ public class ItemGenerator : MonoBehaviour
 
     public string itemName;
 
+    public Item item;
+
     // References to the InputField components for each property
     public TMP_InputField nameInputField;
     public TMP_InputField damageInputField;
     public TMP_InputField speedInputField;
     public TMP_InputField chainInputField;
     public TMP_InputField healthInputField;
-  
+
+    public GameObject itemPrefab;
+        
 
     public enum Rarity
     {
@@ -36,6 +40,7 @@ public class ItemGenerator : MonoBehaviour
     public void ChangeName(string input)
     {
         itemName = input;
+        item.AssignName(input);
         Debug.Log("Item name changed to: " + itemName);
     }
 
@@ -99,7 +104,39 @@ public class ItemGenerator : MonoBehaviour
 
     public void CreatePrefab()
     {
-        string path = "Assets/Items/" + itemName + ".prefab";
+        // Collect the stats in order
+        List<string> stats = new List<string>();
+        if (damage > 0) stats.Add("Attack: "+damage);
+        if (speed > 0) stats.Add("Speed: "+speed);
+        if (chain > 0) stats.Add("Chain: "+chain);
+        if (health > 0) stats.Add("Health: "+health);
+
+        item.attackModifier = damage;
+        item.chainkModifier = chain;
+        item.speedModifier = speed;
+        item.healthkModifier = health;
+
+
+        // Assign the stats to the stat text boxes in order
+        item.AssignStats(stats);
+
+        if(rarity == Rarity.Common)
+        {
+            item.currentRarity.material = item.commonMaterial;
+        }
+        if(rarity == Rarity.Rare)
+        {
+            item.currentRarity.material = item.rareMaterial;
+        }
+        if(rarity == Rarity.Legendary)
+        {
+            item.currentRarity.material = item.legendaryMaterial;
+        }
+
+        string path = "Assets/Items/Items/" + itemName + ".prefab";
+
+        PrefabUtility.SaveAsPrefabAsset(itemPrefab, path);
+
         Debug.Log("Prefab saved: " + path);
     }
 

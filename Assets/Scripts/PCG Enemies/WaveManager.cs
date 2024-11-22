@@ -14,7 +14,7 @@ public class WaveManager : MonoBehaviour
     public TMP_Asset currentDayFont;
 
 
-    [Header(" ")]
+    [Header("Enemy stuff")]
     [SerializeField] GameObject enemyCreatorObject;
     NPC_Customization enemyCreator;
     public static int ActiveEnemies = 0;
@@ -22,14 +22,16 @@ public class WaveManager : MonoBehaviour
     private float targetTime = 50;
     private float timer = 0;
 
-    [SerializeField] GameObject spawnPortal;
-
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     List<Wave> waves = new List<Wave>();
     WaveData waveData = new WaveData();
 
     [SerializeField] TextMeshProUGUI text;
     public static int currentWave = 0;
+    private int previousWave = -1;
+
+    [Header("Items")]
+    public ItemPicker itemPicker;
 
     public enum CurrentEra
     {
@@ -65,16 +67,31 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (ActiveEnemies == 0 || timer > targetTime)
+        if (ActiveEnemies == 0 /*|| timer > targetTime*/)
         {
             timer = 0;
-            ChangeEra();
-            SpawnWave(waves[currentWave]);
-            currentWave++;
-        }
+            //ChangeEra();
+            //SpawnWave(waves[currentWave]);
 
-        //Debug spawner
-        if (Input.GetKeyDown(KeyCode.L))
+            itemPicker.ActivateItems();
+
+
+            if (currentWave != previousWave)
+            {
+                // Update the previous wave tracker
+                previousWave = currentWave;
+
+                // Change the era based on the wave
+                ChangeEra();
+
+                // Spawn the wave
+                SpawnWave(waves[currentWave]);
+            }
+                //currentWave++;
+            }
+
+            //Debug spawner
+            if (Input.GetKeyDown(KeyCode.L))
         {
             ChangeEra();
             SpawnWave(waves[currentWave]);
