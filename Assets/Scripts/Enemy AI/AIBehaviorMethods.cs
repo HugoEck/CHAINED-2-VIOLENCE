@@ -85,6 +85,15 @@ public class AIBehaviorMethods
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
     }
 
+    public void BannerManBuff(float multiplier)
+    {
+        agent.currentHealth *= multiplier;
+        agent.attack *= multiplier;
+        agent.navigation.maxSpeed *= multiplier;
+        agent.defense *= multiplier;
+        agent.transform.localScale *= multiplier;
+    }
+
     public void ToggleRagdoll(bool enabled)
     {
         if (!enabled)
