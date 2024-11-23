@@ -9,6 +9,9 @@ public class Weapon : MonoBehaviour
         TwoHanded,
         OneHanded,
         ReallyBigTwoHanded,
+        Polearm,
+        Dagger,
+        BigPen
     }
 
     public WeaponType currentWeaponType = WeaponType.TwoHanded;

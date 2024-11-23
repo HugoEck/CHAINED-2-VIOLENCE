@@ -149,11 +149,23 @@ public class Player1ComboManager : MonoBehaviour
 
         if (currentEquippedPlayer1WeaponType == Weapon.WeaponType.TwoHanded)
         {
-            currentPlayer1ComboSubstate = "Base Layer.Attack Combos.Two Handed";
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.twoHandedSubState;
         }
         else if(currentEquippedPlayer1WeaponType == Weapon.WeaponType.ReallyBigTwoHanded)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.reallyBigTwoHandedSubState;
+        }
+        else if (currentEquippedPlayer1WeaponType == Weapon.WeaponType.Polearm)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.polearmSubState;
+        }
+        else if (currentEquippedPlayer1WeaponType == Weapon.WeaponType.Dagger)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.daggerSubState;
+        }
+        else if (currentEquippedPlayer1WeaponType == Weapon.WeaponType.BigPen)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.bigPenSubState;
         }
     }
 

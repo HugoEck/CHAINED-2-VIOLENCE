@@ -55,13 +55,32 @@ public class Player2StartCombo : StateMachineBehaviour
 
                 case Weapon.WeaponType.TwoHanded:
                     hasComboStarted = true;
-                    Player2ComboManager.instance.currentPlayer2ComboInSequence = "Base Layer.Attack Combos.Two Handed.TwoHandedCombo1";
-                    animator.Play("TwoHandedCombo1");
+                    animator.Play(ComboAnimationStatesData.combosInTwoHandedState[0]);
                     break;
 
                 case Weapon.WeaponType.OneHanded:
                     hasComboStarted = true;
-                    animator.Play("OneHandedCombo1");
+                    animator.Play(ComboAnimationStatesData.combosInOneHandedState[0]);
+                    break;
+
+                case Weapon.WeaponType.ReallyBigTwoHanded:
+                    hasComboStarted = true;
+                    animator.Play(ComboAnimationStatesData.combosInReallyBigTwoHandedState[0]);
+                    break;
+
+                case Weapon.WeaponType.Polearm:
+                    hasComboStarted = true;
+                    animator.Play(ComboAnimationStatesData.combosInPolearmState[0]);
+                    break;
+
+                case Weapon.WeaponType.Dagger:
+                    hasComboStarted = true;
+                    animator.Play(ComboAnimationStatesData.combosInDaggerState[0]);
+                    break;
+
+                case Weapon.WeaponType.BigPen:
+                    hasComboStarted = true;
+                    animator.Play(ComboAnimationStatesData.combosInBigPenState[0]);
                     break;
             }
 
