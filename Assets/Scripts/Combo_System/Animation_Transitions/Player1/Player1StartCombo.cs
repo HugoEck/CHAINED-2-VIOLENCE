@@ -23,9 +23,9 @@ public class Player1StartCombo : StateMachineBehaviour
 
                     if (animator.GetInteger("PlayerClass") == 0) // Default
                     {
-                        //hasComboStarted = true;
-                        //Player1ComboManager.instance.currentPlayer1ComboInSequence = "Base Layer.Attack Combos.Unarmed Default.UnarmedCombo1";
-                        //animator.Play(/*"UnarmedCombo1"*/Player1ComboManager.instance.currentPlayer1ComboInSequence);
+                        hasComboStarted = true;
+                        Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateDefault + "." + ComboAnimationStatesData.combosInUnarmedState[0];
+                        animator.Play(Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
                     else if (animator.GetInteger("PlayerClass") == 1) // Tank
                     {
