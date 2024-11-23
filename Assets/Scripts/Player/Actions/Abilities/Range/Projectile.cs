@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour, IAbility
         }
 
         Vector3 direction = transform.forward.normalized;
-        Debug.Log("Spawning projectile with direction: " + direction);
+        //Debug.Log("Spawning projectile with direction: " + direction);
 
         // Instantiate the projectile
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 3f, Quaternion.LookRotation(direction));

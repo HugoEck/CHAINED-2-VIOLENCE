@@ -638,7 +638,7 @@ public class Player : MonoBehaviour
             boxCollider.enabled = true;
         }
 
-        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+        //Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
     }
 
 
