@@ -12,7 +12,7 @@ public class MissileRain : Node
     Vector3 p2_Velocity;
     Vector3 chain_Velocity;
 
-    float shootForce = 60;
+    float shootForce = 50;
     float animationTotTime = 4f;
     float animationTimer = 4f;
     int nrMissilesShot = 0;
@@ -39,7 +39,7 @@ public class MissileRain : Node
 
         RotateTowardsChain(agent, chain_LastPosition);
 
-        if (animationTimer < 2f && nrMissilesShot < 3)
+        if (animationTimer < 1.5f && nrMissilesShot < 3)
         {
             ShootMissile(cg, nrMissilesShot);
             nrMissilesShot++;
