@@ -2,10 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BannerLogic : MonoBehaviour
+public class BannerLogic : BaseManager
 {
     [HideInInspector] public float buffMultiplier = 1.25f; 
     private HashSet<BaseManager> buffedEnemies = new HashSet<BaseManager>();
+
+    void Start()
+    {
+        maxHealth = 1;
+        currentHealth = maxHealth;
+        enemyID = "Flag";
+        
+    }
+
+    private void Update()
+    {
+        if (currentHealth <= 0)
+        {
+            GameObject.Destroy(gameObject);
+        }
+    }
+
+   
 
     private void OnTriggerEnter(Collider other)
     {

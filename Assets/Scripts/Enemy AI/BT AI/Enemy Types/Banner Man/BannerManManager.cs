@@ -8,7 +8,7 @@ public class BannerManManager : BaseManager
 
     [Header("BANNERMAN MANAGER")]
 
-    public float circleRadius;
+    [HideInInspector] public float circleRadius;
 
     public bool hasAlreadyReachedPlayer = false;
     public bool isNewFlagReady = true;
@@ -16,7 +16,7 @@ public class BannerManManager : BaseManager
     public Vector3 newDestination;
     [HideInInspector] public Vector3 circleCenter;
     [HideInInspector] public Vector3 currentVector;
-    [HideInInspector] public int nrFlagsLeft = 4;
+    public int nrFlagsLeft;
 
 
     public GameObject flagPrefab;
@@ -25,6 +25,8 @@ public class BannerManManager : BaseManager
 
     void Start()
     {
+        nrFlagsLeft = 4;
+        circleRadius = 30;
         enemyID = "BannerMan";
         animator.SetBool("BannerMan_StartChasing", true);
 
@@ -79,14 +81,14 @@ public class BannerManManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 50;
+        maxHealth = 5;
         currentHealth = maxHealth;
         attack = 0;
         defense = 0;
-        navigation.maxSpeed = 6;
+        navigation.maxSpeed = 9;
         attackSpeed = 0;
         attackRange = 30f;
-        unitCost = 15;
-
+        unitCost = 10;
+        transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
     }
 }

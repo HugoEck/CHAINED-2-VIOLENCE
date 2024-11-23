@@ -13,7 +13,7 @@ public class PlaceFlag : Node
 
         BannerManManager bm = agent as BannerManManager;
 
-        GameObject rock = GameObject.Instantiate(bm.flagPrefab, agent.transform.position, Quaternion.identity);
+        GameObject flag = GameObject.Instantiate(bm.flagPrefab, agent.transform.position, Quaternion.identity);
 
         bm.nrFlagsLeft--;
 
