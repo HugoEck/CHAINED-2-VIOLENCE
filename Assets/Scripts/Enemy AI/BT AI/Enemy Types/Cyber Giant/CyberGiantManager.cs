@@ -313,6 +313,6 @@ public class CyberGiantManager : BaseManager
         Sequence chase = new Sequence(new List<Node> { chaseConditions, cg_ChasePlayer });
 
         //-------------------------------------------------------------------------------------------------------
-        rootNode = new Selector(new List<Node>() { isDead, longRange, chase, idle });
+        rootNode = new Selector(new List<Node>() { isDead, attack, chase, idle });
     }
 }

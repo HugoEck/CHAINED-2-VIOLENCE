@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -1916425691439387316}
   - component: {fileID: 1802629674781025364}
   - component: {fileID: 1231223164405391634}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21401,8 +21401,10 @@ MonoBehaviour:
   baseDefense: 0
   bombDamage: 25
   missileDamage: 25
+  overheadSmashDamage: 30
+  jumpEngageDamage: 20
   bombCooldown: 3
-  longRangeCooldown: 20
+  longRangeCooldown: 7
   midRangeCooldown: 20
   closeRangeCooldown: 5
   minBombDistance: 20
@@ -21417,6 +21419,11 @@ MonoBehaviour:
   overheadSmashActive: 0
   shieldWalkActive: 0
   staggerActive: 0
+  P1_damageApplied: 0
+  P2_damageApplied: 0
+  weaponDamageAllowed: 0
+  weaponDamageType: 
+  debugTimer: 0
 --- !u!114 &1116285097926836552
 MonoBehaviour:
   m_ObjectHideFlags: 0
