@@ -13,6 +13,6 @@ public class ClassAttributeSO : ScriptableObject
     public float movementSpeed;
     public float mass;
     public float knockBack;
-    
+    public float attackSpeed;
 
 }

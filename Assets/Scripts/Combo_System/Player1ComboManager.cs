@@ -70,6 +70,7 @@ public class Player1ComboManager : MonoBehaviour
 
         if (!bIsPlayer1Attacking)
         {
+            
             bIsPlayer1Attacking = true;
         }
 
@@ -119,10 +120,9 @@ public class Player1ComboManager : MonoBehaviour
 
     }
 
-
     private void Update()
     {
-        
+        SetAttackSpeed();
         SetUnarmedCombos();
     }
 
@@ -216,5 +216,13 @@ public class Player1ComboManager : MonoBehaviour
             player1SupportAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
         }      
+    }
+    private void SetAttackSpeed()
+    {
+        player1DefaultAnimator.SetFloat("AttackSpeed", _player1Attributes.attackSpeed);
+        player1TankAnimator.SetFloat("AttackSpeed", _player1Attributes.attackSpeed);
+        player1WarriorAnimator.SetFloat("AttackSpeed", _player1Attributes.attackSpeed);
+        player1RangedAnimator.SetFloat("AttackSpeed", _player1Attributes.attackSpeed);
+        player1SupportAnimator.SetFloat("AttackSpeed", _player1Attributes.attackSpeed);
     }
 }

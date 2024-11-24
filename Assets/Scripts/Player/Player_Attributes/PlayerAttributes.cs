@@ -12,33 +12,44 @@ public class PlayerAttributes : MonoBehaviour
     public float movementSpeed { get; private set; }
     public float mass { get; private set; }
     public float knockBack { get; private set; }
+    public float attackSpeed { get; private set; }
 
+    private float _upgradeAttackDamage; 
+    private float _upgradeMaxHP; 
+    private float _upgradeMovementSpeed;
+    private float _upgrademMass; 
+    private float _upgradeKnockBack; 
+    private float _upgradeAttackSpeed; 
 
     #region UPGRADE METHODS FOR PLAYER ATTRIBUTES
 
-    
     public void AdjustAttackDamage(float plusMinusDamage)
     {
-        attackDamage += plusMinusDamage; 
-        attackDamage = Mathf.Max(0, attackDamage); 
+        _upgradeAttackDamage += plusMinusDamage; 
+        attackDamage = Mathf.Max(0, attackDamage + _upgradeAttackDamage); 
     }
 
     public void AdjustMaxHP(float plusMinusHP)
     {
-        maxHP += plusMinusHP;
-        maxHP = Mathf.Max(0, maxHP);
+        _upgradeMaxHP += plusMinusHP;
+        maxHP = Mathf.Max(0, maxHP + _upgradeMaxHP);
     }
 
     public void AdjustMovementSpeed(float plusMinusMovementSpeed)
     {
-        movementSpeed += plusMinusMovementSpeed;
-        movementSpeed = Mathf.Max(0, movementSpeed);
+        _upgradeMovementSpeed += plusMinusMovementSpeed;
+        movementSpeed = Mathf.Max(0, movementSpeed + _upgradeMovementSpeed);
     }
 
     public void AdjustKnocback(float plusMinusKnockback)
     {
-        knockBack += plusMinusKnockback;
-        knockBack = Mathf.Max(0, knockBack);
+        _upgradeKnockBack += plusMinusKnockback;
+        knockBack = Mathf.Max(0, knockBack + _upgradeKnockBack);
+    }
+    public void AdjustAttackSpeed(float plusMinusAttackSpeed)
+    {
+        _upgradeAttackSpeed += plusMinusAttackSpeed;
+        attackSpeed = Mathf.Max(0, attackSpeed + _upgradeAttackSpeed);
     }
 
     #endregion
@@ -46,6 +57,8 @@ public class PlayerAttributes : MonoBehaviour
     private void Start()
     {
         _currentPlayerClass.OnClassSwitched += PlayerCombatOnClassSwitched;
+
+        SetBaseValues(PlayerCombat.PlayerClass.Default);
     }
     private void OnDestroy()
     {
@@ -90,15 +103,17 @@ public class PlayerAttributes : MonoBehaviour
 
     private void SetBaseValues(PlayerCombat.PlayerClass classToCheck)
     {
+
         foreach(ClassAttributeSO classAttribute in _classesAttributes)
         {
             if(classAttribute.thisClass == classToCheck)
             {
-                attackDamage = classAttribute.attackDamage + attackDamage;
-                maxHP = classAttribute.maxHP + maxHP;
-                movementSpeed = classAttribute.movementSpeed + movementSpeed;
+                attackDamage = classAttribute.attackDamage + _upgradeAttackDamage;
+                maxHP = classAttribute.maxHP + _upgradeMaxHP;
+                movementSpeed = classAttribute.movementSpeed + _upgradeMovementSpeed;
                 mass = classAttribute.mass;
-                knockBack = classAttribute.knockBack + knockBack;
+                knockBack = classAttribute.knockBack + _upgradeKnockBack;
+                attackSpeed = classAttribute.attackSpeed + _upgradeAttackSpeed;
             }
         }        
     }

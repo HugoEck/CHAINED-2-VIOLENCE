@@ -222,4 +222,12 @@ public class Player2ComboManager : MonoBehaviour
             player2UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
         }
     }
+    private void SetAttackSpeed()
+    {
+        player2DefaultAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
+        player2TankAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
+        player2WarriorAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
+        player2RangedAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
+        player2SupportAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
+    }
 }
