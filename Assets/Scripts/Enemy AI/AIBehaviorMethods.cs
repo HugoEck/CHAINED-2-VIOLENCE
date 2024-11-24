@@ -93,15 +93,6 @@ public class AIBehaviorMethods
         agent.defense *= multiplier;
         agent.transform.localScale *= multiplier;
 
-        //Vector3 newScale = agent.transform.localScale * multiplier;
-
-        //newScale = new Vector3(
-        //    Mathf.Clamp(newScale.x, agent.originalScale.x, 5),
-        //    Mathf.Clamp(newScale.y, agent.originalScale.y, 5),
-        //    Mathf.Clamp(newScale.z, agent.originalScale.z, 5)
-        //);
-
-        //agent.transform.localScale = newScale;
     }
 
     public void ToggleRagdoll(bool enabled)

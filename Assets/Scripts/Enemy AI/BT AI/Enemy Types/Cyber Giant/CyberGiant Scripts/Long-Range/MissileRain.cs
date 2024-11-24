@@ -76,6 +76,7 @@ public class MissileRain : Node
         agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
         agent.animator.SetBool("CyberGiant_Idle", false);
+        agent.animator.SetBool("CyberGiant_Stagger", false);
     }
 
     private Vector3 CalculateVelocity(CyberGiantManager cg, Vector3 position)
