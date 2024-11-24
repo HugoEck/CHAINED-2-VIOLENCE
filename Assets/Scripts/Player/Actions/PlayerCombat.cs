@@ -12,11 +12,11 @@ public class PlayerCombat : MonoBehaviour
 {
     public enum PlayerClass
     {
-        Default,
-        Tank,
-        Warrior,
-        Support,
-        Ranged
+        Default = 0,
+        Tank = 1,
+        Warrior = 2,
+        Support = 3,
+        Ranged = 4
     };
 
     [Header("Class reference objects")]

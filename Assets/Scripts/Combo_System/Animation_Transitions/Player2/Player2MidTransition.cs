@@ -33,13 +33,13 @@ public class Player2MidTransition : StateMachineBehaviour
         if (Player2ComboManager.instance.bIsPlayer2Attacking)
         {
             Player2ComboManager.instance.currentPlayer2ComboInSequence = currentSubState + "." + _nextAnimationToPlay;
-            Player2ComboManager.instance.player2Animator.Play(currentSubState + "." + _nextAnimationToPlay);
+            animator.Play(currentSubState + "." + _nextAnimationToPlay);
         }
 
         if (stateInfo.normalizedTime >= 1.0f)
         {
             Player2ComboManager.instance.bIsPlayer2Attacking = false;
-            Player2ComboManager.instance.player2Animator.SetBool("ComboCancelled", true);
+            animator.SetBool("ComboCancelled", true);
         }
     }
 

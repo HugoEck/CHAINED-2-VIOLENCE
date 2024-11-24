@@ -11,18 +11,16 @@ public class Player1FinalTransition : StateMachineBehaviour
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        //Player1ComboManager.instance._animator.SetBool("NextAttack", false);
-    }
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+   
+    //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Player1ComboManager.instance.currentPlayer1ComboInSequence = "";
         Player1ComboManager.instance.bIsPlayer1Attacking = false;
-        //Player1ComboManager.instance._animator.SetBool("NextAttack", false);
-        //Player1ComboManager.instance._animator.SetBool("ComboOver", true);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

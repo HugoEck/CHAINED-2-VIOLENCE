@@ -19,14 +19,14 @@ public class Player1FirstTransition : StateMachineBehaviour
         if (Player1ComboManager.instance.bIsPlayer1Attacking)
         {
             Player1ComboManager.instance.currentPlayer1ComboInSequence = currentSubState + ".Combo2";
-            Player1ComboManager.instance.player1Animator.Play(currentSubState + ".Combo2");
+            animator.Play(currentSubState + ".Combo2");
 
         }
 
         if (stateInfo.normalizedTime >= 1.0f)
         {
             Player1ComboManager.instance.bIsPlayer1Attacking = false;
-            Player1ComboManager.instance.player1Animator.SetBool("ComboCancelled", true);
+            animator.SetBool("ComboCancelled", true);
         }
 
     }

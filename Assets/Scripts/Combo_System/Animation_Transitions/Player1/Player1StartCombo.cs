@@ -7,14 +7,16 @@ public class Player1StartCombo : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Player1ComboManager.instance.player1Animator.SetBool("ComboCancelled", false);
-        Player1ComboManager.instance.player1Animator.SetBool("ComboOver", true);
+        Player1ComboManager.instance.bIsPlayer1Attacking = false;
+        animator.SetBool("ComboCancelled", false);
+        animator.SetBool("ComboOver", true);
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!animator.IsInTransition(0) && Player1ComboManager.instance.bIsPlayer1Attacking && Player1ComboManager.instance.player1Animator.GetBool("ComboOver"))
+        if (!animator.IsInTransition(0) && Player1ComboManager.instance.bIsPlayer1Attacking && animator.GetBool("ComboOver"))
         {
             bool hasComboStarted = false;
             switch (Player1ComboManager.instance.currentEquippedPlayer1WeaponType)
@@ -29,9 +31,9 @@ public class Player1StartCombo : StateMachineBehaviour
                     }
                     else if (animator.GetInteger("PlayerClass") == 1) // Tank
                     {
-                        //hasComboStarted = true;
-                        //Player1ComboManager.instance.currentComboInSequence = "Base Layer.Attack Combos.Unarmed Tank.UnarmedCombo1";
-                        //animator.Play(/*"UnarmedCombo1"*/Player1ComboManager.instance.currentComboInSequence);
+                        hasComboStarted = true;
+                        Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateTank + "." + ComboAnimationStatesData.combosInUnarmedState[0];
+                        animator.Play(Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
                     else if (animator.GetInteger("PlayerClass") == 4) // Ranged
                     {
@@ -41,15 +43,15 @@ public class Player1StartCombo : StateMachineBehaviour
                     }
                     else if (animator.GetInteger("PlayerClass") == 2) // Warrior
                     {
-                        //hasComboStarted = true;
-                        //Player1ComboManager.instance.currentComboInSequence = "Base Layer.Attack Combos.Unarmed Warrior.UnarmedCombo1";
-                        //animator.Play(/*"UnarmedCombo1"*/Player1ComboManager.instance.currentComboInSequence);
+                        hasComboStarted = true;
+                        Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateWarrior + "." + ComboAnimationStatesData.combosInUnarmedState[0];
+                        animator.Play(Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
                     else if (animator.GetInteger("PlayerClass") == 3) // Support
                     {
-                        //hasComboStarted = true;
-                        //Player1ComboManager.instance.currentComboInSequence = "Base Layer.Attack Combos.Unarmed Support.UnarmedCombo1";
-                        //animator.Play(/*"UnarmedCombo1"*/Player1ComboManager.instance.currentComboInSequence);
+                        hasComboStarted = true;
+                        Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateSupport + "." + ComboAnimationStatesData.combosInUnarmedState[0];
+                        animator.Play(Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
                     break;
 
@@ -87,7 +89,7 @@ public class Player1StartCombo : StateMachineBehaviour
 
             if (hasComboStarted)
             {
-                Player1ComboManager.instance.player1Animator.SetBool("ComboOver", false);
+                animator.SetBool("ComboOver", false);
             }
 
         }

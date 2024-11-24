@@ -23,7 +23,12 @@ public class Player2ComboManager : MonoBehaviour
     [HideInInspector]
     public ComboAttackSO[] player2UnarmedCombos;
 
-    public Animator player2Animator;
+    public Animator player2DefaultAnimator;
+    public Animator player2TankAnimator;
+    public Animator player2WarriorAnimator;
+    public Animator player2RangedAnimator;
+    public Animator player2SupportAnimator;
+
 
     [HideInInspector]
     public bool bIsPlayer2Attacking = false;
@@ -43,7 +48,7 @@ public class Player2ComboManager : MonoBehaviour
     [HideInInspector]
     public string currentPlayer2ComboInSequence = "";
 
-
+    private bool bIsPlayer2Unarmed = true;
     #endregion
     private void Awake()
     {
@@ -73,7 +78,7 @@ public class Player2ComboManager : MonoBehaviour
         if (!bIsPlayer2Attacking)
         {
             bIsPlayer2Attacking = true;
-            player2Animator.SetBool("NextAttack", true);
+            player2DefaultAnimator.SetBool("NextAttack", true);
         }
 
 
@@ -124,7 +129,7 @@ public class Player2ComboManager : MonoBehaviour
 
     private void Update()
     {
-        player2Animator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
+        player2DefaultAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
 
         SetUnarmedCombos();
     }
@@ -134,11 +139,14 @@ public class Player2ComboManager : MonoBehaviour
         currentPlayer2Weapon = null;
         _currentPlayer2WeaponObject = null;
 
+        bIsPlayer2Unarmed = true;
         DefaultCombo();
     }
 
     private void WeaponManager_OnWeaponEquippedPlayer2(GameObject equippedWeapon)
     {
+        bIsPlayer2Unarmed = false;
+
         _currentPlayer2WeaponObject = equippedWeapon;
 
         AssignWeaponCombos(_currentPlayer2WeaponObject.GetComponent<Weapon>());
@@ -175,33 +183,42 @@ public class Player2ComboManager : MonoBehaviour
 
     private void DefaultCombo()
     {
-
-        currentPlayer2ComboSubstate = "Base Layer.Attack Combos.Unarmed Default";
         currentEquippedPlayer2WeaponType = Weapon.WeaponType.Unarmed;
 
     }
 
     private void SetUnarmedCombos()
     {
+        if (!bIsPlayer2Unarmed) return;
 
         if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Default)
         {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
+            player2DefaultAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
             player2UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
         }
         else if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Tank)
         {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
+            player2TankAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
             player2UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;
         }
         else if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Warrior)
         {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
+            player2WarriorAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
             player2UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
         }
         else if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Ranged)
         {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
+            player2RangedAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
             player2UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
         }
         else if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Support)
         {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
+            player2SupportAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
             player2UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
         }
     }
