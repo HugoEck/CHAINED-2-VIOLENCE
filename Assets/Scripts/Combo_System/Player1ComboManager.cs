@@ -6,41 +6,35 @@ public class Player1ComboManager : MonoBehaviour
 {
     public static Player1ComboManager instance { get; private set; }
 
-    #region BOTH
-
-    [Header("Both")]
+    [Header("Combat related")]
     [SerializeField] private UnarmedComboSOs _availableUnarmedCombos;
 
-    [SerializeField] private PlayerCombat playerCombatScript;
+    [SerializeField] private PlayerCombat player1CombatScript;
+    [SerializeField] private PlayerAttributes _player1Attributes;
+    [SerializeField] private WeaponManager player1WeaponManager;
 
-    #endregion
+    private List<ComboAttackSO> _player1ComboAttacks; // Current weapon's combos
 
-    #region PLAYER1
+    [HideInInspector]
+    public Weapon currentPlayer1Weapon;
+    private GameObject _currentPlayer1WeaponObject; // Weapon defines its own ComboAttackSO list
 
-    [Header("Player 1")]
-    [SerializeField] private GameObject _currentPlayer1WeaponObject; // Weapon defines its own ComboAttackSO list
+    [HideInInspector]
+    public Weapon.WeaponType currentEquippedPlayer1WeaponType;
+
+    [Header("Player animators")]
+    [SerializeField] private Animator player1DefaultAnimator;
+    [SerializeField] private Animator player1TankAnimator;
+    [SerializeField] private Animator player1WarriorAnimator;
+    [SerializeField] private Animator player1RangedAnimator;
+    [SerializeField] private Animator player1SupportAnimator;
+    
 
     [HideInInspector]
     public ComboAttackSO[] player1UnarmedCombos;
 
-    public Animator player1DefaultAnimator;
-    public Animator player1TankAnimator;
-    public Animator player1WarriorAnimator;
-    public Animator player1RangedAnimator;
-    public Animator player1SupportAnimator;
-
     [HideInInspector]
     public bool bIsPlayer1Attacking = false;
-
-    [HideInInspector]
-    private List<ComboAttackSO> _player1ComboAttacks; // Current weapon's combos
-
-    public Weapon currentPlayer1Weapon;
-
-    public WeaponManager player1WeaponManager;
-
-    [HideInInspector]
-    public Weapon.WeaponType currentEquippedPlayer1WeaponType;
 
     [HideInInspector]
     public string currentPlayer1ComboSubstate = "";
@@ -50,7 +44,6 @@ public class Player1ComboManager : MonoBehaviour
 
     private bool bIsPlayer1Unarmed = true;
 
-    #endregion
     private void Awake()
     {
         instance = this;
@@ -99,7 +92,7 @@ public class Player1ComboManager : MonoBehaviour
                 if (enemyManager != null)
                 {
                     // Deal damage if within cone
-                    enemyManager.DealDamageToEnemy(attackDamage + playerCombatScript.attackDamage);
+                    enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage);
                     Debug.Log("Hit enemy: " + enemy.name);
 
                     if(_currentPlayer1WeaponObject != null)
@@ -193,34 +186,34 @@ public class Player1ComboManager : MonoBehaviour
     {
         if (!bIsPlayer1Unarmed) return;
 
-        if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Default)
+        if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Default)
         {       
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
-            player1DefaultAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
+            player1DefaultAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
         }
-        else if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Tank)
+        else if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Tank)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
-            player1TankAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
+            player1TankAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;         
         }
-        else if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Warrior)
+        else if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Warrior)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
-            player1WarriorAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
+            player1WarriorAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
         }
-        else if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Ranged)
+        else if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Ranged)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
-            player1RangedAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
+            player1RangedAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
         }
-        else if (playerCombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Support)
+        else if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Support)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
-            player1SupportAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
+            player1SupportAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
         }      
     }

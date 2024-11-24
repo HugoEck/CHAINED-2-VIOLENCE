@@ -518,9 +518,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8851106893969254278, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
+      propertyPath: _playerAttributes
+      value: 
+      objectReference: {fileID: 630300738}
+    - target: {fileID: 8851106893969254278, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: _player1Attributes
+      value: 
+      objectReference: {fileID: 630300738}
+    - target: {fileID: 8851106893969254278, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
       propertyPath: bIsPlayer1Attacking
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8851106893969254278, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: player1CombatScript
+      value: 
+      objectReference: {fileID: 630300729}
     - target: {fileID: 8851106893969254278, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
       propertyPath: player1TankAnimator
@@ -584,7 +599,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8057992993270712755, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      insertIndex: 6
+      addedObject: {fileID: 630300738}
   m_SourcePrefab: {fileID: 100100000, guid: 93f23453abf717348acaacf7b6f06f4e, type: 3}
 --- !u!1 &132932834
 GameObject:
@@ -1578,6 +1597,37 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 55503643}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &630300729 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5142455387569287952, guid: 93f23453abf717348acaacf7b6f06f4e,
+    type: 3}
+  m_PrefabInstance: {fileID: 55503643}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630300704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd144d9172a7c074a857b95d51ea14e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &630300738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630300704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f37c9eba65302b547bf1998421acceaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentPlayerClass: {fileID: 630300729}
+  _classesAttributes:
+  - {fileID: 11400000, guid: ff6f1ada62eafdb49b769289387d3fcb, type: 2}
+  - {fileID: 11400000, guid: 8981962c81a30e745a51a1990d02c426, type: 2}
+  - {fileID: 11400000, guid: 676c769157a546a4597c572dc50fe1d3, type: 2}
+  - {fileID: 11400000, guid: 0cca88dedc14ab44bb81b0e0d077e3c0, type: 2}
+  - {fileID: 11400000, guid: a78f294586df62748bdf46ef4fc30617, type: 2}
 --- !u!1 &692665835
 GameObject:
   m_ObjectHideFlags: 0
@@ -4244,6 +4294,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515442277}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1542967506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1542967508}
+  - component: {fileID: 1542967507}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1542967507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542967506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1542967508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542967506}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1549991719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5327,52 +5423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1921537345
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1921537347}
-  - component: {fileID: 1921537346}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1921537346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921537345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1921537347
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1921537345}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1973796014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5879,4 +5929,4 @@ SceneRoots:
   - {fileID: 1837037332}
   - {fileID: 55503643}
   - {fileID: 1566718197}
-  - {fileID: 1921537347}
+  - {fileID: 1542967508}

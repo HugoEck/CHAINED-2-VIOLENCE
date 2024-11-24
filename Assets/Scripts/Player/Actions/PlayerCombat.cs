@@ -27,7 +27,8 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject _warriorObject;
 
     private WeaponManager _weaponManager;
-    public static event Action<int, PlayerClass> OnClassSwitched; // Used for abilites UI.
+    public static event Action<int, PlayerClass> OnClassSwitchedUI; // Used for abilites UI.
+    public event Action<PlayerClass> OnClassSwitched;
 
     public PlayerClass currentPlayerClass;   
 
@@ -234,8 +235,9 @@ private void Awake()
         }
 
         // Event when switched class, used for ability UI.
-        PlayerCombat.OnClassSwitched?.Invoke(playerId, currentPlayerClass);
+        OnClassSwitchedUI?.Invoke(playerId, currentPlayerClass);
 
+        OnClassSwitched?.Invoke(currentPlayerClass);
     }
     private void SetActiveClassModel(PlayerClass currentPlayerClass)
     {

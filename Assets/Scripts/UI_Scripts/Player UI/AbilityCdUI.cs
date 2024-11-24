@@ -29,13 +29,13 @@ public class AbilityCdUI : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerCombat.OnClassSwitched += HandleClassSwitched;
+        PlayerCombat.OnClassSwitchedUI += HandleClassSwitched;
         AbilityCdEventsUI.OnAbilityUsed += HandleAbilityUsed;
     }
 
     private void OnDisable()
     {
-        PlayerCombat.OnClassSwitched -= HandleClassSwitched;
+        PlayerCombat.OnClassSwitchedUI -= HandleClassSwitched;
         AbilityCdEventsUI.OnAbilityUsed -= HandleAbilityUsed;
     }
 
