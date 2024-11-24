@@ -3,7 +3,7 @@ using UnityEngine;
 public class ShieldAbility : MonoBehaviour, IAbility
 {
     [Header("Shield Settings")]
-    [SerializeField] private float maxShieldHealth = 20.0f;
+    private float maxShieldHealth;
     private float currentShieldHealth;
 
     [Header("Shield Visual")]
@@ -19,6 +19,18 @@ public class ShieldAbility : MonoBehaviour, IAbility
     [SerializeField] private GameObject otherPlayer;
     private GameObject activatingPlayer;
 
+    private Player player;
+
+    private void Start()
+    {
+        // Try to get the Player script
+        player = GetComponent<Player>();
+        if (player == null)
+        {
+            Debug.LogError("Player script not found on the GameObject! Ensure it is attached.");
+        }
+    }
+
     private void OnEnable()
     {
         PlayerCombat.OnClassSwitched += HandleClassSwitch;
@@ -29,10 +41,19 @@ public class ShieldAbility : MonoBehaviour, IAbility
         PlayerCombat.OnClassSwitched -= HandleClassSwitch;
     }
 
+    private void CalculateShieldHealth()
+    {
+        if (player != null)
+        {
+            maxShieldHealth = player.GetMaxHealth() * 0.2f; // Base shield health + 20% of player's base HP
+        }
+    }
+
     public void UseAbility()
     {
         if (Time.time >= lastBreakTime + cooldown)
         {
+            CalculateShieldHealth();
             ActivateShield();
             ApplyShieldToOtherPlayer();
         }
@@ -81,6 +102,8 @@ public class ShieldAbility : MonoBehaviour, IAbility
     public void ActivateShieldFromExternal(GameObject activator)
     {
         if (isShieldActive) return;
+
+        CalculateShieldHealth();
 
         currentShieldHealth = maxShieldHealth;
         isShieldActive = true;

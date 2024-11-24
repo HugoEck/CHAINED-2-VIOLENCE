@@ -14,7 +14,7 @@ public class WaveManager : MonoBehaviour
     public TMP_Asset currentDayFont;
 
 
-    [Header(" ")]
+    [Header("Enemy stuff")]
     [SerializeField] GameObject enemyCreatorObject;
     NPC_Customization enemyCreator;
     public static int ActiveEnemies = 0;
@@ -22,14 +22,28 @@ public class WaveManager : MonoBehaviour
     private float targetTime = 50;
     private float timer = 0;
 
-    [SerializeField] GameObject spawnPortal;
-
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     List<Wave> waves = new List<Wave>();
     WaveData waveData = new WaveData();
 
     [SerializeField] TextMeshProUGUI text;
-    public static int currentWave = 1;
+    public static int currentWave = 0;
+    private int previousWave = -1;
+
+    [Header("Items")]
+    public ItemPicker itemPicker;
+
+    public enum CurrentEra
+    {
+        Roman,
+        Fantasy,
+        Pirate,
+        Western,
+        Farm,
+        CurrentDay,
+        SciFi
+    }
+    public CurrentEra currentEra = new CurrentEra();
 
 
 
@@ -37,7 +51,7 @@ public class WaveManager : MonoBehaviour
     private void OnEnable()
     {
         ActiveEnemies = 0;
-        currentWave = 1;
+        currentWave = 0;
     }
 
 
@@ -49,55 +63,41 @@ public class WaveManager : MonoBehaviour
         //StartCoroutine(SpawnWavesRegularly());
     }
 
-    private IEnumerator SpawnWavesRegularly()
-    {
-        while (true)
-        {
-            if (currentWave < waves.Count)
-            {
-                SpawnWave(waves[currentWave]);
-                text.text = "Wave " + currentWave;
-                currentWave++;
-            }
-            yield return new WaitForSeconds(20f); // Wait for 60 seconds before spawning the next wave
-        }
-    }
 
     private void Update()
     {
         timer += Time.deltaTime;
-        if (ActiveEnemies == 0 || timer > targetTime)
+        if (ActiveEnemies == 0 /*|| timer > targetTime*/)
         {
             timer = 0;
-            SpawnWave(waves[currentWave]);
-            currentWave++;
-        }
+            //ChangeEra();
+            //SpawnWave(waves[currentWave]);
 
-        //Debug spawner
-        if (Input.GetKeyDown(KeyCode.L))
+            itemPicker.ActivateItems();
+
+
+            if (currentWave != previousWave)
+            {
+                // Update the previous wave tracker
+                previousWave = currentWave;
+
+                // Change the era based on the wave
+                ChangeEra();
+
+                // Spawn the wave
+                SpawnWave(waves[currentWave]);
+            }
+                //currentWave++;
+            }
+
+            //Debug spawner
+            if (Input.GetKeyDown(KeyCode.L))
         {
+            ChangeEra();
             SpawnWave(waves[currentWave]);
             currentWave++;
             timer = 0;
         }
-
-        //Debug Wave
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    Wave wave = new Wave();
-        //    wave.waveName = "testWave";
-        //    EnemyConfig enemy = new EnemyConfig();
-
-        //    //Set enemy theme and class to debug here
-        //    enemy.enemyClass = NPC_Customization.NPCClass.RockThrower;
-        //    enemy.theme = NPC_Customization.NPCTheme.Roman;
-
-        //    enemy.waveSize = 10;
-        //    wave.enemyConfigs = new List<EnemyConfig>();
-        //    wave.enemyConfigs.Add(enemy);
-        //    SpawnWave(wave);
-        //    text.text = "Trying out " + enemy.theme.ToString() + " "+ enemy.enemyClass.ToString();
-        //}
 
         //FPS writer
         //deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
@@ -195,6 +195,39 @@ public class WaveManager : MonoBehaviour
         // Ensure the final alpha is set to 1
         color.a = 0;
         text.color = color;
+    }
+
+    private void ChangeEra()
+    {
+        if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Roman)
+        {
+            currentEra = CurrentEra.Roman;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.SciFi)
+        {
+            currentEra = CurrentEra.SciFi;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Farm)
+        {
+            currentEra = CurrentEra.Farm;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Fantasy)
+        {
+            currentEra = CurrentEra.Fantasy;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Cowboys)
+        {
+            currentEra = CurrentEra.Western;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.Pirate)
+        {
+            currentEra = CurrentEra.Pirate;
+        }
+        else if (waves[currentWave].enemyConfigs[0].theme == NPC_Customization.NPCTheme.CurrentDay)
+        {
+            currentEra = CurrentEra.CurrentDay;
+        }
+
     }
 
     private TMP_Asset GetFont()
