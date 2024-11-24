@@ -2,18 +2,46 @@
 
 public static class ComboAnimationStatesData
 {
+    #region UNARMED
 
-    #region COMBO_UNARMED
+    #region COMBO_DEFAULT
 
-    public static string[] combosInUnarmedState = { "UnarmedCombo1", "Combo2", "Combo3" };
-
+    public static string[] combosInUnarmedDefaultState = { "UnarmedDefaultCombo1" };
     public static string unarmedSubStateDefault = "Base Layer.Attack Combos.Unarmed Default";
+
+    #endregion
+
+    #region COMBO_TANK
+
+    public static string[] combosInUnarmedTankState = { "UnarmedTankCombo1", "Combo2", "Combo3" };   
     public static string unarmedSubStateTank = "Base Layer.Attack Combos.Unarmed Tank";
-    public static string unarmedSubStateWarrior = "Base Layer.Attack Combos.Unarmed Warrior";
-    public static string unarmedSubStateRanged = "Base Layer.Attack Combos.Unarmed Ranged";
+
+    #endregion
+
+    #region COMBO_WARRIOR
+
+    public static string[] combosInUnarmedWarriorState = { "UnarmedWarriorCombo1", "Combo2"};    
+    public static string unarmedSubStateWarrior = "Base Layer.Attack Combos.Unarmed Warrior";   
+
+    #endregion
+
+    #region COMBO_RANGED
+
+    public static string[] combosInUnarmedRangedState = { "UnarmedRangedCombo1", "Combo2", "Combo3" };    
+    public static string unarmedSubStateRanged = "Base Layer.Attack Combos.Unarmed Ranged";   
+
+    #endregion
+
+    #region COMBO_SUPPORT
+
+    public static string[] combosInUnarmedSupportState = { "UnarmedSupportCombo1", "Combo2", "Combo3" };
     public static string unarmedSubStateSupport = "Base Layer.Attack Combos.Unarmed Support";
 
     #endregion
+
+    #endregion
+
+
 
     #region WEAPON COMBOS
 

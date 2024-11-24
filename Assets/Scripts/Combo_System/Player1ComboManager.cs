@@ -99,14 +99,18 @@ public class Player1ComboManager : MonoBehaviour
                 if (enemyManager != null)
                 {
                     // Deal damage if within cone
-                    enemyManager.DealDamageToEnemy(attackDamage);
+                    enemyManager.DealDamageToEnemy(attackDamage + playerCombatScript.attackDamage);
                     Debug.Log("Hit enemy: " + enemy.name);
 
-                    if (!durabilityReduced)
+                    if(_currentPlayer1WeaponObject != null)
                     {
-                        ReduceWeaponDurabilility();
-                        durabilityReduced = true;
+                        if (!durabilityReduced)
+                        {
+                            ReduceWeaponDurabilility();
+                            durabilityReduced = true;
+                        }
                     }
+                    
                 }
             }
         }
@@ -157,6 +161,10 @@ public class Player1ComboManager : MonoBehaviour
         if (currentEquippedPlayer1WeaponType == Weapon.WeaponType.TwoHanded)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.twoHandedSubState;
+        }
+        else if(currentEquippedPlayer1WeaponType == Weapon.WeaponType.OneHanded)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.oneHandedSubState;
         }
         else if(currentEquippedPlayer1WeaponType == Weapon.WeaponType.ReallyBigTwoHanded)
         {
@@ -214,8 +222,6 @@ public class Player1ComboManager : MonoBehaviour
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
             player1SupportAnimator.SetInteger("PlayerClass", (int)playerCombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
-        }
-
-       
+        }      
     }
 }

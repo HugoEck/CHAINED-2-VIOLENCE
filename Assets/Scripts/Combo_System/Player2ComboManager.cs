@@ -103,14 +103,17 @@ public class Player2ComboManager : MonoBehaviour
                 if (enemyManager != null)
                 {
                     // Deal damage if within cone
-                    enemyManager.DealDamageToEnemy(attackDamage);
+                    enemyManager.DealDamageToEnemy(attackDamage + playerCombatScript.attackDamage);
                     Debug.Log("Hit enemy: " + enemy.name);
 
-                    if (!durabilityReduced)
+                    if (_currentPlayer2WeaponObject != null)
                     {
-                        ReduceWeaponDurabilility();
-                        durabilityReduced = true;
-                    }
+                        if (!durabilityReduced)
+                        {
+                            ReduceWeaponDurabilility();
+                            durabilityReduced = true;
+                        }
+                    }                 
                 }
             }
         }
@@ -162,6 +165,10 @@ public class Player2ComboManager : MonoBehaviour
         if (currentEquippedPlayer2WeaponType == Weapon.WeaponType.TwoHanded)
         {
             currentPlayer2ComboSubstate = ComboAnimationStatesData.twoHandedSubState;
+        }
+        else if (currentEquippedPlayer2WeaponType == Weapon.WeaponType.OneHanded)
+        {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.oneHandedSubState;
         }
         else if (currentEquippedPlayer2WeaponType == Weapon.WeaponType.ReallyBigTwoHanded)
         {
