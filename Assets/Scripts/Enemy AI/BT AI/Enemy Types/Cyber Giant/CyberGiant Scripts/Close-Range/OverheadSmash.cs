@@ -91,6 +91,7 @@ public class OverheadSmash : Node
         agent.animator.SetBool("CyberGiant_JumpEngage", false);
         agent.animator.SetBool("CyberGiant_Idle", false);
         agent.animator.SetBool("CyberGiant_Stagger", false);
+        agent.animator.SetBool("CyberGiant_Death", false);
 
     }
 }
