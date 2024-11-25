@@ -35368,6 +35368,8 @@ GameObject:
   - component: {fileID: 6979189935529476186}
   - component: {fileID: 6535602299383166259}
   - component: {fileID: 4581529409592524417}
+  - component: {fileID: 4338931680868047070}
+  - component: {fileID: 1573747980320304868}
   - component: {fileID: 1749776257131615787}
   - component: {fileID: 3122812935661889100}
   - component: {fileID: 661256909229130215}
@@ -35521,6 +35523,53 @@ MonoBehaviour:
   _maxHealth: 10
   _bIsPlayerDisabled: 0
   isFlashing: 0
+--- !u!114 &4338931680868047070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401457856023750393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f37c9eba65302b547bf1998421acceaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentPlayerClass: {fileID: 5980812981125410013}
+  _classesAttributes:
+  - {fileID: 11400000, guid: ff6f1ada62eafdb49b769289387d3fcb, type: 2}
+  - {fileID: 11400000, guid: 8981962c81a30e745a51a1990d02c426, type: 2}
+  - {fileID: 11400000, guid: 676c769157a546a4597c572dc50fe1d3, type: 2}
+  - {fileID: 11400000, guid: 0cca88dedc14ab44bb81b0e0d077e3c0, type: 2}
+  - {fileID: 11400000, guid: a78f294586df62748bdf46ef4fc30617, type: 2}
+--- !u!114 &1573747980320304868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401457856023750393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119ae8175fd32014b9c6e0b1bcf04100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _availableUnarmedCombos: {fileID: 11400000, guid: 54b8fc57fde4aee40ba531100081fbe4,
+    type: 2}
+  player2CombatScript: {fileID: 5980812981125410013}
+  _player2Attributes: {fileID: 4338931680868047070}
+  player2WeaponManager: {fileID: 8465454896224041503}
+  currentPlayer2Weapon: {fileID: 0}
+  currentEquippedPlayer2WeaponType: 0
+  player2DefaultAnimator: {fileID: 2167772445778322533}
+  player2TankAnimator: {fileID: 5087702797453251488}
+  player2WarriorAnimator: {fileID: 3379586451176978527}
+  player2RangedAnimator: {fileID: 1302950074856071171}
+  player2SupportAnimator: {fileID: 5291615281141049289}
+  player2UnarmedCombos: []
+  bIsPlayer2Attacking: 0
+  currentPlayer2ComboSubstate: 
+  currentPlayer2ComboInSequence: 
 --- !u!114 &1749776257131615787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35618,7 +35667,7 @@ MonoBehaviour:
   swingDuration: 3
   swingSpeed: 400
   swingRadius: 5
-  swingDamage: 20
+  baseSwingDamage: 20
   cooldown: 18
   enemyLayer:
     serializedVersion: 2
@@ -35626,6 +35675,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerCombat: {fileID: 0}
   swingEffectPrefab: {fileID: 1396618616648682, guid: 0f91ba3e8745a3144a3d9862ff4ca471,
     type: 3}
 --- !u!114 &243103856076282265
@@ -35673,10 +35723,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coneRange: 10
   coneAngle: 120
-  coneDamage: 50
+  baseConeDamage: 50
   coneEffectPrefab: {fileID: 1201505000128532, guid: 94d1dad0b582213478d67185f26aaa47,
     type: 3}
   coneAnchor: {fileID: 4889678002812363050}
+  playerCombat: {fileID: 0}
   cooldown: 5
 --- !u!114 &4104196438329042504
 MonoBehaviour:
@@ -35690,7 +35741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99e3673e5a9ece49924393df282d3aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxShieldHealth: 20
   shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
     type: 3}
   cooldown: 10
@@ -35707,6 +35757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2069301f64bcc4d8e4aa76866ea7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCombat: {fileID: 0}
   projectilePrefab: {fileID: 1834646129351440, guid: 824423af57d92ee4f98e58d28185ff1d,
     type: 3}
   firePoint: {fileID: 4889678002812363050}
@@ -56454,6 +56505,8 @@ GameObject:
   - component: {fileID: 2338531556277086677}
   - component: {fileID: 918647209437018231}
   - component: {fileID: 1261153231404103306}
+  - component: {fileID: 145265992484931256}
+  - component: {fileID: 1584236202868420913}
   - component: {fileID: 7810865126172426121}
   - component: {fileID: 4956827583286445913}
   - component: {fileID: 8079883428562057361}
@@ -56607,6 +56660,53 @@ MonoBehaviour:
   _maxHealth: 10
   _bIsPlayerDisabled: 0
   isFlashing: 0
+--- !u!114 &145265992484931256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057992993270712755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2d3eb569298754586084a87f0a4e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _availableUnarmedCombos: {fileID: 11400000, guid: 54b8fc57fde4aee40ba531100081fbe4,
+    type: 2}
+  player1CombatScript: {fileID: 5142455387569287952}
+  _player1Attributes: {fileID: 1584236202868420913}
+  player1WeaponManager: {fileID: 2361357395946132211}
+  currentPlayer1Weapon: {fileID: 0}
+  currentEquippedPlayer1WeaponType: 0
+  player1DefaultAnimator: {fileID: 2167772445778322533}
+  player1TankAnimator: {fileID: 5087702797453251488}
+  player1WarriorAnimator: {fileID: 3379586451176978527}
+  player1RangedAnimator: {fileID: 1302950074856071171}
+  player1SupportAnimator: {fileID: 5291615281141049289}
+  player1UnarmedCombos: []
+  bIsPlayer1Attacking: 0
+  currentPlayer1ComboSubstate: 
+  currentPlayer1ComboInSequence: 
+--- !u!114 &1584236202868420913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057992993270712755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f37c9eba65302b547bf1998421acceaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentPlayerClass: {fileID: 5142455387569287952}
+  _classesAttributes:
+  - {fileID: 11400000, guid: ff6f1ada62eafdb49b769289387d3fcb, type: 2}
+  - {fileID: 11400000, guid: 8981962c81a30e745a51a1990d02c426, type: 2}
+  - {fileID: 11400000, guid: 676c769157a546a4597c572dc50fe1d3, type: 2}
+  - {fileID: 11400000, guid: 0cca88dedc14ab44bb81b0e0d077e3c0, type: 2}
+  - {fileID: 11400000, guid: a78f294586df62748bdf46ef4fc30617, type: 2}
 --- !u!114 &7810865126172426121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56704,7 +56804,7 @@ MonoBehaviour:
   swingDuration: 3
   swingSpeed: 400
   swingRadius: 5
-  swingDamage: 20
+  baseSwingDamage: 20
   cooldown: 18
   enemyLayer:
     serializedVersion: 2
@@ -56712,6 +56812,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerCombat: {fileID: 0}
   swingEffectPrefab: {fileID: 1396618616648682, guid: 0f91ba3e8745a3144a3d9862ff4ca471,
     type: 3}
 --- !u!114 &5776628171920410961
@@ -56759,10 +56860,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coneRange: 10
   coneAngle: 120
-  coneDamage: 50
+  baseConeDamage: 50
   coneEffectPrefab: {fileID: 1201505000128532, guid: 94d1dad0b582213478d67185f26aaa47,
     type: 3}
   coneAnchor: {fileID: 3836763609996793922}
+  playerCombat: {fileID: 0}
   cooldown: 5
 --- !u!114 &8472543195992861203
 MonoBehaviour:
@@ -56776,7 +56878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99e3673e5a9ece49924393df282d3aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxShieldHealth: 20
   shieldVisualPrefab: {fileID: 1971249946388041258, guid: 183eda841862cd24893dd530b905d4dd,
     type: 3}
   cooldown: 5
@@ -56793,6 +56894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2069301f64bcc4d8e4aa76866ea7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCombat: {fileID: 0}
   projectilePrefab: {fileID: 1834646129351440, guid: 824423af57d92ee4f98e58d28185ff1d,
     type: 3}
   firePoint: {fileID: 3836763609996793922}
@@ -56870,14 +56972,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _availableUnarmedCombos: {fileID: 11400000, guid: 54b8fc57fde4aee40ba531100081fbe4,
     type: 2}
-  playerCombatScript: {fileID: 5142455387569287952}
-  _currentPlayer1WeaponObject: {fileID: 0}
-  player1UnarmedCombos: []
-  player1Animator: {fileID: 2167772445778322533}
-  bIsPlayer1Attacking: 0
-  currentPlayer1Weapon: {fileID: 0}
+  player1CombatScript: {fileID: 0}
+  _player1Attributes: {fileID: 0}
   player1WeaponManager: {fileID: 2361357395946132211}
+  currentPlayer1Weapon: {fileID: 0}
   currentEquippedPlayer1WeaponType: 0
+  player1DefaultAnimator: {fileID: 0}
+  player1TankAnimator: {fileID: 0}
+  player1WarriorAnimator: {fileID: 0}
+  player1RangedAnimator: {fileID: 0}
+  player1SupportAnimator: {fileID: 0}
+  player1UnarmedCombos: []
+  bIsPlayer1Attacking: 0
   currentPlayer1ComboSubstate: 
   currentPlayer1ComboInSequence: 
 --- !u!1 &8114625879205255699
