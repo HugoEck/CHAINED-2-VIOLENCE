@@ -30,7 +30,7 @@ public class BannerLogic : BaseManager
         BaseManager agent = other.GetComponent<BaseManager>();
         if (agent != null && !buffedEnemies.Contains(agent))
         {
-            if(agent.enemyID != "BannerMan" && agent.enemyID != "Charger")
+            if(agent.enemyID != "BannerMan" && agent.enemyID != "Charger" && agent.enemyID != "CyberGiant")
             {
                 buffedEnemies.Add(agent);
                 agent.behaviorMethods.BannerManBuff(buffMultiplier);
