@@ -10,51 +10,50 @@ public class RigidBodyMassManager : MonoBehaviour
 
     void Start()
     {
-        // Call this to store original masses at the start
+
         StoreOriginalMasses();
         if(setToZero )
         SetMassesToZero();
     }
 
-    // Method to store the original masses of all Rigidbody components in the child objects
+
     void StoreOriginalMasses()
     {
-        // Clear any existing entries in case this method is called multiple times
+       
         originalMasses.Clear();
 
-        // Find all Rigidbody components in the child GameObjects (excluding the main object)
+
         Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>(true);
 
-        // Iterate over the rigidbodies
+
         foreach (var rb in rigidbodies)
         {
-            if (rb != null && rb.gameObject != gameObject) // Exclude the main object itself
+            if (rb != null && rb.gameObject != gameObject) 
             {
-                originalMasses[rb] = rb.mass; // Store the original mass of each Rigidbody
+                originalMasses[rb] = rb.mass; 
             }
         }
     }
 
-    // Method to set all rigidbodies' masses to 0 in the child objects
     public void SetMassesToZero()
     {
         foreach (var rb in originalMasses.Keys)
         {
             if (rb != null)
             {
-                rb.mass = 0.0001f; // Set the mass of the Rigidbody to 0
+                rb.mass = 0.0001f; 
             }
         }
     }
 
-    // Method to restore all rigidbodies' masses to their original values in the child objects
+
     public void RestoreOriginalMasses()
     {
         foreach (var kvp in originalMasses)
         {
             if (kvp.Key != null)
             {
-                kvp.Key.mass = kvp.Value; // Restore the original mass of the Rigidbody
+                kvp.Key.mass = kvp.Value;
             }
         }
     }
