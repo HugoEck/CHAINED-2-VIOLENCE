@@ -19,6 +19,9 @@ public class ItemPicker : MonoBehaviour
     public List<GameObject> rareItems;
     public List<GameObject> legendaryItems;
 
+    public bool itemPicked = true;
+    public bool isPicking = false;
+
     private void Awake()
     {
         GameObject[] player1 = GameObject.FindGameObjectsWithTag("Player1");
@@ -42,6 +45,8 @@ public class ItemPicker : MonoBehaviour
 
     public void ActivateItems()
     {
+        itemPicked = false;
+        isPicking = true;
         // Destroy old items before spawning new ones
         Destroy(item1);
         Destroy(item2);
@@ -81,7 +86,8 @@ public class ItemPicker : MonoBehaviour
         //Assign item logic to player here
         AssignItemToPlayer(item2.GetComponent<Item>());
         DisableItems();
-        WaveManager.currentWave++;
+        itemPicked=true;
+        isPicking = false;
     }
 
     public void PickItem3()
@@ -90,7 +96,8 @@ public class ItemPicker : MonoBehaviour
         AssignItemToPlayer(item3.GetComponent<Item>());
 
         DisableItems();
-        WaveManager.currentWave++;
+        itemPicked = true;
+        isPicking = false;
     }
 
     public void PickItem1()
@@ -99,7 +106,8 @@ public class ItemPicker : MonoBehaviour
         AssignItemToPlayer(item1.GetComponent<Item>());
 
         DisableItems();
-        WaveManager.currentWave++;
+        itemPicked = true;
+        isPicking = false;
     }
 
     public void AssignItemToPlayer(Item item)
