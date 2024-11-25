@@ -17,6 +17,7 @@ public class CalculatePosition : Node
         Vector3 rotatedVector = new Vector3(nextX, 0, nextZ);
 
         bm.newDestination = bm.circleCenter + rotatedVector.normalized * bm.circleRadius;
+        bm.newDestination.y = 0;
         bm.isNewDestinationCalculated = true;
 
         return NodeState.SUCCESS;
