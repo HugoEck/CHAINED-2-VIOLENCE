@@ -28,6 +28,34 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-8702220219046559001
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Death
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_Idle
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7238955085450198836}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.975
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-8586798946724200007
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -388,6 +416,34 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-7670548870178829117
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Death
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_OverheadSmash1
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7238955085450198836}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.925
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-7613665519576134570
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -441,6 +497,34 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-7535736922877945041
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Death
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_MissileRain
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7238955085450198836}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.9528302
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-7371599920597684633
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -457,6 +541,60 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6815589189608739001}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8897059
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1102 &-7238955085450198836
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CyberGiant_Death
+  m_Speed: 0.8
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 023982a5e3b800941b1037ebc24d5156, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1101 &-7192647200601319693
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Death
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_Walk
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7238955085450198836}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -534,6 +672,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb18b6edcd45934c9f4c58ccb89326c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1101 &-6548661447757393969
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Death
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_OverheadSmash2
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7238955085450198836}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.93697476
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1102 &-6274991190618698517
 AnimatorState:
   serializedVersion: 6
@@ -551,6 +717,7 @@ AnimatorState:
   - {fileID: -7371599920597684633}
   - {fileID: 2303709924702649604}
   - {fileID: -2388784361280594470}
+  - {fileID: -7192647200601319693}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -815,6 +982,7 @@ AnimatorState:
   - {fileID: -8274331769384711722}
   - {fileID: -2468513153318389285}
   - {fileID: -4718713058475507869}
+  - {fileID: -8702220219046559001}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -905,10 +1073,10 @@ AnimatorStateMachine:
     m_Position: {x: 1440, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6274991190618698517}
-    m_Position: {x: 2150, y: 230, z: 0}
+    m_Position: {x: 2190, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1157442714689661019}
-    m_Position: {x: 1690, y: 440, z: 0}
+    m_Position: {x: 1680, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2537512708736318337}
     m_Position: {x: 570, y: 260, z: 0}
@@ -917,25 +1085,28 @@ AnimatorStateMachine:
     m_Position: {x: 570, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8103758493687138357}
-    m_Position: {x: 1750, y: 640, z: 0}
+    m_Position: {x: 1680, y: 600, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3315572523287801371}
-    m_Position: {x: 2010, y: 740, z: 0}
+    m_Position: {x: 1860, y: 760, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 636903430685012218}
-    m_Position: {x: 2010, y: 790, z: 0}
+    m_Position: {x: 1860, y: 810, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6815589189608739001}
     m_Position: {x: 1830, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4717613188981775673}
-    m_Position: {x: 2310, y: 440, z: 0}
+    m_Position: {x: 2310, y: 600, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2835688756101221421}
-    m_Position: {x: 2260, y: 640, z: 0}
+    m_Position: {x: 2150, y: 780, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1854627504333060113}
     m_Position: {x: 860, y: 260, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -7238955085450198836}
+    m_Position: {x: 2320, y: 390, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -972,6 +1143,34 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &-3506294441734983505
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Death
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_JumpEngage
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7238955085450198836}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.9603175
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1017,6 +1216,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2098465505690307001}
+  - {fileID: -7670548870178829117}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -1192,6 +1392,34 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &-1413026802552702345
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Death
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_Stagger
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7238955085450198836}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.95454544
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1637,6 +1865,7 @@ AnimatorState:
   - {fileID: 4499682095830896128}
   - {fileID: 7888081409655645242}
   - {fileID: 8297055659670007906}
+  - {fileID: -6548661447757393969}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -1779,6 +2008,7 @@ AnimatorState:
   - {fileID: -7977450357182652337}
   - {fileID: 7153256871196184313}
   - {fileID: -4981419135247307241}
+  - {fileID: -7535736922877945041}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -2032,6 +2262,7 @@ AnimatorState:
   - {fileID: 5906239548043301377}
   - {fileID: 6915569936855432030}
   - {fileID: 3211172778273023849}
+  - {fileID: -1413026802552702345}
   m_StateMachineBehaviours:
   - {fileID: -6613124397623090705}
   m_Position: {x: 50, y: 50, z: 0}
@@ -2400,6 +2631,7 @@ AnimatorState:
   - {fileID: 7510072454873505504}
   - {fileID: 7307409446886994999}
   - {fileID: -8146039206117650045}
+  - {fileID: 7294082567506596014}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -2494,6 +2726,34 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.9528302
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &7294082567506596014
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: CyberGiant_Death
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: CyberGiant_ShieldWalk
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7238955085450198836}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.77272725
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -2683,6 +2943,7 @@ AnimatorState:
   - {fileID: 1556794826307234307}
   - {fileID: -485984649674933350}
   - {fileID: 8690136170249115641}
+  - {fileID: -3506294441734983505}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
