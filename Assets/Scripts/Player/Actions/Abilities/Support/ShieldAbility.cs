@@ -33,12 +33,12 @@ public class ShieldAbility : MonoBehaviour, IAbility
 
     private void OnEnable()
     {
-        PlayerCombat.OnClassSwitched += HandleClassSwitch;
+        PlayerCombat.OnClassSwitchedUI += HandleClassSwitch;
     }
 
     private void OnDisable()
     {
-        PlayerCombat.OnClassSwitched -= HandleClassSwitch;
+        PlayerCombat.OnClassSwitchedUI -= HandleClassSwitch;
     }
 
     private void CalculateShieldHealth()

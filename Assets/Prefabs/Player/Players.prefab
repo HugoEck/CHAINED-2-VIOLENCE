@@ -933,13 +933,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668696471488563322}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.4e-14, y: -1.07, z: -0.00000015673}
-  m_LocalScale: {x: 1.3094, y: 1.0141433, z: 1.3094}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.013529546, y: 0.3917646, z: -0.022942033}
+  m_LocalScale: {x: 0.77023494, y: 0.5965549, z: 0.77023494}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5190763330326750971}
-  m_Father: {fileID: 3836763609996793922}
+  m_Father: {fileID: 2257700558706110689}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &4060055818357447144
 MonoBehaviour:
@@ -12863,7 +12863,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5500416892941408681}
   m_Father: {fileID: 2257880268289345045}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2210547966466159829
@@ -14388,7 +14389,7 @@ Animator:
   m_GameObject: {fileID: 2253815894137982743}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c8c20564eb982f84a96a0d4d8e357cc5, type: 3}
-  m_Controller: {fileID: 9100000, guid: b32309c10e837564a94e024489726d2f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9876213ea9f774b45b50b74b8f50f16b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -56466,6 +56467,7 @@ GameObject:
   - component: {fileID: 7079573598015526987}
   - component: {fileID: 7172821812429809027}
   - component: {fileID: 2361357395946132211}
+  - component: {fileID: 8851106893969254278}
   m_Layer: 6
   m_Name: 'Player_1 '
   m_TagString: Player1
@@ -56487,7 +56489,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4026770230506929579}
-  - {fileID: 5500416892941408681}
   - {fileID: 7779621625624993821}
   m_Father: {fileID: 3613874697403409015}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -56855,6 +56856,30 @@ MonoBehaviour:
     weaponsParent: {fileID: 6268251655228344053}
   - playerClass: 3
     weaponsParent: {fileID: 5930039983592703686}
+--- !u!114 &8851106893969254278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057992993270712755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2d3eb569298754586084a87f0a4e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _availableUnarmedCombos: {fileID: 11400000, guid: 54b8fc57fde4aee40ba531100081fbe4,
+    type: 2}
+  playerCombatScript: {fileID: 5142455387569287952}
+  _currentPlayer1WeaponObject: {fileID: 0}
+  player1UnarmedCombos: []
+  player1Animator: {fileID: 2167772445778322533}
+  bIsPlayer1Attacking: 0
+  currentPlayer1Weapon: {fileID: 0}
+  player1WeaponManager: {fileID: 2361357395946132211}
+  currentEquippedPlayer1WeaponType: 0
+  currentPlayer1ComboSubstate: 
+  currentPlayer1ComboInSequence: 
 --- !u!1 &8114625879205255699
 GameObject:
   m_ObjectHideFlags: 0
@@ -58097,10 +58122,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &4934970363609423815
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -58243,10 +58273,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8997125176842983308 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8993200332921287516, guid: 7fc5e324cff6a704fa39dfe146ffa32c,
@@ -58374,10 +58409,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &123180978497465011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58493,10 +58533,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &9166829501802279167 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9116058257416510028, guid: e1018cd9923a8bd4ca17acc33976967c,
@@ -58619,10 +58664,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &149575436859830630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58728,10 +58778,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &239649385284318056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58847,10 +58902,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &9195545418961879092 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8993200332921287516, guid: 7fc5e324cff6a704fa39dfe146ffa32c,
@@ -58958,10 +59018,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &426800120084149168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4435005775557140, guid: b44f9ed3ec61e5c4bb8f192899220f60,
@@ -59083,10 +59148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8831491073049829663 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8993200332921287516, guid: 7fc5e324cff6a704fa39dfe146ffa32c,
@@ -59214,10 +59284,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &497806934393040693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59342,10 +59417,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &497806934393435573 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: deea9fa6c4adefd448af3d5cdb9ae322,
@@ -59482,10 +59562,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &505534047644497232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59587,10 +59672,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &507333566961777108 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4061292131536004, guid: d185711a4114260409552a6c7722724f,
@@ -59718,10 +59808,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &612576718217778562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59846,10 +59941,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &612576718217907970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: deea9fa6c4adefd448af3d5cdb9ae322,
@@ -59959,10 +60059,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &616122329261390600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f,
@@ -60072,10 +60177,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &617383489316962083 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f,
@@ -60183,10 +60293,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &681505181915800536 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4770423201946952, guid: 065fb9c5bba446b47970326618ea03f5,
@@ -60314,10 +60429,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &749731066074586783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60442,10 +60562,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &749731066074711071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: deea9fa6c4adefd448af3d5cdb9ae322,
@@ -60573,10 +60698,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &802153704381857654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60687,10 +60817,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &772327960290157213 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
@@ -60812,10 +60947,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &2293932068539325246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1504632563863678750, guid: 431ec6dafbc34724788c5c6ff8c60aab,
@@ -60921,10 +61061,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &846178964552814486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5cfc2ff40784d61458e13d2f8c8ac272,
@@ -61055,10 +61200,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &986488584684714359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: deea9fa6c4adefd448af3d5cdb9ae322,
@@ -61172,10 +61322,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1021708088830264584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61291,10 +61446,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1931007743138425366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1504632563863678750, guid: 431ec6dafbc34724788c5c6ff8c60aab,
@@ -61408,10 +61568,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1076526321899808362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61533,10 +61698,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1098979204073687519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61644,10 +61814,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &7588423882448315726
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -61790,10 +61965,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8878373052870610822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
@@ -61913,10 +62093,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &7757408981188130601
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62043,10 +62228,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1199993291946542918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62171,10 +62361,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1199993291946679750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: deea9fa6c4adefd448af3d5cdb9ae322,
@@ -62288,10 +62483,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1289002819746406957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62397,10 +62597,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1302969235127714303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62510,10 +62715,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &8072075291608436414
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62650,10 +62860,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7545648813227316183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8993200332921287516, guid: 7fc5e324cff6a704fa39dfe146ffa32c,
@@ -62767,10 +62982,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1569554411174118585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62901,10 +63121,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1577012950529268124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63006,10 +63231,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1581430051992077524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4770423201946952, guid: 065fb9c5bba446b47970326618ea03f5,
@@ -63146,10 +63376,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1600470686227203148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63265,10 +63500,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4188446821722107558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3176825188543343338, guid: 40fe5114e1b7b184680717f868623884,
@@ -63382,10 +63622,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1664221995490008740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63485,10 +63730,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1664221995490133028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 28c16d6a2f9d0d149a647997134995de,
@@ -63610,10 +63860,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4110901365298457560 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3371309241931349038, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
@@ -63736,10 +63991,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1757095102543405839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63841,10 +64101,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1761484349372709993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4635547304238950, guid: 4ae69815433a0b84cbdb0e33ead1c063,
@@ -63952,10 +64217,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1762525081015089081 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4635547304238950, guid: 4ae69815433a0b84cbdb0e33ead1c063,
@@ -64067,10 +64337,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1903205512901917552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64192,10 +64467,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &1911561157356865843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64297,10 +64577,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1916220146420126843 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4770423201946952, guid: 065fb9c5bba446b47970326618ea03f5,
@@ -64414,10 +64699,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &5932324948265824043
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64548,10 +64838,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &1550652568332060699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64689,10 +64984,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &2036567960502628934 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
@@ -64814,10 +65114,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7707495590463081819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
@@ -64945,10 +65250,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2229454402071013097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65054,10 +65364,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2248026081164991859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65159,10 +65474,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &2251050300325703527 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4435005775557140, guid: b44f9ed3ec61e5c4bb8f192899220f60,
@@ -65274,10 +65594,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2425833893456651589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65399,10 +65724,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2437275757948477212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65510,10 +65840,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2437936169487903635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65644,10 +65979,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2440206583419010908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65763,10 +66103,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6706738335398808576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8993200332921287516, guid: 7fc5e324cff6a704fa39dfe146ffa32c,
@@ -65872,10 +66217,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &2459137789684698311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f889e90018e2a3a4eaebfac0e6ca93c6,
@@ -65981,10 +66331,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &2463244074718048903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 28c16d6a2f9d0d149a647997134995de,
@@ -66106,10 +66461,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6812927902042393056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8993200332921287516, guid: 7fc5e324cff6a704fa39dfe146ffa32c,
@@ -66223,10 +66583,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2495418489311528893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66326,10 +66691,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &2495418489311665469 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f889e90018e2a3a4eaebfac0e6ca93c6,
@@ -66457,10 +66827,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2678750847196567925
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66577,10 +66952,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2694541813791553535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66684,10 +67064,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &5546456558021078846
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66836,10 +67221,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2772638656149839383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66947,10 +67337,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2800487433937154545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67060,10 +67455,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &6390163769836664354
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -67190,10 +67590,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2814047636459725887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67303,10 +67708,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &2909285474543294231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67406,10 +67816,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &2909285474543422871 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f889e90018e2a3a4eaebfac0e6ca93c6,
@@ -67531,10 +67946,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6768395226746480454 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
@@ -67644,10 +68064,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &2995371383358023190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f,
@@ -67761,10 +68186,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &3315282723704612205
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -67913,10 +68343,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &3220711377942344756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68026,10 +68461,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &8047029363966067836
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68166,10 +68606,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6603762196963614536 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
@@ -68277,10 +68722,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &3465087180524685243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4770423201946952, guid: 065fb9c5bba446b47970326618ea03f5,
@@ -68417,10 +68867,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &3558711340233526458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68522,10 +68977,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &3563255117867845846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4552791840064620, guid: 77b4387f63660784cab2dc6d1533c934,
@@ -68631,10 +69091,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &3601949386942045379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733,
@@ -68740,10 +69205,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &3638768728508547371 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733,
@@ -68851,10 +69321,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &3890079501491660991 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4552791840064620, guid: 77b4387f63660784cab2dc6d1533c934,
@@ -68968,10 +69443,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &3922543530025190476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69087,10 +69567,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1907825450920128166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3176825188543343338, guid: 40fe5114e1b7b184680717f868623884,
@@ -69196,10 +69681,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4028507346542999442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 28c16d6a2f9d0d149a647997134995de,
@@ -69311,10 +69801,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4065678577148027541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69414,10 +69909,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4065678577148164117 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 28c16d6a2f9d0d149a647997134995de,
@@ -69525,10 +70025,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4132251258607103512 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4061292131536004, guid: d185711a4114260409552a6c7722724f,
@@ -69659,10 +70164,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4141056076614650950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c,
@@ -69768,10 +70278,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4149171629047709844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5cfc2ff40784d61458e13d2f8c8ac272,
@@ -69887,10 +70402,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &5660337112584523542
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70019,10 +70539,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4282563363293241454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70130,10 +70655,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4325412520974061403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70255,10 +70785,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4332588169162102877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70380,10 +70915,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4389297949626050831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70489,10 +71029,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4417303741412691832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70603,10 +71148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4385209584070660755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
@@ -70712,10 +71262,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4453730918446427405 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f889e90018e2a3a4eaebfac0e6ca93c6,
@@ -70831,10 +71386,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &3993163542539824878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70971,10 +71531,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4326609250786849971 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9116058257416510028, guid: e1018cd9923a8bd4ca17acc33976967c,
@@ -71102,10 +71667,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4879236716613019514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71205,10 +71775,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4879236716613156346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5cfc2ff40784d61458e13d2f8c8ac272,
@@ -71322,10 +71897,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4956480108181515192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71425,10 +72005,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &4956480108181647672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5cfc2ff40784d61458e13d2f8c8ac272,
@@ -71544,10 +72129,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &4998572720336815656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71655,10 +72245,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &8913739126584624988
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -71793,10 +72388,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5069320959016405814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71913,10 +72513,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5075226565345777121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72038,10 +72643,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5125417843425589121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72151,10 +72761,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5301393782464435901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72270,10 +72885,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6733957688387287459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1504632563863678750, guid: 431ec6dafbc34724788c5c6ff8c60aab,
@@ -72387,10 +73007,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &9096960767966597073
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72521,10 +73146,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &1502445250656298220
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72673,10 +73303,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5662955984950566347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72798,10 +73433,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5713706338596051798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72923,10 +73563,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5729690067048497424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73141,10 +73786,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &5744763122606033774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4435005775557140, guid: b44f9ed3ec61e5c4bb8f192899220f60,
@@ -73266,10 +73916,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &9118786121200465271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3371309241931349038, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
@@ -73381,10 +74036,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5880744416933979997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73490,10 +74150,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &5999744912591950451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73595,10 +74260,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6004226878273820191 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4552791840064620, guid: 77b4387f63660784cab2dc6d1533c934,
@@ -73720,10 +74390,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &3135966308233205843 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9116058257416510028, guid: e1018cd9923a8bd4ca17acc33976967c,
@@ -73845,10 +74520,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8726324959415737705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3176825188543343338, guid: 40fe5114e1b7b184680717f868623884,
@@ -73962,10 +74642,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6213805312020101827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74081,10 +74766,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8803840933742710825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3176825188543343338, guid: 40fe5114e1b7b184680717f868623884,
@@ -74198,10 +74888,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &8596032483519813223
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74332,10 +75027,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &3163317162982194073
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74484,10 +75184,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6407198928712566843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74609,10 +75314,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6448478526945813551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74718,10 +75428,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6496915048531627253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74827,10 +75542,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6497751633269987178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74952,10 +75672,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6510111549470252544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75063,10 +75788,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6572585671533089841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75188,10 +75918,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 15
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6613311608887850542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75299,10 +76034,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &1079285976025619638
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75431,10 +76171,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6686966102863661662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4435005775557140, guid: b44f9ed3ec61e5c4bb8f192899220f60,
@@ -75556,10 +76301,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &5313884464824313138 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1504632563863678750, guid: 431ec6dafbc34724788c5c6ff8c60aab,
@@ -75665,10 +76415,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6754965146729139283 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 28c16d6a2f9d0d149a647997134995de,
@@ -75782,10 +76537,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6832686343035317976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75885,10 +76645,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6832686343035712600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5cfc2ff40784d61458e13d2f8c8ac272,
@@ -75996,10 +76761,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6844442969986514461 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4552791840064620, guid: 77b4387f63660784cab2dc6d1533c934,
@@ -76136,10 +76906,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &6933253573678112860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76261,10 +77036,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7021961462504110202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76372,10 +77152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7063243669506328442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76497,10 +77282,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7201100892914777626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76602,10 +77392,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7205490137789522300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4635547304238950, guid: 4ae69815433a0b84cbdb0e33ead1c063,
@@ -76713,10 +77508,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7231933840488000908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4435005775557140, guid: b44f9ed3ec61e5c4bb8f192899220f60,
@@ -76822,10 +77622,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7281923173231499669 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 28c16d6a2f9d0d149a647997134995de,
@@ -76937,10 +77742,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 5
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7356920056515716752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77048,10 +77858,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7385740864079273278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77176,10 +77991,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7385740864079660990 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c,
@@ -77310,10 +78130,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7393163842617865804 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c,
@@ -77423,10 +78248,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7421926010113516113 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f,
@@ -77548,10 +78378,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1814954274908629360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9116058257416510028, guid: e1018cd9923a8bd4ca17acc33976967c,
@@ -77663,10 +78498,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7484912872223453956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77766,10 +78606,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7484912872223844740 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 28c16d6a2f9d0d149a647997134995de,
@@ -77877,10 +78722,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 12
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7493800107414770581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4770423201946952, guid: 065fb9c5bba446b47970326618ea03f5,
@@ -77990,10 +78840,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7518636909659557321 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f,
@@ -78130,10 +78985,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7613104422341648302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78255,10 +79115,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7645876452282489654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78358,10 +79223,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7645876452282614198 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 28c16d6a2f9d0d149a647997134995de,
@@ -78475,10 +79345,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7788107733958806642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78586,10 +79461,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7800197808855550978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78705,10 +79585,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8709497463029490460 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1504632563863678750, guid: 431ec6dafbc34724788c5c6ff8c60aab,
@@ -78818,10 +79703,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7856222862010276918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f,
@@ -78935,10 +79825,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7876996455426653032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79044,10 +79939,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 6
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &7920224646672071764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79158,10 +80058,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &7817198786533220799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
@@ -79289,10 +80194,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8081445873330932506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79423,10 +80333,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8109632134103632551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79542,10 +80457,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6792123753621370505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3371309241931349038, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
@@ -79657,10 +80577,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 7
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8180963369033051547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79768,10 +80693,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8185419282850448287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79877,10 +80807,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8191752018870710354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80005,10 +80940,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8191752018871102162 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: deea9fa6c4adefd448af3d5cdb9ae322,
@@ -80145,10 +81085,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8313576739875397036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80256,10 +81201,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8326478407549067034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80381,10 +81331,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 16
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8366838441567709504
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80488,10 +81443,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 8
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8366838441568105408 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f,
@@ -80605,10 +81565,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8466541011082001127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80716,10 +81681,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 13
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8526318761168521181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80844,10 +81814,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8526318761168657757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c,
@@ -80963,10 +81938,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &435604252625358623
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -81103,10 +82083,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 17
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &6359011506790074624 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3371309241931349038, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
@@ -81218,10 +82203,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8649864451670118927
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81329,10 +82319,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8661262645065902950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81454,10 +82449,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8683258650466103002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81563,10 +82563,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8690261576096098726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81677,10 +82682,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8722360215362401357 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
@@ -81788,10 +82798,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8698293406803095400 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4635547304238950, guid: 4ae69815433a0b84cbdb0e33ead1c063,
@@ -81919,10 +82934,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 18
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &8797530634346731394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82038,10 +83058,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 20
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &1078102858457128143 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
@@ -82149,10 +83174,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 11
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8831459324162753651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4061292131536004, guid: d185711a4114260409552a6c7722724f,
@@ -82260,10 +83290,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 14
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8892917454576732968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4435005775557140, guid: b44f9ed3ec61e5c4bb8f192899220f60,
@@ -82369,10 +83404,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 4
   weaponName: Joust
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8911871989307086148 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733,
@@ -82602,10 +83642,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 21
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &8986041191247564560 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
@@ -82733,10 +83778,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &9031962689735331841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82861,10 +83911,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 9
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &9031962689735723649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c,
@@ -82978,10 +84033,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &9097265261724851712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83103,10 +84163,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 19
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1001 &9173087735530651343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83208,10 +84273,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 10
   weaponName: 
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!4 &9177529758041465257 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4635547304238950, guid: 4ae69815433a0b84cbdb0e33ead1c063,
@@ -83331,10 +84401,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
   durability: 5
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!65 &951084635858367416
 BoxCollider:
   m_ObjectHideFlags: 0

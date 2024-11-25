@@ -53,8 +53,6 @@ public class Player : MonoBehaviour
 
     public event Action<float> PlayerSpawnedIn;
 
-    public RigidBodyMassManager massManager;
-    
     private float _respawnCooldown = 10;
     private float _respawnTime;
 
@@ -231,10 +229,10 @@ public class Player : MonoBehaviour
             _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P1();
             _bIsUsingUltimateAttack = InputManager.Instance.GetUltimateAttackInput_P1();
 
-            if (_bIsUsingBasicAttack && _playerCombat.IsAttackAllowed())
+            if (_bIsUsingBasicAttack)
             {
-                _animationStateController.StartAttackAnimation();
-                //Debug.Log("Player 1 is using basic attack");
+                _playerCombat.UseBaseAttack();
+                Debug.Log("Player 1 is using basic attack");
 
             }
             else if (_bIsUsingAbilityAttack)
@@ -254,9 +252,9 @@ public class Player : MonoBehaviour
             _bIsUsingAbilityAttack = InputManager.Instance.GetAbilityAttackInput_P2();
             _bIsUsingUltimateAttack = InputManager.Instance.GetUltimateAttackInput_P2();
 
-            if (_bIsUsingBasicAttack && _playerCombat.IsAttackAllowed())
+            if (_bIsUsingBasicAttack)
             {
-                _animationStateController.StartAttackAnimation();
+                _playerCombat.UseBaseAttack();
                 Debug.Log("Player 2 is using basic attack");
             }
             else if (_bIsUsingAbilityAttack)
@@ -283,13 +281,11 @@ public class Player : MonoBehaviour
     {
         if(turnOn)
         {
-            massManager.RestoreOriginalMasses();
             player.GetComponentInChildren<Animator>(false).enabled = false;
             player.GetComponent<CapsuleCollider>().enabled = false;
         }
         else if(!turnOn)
         {
-            massManager.SetMassesToZero();
             player.GetComponentInChildren<Animator>(false).enabled = true;
             player.GetComponent<CapsuleCollider>().enabled = true;
         }
@@ -625,7 +621,7 @@ public class Player : MonoBehaviour
             boxCollider.enabled = false;
         }
 
-        //Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
     }
 
     void EnableColliders()
@@ -642,7 +638,7 @@ public class Player : MonoBehaviour
             boxCollider.enabled = true;
         }
 
-        //Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
     }
 
 
