@@ -53,6 +53,8 @@ public class Player : MonoBehaviour
 
     public event Action<float> PlayerSpawnedIn;
 
+    public RigidBodyMassManager massManager;
+    
     private float _respawnCooldown = 10;
     private float _respawnTime;
 
@@ -281,11 +283,13 @@ public class Player : MonoBehaviour
     {
         if(turnOn)
         {
+            massManager.RestoreOriginalMasses();
             player.GetComponentInChildren<Animator>(false).enabled = false;
             player.GetComponent<CapsuleCollider>().enabled = false;
         }
         else if(!turnOn)
         {
+            massManager.SetMassesToZero();
             player.GetComponentInChildren<Animator>(false).enabled = true;
             player.GetComponent<CapsuleCollider>().enabled = true;
         }

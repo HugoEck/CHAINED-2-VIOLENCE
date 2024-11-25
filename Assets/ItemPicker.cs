@@ -62,6 +62,7 @@ public class ItemPicker : MonoBehaviour
     public void PickItem2()
     {
         //Assign item logic to player here
+        AssignItemToPlayer(item2.GetComponent<Item>());
         DisableItems();
         WaveManager.currentWave++;
     }
@@ -69,6 +70,8 @@ public class ItemPicker : MonoBehaviour
     public void PickItem3()
     {
         //Assign item logic to player here
+        AssignItemToPlayer(item3.GetComponent<Item>());
+
         DisableItems();
         WaveManager.currentWave++;
     }
@@ -76,9 +79,19 @@ public class ItemPicker : MonoBehaviour
     public void PickItem1()
     {
         //Assign item logic to player here
+        AssignItemToPlayer(item1.GetComponent<Item>());
+
         DisableItems();
         WaveManager.currentWave++;
     }
+
+    public void AssignItemToPlayer(Item item)
+    {
+        
+    }
+
+
+
 
     private float Gaussian(float x, float mean, float stdDev)
     {
