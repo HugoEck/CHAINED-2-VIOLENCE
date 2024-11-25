@@ -10,6 +10,9 @@ public class ItemPicker : MonoBehaviour
 
     public GameObject canvas;
 
+    PlayerAttributes playerAttributes;
+    AdjustChainLength adjustChainLength;
+
     public List<GameObject> commonItems;
     public List<GameObject> rareItems;
     public List<GameObject> legendaryItems;
@@ -87,7 +90,10 @@ public class ItemPicker : MonoBehaviour
 
     public void AssignItemToPlayer(Item item)
     {
-        
+        playerAttributes.AdjustMaxHP(item.healthkModifier);
+        playerAttributes.AdjustAttackDamage(item.attackModifier);
+        playerAttributes.AdjustMovementSpeed(item.speedModifier);
+        adjustChainLength.IncreaseRopeLength(item.chainkModifier);
     }
 
 
