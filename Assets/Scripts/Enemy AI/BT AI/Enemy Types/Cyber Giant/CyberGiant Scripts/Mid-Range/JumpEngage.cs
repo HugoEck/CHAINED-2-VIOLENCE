@@ -93,5 +93,6 @@ public class JumpEngage : Node
         agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
         agent.animator.SetBool("CyberGiant_Idle", false);
         agent.animator.SetBool("CyberGiant_Stagger", false);
+        agent.animator.SetBool("CyberGiant_Death", false);
     }
 }
