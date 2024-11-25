@@ -125,8 +125,7 @@ public class Player2ComboManager : MonoBehaviour
 
     private void Update()
     {
-        player2DefaultAnimator.SetInteger("PlayerClass", (int)player2CombatScript.currentPlayerClass);
-
+        SetAttackSpeed();
         SetUnarmedCombos();
     }
 

@@ -36,9 +36,9 @@ public class Player2StartCombo : StateMachineBehaviour
                     }
                     else if (animator.GetInteger("PlayerClass") == 4) // Ranged
                     {
-                        //hasComboStarted = true;
-                        //Player2ComboManager.instance.currentComboInSequence = "Base Layer.Attack Combos.Unarmed Ranged.UnarmedCombo1";
-                        //animator.Play(/*"UnarmedCombo1"*/Player2ComboManager.instance.currentComboInSequence);
+                        hasComboStarted = true;
+                        Player2ComboManager.instance.currentPlayer2ComboInSequence = ComboAnimationStatesData.unarmedSubStateRanged + "." + ComboAnimationStatesData.combosInUnarmedRangedState[0];
+                        animator.Play(Player2ComboManager.instance.currentPlayer2ComboInSequence);
                     }
                     else if (animator.GetInteger("PlayerClass") == 2) // Warrior
                     {
