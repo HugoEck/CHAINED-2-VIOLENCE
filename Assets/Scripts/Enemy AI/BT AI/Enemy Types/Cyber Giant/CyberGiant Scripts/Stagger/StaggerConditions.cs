@@ -26,11 +26,14 @@ public class StaggerConditions : Node
         {
             stagger1Activated = true;
             cg.staggerActive = true;
-
+            return NodeState.SUCCESS;
 
         }
-
-        return NodeState.SUCCESS;
+        else
+        {
+            return NodeState.FAILURE;
+        }
+        
     }
 
     private bool HealthCheck(BaseManager agent)

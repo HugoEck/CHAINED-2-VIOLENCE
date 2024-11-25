@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KillAgent : Node
 {
@@ -14,9 +15,12 @@ public class KillAgent : Node
 
     public override NodeState Evaluate(BaseManager agent)
     {
-        
+
+        if (SceneManager.GetActiveScene().name != "SamTestScene")
+        {
+            agent.behaviorMethods.ToggleRagdoll(true);
+        }
         agent.rb.constraints = RigidbodyConstraints.None;
-        agent.behaviorMethods.ToggleRagdoll(true);
         agent.animator.enabled = false;
         agent.navigation.isStopped = true;
 

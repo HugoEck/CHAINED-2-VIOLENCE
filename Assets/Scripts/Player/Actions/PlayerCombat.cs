@@ -66,7 +66,7 @@ private void Awake()
         return;
     }
 
-    Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
+    //Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
     classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
 }
 
@@ -156,7 +156,7 @@ private void Awake()
             }
         }
 
-        Debug.Log("Base Attack triggered in 120-degree cone.");
+        //Debug.Log("Base Attack triggered in 120-degree cone.");
     }
     public bool IsAttackAllowed()
     {

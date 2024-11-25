@@ -73,7 +73,7 @@ public class AnimationStateController : MonoBehaviour
 
     public void StartAttackAnimation()
     {
-        Debug.Log("Attack initiated");
+        //Debug.Log("Attack initiated");
         _isAttackPlaying = true;
         _animator.SetBool("isAttacking", true);
         Invoke("StopAttackAnimation", 0.5f);
@@ -115,7 +115,7 @@ public class AnimationStateController : MonoBehaviour
 
     public void AttackIsCalled()
     {
-        Debug.Log("Base Attack is used, animation event called");
+        //Debug.Log("Base Attack is used, animation event called");
         _playerCombat.UseBaseAttack();
     }
 }

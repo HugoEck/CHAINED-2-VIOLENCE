@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         {
             _bIsGrounded = true;
             Debug.DrawRay(rayOrigin, Vector3.down * _groundCheckDistance, Color.green);
-            Debug.Log("Ground detected at distance: " + hit.distance);
+            //Debug.Log("Ground detected at distance: " + hit.distance);
         }
         else
         {

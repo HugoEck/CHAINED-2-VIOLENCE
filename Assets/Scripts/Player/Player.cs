@@ -234,7 +234,7 @@ public class Player : MonoBehaviour
             if (_bIsUsingBasicAttack && _playerCombat.IsAttackAllowed())
             {
                 _animationStateController.StartAttackAnimation();
-                Debug.Log("Player 1 is using basic attack");
+                //Debug.Log("Player 1 is using basic attack");
 
             }
             else if (_bIsUsingAbilityAttack)
@@ -625,7 +625,7 @@ public class Player : MonoBehaviour
             boxCollider.enabled = false;
         }
 
-        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+        //Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
     }
 
     void EnableColliders()
@@ -642,7 +642,7 @@ public class Player : MonoBehaviour
             boxCollider.enabled = true;
         }
 
-        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+        //Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
     }
 
 
