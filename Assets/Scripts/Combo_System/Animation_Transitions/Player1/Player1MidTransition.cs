@@ -14,18 +14,22 @@ public class Player1MidTransition : StateMachineBehaviour
         if (stateInfo.IsName("Transition2"))
         {
             _nextAnimationToPlay = "Combo3";
+            animator.SetInteger("ComboIndex", 3);
         }
         else if (stateInfo.IsName("Transition3"))
         {
             _nextAnimationToPlay = "Combo4";
+            animator.SetInteger("ComboIndex", 4);
         }
         else if (stateInfo.IsName("Transition4"))
         {
             _nextAnimationToPlay = "Combo5";
+            animator.SetInteger("ComboIndex", 5);
         }
         else if (stateInfo.IsName("Transition5"))
         {
             _nextAnimationToPlay = "Combo6";
+            animator.SetInteger("ComboIndex", 6);
         }
     }
 

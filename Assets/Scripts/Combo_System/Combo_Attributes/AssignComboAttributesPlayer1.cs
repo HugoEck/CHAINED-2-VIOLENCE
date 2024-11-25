@@ -80,7 +80,7 @@ public class AssignComboAttributesPlayer1 : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (animator.GetBool("DealDamage"))
+        if (animator.GetBool("DealDamage") && _comboAttackScriptableObject != null)
         {
             Player1ComboManager.instance.DealDamageToEnemies(_comboAttackScriptableObject.attackRange, _comboAttackScriptableObject.damage);
             animator.SetBool("DealDamage", false);

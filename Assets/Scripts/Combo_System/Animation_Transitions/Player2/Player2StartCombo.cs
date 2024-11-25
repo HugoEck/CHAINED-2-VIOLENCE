@@ -56,31 +56,37 @@ public class Player2StartCombo : StateMachineBehaviour
 
                 case Weapon.WeaponType.TwoHanded:
                     hasComboStarted = true;
+                    Player2ComboManager.instance.currentPlayer2ComboInSequence = ComboAnimationStatesData.twoHandedSubState + "." + ComboAnimationStatesData.combosInTwoHandedState[0];
                     animator.Play(ComboAnimationStatesData.combosInTwoHandedState[0]);
                     break;
 
                 case Weapon.WeaponType.OneHanded:
                     hasComboStarted = true;
+                    Player2ComboManager.instance.currentPlayer2ComboInSequence = ComboAnimationStatesData.oneHandedSubState + "." + ComboAnimationStatesData.combosInOneHandedState[0];
                     animator.Play(ComboAnimationStatesData.combosInOneHandedState[0]);
                     break;
 
                 case Weapon.WeaponType.ReallyBigTwoHanded:
                     hasComboStarted = true;
+                    Player2ComboManager.instance.currentPlayer2ComboInSequence = ComboAnimationStatesData.reallyBigTwoHandedSubState + "." + ComboAnimationStatesData.combosInReallyBigTwoHandedState[0];
                     animator.Play(ComboAnimationStatesData.combosInReallyBigTwoHandedState[0]);
                     break;
 
                 case Weapon.WeaponType.Polearm:
                     hasComboStarted = true;
+                    Player2ComboManager.instance.currentPlayer2ComboInSequence = ComboAnimationStatesData.polearmSubState + "." + ComboAnimationStatesData.combosInPolearmState[0];
                     animator.Play(ComboAnimationStatesData.combosInPolearmState[0]);
                     break;
 
                 case Weapon.WeaponType.Dagger:
                     hasComboStarted = true;
+                    Player2ComboManager.instance.currentPlayer2ComboInSequence = ComboAnimationStatesData.daggerSubState + "." + ComboAnimationStatesData.combosInDaggerState[0];
                     animator.Play(ComboAnimationStatesData.combosInDaggerState[0]);
                     break;
 
                 case Weapon.WeaponType.BigPen:
                     hasComboStarted = true;
+                    Player2ComboManager.instance.currentPlayer2ComboInSequence = ComboAnimationStatesData.bigPenSubState + "." + ComboAnimationStatesData.combosInBigPenState[0];
                     animator.Play(ComboAnimationStatesData.combosInBigPenState[0]);
                     break;
             }
@@ -88,6 +94,7 @@ public class Player2StartCombo : StateMachineBehaviour
             if (hasComboStarted)
             {
                 animator.SetBool("ComboOver", false);
+                animator.SetInteger("ComboIndex", 1);
             }
 
         }
