@@ -72,9 +72,19 @@ public class WaveManager : MonoBehaviour
             timer = 0;
             //ChangeEra();
             //SpawnWave(waves[currentWave]);
+            if (currentWave > 0 && !itemPicker.itemPicked && !itemPicker.isPicking)
+            {
+                itemPicker.isPicking = true;
+                itemPicker.ActivateItems();
+            }
 
-            itemPicker.ActivateItems();
-
+            // Once items are picked, move to the next wave
+            if (itemPicker.itemPicked)
+            {
+                currentWave++; // Increment the wave
+                itemPicker.itemPicked = false; // Reset itemPicked so we can pick again in the next wave
+                itemPicker.isPicking = false; // Reset picking state
+            }
 
             if (currentWave != previousWave)
             {
