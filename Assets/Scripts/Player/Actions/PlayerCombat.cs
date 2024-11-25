@@ -12,11 +12,11 @@ public class PlayerCombat : MonoBehaviour
 {
     public enum PlayerClass
     {
-        Default,
-        Tank,
-        Warrior,
-        Support,
-        Ranged
+        Default = 0,
+        Tank = 1,
+        Warrior = 2,
+        Support = 3,
+        Ranged = 4
     };
 
     [Header("Class reference objects")]
@@ -27,7 +27,8 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject _warriorObject;
 
     private WeaponManager _weaponManager;
-    public static event Action<int, PlayerClass> OnClassSwitched; // Used for abilites UI.
+    public static event Action<int, PlayerClass> OnClassSwitchedUI; // Used for abilites UI.
+    public event Action<PlayerClass> OnClassSwitched;
 
     public PlayerClass currentPlayerClass;   
 
@@ -66,7 +67,7 @@ private void Awake()
         return;
     }
 
-    //Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
+    Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
     classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
 }
 
@@ -129,34 +130,14 @@ private void Awake()
     /// </summary>
     public void UseBaseAttack()
     {
-        bool durabilityReduced = false;
-        // Find all enemies within the attack range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
-        foreach (Collider enemy in hitEnemies)
+        if(playerId == 1)
         {
-            // Calculate the direction to the enemy
-            Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
-
-            // Check if the enemy is within the 120-degree cone
-            if (Vector3.Angle(transform.forward, directionToEnemy) <= 60) // 60 degrees on each side
-            {
-                BaseManager enemyManager = enemy.GetComponent<BaseManager>();
-                if (enemyManager != null)
-                {
-                    // Deal damage if within cone
-                    enemyManager.DealDamageToEnemy(attackDamage);
-                    Debug.Log("Hit enemy: " + enemy.name);
-
-                    if (!durabilityReduced)
-                    {
-                        ReduceWeaponDurabilility();
-                        durabilityReduced = true;
-                    }
-                }
-            }
+            Player1ComboManager.instance.Attack();
         }
-
-        //Debug.Log("Base Attack triggered in 120-degree cone.");
+        else if(playerId == 2)
+        {
+            Player2ComboManager.instance.Attack();
+        }
     }
     public bool IsAttackAllowed()
     {
@@ -170,17 +151,7 @@ private void Awake()
             return false;
         }
     }
-    private void ReduceWeaponDurabilility()
-    {
-        WeaponManager weaponManager = GetComponent<WeaponManager>();
-        if (weaponManager != null) 
-        {
-            weaponManager.Attack();
-        
-        }
-
-    }
-
+    
     /// <summary>
     /// This method uses the ability that the player has for its class (Called in Player script)
     /// </summary>
@@ -264,8 +235,9 @@ private void Awake()
         }
 
         // Event when switched class, used for ability UI.
-        PlayerCombat.OnClassSwitched?.Invoke(playerId, currentPlayerClass);
+        OnClassSwitchedUI?.Invoke(playerId, currentPlayerClass);
 
+        OnClassSwitched?.Invoke(currentPlayerClass);
     }
     private void SetActiveClassModel(PlayerClass currentPlayerClass)
     {

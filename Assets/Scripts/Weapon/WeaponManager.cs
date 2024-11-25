@@ -17,6 +17,8 @@ public class WeaponManager : MonoBehaviour
     private Dictionary<int, GameObject> weaponDictionary = new Dictionary<int, GameObject>();
     public bool hasWeapon => currentWeapon != null;
 
+    public event Action<GameObject> OnWeaponEquipped;
+    public event Action<GameObject> OnWeaponBroken;
     private void Start()
     {
         foreach (var entry in classWeaponsParentsList)
@@ -87,6 +89,9 @@ public class WeaponManager : MonoBehaviour
         if (weaponDictionary.TryGetValue(weaponId, out currentWeapon))
         {
             currentWeapon.SetActive(true);
+
+            // Get the current weapon and apply combo stats to it from ComboAttack script
+            OnWeaponEquipped?.Invoke(currentWeapon);
         }
         else
         {
@@ -95,12 +100,12 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void ReduceWeaponDurability()
     {
         if (currentWeapon != null)
         {
             Weapon weaponScript = currentWeapon.GetComponent<Weapon>();
-            weaponScript.Attack();
+            weaponScript.DecreaseDurability();
 
             if (weaponScript.durability <= 0)
             {
@@ -114,6 +119,9 @@ public class WeaponManager : MonoBehaviour
         if (currentWeapon != null)
         {
             currentWeapon.SetActive(false);
+
+            OnWeaponBroken?.Invoke(currentWeapon);
+
             currentWeapon = null;
         }
     }
