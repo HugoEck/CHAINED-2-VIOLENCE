@@ -22,13 +22,16 @@ public class Player1ComboManager : MonoBehaviour
     [HideInInspector]
     public Weapon.WeaponType currentEquippedPlayer1WeaponType;
 
+    private GameObject[] weaponSlashEffects;
+
     [Header("Player animators")]
     [SerializeField] private Animator player1DefaultAnimator;
     [SerializeField] private Animator player1TankAnimator;
     [SerializeField] private Animator player1WarriorAnimator;
     [SerializeField] private Animator player1RangedAnimator;
     [SerializeField] private Animator player1SupportAnimator;
-    
+
+    private Animator currentAnimator;
 
     [HideInInspector]
     public ComboAttackSO[] player1UnarmedCombos;
@@ -44,12 +47,16 @@ public class Player1ComboManager : MonoBehaviour
 
     private bool bIsPlayer1Unarmed = true;
 
+    private float weaponSlashSize;
+
     private void Awake()
     {
         instance = this;
 
         player1WeaponManager.OnWeaponEquipped += WeaponManager_OnWeaponEquippedPlayer1;
         player1WeaponManager.OnWeaponBroken += WeaponManager_OnWeaponBrokenPlayer1;
+
+        currentAnimator = player1DefaultAnimator;
     }
 
 
@@ -69,25 +76,27 @@ public class Player1ComboManager : MonoBehaviour
     {
 
         if (!bIsPlayer1Attacking)
-        {
-            
+        {         
             bIsPlayer1Attacking = true;
         }
-
     }
 
     public void DealDamageToEnemies(float attackRange, float attackDamage)
     {
         bool durabilityReduced = false;
+
+        TriggerWeaponSlash();
         // Find all enemies within the attack range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange + weaponSlashSize + 3);
         foreach (Collider enemy in hitEnemies)
         {
-            // Calculate the direction to the enemy
+            float maxAngleCos = Mathf.Cos(90 * Mathf.Deg2Rad);
+
+            // Calculate direction to the enemy
             Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
 
-            // Check if the enemy is within the 120-degree cone
-            if (Vector3.Angle(transform.forward, directionToEnemy) <= 60) // 60 degrees on each side
+            // Check if enemy is within the cone
+            if (Vector3.Dot(transform.forward, directionToEnemy) >= maxAngleCos)
             {
                 BaseManager enemyManager = enemy.GetComponent<BaseManager>();
                 if (enemyManager != null)
@@ -96,7 +105,7 @@ public class Player1ComboManager : MonoBehaviour
                     enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage);
                     Debug.Log("Hit enemy: " + enemy.name);
 
-                    if(_currentPlayer1WeaponObject != null)
+                    if (_currentPlayer1WeaponObject != null)
                     {
                         if (!durabilityReduced)
                         {
@@ -104,7 +113,7 @@ public class Player1ComboManager : MonoBehaviour
                             durabilityReduced = true;
                         }
                     }
-                    
+
                 }
             }
         }
@@ -122,8 +131,51 @@ public class Player1ComboManager : MonoBehaviour
 
     private void Update()
     {
+        
         SetAttackSpeed();
         SetUnarmedCombos();
+    }
+
+    private void ApplyWeaponSlashEffect(int comboIndex)
+    {
+        if (currentAnimator.GetBool("WeaponSlash"))
+        {
+            weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer1Weapon.handPosition.position;
+            ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
+            var mainModule = particle.main;
+            mainModule.startSize = currentPlayer1Weapon.combos[comboIndex].attackRange;
+            weaponSlashSize = mainModule.startSize.constant;
+
+            particle.Play();
+            player1DefaultAnimator.SetBool("WeaponSlash", false);
+        }       
+    }
+    private void TriggerWeaponSlash()
+    {
+        if(currentAnimator.GetInteger("ComboIndex") == 1)
+        {
+            ApplyWeaponSlashEffect(0);
+        }
+        else if (currentAnimator.GetInteger("ComboIndex") == 2)
+        {
+            ApplyWeaponSlashEffect(1);
+        }
+        if (currentAnimator.GetInteger("ComboIndex") == 3)
+        {
+            ApplyWeaponSlashEffect(2);
+        }
+        else if (currentAnimator.GetInteger("ComboIndex") == 4)
+        {
+            ApplyWeaponSlashEffect(3);
+        }
+        if (currentAnimator.GetInteger("ComboIndex") == 5)
+        {
+            ApplyWeaponSlashEffect(4);
+        }
+        if (currentAnimator.GetInteger("ComboIndex") == 6)
+        {
+            ApplyWeaponSlashEffect(5);
+        }
     }
 
     private void WeaponManager_OnWeaponBrokenPlayer1(GameObject equippedWeapon)
@@ -132,6 +184,7 @@ public class Player1ComboManager : MonoBehaviour
         _currentPlayer1WeaponObject = null;
 
         bIsPlayer1Unarmed = true;
+        currentAnimator.SetInteger("ComboIndex", 0);
         DefaultCombo();
     }
 
@@ -141,15 +194,17 @@ public class Player1ComboManager : MonoBehaviour
 
         _currentPlayer1WeaponObject = equippedWeapon;
 
-        AssignWeaponCombos(_currentPlayer1WeaponObject.GetComponent<Weapon>());
+        currentAnimator.SetInteger("ComboIndex", 0);
+        AssignWeaponCombos(_currentPlayer1WeaponObject.GetComponent<Weapon>());     
     }
 
     public void AssignWeaponCombos(Weapon weapon)
     {
-
         currentPlayer1Weapon = weapon;
 
         currentEquippedPlayer1WeaponType = currentPlayer1Weapon.currentWeaponType;
+
+        weaponSlashEffects = currentPlayer1Weapon.weaponSlashEffects;
 
         if (currentEquippedPlayer1WeaponType == Weapon.WeaponType.TwoHanded)
         {
@@ -187,31 +242,36 @@ public class Player1ComboManager : MonoBehaviour
         if (!bIsPlayer1Unarmed) return;
 
         if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Default)
-        {       
+        {
+            currentAnimator = player1DefaultAnimator;
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
             player1DefaultAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
         }
         else if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Tank)
         {
+            currentAnimator = player1TankAnimator;
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
             player1TankAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;         
         }
         else if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Warrior)
         {
+            currentAnimator = player1WarriorAnimator;
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
             player1WarriorAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
         }
         else if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Ranged)
         {
+            currentAnimator = player1RangedAnimator;
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
             player1RangedAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
         }
         else if (player1CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Support)
         {
+            currentAnimator = player1SupportAnimator;
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
             player1SupportAnimator.SetInteger("PlayerClass", (int)player1CombatScript.currentPlayerClass);
             player1UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;

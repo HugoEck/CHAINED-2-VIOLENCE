@@ -16,6 +16,8 @@ public class Weapon : MonoBehaviour
 
     public WeaponType currentWeaponType = WeaponType.TwoHanded;
     public ComboAttackSO[] combos;
+    public GameObject[] weaponSlashEffects;
+    public Transform handPosition;
 
     public int weaponId;
     public string weaponName;
