@@ -93,9 +93,11 @@ public class BaseManager : MonoBehaviour
     }
     public virtual void DealDamageToEnemy(float damage)
     {
+        particleEffects.ActivateHitParticles(transform);
         if (defense - damage < 0)
         {
             particleEffects.ActivateBloodParticles(transform);
+            
             currentHealth = currentHealth + defense - damage;
 
 

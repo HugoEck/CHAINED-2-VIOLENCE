@@ -26,6 +26,7 @@ public class Player1ComboManager : MonoBehaviour
     public Weapon.WeaponType currentEquippedPlayer1WeaponType;
 
     private GameObject[] weaponSlashEffects;
+    [SerializeField] private ParticleSystem weaponHitEffect;
 
     [Header("Player animators")]
     [SerializeField] private Animator player1DefaultAnimator;
@@ -133,7 +134,8 @@ public class Player1ComboManager : MonoBehaviour
                     // Deal damage if within cone
                     enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage);
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
-                    Debug.Log("Hit enemy: " + enemy.name);
+                    weaponHitEffect.transform.position = enemyManager.transform.position;
+                    weaponHitEffect.Play();
 
                     if (_currentPlayer1WeaponObject != null)
                     {
