@@ -31,8 +31,8 @@ public class PlebianManager : BaseManager
     private void FixedUpdate()
     {
 
-        FixedEvaluate();
-        //rootNode.Evaluate(this);
+        //FixedEvaluate();
+        rootNode.Evaluate(this);
 
 
 
@@ -71,7 +71,7 @@ public class PlebianManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 1;
+        maxHealth = 10;
         currentHealth = maxHealth;
         attack = 1;
         defense = 0;

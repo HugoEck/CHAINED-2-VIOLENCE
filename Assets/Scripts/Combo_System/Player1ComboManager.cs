@@ -110,7 +110,7 @@ public class Player1ComboManager : MonoBehaviour
         }
     }
 
-    public void DealDamageToEnemies(float attackRange, float attackDamage)
+    public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce)
     {
         bool durabilityReduced = false;
 
@@ -132,6 +132,7 @@ public class Player1ComboManager : MonoBehaviour
                 {
                     // Deal damage if within cone
                     enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage);
+                    enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
                     Debug.Log("Hit enemy: " + enemy.name);
 
                     if (_currentPlayer1WeaponObject != null)
