@@ -155,8 +155,8 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         // Convert mouse position to a ray that originates from the camera
         Ray ray = _mainCameraReference.ScreenPointToRay(mouseScreenPosition);
 
-        // Plane where the player is walking (XZ)
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        // Plane where the player is walking (XZ), dynamically positioned at the player's level
+        Plane groundPlane = new Plane(Vector3.up, transform.position);
 
         // Calculate where the ray hits the ground plane
         if (groundPlane.Raycast(ray, out float enter))
@@ -165,8 +165,9 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
             Vector3 hitPoint = ray.GetPoint(enter);
 
             // Calculate the direction from the player to the hit point
-            Vector3 directionToLook = hitPoint - transform.position;
-            directionToLook.y = 0; // Ensure the player only rotates on the Y-axis
+            Vector3 rayOrigin = transform.position; // Player's position
+            Vector3 directionToLook = hitPoint - rayOrigin; // Direction to mouse position
+            directionToLook.y = 0; // Ensure the player only rotates on the XZ plane
 
             // Only rotate if there is a direction
             if (directionToLook != Vector3.zero)
@@ -178,10 +179,10 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 
                 // Smoothly interpolate the rotation based on _playerLookSpeed
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, playerRotationSpeedDt);
-
             }
         }
     }
+
 
     public void RotatePlayerWithJoystick(Vector2 joystickInput)
     {
