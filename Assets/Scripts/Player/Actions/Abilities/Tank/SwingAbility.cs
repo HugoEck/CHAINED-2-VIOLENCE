@@ -121,8 +121,9 @@ public class SwingAbility : MonoBehaviour, IAbility
                     if (enemyRb != null)
                     {
                         Vector3 knockbackDirection = (enemy.transform.position - swingCenter).normalized;
-                        enemyRb.AddForce(knockbackDirection * 20f, ForceMode.Impulse); // Adjust force value as needed
+                        //enemyRb.AddForce(knockbackDirection * 20f, ForceMode.Impulse); // Adjust force value as needed
                     }
+                        enemyManager.chainEffects.ActivateRagdollStun(3, gameObject);
                 }
             }
 

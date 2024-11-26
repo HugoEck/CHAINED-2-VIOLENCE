@@ -87,7 +87,7 @@ public class BaseManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            chainEffects.ActivateRagdollStun(4);
+            chainEffects.ActivateRagdollStun(4, this.gameObject);
         }
         visuals.FlashColor();
     }

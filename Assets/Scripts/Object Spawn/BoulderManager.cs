@@ -104,6 +104,19 @@ public class BoulderManager : MonoBehaviour
             }
         }
 
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            BaseManager enemy = collision.gameObject.GetComponent<BaseManager>();
+
+            if (enemy != null)
+            {
+                enemy.chainEffects.ActivateRagdollStun(4, gameObject);
+
+                // Skip further processing to ensure the boulder keeps its direction
+                return;
+            }
+        }
+
         if (collision.gameObject.CompareTag("Map"))
         {
             if (portalParticle != null && collision.contacts.Length > 0)
