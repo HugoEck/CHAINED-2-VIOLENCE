@@ -132,18 +132,6 @@ public class Player2ComboManager : MonoBehaviour
                     enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage);
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
 
-                    //ParticleSystem enemyParticleSystem
-                    //if (enemyParticleSystem = enemy.GetComponent<ParticleSystem>().gameObject.tag == "HitEffect")
-                    //{
-                    //    enemyParticleSystem.Play();
-                    //}
-                    //ParticleSystem enemyParticleSystem = enemy.AddComponent<ParticleSystem>();
-                    //enemyParticleSystem = weaponHitEffect;
-                    //enemyParticleSystem.transform.position = enemyManager.transform.position;
-                    
-
-                    weaponHitEffect.transform.position = enemyManager.transform.position;
-                    weaponHitEffect.Play();                   
 
                     if (_currentPlayer2WeaponObject != null)
                     {
@@ -157,6 +145,7 @@ public class Player2ComboManager : MonoBehaviour
                 }
             }
         }
+        
     }
 
     private void ApplyWeaponSlashEffect(int comboIndex)

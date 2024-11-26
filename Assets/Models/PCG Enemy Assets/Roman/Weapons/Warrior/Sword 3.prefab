@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3907388545564463694}
   - component: {fileID: 1287222898500314756}
   - component: {fileID: -7892808318218915891}
+  - component: {fileID: 5060124074165580405}
   m_Layer: 0
   m_Name: Sword 3
   m_TagString: Untagged
@@ -107,6 +108,32 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2530196310443182422, guid: 63cb954410eb5e64e8c18db2e4fb58a5, type: 2}
+--- !u!114 &5060124074165580405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783026104044848977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponType: 2
+  combos:
+  - {fileID: 11400000, guid: f43dd5bbdd3777942a1092b74e3ea95d, type: 2}
+  - {fileID: 11400000, guid: 85ea5034465bf3d47970f4612e4e003d, type: 2}
+  - {fileID: 11400000, guid: 1b028875a3c933a409d8f412effc89c6, type: 2}
+  weaponSlashEffects: []
+  playerPosition: {fileID: 0}
+  weaponId: 0
+  weaponName: 
+  damage: 0
+  durability: 0
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0
 --- !u!1 &3766376416416213269
 GameObject:
   m_ObjectHideFlags: 0
