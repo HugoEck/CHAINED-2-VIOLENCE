@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1997771087461262671}
   - component: {fileID: 4349761946535088517}
   - component: {fileID: 4328315655223375849}
+  - component: {fileID: 2234932385064241055}
   m_Layer: 0
   m_Name: Axe 1
   m_TagString: Untagged
@@ -26,12 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2836573981829754960}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1997771087461262671
 MeshFilter:
@@ -52,10 +54,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,6 +84,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &4328315655223375849
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -88,9 +93,44 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2836573981829754960}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -82525183206639266, guid: 512ffc5137307294b98f445ab7084b60, type: 2}
+--- !u!114 &2234932385064241055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836573981829754960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponType: 3
+  combos:
+  - {fileID: 11400000, guid: 445404e20a856f349bf912edd723cf37, type: 2}
+  - {fileID: 11400000, guid: 3042817b9ee7f5b45b845d675a36c363, type: 2}
+  - {fileID: 11400000, guid: 6b226394978e2ef4a9ad5ec8e87f18d3, type: 2}
+  - {fileID: 11400000, guid: 8b7c5ea4950509145b471dc131e9164e, type: 2}
+  weaponSlashEffects: []
+  playerPosition: {fileID: 0}
+  weaponId: 0
+  weaponName: 
+  damage: 0
+  durability: 0
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0

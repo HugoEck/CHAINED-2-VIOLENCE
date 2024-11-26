@@ -134,8 +134,6 @@ public class Player1ComboManager : MonoBehaviour
                     // Deal damage if within cone
                     enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage);
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
-                    weaponHitEffect.transform.position = enemyManager.transform.position;
-                    weaponHitEffect.Play();
 
                     if (_currentPlayer1WeaponObject != null)
                     {
@@ -145,10 +143,10 @@ public class Player1ComboManager : MonoBehaviour
                             durabilityReduced = true;
                         }
                     }
-
                 }
             }
         }
+        
     }
 
     private void ReduceWeaponDurabilility()
