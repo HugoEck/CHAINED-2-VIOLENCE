@@ -110,7 +110,7 @@ public class BoulderManager : MonoBehaviour
 
             if (enemy != null)
             {
-                enemy.chainEffects.ActivateRagdollStun(4, gameObject);
+                enemy.chainEffects.ActivateRagdollStun(4, gameObject, 100);
 
                 // Skip further processing to ensure the boulder keeps its direction
                 return;

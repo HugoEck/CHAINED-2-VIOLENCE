@@ -82,7 +82,7 @@ public class AssignComboAttributesPlayer1 : StateMachineBehaviour
     {
         if (animator.GetBool("DealDamage") && _comboAttackScriptableObject != null)
         {
-            Player1ComboManager.instance.DealDamageToEnemies(_comboAttackScriptableObject.attackRange, _comboAttackScriptableObject.damage);
+            Player1ComboManager.instance.DealDamageToEnemies(_comboAttackScriptableObject.attackRange, _comboAttackScriptableObject.damage, _comboAttackScriptableObject.stunDuration, _comboAttackScriptableObject.knockback);
             animator.SetBool("DealDamage", false);
         }
     }

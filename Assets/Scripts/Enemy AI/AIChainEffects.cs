@@ -38,7 +38,7 @@ public class AIChainEffects
         }
     }
 
-    public void ActivateRagdollStun(float durationTime, GameObject affectingObject)
+    public void ActivateRagdollStun(float durationTime, GameObject affectingObject, float knockbackForce)
     {
         if (agent.enemyID != "Charger" && agent.enemyID != "CyberGiant")
         {
@@ -63,11 +63,11 @@ public class AIChainEffects
             Rigidbody spineRb = spine.GetComponent<Rigidbody>();
             if (spineRb != null)
             {
-                spineRb.AddForce(directionAwayFromPlayer * 100, ForceMode.Impulse);
+                spineRb.AddForce(directionAwayFromPlayer * knockbackForce, ForceMode.Impulse);
             }
         }
     }
-    public void ActivateKnockbackStun(float durationTime, GameObject affectingObject)
+    public void ActivateKnockbackStun(float durationTime, GameObject affectingObject, float knockbackForce)
     {
         if (agent.enemyID != "Charger" && agent.enemyID != "CyberGiant")
         {
@@ -76,22 +76,18 @@ public class AIChainEffects
             stunStartTime = Time.time;
             stunType = "Knockback";
 
-            Transform spine = agent.transform.Find("Root/Hips/Spine_01/Spine_02");
-            if (spine == null)
-            {
-                Debug.Log(":(");
-                return;
-            }
+            
+            
 
-            Vector3 directionAwayFromPlayer = spine.position - affectingObject.transform.position;
+            Vector3 directionAwayFromPlayer = agent.transform.position - affectingObject.transform.position;
             directionAwayFromPlayer.y = 0;  
             directionAwayFromPlayer.Normalize();  
 
-            Rigidbody spineRb = spine.GetComponent<Rigidbody>();
-            if (spineRb != null)
+            Rigidbody Rb = agent.GetComponent<Rigidbody>();
+            if (Rb != null)
             {
                 
-                spineRb.AddForce(directionAwayFromPlayer * 100, ForceMode.Impulse);
+                Rb.AddForce(directionAwayFromPlayer * knockbackForce, ForceMode.Impulse);
             }
         }
     }
