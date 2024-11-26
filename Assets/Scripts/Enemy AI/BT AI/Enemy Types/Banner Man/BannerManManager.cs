@@ -26,7 +26,7 @@ public class BannerManManager : BaseManager
     void Start()
     {
         nrFlagsLeft = 4;
-        circleRadius = 40;
+        circleRadius = 15;
         enemyID = "BannerMan";
         animator.SetBool("BannerMan_StartChasing", true);
 
