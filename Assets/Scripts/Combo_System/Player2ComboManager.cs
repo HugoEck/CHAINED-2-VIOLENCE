@@ -57,8 +57,31 @@ public class Player2ComboManager : MonoBehaviour
         player2WeaponManager.OnWeaponBroken += WeaponManager_OnWeaponBrokenPlayer2;
         player2Combat.OnClassSwitched += PlayerCombatOnClassSwitched;
 
-        currentAnimator = player2DefaultAnimator;
-        currentPlayer2Class = PlayerCombat.PlayerClass.Default;
+        if (ClassManager._currentPlayer2Class == PlayerCombat.PlayerClass.Default)
+        {
+            currentAnimator = player2DefaultAnimator;
+            currentPlayer2Class = PlayerCombat.PlayerClass.Default;
+        }
+        else if (ClassManager._currentPlayer2Class == PlayerCombat.PlayerClass.Tank)
+        {
+            currentAnimator = player2TankAnimator;
+            currentPlayer2Class = PlayerCombat.PlayerClass.Tank;
+        }
+        else if (ClassManager._currentPlayer2Class == PlayerCombat.PlayerClass.Warrior)
+        {
+            currentAnimator = player2WarriorAnimator;
+            currentPlayer2Class = PlayerCombat.PlayerClass.Warrior;
+        }
+        else if (ClassManager._currentPlayer2Class == PlayerCombat.PlayerClass.Ranged)
+        {
+            currentAnimator = player2RangedAnimator;
+            currentPlayer2Class = PlayerCombat.PlayerClass.Ranged;
+        }
+        else if (ClassManager._currentPlayer2Class == PlayerCombat.PlayerClass.Support)
+        {
+            currentAnimator = player2SupportAnimator;
+            currentPlayer2Class = PlayerCombat.PlayerClass.Support;
+        }
     }
 
     private void Start()
