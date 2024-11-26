@@ -9,9 +9,11 @@ public class Player2ComboManager : MonoBehaviour
     [Header("Combat related")]
     [SerializeField] private UnarmedComboSOs _availableUnarmedCombos;
 
-    [SerializeField] private PlayerCombat player2CombatScript;
+    [SerializeField] private PlayerCombat player2Combat;
     [SerializeField] private PlayerAttributes _player2Attributes;
     [SerializeField] private WeaponManager player2WeaponManager;
+
+    public PlayerCombat.PlayerClass currentPlayer2Class { get; private set; }
 
     private List<ComboAttackSO> _player2ComboAttacks; // Current weapon's combos
 
@@ -45,8 +47,6 @@ public class Player2ComboManager : MonoBehaviour
     [HideInInspector]
     public string currentPlayer2ComboInSequence = "";
 
-    private bool bIsPlayer2Unarmed = true;
-
     private float weaponSlashSize;
 
     private void Awake()
@@ -55,9 +55,11 @@ public class Player2ComboManager : MonoBehaviour
 
         player2WeaponManager.OnWeaponEquipped += WeaponManager_OnWeaponEquippedPlayer2;
         player2WeaponManager.OnWeaponBroken += WeaponManager_OnWeaponBrokenPlayer2;
+        player2Combat.OnClassSwitched += PlayerCombatOnClassSwitched;
+
+        currentAnimator = player2DefaultAnimator;
+        currentPlayer2Class = PlayerCombat.PlayerClass.Default;
     }
-
-
 
     private void Start()
     {
@@ -69,6 +71,7 @@ public class Player2ComboManager : MonoBehaviour
 
         player2WeaponManager.OnWeaponEquipped -= WeaponManager_OnWeaponEquippedPlayer2;
         player2WeaponManager.OnWeaponBroken -= WeaponManager_OnWeaponBrokenPlayer2;
+        player2Combat.OnClassSwitched -= PlayerCombatOnClassSwitched;
     }
 
     public void Attack()
@@ -77,7 +80,6 @@ public class Player2ComboManager : MonoBehaviour
         if (!bIsPlayer2Attacking)
         {
             bIsPlayer2Attacking = true;
-            player2DefaultAnimator.SetBool("NextAttack", true);
         }
 
     }
@@ -124,14 +126,14 @@ public class Player2ComboManager : MonoBehaviour
     {
         if (currentAnimator.GetBool("WeaponSlash"))
         {
-            weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer2Weapon.handPosition.position;
+            weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer2Weapon.playerPosition.position;
             ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
             var mainModule = particle.main;
             mainModule.startSize = currentPlayer2Weapon.combos[comboIndex].attackRange;
             weaponSlashSize = mainModule.startSize.constant;
 
             particle.Play();
-            player2DefaultAnimator.SetBool("WeaponSlash", false);
+            currentAnimator.SetBool("WeaponSlash", false);
         }
     }
     private void TriggerWeaponSlash()
@@ -176,7 +178,6 @@ public class Player2ComboManager : MonoBehaviour
     private void Update()
     {
         SetAttackSpeed();
-        SetUnarmedCombos();
     }
 
     private void WeaponManager_OnWeaponBrokenPlayer2(GameObject equippedWeapon)
@@ -184,18 +185,51 @@ public class Player2ComboManager : MonoBehaviour
         currentPlayer2Weapon = null;
         _currentPlayer2WeaponObject = null;
 
-        bIsPlayer2Unarmed = true;
-        currentAnimator.SetInteger("ComboIndex", 0);
         DefaultCombo();
     }
 
     private void WeaponManager_OnWeaponEquippedPlayer2(GameObject equippedWeapon)
     {
-        bIsPlayer2Unarmed = false;
-
         _currentPlayer2WeaponObject = equippedWeapon;
-        currentAnimator.SetInteger("ComboIndex", 0);
+        
         AssignWeaponCombos(_currentPlayer2WeaponObject.GetComponent<Weapon>());
+    }
+
+    private void PlayerCombatOnClassSwitched(PlayerCombat.PlayerClass newClass)
+    {
+        DefaultCombo();
+
+        if (newClass == PlayerCombat.PlayerClass.Default)
+        {
+            currentAnimator = player2DefaultAnimator;
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Tank)
+        {
+            currentAnimator = player2TankAnimator;
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Warrior)
+        {
+            currentAnimator = player2WarriorAnimator;
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Ranged)
+        {
+            currentAnimator = player2RangedAnimator;
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Support)
+        {
+            currentAnimator = player2SupportAnimator;
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
+        }
+        currentPlayer2Class = newClass;
     }
 
     public void AssignWeaponCombos(Weapon weapon)
@@ -239,52 +273,9 @@ public class Player2ComboManager : MonoBehaviour
 
     }
 
-    private void SetUnarmedCombos()
-    {
-        if (!bIsPlayer2Unarmed) return;
-
-        if (player2CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Default)
-        {
-            currentAnimator = player2DefaultAnimator;
-            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
-            player2DefaultAnimator.SetInteger("PlayerClass", (int)player2CombatScript.currentPlayerClass);
-            player2UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
-        }
-        else if (player2CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Tank)
-        {
-            currentAnimator = player2TankAnimator;
-            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
-            player2TankAnimator.SetInteger("PlayerClass", (int)player2CombatScript.currentPlayerClass);
-            player2UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;
-        }
-        else if (player2CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Warrior)
-        {
-            currentAnimator = player2WarriorAnimator;
-            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
-            player2WarriorAnimator.SetInteger("PlayerClass", (int)player2CombatScript.currentPlayerClass);
-            player2UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
-        }
-        else if (player2CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Ranged)
-        {
-            currentAnimator = player2RangedAnimator;
-            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
-            player2RangedAnimator.SetInteger("PlayerClass", (int)player2CombatScript.currentPlayerClass);
-            player2UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
-        }
-        else if (player2CombatScript.currentPlayerClass == PlayerCombat.PlayerClass.Support)
-        {
-            currentAnimator = player2SupportAnimator;
-            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
-            player2SupportAnimator.SetInteger("PlayerClass", (int)player2CombatScript.currentPlayerClass);
-            player2UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
-        }
-    }
     private void SetAttackSpeed()
     {
-        player2DefaultAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
-        player2TankAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
-        player2WarriorAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
-        player2RangedAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
-        player2SupportAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
+        currentAnimator.SetFloat("AttackSpeed", _player2Attributes.attackSpeed);
+        
     }
 }

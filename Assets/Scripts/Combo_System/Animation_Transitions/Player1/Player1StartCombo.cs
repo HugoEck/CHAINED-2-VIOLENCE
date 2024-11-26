@@ -23,31 +23,31 @@ public class Player1StartCombo : StateMachineBehaviour
             {
                 case Weapon.WeaponType.Unarmed:
 
-                    if (animator.GetInteger("PlayerClass") == 0) // Default
+                    if (Player1ComboManager.instance.currentPlayer1Class == PlayerCombat.PlayerClass.Default) // Default
                     {
                         hasComboStarted = true;
                         Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateDefault + "." + ComboAnimationStatesData.combosInUnarmedDefaultState[0];
                         animator.Play(Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
-                    else if (animator.GetInteger("PlayerClass") == 1) // Tank
+                    else if (Player1ComboManager.instance.currentPlayer1Class == PlayerCombat.PlayerClass.Tank) // Tank
                     {
                         hasComboStarted = true;
                         Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateTank + "." + ComboAnimationStatesData.combosInUnarmedTankState[0];
                         animator.Play(Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
-                    else if (animator.GetInteger("PlayerClass") == 4) // Ranged
+                    else if (Player1ComboManager.instance.currentPlayer1Class == PlayerCombat.PlayerClass.Ranged) // Ranged
                     {
                         hasComboStarted = true;
                         Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateRanged + "." + ComboAnimationStatesData.combosInUnarmedRangedState[0];
                         animator.Play(Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
-                    else if (animator.GetInteger("PlayerClass") == 2) // Warrior
+                    else if (Player1ComboManager.instance.currentPlayer1Class == PlayerCombat.PlayerClass.Warrior) // Warrior
                     {
                         hasComboStarted = true;
                         Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateWarrior + "." + ComboAnimationStatesData.combosInUnarmedWarriorState[0];
                         animator.Play(Player1ComboManager.instance.currentPlayer1ComboInSequence);
                     }
-                    else if (animator.GetInteger("PlayerClass") == 3) // Support
+                    else if (Player1ComboManager.instance.currentPlayer1Class == PlayerCombat.PlayerClass.Support) // Support
                     {
                         hasComboStarted = true;
                         Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.unarmedSubStateSupport + "." + ComboAnimationStatesData.combosInUnarmedSupportState[0];
