@@ -26,7 +26,7 @@ public class BannerManManager : BaseManager
     void Start()
     {
         nrFlagsLeft = 4;
-        circleRadius = 15;
+        circleRadius = 40;
         enemyID = "BannerMan";
         animator.SetBool("BannerMan_StartChasing", true);
 
@@ -87,7 +87,7 @@ public class BannerManManager : BaseManager
         defense = 0;
         navigation.maxSpeed = 9;
         attackSpeed = 0;
-        attackRange = 30f;
+        attackRange = 20f;
         unitCost = 10;
         transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
     }
