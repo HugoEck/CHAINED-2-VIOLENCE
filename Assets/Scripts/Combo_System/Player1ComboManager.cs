@@ -186,7 +186,8 @@ public class Player1ComboManager : MonoBehaviour
     {
         currentPlayer1Weapon = null;
         _currentPlayer1WeaponObject = null;
-  
+
+        currentAnimator.SetInteger("ComboIndex", 0);
         DefaultCombo();
         
     }
@@ -194,7 +195,8 @@ public class Player1ComboManager : MonoBehaviour
     private void WeaponManager_OnWeaponEquippedPlayer1(GameObject equippedWeapon)
     {
         _currentPlayer1WeaponObject = equippedWeapon;
-       
+
+        currentAnimator.SetInteger("ComboIndex", 0);
         AssignWeaponCombos(_currentPlayer1WeaponObject.GetComponent<Weapon>());
         
     }
@@ -271,6 +273,32 @@ public class Player1ComboManager : MonoBehaviour
     private void DefaultCombo()
     {       
         currentEquippedPlayer1WeaponType = Weapon.WeaponType.Unarmed;
+
+        if(currentPlayer1Class == PlayerCombat.PlayerClass.Default)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
+            player1UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
+        }
+        else if (currentPlayer1Class == PlayerCombat.PlayerClass.Tank)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
+            player1UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;
+        }
+        else if (currentPlayer1Class == PlayerCombat.PlayerClass.Warrior)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
+            player1UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
+        }
+        else if (currentPlayer1Class == PlayerCombat.PlayerClass.Ranged)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
+            player1UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
+        }
+        else if (currentPlayer1Class == PlayerCombat.PlayerClass.Support)
+        {
+            currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
+            player1UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
+        }
     }
 
     private void SetAttackSpeed()

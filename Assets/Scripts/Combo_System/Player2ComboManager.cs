@@ -185,13 +185,15 @@ public class Player2ComboManager : MonoBehaviour
         currentPlayer2Weapon = null;
         _currentPlayer2WeaponObject = null;
 
+        currentAnimator.SetInteger("ComboIndex", 0);
         DefaultCombo();
     }
 
     private void WeaponManager_OnWeaponEquippedPlayer2(GameObject equippedWeapon)
     {
         _currentPlayer2WeaponObject = equippedWeapon;
-        
+
+        currentAnimator.SetInteger("ComboIndex", 0);
         AssignWeaponCombos(_currentPlayer2WeaponObject.GetComponent<Weapon>());
     }
 
@@ -271,6 +273,32 @@ public class Player2ComboManager : MonoBehaviour
     {
         currentEquippedPlayer2WeaponType = Weapon.WeaponType.Unarmed;
 
+
+        if (currentPlayer2Class == PlayerCombat.PlayerClass.Default)
+        {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
+        }
+        else if (currentPlayer2Class == PlayerCombat.PlayerClass.Tank)
+        {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;
+        }
+        else if (currentPlayer2Class == PlayerCombat.PlayerClass.Warrior)
+        {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
+        }
+        else if (currentPlayer2Class == PlayerCombat.PlayerClass.Ranged)
+        {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
+        }
+        else if (currentPlayer2Class == PlayerCombat.PlayerClass.Support)
+        {
+            currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
+            player2UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
+        }
     }
 
     private void SetAttackSpeed()
