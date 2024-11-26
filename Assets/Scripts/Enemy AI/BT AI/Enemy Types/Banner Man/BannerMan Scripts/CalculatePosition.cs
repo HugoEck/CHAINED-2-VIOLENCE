@@ -10,7 +10,7 @@ public class CalculatePosition : Node
 
         BannerManManager bm = agent as BannerManManager;
 
-        bm.circleRadius -= 1;
+        //bm.circleRadius -= 1;
 
         float nextX = bm.currentVector.z; 
         float nextZ = -bm.currentVector.x; 
