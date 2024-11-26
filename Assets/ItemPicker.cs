@@ -10,12 +10,29 @@ public class ItemPicker : MonoBehaviour
 
     public GameObject canvas;
 
-    PlayerAttributes playerAttributes;
+    public PlayerAttributes playerAttributes1;
+    public PlayerAttributes playerAttributes2;
+
     AdjustChainLength adjustChainLength;
 
     public List<GameObject> commonItems;
     public List<GameObject> rareItems;
     public List<GameObject> legendaryItems;
+
+    public bool itemPicked = true;
+    public bool isPicking = false;
+
+    private void Awake()
+    {
+        GameObject[] player1 = GameObject.FindGameObjectsWithTag("Player1");
+        playerAttributes1 = player1[0].GetComponent<PlayerAttributes>();
+
+
+        GameObject[] player2 = GameObject.FindGameObjectsWithTag("Player2");
+        playerAttributes2 = player2[0].GetComponent<PlayerAttributes>();
+
+        adjustChainLength = FindAnyObjectByType<AdjustChainLength>();
+    }
 
     private void Start()
     {
@@ -28,6 +45,8 @@ public class ItemPicker : MonoBehaviour
 
     public void ActivateItems()
     {
+        itemPicked = false;
+        isPicking = true;
         // Destroy old items before spawning new ones
         Destroy(item1);
         Destroy(item2);
@@ -67,7 +86,8 @@ public class ItemPicker : MonoBehaviour
         //Assign item logic to player here
         AssignItemToPlayer(item2.GetComponent<Item>());
         DisableItems();
-        WaveManager.currentWave++;
+        itemPicked=true;
+        isPicking = false;
     }
 
     public void PickItem3()
@@ -76,7 +96,8 @@ public class ItemPicker : MonoBehaviour
         AssignItemToPlayer(item3.GetComponent<Item>());
 
         DisableItems();
-        WaveManager.currentWave++;
+        itemPicked = true;
+        isPicking = false;
     }
 
     public void PickItem1()
@@ -85,14 +106,18 @@ public class ItemPicker : MonoBehaviour
         AssignItemToPlayer(item1.GetComponent<Item>());
 
         DisableItems();
-        WaveManager.currentWave++;
+        itemPicked = true;
+        isPicking = false;
     }
 
     public void AssignItemToPlayer(Item item)
     {
-        playerAttributes.AdjustMaxHP(item.healthkModifier);
-        playerAttributes.AdjustAttackDamage(item.attackModifier);
-        playerAttributes.AdjustMovementSpeed(item.speedModifier);
+        playerAttributes1.AdjustMaxHP(item.healthkModifier);
+        playerAttributes1.AdjustAttackDamage(item.attackModifier);
+        playerAttributes1.AdjustMovementSpeed(item.speedModifier);
+        playerAttributes2.AdjustMaxHP(item.healthkModifier);
+        playerAttributes2.AdjustAttackDamage(item.attackModifier);
+        playerAttributes2.AdjustMovementSpeed(item.speedModifier);
         adjustChainLength.IncreaseRopeLength(item.chainkModifier);
     }
 

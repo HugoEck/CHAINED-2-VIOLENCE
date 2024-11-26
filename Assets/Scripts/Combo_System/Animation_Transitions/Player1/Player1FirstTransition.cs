@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.AnimatedValues;
 using UnityEngine;
 
 public class Player1FirstTransition : StateMachineBehaviour
@@ -21,6 +22,7 @@ public class Player1FirstTransition : StateMachineBehaviour
             Player1ComboManager.instance.currentPlayer1ComboInSequence = currentSubState + ".Combo2";
             animator.Play(currentSubState + ".Combo2");
 
+            animator.SetInteger("ComboIndex", 2);
         }
 
         if (stateInfo.normalizedTime >= 1.0f)

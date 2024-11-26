@@ -123,52 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &133277749
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 133277751}
-  - component: {fileID: 133277750}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &133277750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 133277749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &133277751
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 133277749}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &153142955
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,16 +673,22 @@ MonoBehaviour:
   item2: {fileID: 522917045}
   item3: {fileID: 1352496036}
   canvas: {fileID: 1336762201}
+  playerAttributes1: {fileID: 0}
+  playerAttributes2: {fileID: 0}
   commonItems:
-  - {fileID: 3596332901463516719, guid: c76ddf0023bc7d244bd470806d706e28, type: 3}
-  - {fileID: 3063534204157022005, guid: 47c10eeab8abc8c429e6bdf4fa3c80cc, type: 3}
-  - {fileID: 932674892871935503, guid: d1be15627610a114fbf03b643c33f0d0, type: 3}
-  - {fileID: 1318848545913725957, guid: 70c4f10a1de21374f9684d852bf0d128, type: 3}
-  - {fileID: 6703808747941548030, guid: 91716a78ce41e4843988aee6a34ea29c, type: 3}
+  - {fileID: 3596332901463516719, guid: da600e608c6d36c4d8f341f1636a6f7c, type: 3}
+  - {fileID: 3063534204157022005, guid: 9dcc91cae6f164640a02a0a27861a339, type: 3}
+  - {fileID: 932674892871935503, guid: ba370a7b9acf7e04e90e5a7643866553, type: 3}
+  - {fileID: 1318848545913725957, guid: 4b5339dff7952144cb9866f7a00b20ed, type: 3}
+  - {fileID: 3596332901463516719, guid: da600e608c6d36c4d8f341f1636a6f7c, type: 3}
   - {fileID: 7264623161253413371, guid: 90676b6abee91fc4cbf9d498791b9271, type: 3}
+  - {fileID: 6703808747941548030, guid: 91716a78ce41e4843988aee6a34ea29c, type: 3}
   rareItems:
   - {fileID: 3200412936570786445, guid: ceb8f415e8f33044fb4668af18f3be51, type: 3}
-  legendaryItems: []
+  legendaryItems:
+  - {fileID: 5637490706449565981, guid: 035a24bda0bdf98418e3817af715a941, type: 3}
+  itemPicked: 1
+  isPicking: 0
 --- !u!4 &379473239
 Transform:
   m_ObjectHideFlags: 0
@@ -1622,6 +1582,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &791468178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 791468180}
+  - component: {fileID: 791468179}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &791468179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791468178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &791468180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791468178}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &862756680
 GameObject:
   m_ObjectHideFlags: 0
@@ -2309,7 +2315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1280065953}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3689932, y: -0.34976864, z: 0.1522794, w: 0.84753585}
+  m_LocalRotation: {x: 0.3689932, y: -0.3497686, z: 0.15227939, w: 0.8475358}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3303,6 +3309,47 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.93
       objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: PirateBanner
+      value: 
+      objectReference: {fileID: 8848543338153973950, guid: bd3e39dc165c50b42beb14064820c2fb,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanBodies.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 102334, guid: 3615887f6f7389346a82e1a0e11bf2ee, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 128380, guid: 08c41d66e17c1f544a6fcb26e91e0681, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 105566, guid: b5abca881d0c5da4e901394267921b01, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanBodies.Array.data[3]
+      value: 
+      objectReference: {fileID: 178864, guid: 9d9fc458bbada1440b2fa46319287c0e, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanBodies.Array.data[4]
+      value: 
+      objectReference: {fileID: 132726, guid: 1f6d1a14d293b1640a78d64d1bd0eea7, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanBodies.Array.data[5]
+      value: 
+      objectReference: {fileID: 110404, guid: f3ce7743e1412d342b6ada1640026556, type: 3}
     - target: {fileID: 5477586911284523075, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -3649,4 +3696,4 @@ SceneRoots:
   - {fileID: 1052039412}
   - {fileID: 680809535}
   - {fileID: 1336762205}
-  - {fileID: 133277751}
+  - {fileID: 791468180}

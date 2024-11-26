@@ -52,6 +52,7 @@ public class CyberGiantManager : BaseManager
     [HideInInspector] public bool overheadSmashActive = false;
     [HideInInspector] public bool shieldWalkActive = false;
     [HideInInspector] public bool staggerActive = false;
+    [HideInInspector] public bool deathActive = false;
 
     [HideInInspector] public bool P1_damageApplied = false;
     [HideInInspector] public bool P2_damageApplied = false;
@@ -127,7 +128,7 @@ public class CyberGiantManager : BaseManager
 
     public bool CheckIfAbilityInProgress()
     {
-        if (missileRainActive || jumpEngageActive || overheadSmashActive || staggerActive)
+        if (missileRainActive || jumpEngageActive || overheadSmashActive || staggerActive || deathActive)
         {
             return true;
         }
@@ -263,8 +264,7 @@ public class CyberGiantManager : BaseManager
     private void ConstructBT()
     {
 
-        CheckIfDead checkIfDead = new CheckIfDead();
-        KillAgent killAgent = new KillAgent();
+
         CalculateBombPosition calculateBombPosition = new CalculateBombPosition();
         ShootBomb shootBomb = new ShootBomb();
         LongRangeConditions longRangeConditions = new LongRangeConditions();
@@ -281,11 +281,13 @@ public class CyberGiantManager : BaseManager
         Idle idle = new Idle();
         StaggerConditions staggerConditions = new StaggerConditions();
         Stagger stagger = new Stagger();
+        DeathConditions deathConditions = new DeathConditions();
+        CGKill cgKill = new CGKill();
 
         //-----------------------------------------------------------------------------------------------------
 
-        //DIIIE DIIIE
-        Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
+        //DEATH
+        Sequence killBoss = new Sequence(new List<Node> { deathConditions, cgKill });
 
         //-----------------------------------------------------------------------------------------------------
 
@@ -322,6 +324,6 @@ public class CyberGiantManager : BaseManager
         Sequence chase = new Sequence(new List<Node> { chaseConditions, cg_ChasePlayer });
 
         //-------------------------------------------------------------------------------------------------------
-        rootNode = new Selector(new List<Node>() { isDead, staggerBehavior, chase, idle });
+        rootNode = new Selector(new List<Node>() { killBoss, staggerBehavior, attack, chase, idle });
     }
 }

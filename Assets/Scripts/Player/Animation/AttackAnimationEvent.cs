@@ -22,6 +22,6 @@ public class AttackAnimationEvent : MonoBehaviour
     public void DealDamage()
     {
         _animationStateController._animator.SetBool("DealDamage", true);
+        _animationStateController._animator.SetBool("WeaponSlash", true);
     }
-
 }

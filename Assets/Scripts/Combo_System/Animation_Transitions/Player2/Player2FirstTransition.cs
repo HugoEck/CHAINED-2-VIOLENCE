@@ -19,6 +19,7 @@ public class Player2FirstTransition : StateMachineBehaviour
             Player2ComboManager.instance.currentPlayer2ComboInSequence = currentSubState + ".Combo2";
             animator.Play(currentSubState + ".Combo2");
 
+            animator.SetInteger("ComboIndex", 2);
         }
 
         if (stateInfo.normalizedTime >= 1.0f)
