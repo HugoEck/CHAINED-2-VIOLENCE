@@ -77,6 +77,7 @@ public class NPC_Customization : MonoBehaviour
     [Header("NPC Particles")]
     [SerializeField] GameObject bloodSplatter;
     [SerializeField] GameObject smokeTrail;
+    [SerializeField] GameObject hitEffect;
 
 
     [SerializeField] private Dictionary<NPCTheme, ThemeData> themeDataDict;
@@ -258,10 +259,12 @@ public class NPC_Customization : MonoBehaviour
         BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
         IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
         ignoreChain.ObjectIgnoresLaserChain();
+        
 
         enemy.transform.localScale *= 1.5f;
-
+       
         GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
+        GameObject hitEffectCopy = Instantiate(hitEffect, enemy.transform);
         
         //Physics.SyncTransforms();
 

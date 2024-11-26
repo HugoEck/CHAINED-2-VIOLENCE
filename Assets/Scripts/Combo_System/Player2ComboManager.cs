@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player2ComboManager : MonoBehaviour
@@ -25,6 +26,7 @@ public class Player2ComboManager : MonoBehaviour
     public Weapon.WeaponType currentEquippedPlayer2WeaponType;
 
     private GameObject[] weaponSlashEffects;
+    [SerializeField] private ParticleSystem weaponHitEffect;
 
     [Header("Player animators")]
     [SerializeField] private Animator player2DefaultAnimator;
@@ -91,7 +93,6 @@ public class Player2ComboManager : MonoBehaviour
 
     private void OnDestroy()
     {
-
         player2WeaponManager.OnWeaponEquipped -= WeaponManager_OnWeaponEquippedPlayer2;
         player2WeaponManager.OnWeaponBroken -= WeaponManager_OnWeaponBrokenPlayer2;
         player2Combat.OnClassSwitched -= PlayerCombatOnClassSwitched;
@@ -130,7 +131,19 @@ public class Player2ComboManager : MonoBehaviour
                     // Deal damage if within cone
                     enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage);
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
-                    Debug.Log("Hit enemy: " + enemy.name);
+
+                    //ParticleSystem enemyParticleSystem
+                    //if (enemyParticleSystem = enemy.GetComponent<ParticleSystem>().gameObject.tag == "HitEffect")
+                    //{
+                    //    enemyParticleSystem.Play();
+                    //}
+                    //ParticleSystem enemyParticleSystem = enemy.AddComponent<ParticleSystem>();
+                    //enemyParticleSystem = weaponHitEffect;
+                    //enemyParticleSystem.transform.position = enemyManager.transform.position;
+                    
+
+                    weaponHitEffect.transform.position = enemyManager.transform.position;
+                    weaponHitEffect.Play();                   
 
                     if (_currentPlayer2WeaponObject != null)
                     {
