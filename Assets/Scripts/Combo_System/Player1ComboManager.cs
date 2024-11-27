@@ -18,7 +18,7 @@ public class Player1ComboManager : MonoBehaviour
     [SerializeField] private GameObject[] _defaultSlashes;
     [SerializeField] private GameObject[] _tankSlashes;
     [SerializeField] private GameObject[] _warriorSlashes;
-    [SerializeField] private GameObject[] _rangerSlashes;
+    [SerializeField] private GameObject[] _rangedSlashes;
     [SerializeField] private GameObject[] _supportSlashes;
 
     public PlayerCombat.PlayerClass currentPlayer1Class { get; private set; }
@@ -179,19 +179,31 @@ public class Player1ComboManager : MonoBehaviour
             if(currentPlayer1Weapon != null)
             {
                 weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer1Weapon.playerPosition.position;
+
+                ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
+                var mainModule = particle.main;
+                mainModule.startSize = currentPlayer1Weapon.combos[comboIndex].attackRange;
+                weaponSlashSize = mainModule.startSize.constant;
+
+                particle.Play();
+                currentAnimator.SetBool("WeaponSlash", false);
             }
             else
             {
+                if(currentPlayer1Class != PlayerCombat.PlayerClass.Default)
+                {
+                    ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
+                    var mainModule = particle.main;
+                    mainModule.startSize = _availableUnarmedCombos.unarmedTankCombos[comboIndex].attackRange;
+                    weaponSlashSize = mainModule.startSize.constant;
 
+                    particle.Play();
+                    currentAnimator.SetBool("WeaponSlash", false);
+                }
+                
             }
             
-            ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
-            var mainModule = particle.main;
-            mainModule.startSize = currentPlayer1Weapon.combos[comboIndex].attackRange;
-            weaponSlashSize = mainModule.startSize.constant;
-
-            particle.Play();
-            currentAnimator.SetBool("WeaponSlash", false);
+            
         }       
     }
     private void TriggerWeaponSlash()
@@ -242,8 +254,7 @@ public class Player1ComboManager : MonoBehaviour
     }
     private void PlayerCombatOnClassSwitched(PlayerCombat.PlayerClass newClass)
     {
-        DefaultCombo();
-
+       
         if (newClass == PlayerCombat.PlayerClass.Default)
         {
             currentAnimator = player1DefaultAnimator;
@@ -275,6 +286,7 @@ public class Player1ComboManager : MonoBehaviour
             player1UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
         }
         currentPlayer1Class = newClass;
+        DefaultCombo();
     }
     public void AssignWeaponCombos(Weapon weapon)
     {
@@ -317,26 +329,31 @@ public class Player1ComboManager : MonoBehaviour
         if(currentPlayer1Class == PlayerCombat.PlayerClass.Default)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
+            weaponSlashEffects = _defaultSlashes;
             player1UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
         }
         else if (currentPlayer1Class == PlayerCombat.PlayerClass.Tank)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
+            weaponSlashEffects = _tankSlashes;
             player1UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;
         }
         else if (currentPlayer1Class == PlayerCombat.PlayerClass.Warrior)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
+            weaponSlashEffects = _warriorSlashes;
             player1UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
         }
         else if (currentPlayer1Class == PlayerCombat.PlayerClass.Ranged)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
+            weaponSlashEffects = _rangedSlashes;
             player1UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
         }
         else if (currentPlayer1Class == PlayerCombat.PlayerClass.Support)
         {
             currentPlayer1ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
+            weaponSlashEffects = _supportSlashes;
             player1UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
         }
     }
