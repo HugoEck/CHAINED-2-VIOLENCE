@@ -14,6 +14,13 @@ public class Player1ComboManager : MonoBehaviour
     [SerializeField] private PlayerAttributes _player1Attributes;
     [SerializeField] private WeaponManager player1WeaponManager;
 
+    [Header("Unarmed slash effect")]
+    [SerializeField] private GameObject[] _defaultSlashes;
+    [SerializeField] private GameObject[] _tankSlashes;
+    [SerializeField] private GameObject[] _warriorSlashes;
+    [SerializeField] private GameObject[] _rangerSlashes;
+    [SerializeField] private GameObject[] _supportSlashes;
+
     public PlayerCombat.PlayerClass currentPlayer1Class { get; private set; }
 
     private List<ComboAttackSO> _player1ComboAttacks; // Current weapon's combos
@@ -169,7 +176,15 @@ public class Player1ComboManager : MonoBehaviour
     {
         if (currentAnimator.GetBool("WeaponSlash"))
         {
-            weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer1Weapon.playerPosition.position;
+            if(currentPlayer1Weapon != null)
+            {
+                weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer1Weapon.playerPosition.position;
+            }
+            else
+            {
+
+            }
+            
             ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
             var mainModule = particle.main;
             mainModule.startSize = currentPlayer1Weapon.combos[comboIndex].attackRange;
