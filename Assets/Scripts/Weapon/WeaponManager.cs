@@ -19,6 +19,8 @@ public class WeaponManager : MonoBehaviour
 
     public event Action<GameObject> OnWeaponEquipped;
     public event Action<GameObject> OnWeaponBroken;
+
+    private float startDurability;
     private void Start()
     {
         foreach (var entry in classWeaponsParentsList)
@@ -88,6 +90,7 @@ public class WeaponManager : MonoBehaviour
 
         if (weaponDictionary.TryGetValue(weaponId, out currentWeapon))
         {
+            startDurability = currentWeapon.GetComponent<Weapon>().durability;
             currentWeapon.SetActive(true);
 
             // Get the current weapon and apply combo stats to it from ComboAttack script
@@ -109,6 +112,7 @@ public class WeaponManager : MonoBehaviour
 
             if (weaponScript.durability <= 0)
             {
+                weaponScript.durability = startDurability;
                 BreakWeapon();
             }
         }
