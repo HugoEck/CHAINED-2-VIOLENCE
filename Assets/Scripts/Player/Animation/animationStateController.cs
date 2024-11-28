@@ -31,7 +31,20 @@ public class AnimationStateController : MonoBehaviour
         {
             _mainCamera = Camera.main;
         }
-
+        if(_player._playerId == 1)
+        {
+            if (Player1ComboManager.instance.bIsPlayer1Attacking)
+            {
+                return;
+            }
+        }
+        else if(_player._playerId == 2)
+        {
+            if(Player2ComboManager.instance.bIsPlayer2Attacking)
+            {
+                return;
+            }
+        }
         Vector2 movementInput = _player.GetMovementInput();
 
         Vector3 playerForward = transform.forward;

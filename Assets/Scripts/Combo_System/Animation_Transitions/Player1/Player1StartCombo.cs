@@ -7,14 +7,49 @@ public class Player1StartCombo : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (Player1ComboManager.instance.bIsPlayer1Attacking)
+        {
+            animator.SetBool("IsMoving", false);
+            Attack(animator);
+        }
         Player1ComboManager.instance.bIsPlayer1Attacking = false;
         animator.SetBool("ComboCancelled", false);
         animator.SetBool("ComboOver", true);
-
+        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Attack(animator);
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (Player1ComboManager.instance.bIsPlayer1Attacking)
+        {
+            animator.SetBool("IsMoving", false);
+            Attack(animator);
+        }
+        Player1ComboManager.instance.bIsPlayer1Attacking = false;
+        
+    }
+
+
+    // OnStateMove is called right after Animator.OnAnimatorMove()
+    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    // Implement code that processes and affects root motion
+    //}
+
+    // OnStateIK is called right after Animator.OnAnimatorIK()
+    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    // Implement code that sets up animation IK (inverse kinematics)
+    //}
+
+    private void Attack(Animator animator)
     {
         if (!animator.IsInTransition(0) && Player1ComboManager.instance.bIsPlayer1Attacking && animator.GetBool("ComboOver"))
         {
@@ -67,7 +102,7 @@ public class Player1StartCombo : StateMachineBehaviour
                     animator.Play(ComboAnimationStatesData.combosInOneHandedState[0]);
                     break;
 
-                case Weapon.WeaponType.ReallyBigTwoHanded: 
+                case Weapon.WeaponType.ReallyBigTwoHanded:
                     hasComboStarted = true;
                     Player1ComboManager.instance.currentPlayer1ComboInSequence = ComboAnimationStatesData.reallyBigTwoHandedSubState + "." + ComboAnimationStatesData.combosInReallyBigTwoHandedState[0];
                     animator.Play(ComboAnimationStatesData.combosInReallyBigTwoHandedState[0]);
@@ -101,23 +136,5 @@ public class Player1StartCombo : StateMachineBehaviour
 
         }
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        Player1ComboManager.instance.bIsPlayer1Attacking = false;
-    }
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 }
 
