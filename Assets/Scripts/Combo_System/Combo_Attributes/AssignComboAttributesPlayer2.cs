@@ -18,25 +18,7 @@ public class AssignComboAttributesPlayer2 : StateMachineBehaviour
         ApplyUnarmedCombos(ComboAnimationStatesData.combosInUnarmedRangedState, ComboAnimationStatesData.unarmedSubStateRanged);
         ApplyUnarmedCombos(ComboAnimationStatesData.combosInUnarmedSupportState, ComboAnimationStatesData.unarmedSubStateSupport);
 
-        //if (Player2ComboManager.instance.currentPlayer2ComboSubstate == ComboAnimationStatesData.unarmedSubStateDefault)
-        //{
-        //    for (int i = 0; i < ComboAnimationStatesData.combosInUnarmedState.Length; i++)
-        //    {
-        //        if (Player2ComboManager.instance.player2UnarmedCombos.Length == ComboAnimationStatesData.combosInUnarmedState.Length)
-        //        {
-        //            if (CheckCurrentComboInSequence(currentComboInSequence, ComboAnimationStatesData.unarmedSubStateDefault, ComboAnimationStatesData.combosInUnarmedState[i]))
-        //            {
-        //                _comboAttackScriptableObject = Player2ComboManager.instance.player2UnarmedCombos[i];
-        //                return;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            Debug.LogWarning("You need to assign: " + ComboAnimationStatesData.combosInUnarmedState.Length + " in default combos array");
-        //        }
-        //    }
-        //}
-
+        
 
         #endregion
 
@@ -49,26 +31,7 @@ public class AssignComboAttributesPlayer2 : StateMachineBehaviour
         ApplyWeaponCombos(ComboAnimationStatesData.combosInPolearmState, ComboAnimationStatesData.polearmSubState);
         ApplyWeaponCombos(ComboAnimationStatesData.combosInBigPenState, ComboAnimationStatesData.bigPenSubState);
 
-        //if (Player2ComboManager.instance.currentPlayer2ComboSubstate == ComboAnimationStatesData.twoHandedSubState)
-        //{
-        //    for (int i = 0; i < ComboAnimationStatesData.combosInTwoHandedState.Length; i++)
-        //    {
-        //        if (Player2ComboManager.instance.currentPlayer2Weapon.combos.Length == ComboAnimationStatesData.combosInTwoHandedState.Length)
-        //        {
-        //            if (CheckCurrentComboInSequence(currentComboInSequence, ComboAnimationStatesData.twoHandedSubState, ComboAnimationStatesData.combosInTwoHandedState[i]))
-        //            {
-        //                _comboAttackScriptableObject = Player2ComboManager.instance.currentPlayer2Weapon.combos[i];
-        //                return;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            Debug.LogWarning("You need to assign: " + ComboAnimationStatesData.combosInTwoHandedState.Length + " in the current weapon's combos array");
-        //        }
-        //    }
-
-        //}
-
+       
 
         #endregion
 
@@ -79,7 +42,8 @@ public class AssignComboAttributesPlayer2 : StateMachineBehaviour
     {
         if (animator.GetBool("DealDamage"))
         {
-            Player2ComboManager.instance.DealDamageToEnemies(_comboAttackScriptableObject.attackRange, _comboAttackScriptableObject.damage, _comboAttackScriptableObject.stunDuration, _comboAttackScriptableObject.knockback);
+            Player2ComboManager.instance.DealDamageToEnemies(_comboAttackScriptableObject.attackRange, _comboAttackScriptableObject.damage, 
+                _comboAttackScriptableObject.stunDuration, _comboAttackScriptableObject.knockback, _comboAttackScriptableObject.maxAngle);
             animator.SetBool("DealDamage", false);
         }
     }

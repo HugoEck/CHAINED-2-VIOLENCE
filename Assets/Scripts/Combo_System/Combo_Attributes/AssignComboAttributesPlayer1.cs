@@ -19,25 +19,6 @@ public class AssignComboAttributesPlayer1 : StateMachineBehaviour
         ApplyUnarmedCombos(ComboAnimationStatesData.combosInUnarmedSupportState, ComboAnimationStatesData.unarmedSubStateSupport);
 
 
-        //if (Player1ComboManager.instance.currentPlayer1ComboSubstate == ComboAnimationStatesData.unarmedSubStateDefault)
-        //{
-        //    for (int i = 0; i < ComboAnimationStatesData.combosInUnarmedState.Length; i++)
-        //    {
-        //        if (Player1ComboManager.instance.player1UnarmedCombos.Length == ComboAnimationStatesData.combosInUnarmedState.Length)
-        //        {
-        //            if (CheckCurrentComboInSequence(currentComboInSequence, ComboAnimationStatesData.unarmedSubStateDefault, ComboAnimationStatesData.combosInUnarmedState[i]))
-        //            {
-        //                _comboAttackScriptableObject = Player1ComboManager.instance.player1UnarmedCombos[i];
-        //                return;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            Debug.LogWarning("You need to assign: " + ComboAnimationStatesData.combosInUnarmedState.Length + " in default combos array");
-        //        }
-        //    }
-        //}
-
 
         #endregion
 
@@ -50,27 +31,6 @@ public class AssignComboAttributesPlayer1 : StateMachineBehaviour
         ApplyWeaponCombos(ComboAnimationStatesData.combosInPolearmState, ComboAnimationStatesData.polearmSubState);
         ApplyWeaponCombos(ComboAnimationStatesData.combosInBigPenState, ComboAnimationStatesData.bigPenSubState);
 
-
-
-        //if (Player1ComboManager.instance.currentPlayer1ComboSubstate == ComboAnimationStatesData.twoHandedSubState)
-        //{
-        //    for (int i = 0; i < ComboAnimationStatesData.combosInTwoHandedState.Length; i++)
-        //    {
-        //        if (Player1ComboManager.instance.currentPlayer1Weapon.combos.Length == ComboAnimationStatesData.combosInTwoHandedState.Length)
-        //        {
-        //            if (CheckCurrentComboInSequence(currentComboInSequence, ComboAnimationStatesData.twoHandedSubState, ComboAnimationStatesData.combosInTwoHandedState[i]))
-        //            {
-        //                _comboAttackScriptableObject = Player1ComboManager.instance.currentPlayer1Weapon.combos[i];
-        //                return;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            Debug.LogWarning("You need to assign: " + ComboAnimationStatesData.combosInTwoHandedState.Length + " in the current weapon's combos array");
-        //        }
-        //    }
-
-        //}
 
 
         #endregion

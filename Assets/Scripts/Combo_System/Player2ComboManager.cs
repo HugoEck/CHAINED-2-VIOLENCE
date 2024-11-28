@@ -115,7 +115,7 @@ public class Player2ComboManager : MonoBehaviour
 
     }
 
-    public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce)
+    public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce, float maxAngle)
     {
         bool durabilityReduced = false;
 
@@ -124,7 +124,7 @@ public class Player2ComboManager : MonoBehaviour
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange + weaponSlashSize + 3);
         foreach (Collider enemy in hitEnemies)
         {
-            float maxAngleCos = Mathf.Cos(90 * Mathf.Deg2Rad);
+            float maxAngleCos = Mathf.Cos(maxAngle * Mathf.Deg2Rad);
 
             // Calculate direction to the enemy
             Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
