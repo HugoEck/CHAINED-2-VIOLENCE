@@ -118,7 +118,7 @@ public class Player1ComboManager : MonoBehaviour
         }
     }
 
-    public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce)
+    public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce, float maxAngle)
     {
         bool durabilityReduced = false;
 
@@ -127,7 +127,7 @@ public class Player1ComboManager : MonoBehaviour
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange + weaponSlashSize + 3);
         foreach (Collider enemy in hitEnemies)
         {
-            float maxAngleCos = Mathf.Cos(90 * Mathf.Deg2Rad);
+            float maxAngleCos = Mathf.Cos(maxAngle * Mathf.Deg2Rad);
 
             // Calculate direction to the enemy
             Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
@@ -194,7 +194,7 @@ public class Player1ComboManager : MonoBehaviour
                 {
                     ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
                     var mainModule = particle.main;
-                    mainModule.startSize = _availableUnarmedCombos.unarmedTankCombos[comboIndex].attackRange;
+                    mainModule.startSize = player1UnarmedCombos[comboIndex].attackRange;
                     weaponSlashSize = mainModule.startSize.constant;
 
                     particle.Play();

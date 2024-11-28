@@ -9,5 +9,5 @@ public class ComboAttackSO : ScriptableObject
     public float attackRange;
     public float knockback;
     public float stunDuration;
-
+    public float maxAngle;
 }
