@@ -33,7 +33,6 @@ public class Player1ComboManager : MonoBehaviour
     public Weapon.WeaponType currentEquippedPlayer1WeaponType;
 
     private GameObject[] weaponSlashEffects;
-    [SerializeField] private ParticleSystem weaponHitEffect;
 
     [Header("Player animators")]
     [SerializeField] private Animator player1DefaultAnimator;
@@ -249,8 +248,8 @@ public class Player1ComboManager : MonoBehaviour
         _currentPlayer1WeaponObject = equippedWeapon;
 
         currentAnimator.SetInteger("ComboIndex", 0);
+
         AssignWeaponCombos(_currentPlayer1WeaponObject.GetComponent<Weapon>());
-        
     }
     private void PlayerCombatOnClassSwitched(PlayerCombat.PlayerClass newClass)
     {

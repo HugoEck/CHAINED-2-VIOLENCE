@@ -33,7 +33,6 @@ public class Player2ComboManager : MonoBehaviour
     public Weapon.WeaponType currentEquippedPlayer2WeaponType;
 
     private GameObject[] weaponSlashEffects;
-    [SerializeField] private ParticleSystem weaponHitEffect;
 
     [Header("Player animators")]
     [SerializeField] private Animator player2DefaultAnimator;

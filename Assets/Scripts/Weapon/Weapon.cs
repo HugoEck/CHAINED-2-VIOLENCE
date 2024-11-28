@@ -33,10 +33,11 @@ public class Weapon : MonoBehaviour
     public float knockback;
     public float stunDuration;
 
-    private void Start()
+    private void Awake()
     {
         AssignWeaponSlashEffect();
     }
+    
     public void DecreaseDurability()
     {
         durability -= 1;
@@ -44,6 +45,7 @@ public class Weapon : MonoBehaviour
 
     private void AssignWeaponSlashEffect()
     {
+        
         switch (currentWeaponType)
         {
             case WeaponType.TwoHanded:
