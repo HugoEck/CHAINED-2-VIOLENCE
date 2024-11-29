@@ -101,7 +101,7 @@ public class BaseManager : MonoBehaviour
     }
     public virtual void DealDamageToEnemy(float damage, DamageType damageType)
     {
-        if(damageType == DamageType.WeaponDamage)
+        if(damageType == DamageType.WeaponDamage || damageType == DamageType.UnarmedDamage)
         {
             particleEffects.ActivateHitParticles(transform);
         }
