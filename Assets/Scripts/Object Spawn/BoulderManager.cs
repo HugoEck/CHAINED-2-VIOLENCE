@@ -37,6 +37,8 @@ public class BoulderManager : MonoBehaviour
 
         targetPosition = DetermineTargetPosition(transform.position);
         moveDirection = (targetPosition - transform.position).normalized; // Properly calculate direction
+
+        SpawnPortal();
     }
 
     private void FixedUpdate()
@@ -160,16 +162,26 @@ public class BoulderManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
-    //private IEnumerator DeactivateRagdoll(BaseManager baseManager, float delay)
-    //{
-    //    yield return new WaitForSeconds(delay);
-    //    if (baseManager != null && baseManager.behaviorMethods != null)
-    //    {
-    //        baseManager.behaviorMethods.ToggleRagdoll(false);
-    //        Debug.Log("Ragdoll deactivated for: " + baseManager.gameObject.name);
-    //    }
-    //}
 
+    private void SpawnPortal()
+    {
+        if (portalParticle != null)
+        {
+            // Calculate the rotation to face the boulder's movement direction
+            Quaternion portalRotation = Quaternion.LookRotation(-moveDirection); // Rotate to face the boulder
+            GameObject particlesGo = Instantiate(portalParticle, transform.position, portalRotation);
+
+            // Optional: Adjust the rotation further if needed (e.g., flipping the portal direction)
+            particlesGo.transform.Rotate(0, 180, 0);
+
+            Destroy(particlesGo, 2f); // Destroy the particle system after 2 seconds
+        }
+        else
+        {
+            Debug.LogWarning("Portal particle prefab is not assigned.");
+        }
+
+    }
     #region TARGET & TORQUE
     private Vector3 DetermineTargetPosition(Vector3 spawnPosition)
     {
