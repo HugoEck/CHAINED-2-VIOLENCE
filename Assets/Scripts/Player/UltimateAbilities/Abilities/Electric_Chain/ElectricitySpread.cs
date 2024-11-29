@@ -64,7 +64,7 @@ public class ElectricitySpread : MonoBehaviour
             if(enemyManager != null)
             {
                 // Apply damage to the enemy
-                enemyManager.DealDamageToEnemy(_electricityDamage);
+                enemyManager.DealDamageToEnemy(_electricityDamage, BaseManager.DamageType.UltimateAbilityDamage);
                 _damageTimer = 0f; // Reset the damage timer
             }         
         }

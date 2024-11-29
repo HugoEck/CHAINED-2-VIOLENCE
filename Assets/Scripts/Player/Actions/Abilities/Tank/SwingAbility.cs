@@ -113,7 +113,7 @@ public class SwingAbility : MonoBehaviour, IAbility
                 BaseManager enemyManager = enemy.GetComponent<BaseManager>();
                 if (enemyManager != null)
                 {
-                    enemyManager.DealDamageToEnemy(baseSwingDamage);
+                    enemyManager.DealDamageToEnemy(baseSwingDamage, BaseManager.DamageType.AbilityDamage);
                     Debug.Log("Hit enemy during swing: " + enemy.name + swingDamage);
 
                     // Apply knockback force

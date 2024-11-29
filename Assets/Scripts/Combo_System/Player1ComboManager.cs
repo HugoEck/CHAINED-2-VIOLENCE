@@ -138,7 +138,15 @@ public class Player1ComboManager : MonoBehaviour
                 if (enemyManager != null)
                 {
                     // Deal damage if within cone
-                    enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage);
+                    if(currentPlayer1Weapon != null)
+                    {
+                        enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.WeaponDamage);
+                    }
+                    else
+                    {
+                        enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage);
+                    }
+                    
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
 
                     if (_currentPlayer1WeaponObject != null)

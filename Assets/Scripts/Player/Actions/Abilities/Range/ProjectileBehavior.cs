@@ -65,7 +65,7 @@ public class ProjectileBehavior : MonoBehaviour
             BaseManager enemyManager = enemy.GetComponent<BaseManager>();
             if (enemyManager != null)
             {
-                enemyManager.DealDamageToEnemy(explosionDamage);
+                enemyManager.DealDamageToEnemy(explosionDamage,BaseManager.DamageType.AbilityDamage);
                 Debug.Log("Damaged enemy: " + enemy.name + explosionDamage);
             }
         }
