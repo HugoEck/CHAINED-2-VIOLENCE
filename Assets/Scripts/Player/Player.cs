@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private AnimationStateController _animationStateController;
 
     private Collider _playerCollider;
+    private Rigidbody _playerRigidbody;
     [SerializeField] private PlayerAttributes playerAttributes;
 
     #endregion
@@ -102,7 +103,7 @@ public class Player : MonoBehaviour
         _animationStateController = GetComponent<AnimationStateController>();
 
         _playerCollider = GetComponent<Collider>();
-
+        _playerRigidbody = GetComponent<Rigidbody>();
         #endregion
 
         #region Set attributes
@@ -559,11 +560,13 @@ public class Player : MonoBehaviour
         if (GhostChain._bIsGhostChainActive)
         {
             _playerCollider.excludeLayers = GhostChain.ignoreCollisionLayers;
+            _playerRigidbody.excludeLayers = GhostChain.ignoreCollisionLayers;
 
         }
         else
         {
             _playerCollider.excludeLayers = _defaultIgnoreCollisionLayer;
+            _playerRigidbody.excludeLayers = _defaultIgnoreCollisionLayer;
         }
 
     }

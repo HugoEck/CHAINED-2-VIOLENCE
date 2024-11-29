@@ -20,7 +20,7 @@ public class SpawnAbilityChainSegments : MonoBehaviour
 
     private ObiActor _chain;
 
-    private const int AMOUNT_OF_OBJECTS_TO_POOL = 50;
+    private const int AMOUNT_OF_OBJECTS_TO_POOL = 1000;
 
     private List<GameObject> _pooledLaserChainSegments;
     private List<GameObject> _pooledElectricChainSegments;

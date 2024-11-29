@@ -64,6 +64,7 @@ public class ElectricitySpread : MonoBehaviour
             if(enemyManager != null)
             {
                 // Apply damage to the enemy
+                enemyManager.chainEffects.ActivateShockChainEffect(_electricityActiveTimer);
                 enemyManager.DealDamageToEnemy(_electricityDamage, BaseManager.DamageType.UltimateAbilityDamage);
                 _damageTimer = 0f; // Reset the damage timer
             }         
