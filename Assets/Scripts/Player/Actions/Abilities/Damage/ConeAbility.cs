@@ -11,7 +11,7 @@ public class ConeAbility : MonoBehaviour, IAbility
     private float coneDamage;
     public GameObject coneEffectPrefab;
     public Transform coneAnchor;           // Anchor object for the effect to follow
-    public PlayerCombat playerCombat;
+    public PlayerAttributes playerAttributes;
 
     public float cooldown = 5f;            // Cooldown duration in seconds
     private float lastUseTime = -Mathf.Infinity;  // Time when the ability was last used
@@ -20,7 +20,6 @@ public class ConeAbility : MonoBehaviour, IAbility
 
     private void Start()
     {
-        playerCombat = GetComponent<PlayerCombat>();
         hitEnemiesOnce = new HashSet<Collider>();
     }
 
@@ -40,7 +39,7 @@ public class ConeAbility : MonoBehaviour, IAbility
 
     void ActivateConeAbility()
     {
-        coneDamage = baseConeDamage + playerCombat.attackDamage;
+        coneDamage = baseConeDamage + playerAttributes.attackDamage;
 
         // Instantiate the visual effect at the anchor's position
         if (coneEffectPrefab != null && coneAnchor != null)

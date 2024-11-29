@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
 {
-    public PlayerCombat playerCombat;
+    public PlayerAttributes playerAttributes;
 
     public GameObject projectilePrefab;
     public Transform firePoint;
@@ -12,16 +12,7 @@ public class Projectile : MonoBehaviour, IAbility
     private float projectileLifeTime = 5f;
 
 
-    private void Start()
-    {
-        // Get the PlayerCombat component on the player
-        playerCombat = GetComponent<PlayerCombat>();
-        if (playerCombat == null)
-        {
-            Debug.LogError("PlayerCombat component not found on the player!");
-        }
-    }
-
+   
     public void UseAbility()
     {
         if (Time.time >= lastShootTime + cooldown)
@@ -67,7 +58,7 @@ public class Projectile : MonoBehaviour, IAbility
         // Instantiate the projectile
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 3f, Quaternion.LookRotation(direction));
         ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
-        projectileBehavior.ownerCombat = playerCombat; // Assuming "this" is the PlayerCombat instance
+        projectileBehavior.playerAttributes = playerAttributes; // Assuming "this" is the PlayerCombat instance
 
         if (projectile != null)
         {

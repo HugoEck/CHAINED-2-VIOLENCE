@@ -58,7 +58,7 @@ public class PlayerAttributes : MonoBehaviour
     {
         _currentPlayerClass.OnClassSwitched += PlayerCombatOnClassSwitched;
 
-        SetBaseValues(_currentPlayerClass.currentPlayerClass);
+        //SetBaseValues(_currentPlayerClass.currentPlayerClass);
     }
     private void OnDestroy()
     {
@@ -101,7 +101,7 @@ public class PlayerAttributes : MonoBehaviour
         }
     }
 
-    private void SetBaseValues(PlayerCombat.PlayerClass classToCheck)
+    public void SetBaseValues(PlayerCombat.PlayerClass classToCheck)
     {
 
         foreach(ClassAttributeSO classAttribute in _classesAttributes)

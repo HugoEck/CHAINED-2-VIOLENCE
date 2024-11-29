@@ -10,7 +10,7 @@ public class ProjectileBehavior : MonoBehaviour
     public GameObject explosionEffectPrefab;
 
     private HashSet<Collider> hitEnemiesOnce;
-    public PlayerCombat ownerCombat;
+    public PlayerAttributes playerAttributes;
     private bool hasExploded = false;
 
     private void Start()
@@ -47,7 +47,7 @@ public class ProjectileBehavior : MonoBehaviour
     // Method to handle the explosion and damage enemies in the radius
     void Explode()
     {
-        explosionDamage = baseExplosionDamage + ownerCombat.attackDamage;
+        explosionDamage = baseExplosionDamage + playerAttributes.attackDamage;
 
         Debug.Log("Projectile exploded!");
 

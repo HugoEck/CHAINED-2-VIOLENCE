@@ -22,7 +22,7 @@ public class SwingAbility : MonoBehaviour, IAbility
     private Rigidbody otherPlayerRb;      // Rigidbody of the other player
     private Rigidbody anchorRb;           // Rigidbody of this (anchor) player
 
-    public PlayerCombat playerCombat;
+    public PlayerAttributes playerAttributes;
     public GameObject swingEffectPrefab;
 
     private HashSet<Collider> hitEnemies;
@@ -34,7 +34,6 @@ public class SwingAbility : MonoBehaviour, IAbility
             otherPlayerRb = otherPlayer.GetComponent<Rigidbody>();
         }
         anchorRb = GetComponent<Rigidbody>(); // Get the Rigidbody of this player (anchor)
-        playerCombat = GetComponent<PlayerCombat>();
     }
 
     public void UseAbility()
@@ -53,7 +52,7 @@ public class SwingAbility : MonoBehaviour, IAbility
 
     void StartSwing()
     {
-        swingDamage = baseSwingDamage + playerCombat.attackDamage;
+        swingDamage = baseSwingDamage + playerAttributes.attackDamage;
 
         GameObject swingEffect = Instantiate(swingEffectPrefab, transform.position, Quaternion.identity);
 
