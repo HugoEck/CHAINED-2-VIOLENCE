@@ -18,6 +18,8 @@ public class AIBehaviorMethods
     Rigidbody[] rigidbodies;
     SimpleSmoothModifier smoothing;
     Collider[] capsuleColliders;
+    BoxCollider box;
+    CapsuleCollider capsule;
 
     enum GameMode
     {
@@ -167,6 +169,8 @@ public class AIBehaviorMethods
             {
                 capsule1.enabled = false;
             }
+            box.enabled = true;
+            capsule.enabled = true;
             agent.c_collider.enabled = true;
             agent.rb.isKinematic = false;
             obiCollider.enabled = true;
@@ -188,6 +192,8 @@ public class AIBehaviorMethods
             {
                 capsule1.enabled = true;
             }
+            box.enabled = false;
+            capsule.enabled = false;
             obiCollider.enabled = false;
             obiRb.enabled = false;
             aiPath.enabled = false;
@@ -198,54 +204,56 @@ public class AIBehaviorMethods
         }
     }
 
-    public void ToggleRagdoll(bool enabled, Transform affectingTransform)
-    {
-        if (!enabled)
-        {
-            agent.animator.enabled = true;
+    //public void ToggleRagdoll(bool enabled, Transform affectingTransform)
+    //{
+    //    if (!enabled)
+    //    {
+    //        agent.animator.enabled = true;
 
-            foreach (Rigidbody rbs in rigidbodies)
-            {
-                rbs.isKinematic = true;
-                rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-            }
+    //        foreach (Rigidbody rbs in rigidbodies)
+    //        {
+    //            rbs.isKinematic = true;
+    //            rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+    //        }
 
-            foreach (Collider capsule1 in capsuleColliders)
-            {
-                capsule1.enabled = false;
-            }
-            agent.c_collider.enabled = true;
-            agent.rb.isKinematic = false;
-            obiCollider.enabled = true;
-            obiRb.enabled = true;
-            aiPath.enabled = true;
-            smoothing.enabled = true;
-            destinationSetter.enabled = true;
-        }
-        else
-        {
-            agent.animator.enabled = false;
+    //        foreach (Collider capsule1 in capsuleColliders)
+    //        {
+    //            capsule1.enabled = false;
+    //        }
+    //        agent.c_collider.enabled = true;
+    //        agent.rb.isKinematic = false;
+    //        obiCollider.enabled = true;
+    //        obiRb.enabled = true;
+    //        aiPath.enabled = true;
+    //        smoothing.enabled = true;
+    //        destinationSetter.enabled = true;
+    //    }
+    //    else
+    //    {
+    //        agent.animator.enabled = false;
 
-            foreach (Rigidbody rbs in rigidbodies)
-            {
-                rbs.isKinematic = false;
-                rbs.constraints = RigidbodyConstraints.None;
-            }
-            foreach (Collider capsule1 in capsuleColliders)
-            {
-                capsule1.enabled = true;
-            }
-            obiCollider.enabled = false;
-            obiRb.enabled = false;
-            aiPath.enabled = false;
-            smoothing.enabled = false;
-            destinationSetter.enabled = false;
+    //        foreach (Rigidbody rbs in rigidbodies)
+    //        {
+    //            rbs.isKinematic = false;
+    //            rbs.constraints = RigidbodyConstraints.None;
+    //        }
+    //        foreach (Collider capsule1 in capsuleColliders)
+    //        {
+    //            capsule1.enabled = true;
+    //        }
+    //        obiCollider.enabled = false;
+    //        obiRb.enabled = false;
+    //        aiPath.enabled = false;
+    //        smoothing.enabled = false;
+    //        destinationSetter.enabled = false;
 
 
-        }
-    }
+    //    }
+    //}
     public void GetRagdollComponents(BaseManager agent)
     {
+        box = agent.GetComponent<BoxCollider>();
+        capsule = agent.GetComponent<CapsuleCollider>();
         aiPath = agent.GetComponent<AIPath>();
         destinationSetter = agent.GetComponent<AIDestinationSetter>();
         obiCollider = agent.GetComponent<ObiCollider>();
