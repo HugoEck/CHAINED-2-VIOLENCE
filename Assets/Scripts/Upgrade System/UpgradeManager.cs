@@ -11,12 +11,8 @@ using System.Runtime.CompilerServices;
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance { get; private set; }
-    #region References
-
     private AdjustChainLength adjustChainLength;
 
-    private ChainUpgrade chainUpgrade;
-    #endregion
 
     private PlayerAttributes player1Attributes;
     private PlayerAttributes player2Attributes;
@@ -25,21 +21,16 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private int maxUpgradeLevel = 10;
     [SerializeField] public int UpgradeCostIncrease = 20;
 
+    [Header("Upgrade Increments")]
+    [SerializeField] private float attackDamageIncrease = 1f;
+    [SerializeField] private float maxHealthIncrease = 20f;
+    [SerializeField] private float movementSpeedIncrease = 10f;
+
     [Header("Upgrade Levels")]
     private int healthLevel = 0;
     private int attackLevel = 0;
     private int speedLevel = 0;
     private int chainLevel = 0;
-
-    [Header("Upgrade Increments")]
-    [SerializeField] private float attackDamageIncrease = 1f;
-    [SerializeField] private float maxHealthIncrease = 20f;
-    [SerializeField] private float movementSpeedIncrease = 20f;
-
-    //Upgrade cap, % increase from the base value.
-    [SerializeField] private float MaxAttackMultiplier = 1.3f;
-    [SerializeField] private float MaxHealthMultiplier = 1.5f;
-    [SerializeField] private float MaxSpeedMultiplier = 1.3f;
 
     #region TextMeshPro
     public TMP_Text attackLevelText;
@@ -87,10 +78,10 @@ public class UpgradeManager : MonoBehaviour
             adjustChainLength = chainObject.GetComponent<AdjustChainLength>();
         }
 
-        if (adjustChainLength != null)
-        {
-            chainUpgrade = new ChainUpgrade(adjustChainLength, 1, AdjustChainLength.AMOUNT_OF_UPGRADES, UpgradeCostIncrease);
-        }
+        //if (adjustChainLength != null)
+        //{
+        //    chainUpgrade = new ChainUpgrade(adjustChainLength, 1, AdjustChainLength.AMOUNT_OF_UPGRADES, UpgradeCostIncrease);
+        //}
     }
 
     public void UpgradeMaxHealth()
@@ -157,30 +148,22 @@ public class UpgradeManager : MonoBehaviour
 
     public void UpgradeChain()
     {
-        int cost = CalculateUpgradeCost(chainLevel); // Calculate the cost for the upgrade
+        int cost = CalculateUpgradeCost(chainLevel);
         int lengthIncreasePerUpgrade = 1;
         if (CanAfford(cost) && chainLevel < AdjustChainLength.AMOUNT_OF_UPGRADES)
         {
-            adjustChainLength.IncreaseRopeLength(lengthIncreasePerUpgrade); // Apply the chain length increase
-            chainLevel++; // Increment the upgrade level
+            adjustChainLength.IncreaseRopeLength(lengthIncreasePerUpgrade);
+            chainLevel++;
 
-            Debug.Log("Chain upgraded - New Chain Length: " + adjustChainLength.ReturnCurrentChainLength());
-
-            SpendGold(cost); // Deduct the gold cost
-            StatsTransfer.CurrentChainLength = adjustChainLength.ReturnCurrentChainLength(); // Save chain length to stats transfer
-            UpdateUI(); // Update the UI to reflect changes
+            SpendGold(cost);
+            StatsTransfer.CurrentChainLength = adjustChainLength.ReturnCurrentChainLength();
+            UpdateUI();
         }
         else
         {
-            ShowUpgradeError(chainLevel); // Show error if upgrade can't proceed
+            ShowUpgradeError(chainLevel);      
         }
     }
-
-    //public void UpgradeChain()
-    //{
-    //    chainUpgrade.Upgrade();
-    //    UpdateUI();
-    //}
 
     private bool CanAfford(int cost)
     {
@@ -194,13 +177,12 @@ public class UpgradeManager : MonoBehaviour
 
     private int CalculateUpgradeCost(int currentLevel)
     {
-        // Double the cost with each level
-        return baseUpgradeCost * (int)Mathf.Pow(2, currentLevel);
+        return Mathf.CeilToInt(baseUpgradeCost * Mathf.Pow(1.5f, currentLevel));
     }
 
     private bool CanUpgrade()
     {
-        //cost logic
+        // fix later if needed.
         return true;
     }
 
@@ -252,7 +234,7 @@ public class UpgradeManager : MonoBehaviour
 
         if (chainUpgradeCostText != null)
         {
-            chainUpgradeCostText.text = chainUpgrade.currentLevel >= chainUpgrade.MaxLevel
+            chainUpgradeCostText.text = chainLevel >= AdjustChainLength.AMOUNT_OF_UPGRADES //fix later
                 ? "Cost: Maxed"
                 : $"Cost: {CalculateUpgradeCost(chainLevel)}";
         }
