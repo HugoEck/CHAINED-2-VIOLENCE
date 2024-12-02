@@ -15,13 +15,15 @@ public class BoulderManager : MonoBehaviour
 
     [SerializeField] public GameObject destructionParticle;
     [SerializeField] public GameObject portalParticle;
+    [SerializeField] public GameObject dustParticle;
 
     // PRIVATE
     private float boulderDamage = 3f;
+    private float dustSpawnTimer = 0f;
+    private float dustSpawnInterval = 0.4f;
 
     private Vector3 moveDirection;
     private Vector3 targetPosition;
-
 
     private Rigidbody rb;
     #endregion
@@ -37,8 +39,6 @@ public class BoulderManager : MonoBehaviour
 
         targetPosition = DetermineTargetPosition(transform.position);
         moveDirection = (targetPosition - transform.position).normalized; // Properly calculate direction
-
-        SpawnPortal();
     }
 
     private void FixedUpdate()
@@ -50,8 +50,10 @@ public class BoulderManager : MonoBehaviour
 
         // Apply torque to make it roll
         ApplyRollingTorque();
+        SpawnDustParticles();
     }
 
+    #region DAMAGE AND COLLIDE LOGIC
     private void OnCollisionEnter(Collision collision)
     {
         // Check for specific collision tags
@@ -157,31 +159,56 @@ public class BoulderManager : MonoBehaviour
             StartCoroutine(DestroyBoulderWithDelay(0.3f));
         }
     }
+    #endregion
+
+    #region PARTICLES
+    private void SpawnDustParticles()
+    {
+        // Update the dust spawn timer
+        dustSpawnTimer += Time.fixedDeltaTime;
+
+        // Check if it's time to spawn a new particle
+        if (dustSpawnTimer >= dustSpawnInterval)
+        {
+            dustSpawnTimer = 0f; // Reset the timer
+
+            if (dustParticle != null)
+            {
+                // Ensure the spawn position is at the center of the boulder's X and Z axes
+                Vector3 spawnPosition = new Vector3(
+                    transform.position.x,
+                    transform.position.y - (GetComponent<Collider>().bounds.extents.y + 0.2f), // Slightly below the boulder
+                    transform.position.z
+                );
+
+                Quaternion spawnRotation = Quaternion.identity;
+
+                // Adjust rotation to face the opposite of the boulder's velocity
+                if (rb != null && rb.velocity.magnitude > 0.1f)
+                {
+                    spawnRotation = Quaternion.LookRotation(-rb.velocity.normalized, Vector3.up);
+                }
+
+                // Instantiate the dust particle
+                GameObject dust = Instantiate(dustParticle, spawnPosition, spawnRotation);
+
+                // Destroy the particle after a short duration
+                Destroy(dust, 1f);
+            }
+            else
+            {
+                Debug.LogWarning("Dust particle prefab is not assigned.");
+            }
+        }
+    }
+    #endregion
+
     private IEnumerator DestroyBoulderWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
 
-    private void SpawnPortal()
-    {
-        if (portalParticle != null)
-        {
-            // Calculate the rotation to face the boulder's movement direction
-            Quaternion portalRotation = Quaternion.LookRotation(-moveDirection); // Rotate to face the boulder
-            GameObject particlesGo = Instantiate(portalParticle, transform.position, portalRotation);
-
-            // Optional: Adjust the rotation further if needed (e.g., flipping the portal direction)
-            particlesGo.transform.Rotate(0, 180, 0);
-
-            Destroy(particlesGo, 2f); // Destroy the particle system after 2 seconds
-        }
-        else
-        {
-            Debug.LogWarning("Portal particle prefab is not assigned.");
-        }
-
-    }
     #region TARGET & TORQUE
     private Vector3 DetermineTargetPosition(Vector3 spawnPosition)
     {
@@ -215,5 +242,4 @@ public class BoulderManager : MonoBehaviour
         rb.AddTorque(rollingAxis * torqueMagnitude, ForceMode.Acceleration);
     }
     #endregion
-
 }
