@@ -57,7 +57,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
     private static bool bIsPlayer2Assigned = false;
 
     private GameObject _player2GameObject;
-    ShaderScript arenaShader;
+    DissolveManager arenaShader;
     private float _gameDurationTimer;
 
     private void Awake()
@@ -88,7 +88,7 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         AssignPlayer2();
         if (arenaShader == null && currentSceneState == SceneState.ArenaScene)
         {
-            arenaShader = GameObject.FindAnyObjectByType<ShaderScript>();
+            arenaShader = GameObject.FindAnyObjectByType<DissolveManager>();
         }
 
         if (!bIsPlayer2Assigned)

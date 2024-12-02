@@ -67,6 +67,10 @@ public class ProjectileBehavior : MonoBehaviour
             {
                 enemyManager.DealDamageToEnemy(explosionDamage,BaseManager.DamageType.AbilityDamage);
                 Debug.Log("Damaged enemy: " + enemy.name + explosionDamage);
+
+
+                //Enemy ragdoll
+                enemyManager.chainEffects.ActivateRagdollStun(4f, this.gameObject, 500);
             }
         }
     }
