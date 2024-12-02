@@ -127,7 +127,8 @@ public class Player : MonoBehaviour
             EnableColliders();
 
         playerAttributes.SetBaseValues(_playerCombat.currentPlayerClass);
-        StatsTransfer.Instance.SaveStats();
+        StatsTransfer.Instance.SaveStatsPlayer1();
+        StatsTransfer.Instance.SaveStatsPlayer2();
 
         if ( _playerId == 1)
         {

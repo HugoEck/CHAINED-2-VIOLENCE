@@ -21,8 +21,8 @@ public class StatsTransfer : MonoBehaviour
     public static float Player2WalkingSpeed { get; set; }
     public static float CurrentChainLength { get; set; }
 
-    private PlayerAttributes player1Attributes;
-    private PlayerAttributes player2Attributes;
+    [SerializeField]private PlayerAttributes player1Attributes;
+    [SerializeField]private PlayerAttributes player2Attributes;
 
     private bool _bHasPlayer1HpBeenSet = false;
     private bool _bHasPlayer2HpBeenSet = false;
@@ -35,8 +35,8 @@ public class StatsTransfer : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             player1.GetComponent<Player>().PlayerSpawnedIn += OnPlayer1SpawnedIn;
             player2.GetComponent<Player>().PlayerSpawnedIn += OnPlayer2SpawnedIn;
-            if (player1 != null) player1Attributes = player1.GetComponent<PlayerAttributes>();
-            if (player2 != null) player2Attributes = player2.GetComponent<PlayerAttributes>();        
+           // if (player1 != null) player1Attributes = player1.GetComponent<PlayerAttributes>();
+           // if (player2 != null) player2Attributes = player2.GetComponent<PlayerAttributes>();        
         }
 
         else
@@ -47,42 +47,39 @@ public class StatsTransfer : MonoBehaviour
 
     private void Start()
     {
-        //ApplyStats();
-        //Player1AttackDamage = player1Attributes.attackDamage;
-        //Player1MaxHealth = player1Attributes.maxHP;
-        //Player1WalkingSpeed = player1Attributes.movementSpeed;
-
-        //Player2AttackDamage = player2Attributes.attackDamage;
-        //Player2MaxHealth = player2Attributes.maxHP;
-        //Player2WalkingSpeed = player2Attributes.movementSpeed;
-
+        ApplyStatsPlayer1();
+        ApplyStatsPlayer2();
     }
 
     private void OnDestroy()
     {
         player1.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer1SpawnedIn;
         player2.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer2SpawnedIn;
-        SaveStats();
+        SaveStatsPlayer1();
+        SaveStatsPlayer2();
     }
 
-    public void ApplyStats()
+    public void ApplyStatsPlayer1()
     {
         if (player1Attributes != null)
         {
-            player1Attributes.AdjustAttackDamage(Player1AttackDamage);
-            player1Attributes.AdjustMaxHP(Player1MaxHealth);
-            player1Attributes.AdjustMovementSpeed(Player1WalkingSpeed);
-        }
-
-        if (player2Attributes != null)
-        {
-            player2Attributes.AdjustAttackDamage(Player2AttackDamage);
-            player2Attributes.AdjustMaxHP(Player2MaxHealth);
-            player2Attributes.AdjustMovementSpeed(Player2WalkingSpeed);
+            player1Attributes.attackDamage = Player1AttackDamage;
+            player1Attributes.maxHP = Player1MaxHealth;
+            player1Attributes.movementSpeed = Player1WalkingSpeed;
         }
     }
 
-    public void SaveStats()
+    public void ApplyStatsPlayer2()
+    {
+        if (player2Attributes != null)
+        {
+            player2Attributes.attackDamage = Player2AttackDamage;
+            player2Attributes.maxHP = Player2MaxHealth;
+            player2Attributes.movementSpeed = Player2WalkingSpeed;
+        }
+    }
+
+    public void SaveStatsPlayer1()
     {
         if (player1Attributes != null)
         {
@@ -90,7 +87,10 @@ public class StatsTransfer : MonoBehaviour
             Player1MaxHealth = player1Attributes.maxHP;
             Player1WalkingSpeed = player1Attributes.movementSpeed;
         }
+    }
 
+    public void SaveStatsPlayer2()
+    {
         if (player2Attributes != null)
         {
             Player2AttackDamage = player2Attributes.attackDamage;

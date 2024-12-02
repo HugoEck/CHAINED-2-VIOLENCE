@@ -199,10 +199,8 @@ private void Awake()
     /// <param name="newPlayerClass"></param>
     public void SetCurrentPlayerClass(PlayerClass newPlayerClass)
     {
-        StatsTransfer.Instance.SaveStats();
         if (playerId == 1)
         {
-
             if (newPlayerClass == ClassManager._currentPlayer2Class) return;
 
 
@@ -219,10 +217,12 @@ private void Awake()
         if (playerId == 1)
         {
             ClassManager._currentPlayer1Class = newPlayerClass;
+            StatsTransfer.Instance.SaveStatsPlayer1();
         }
         else if (playerId == 2)
         {
             ClassManager._currentPlayer2Class = newPlayerClass;
+            StatsTransfer.Instance.SaveStatsPlayer2();
         }
 
         // Event when switched class, used for ability UI.
