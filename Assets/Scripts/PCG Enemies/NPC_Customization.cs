@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Entities;
+using Unity.Transforms;
+using Unity.Rendering;
+using Unity.Mathematics;
+using Unity.Entities.Conversion;
+using Unity.Scenes.Editor;
 
 [System.Serializable]
 public class ThemeData
@@ -63,6 +69,8 @@ public class ThemeDataPair
 }
 public class NPC_Customization : MonoBehaviour
 {
+
+    EntityManager entityManager;
 
     [Header("NPC GameObjects")]
     [SerializeField] GameObject RomanRock;
@@ -145,6 +153,12 @@ public class NPC_Customization : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private void Start()
+    {
+        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
     }
     void Update()
     {
@@ -247,7 +261,20 @@ public class NPC_Customization : MonoBehaviour
 
         }
     }
+    public void ConvertNPCToEntity(GameObject npcGameObject)
+    {
+        // Create a conversion settings instance
+        var settings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
 
+        // Convert the GameObject to an Entity
+        Entity npcEntity = GameObjectConversionUtility.ConvertGameObjectHierarchy(npcGameObject, settings);
+
+        // Add the entity to the EntityManager for further processing
+        entityManager.AddComponentData(npcEntity, new Translation { Value = npcGameObject.transform.position });
+        entityManager.AddComponentData(npcEntity, new Rotation { Value = npcGameObject.transform.rotation });
+
+        // Optionally add other custom components or data as needed
+    }
     public void AddBehaviourToClass(GameObject enemy)
     {
         AIPath agent = enemy.AddComponent<AIPath>();
@@ -259,14 +286,17 @@ public class NPC_Customization : MonoBehaviour
         BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
         IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
         ignoreChain.ObjectIgnoresLaserChain();
-        
 
         enemy.transform.localScale *= 1.5f;
        
         GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
         GameObject hitEffectCopy = Instantiate(hitEffect, enemy.transform);
-        
+
         //Physics.SyncTransforms();
+
+       
+
+
 
         triggerCollider.isTrigger = true;
         enemy.tag = "Enemy";
