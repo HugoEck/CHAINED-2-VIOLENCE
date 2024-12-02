@@ -19,7 +19,6 @@ public class AIBehaviorMethods
     SimpleSmoothModifier smoothing;
     Collider[] capsuleColliders;
 
-    //------------PLAYER-------------------------------
     enum GameMode
     {
         OnePlayer,
@@ -28,12 +27,27 @@ public class AIBehaviorMethods
     GameMode gameMode = new GameMode();
     float distanceToPlayer1Sqr;
     float distanceToPlayer2Sqr;
-
+    bool testBool;
 
 
     public AIBehaviorMethods(BaseManager manager)
     {
         agent = manager;
+
+        //if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned == false)
+        //{
+        //    gameMode = GameMode.OnePlayer;
+        //}
+        //else
+        //{
+        //    gameMode = GameMode.TwoPlayer;
+        //}
+
+    }
+
+    public Transform CalculateClosestTarget()
+    {
+        testBool = Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned;
 
         if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned == false)
         {
@@ -43,10 +57,6 @@ public class AIBehaviorMethods
         {
             gameMode = GameMode.TwoPlayer;
         }
-    }
-
-    public Transform CalculateClosestTarget()
-    {
 
         switch (gameMode)
         {
@@ -79,9 +89,10 @@ public class AIBehaviorMethods
             default:
 
                 Debug.Log("AGENT CANNOT FIND PLAYER TARGET");
-                return null; 
+                return null;
 
         }
+
     }
 
     public bool IsAttackAllowed()
