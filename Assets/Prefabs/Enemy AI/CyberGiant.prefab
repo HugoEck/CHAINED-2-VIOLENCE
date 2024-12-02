@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 2369950}
   - component: {fileID: 64677961961150518}
   - component: {fileID: 1043660676234522935}
-  - component: {fileID: -1916425691439387316}
-  - component: {fileID: 1802629674781025364}
   - component: {fileID: 1231223164405391634}
   m_Layer: 9
   m_Name: WeaponPrefab
@@ -137,37 +135,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &-1916425691439387316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thickness: 0
-  inverted: 0
-  material: {fileID: 0}
-  filter: -65535
-  m_SourceCollider: {fileID: 64677961961150518}
-  m_DistanceField: {fileID: 0}
---- !u!114 &1802629674781025364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62359d80fdc0e4315ab6331b78ec5b90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kinematicForParticles: 0
 --- !u!114 &1231223164405391634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21397,6 +21364,7 @@ MonoBehaviour:
   bombShootPoint: {fileID: 7057749842554220949}
   missileShootPoint: {fileID: 7012291202931990992}
   energyShield: {fileID: 5397073519180671035}
+  damageCollider: {fileID: 0}
   energyShieldDefense: 10000
   baseDefense: 0
   bombDamage: 25
@@ -21419,6 +21387,7 @@ MonoBehaviour:
   overheadSmashActive: 0
   shieldWalkActive: 0
   staggerActive: 0
+  deathActive: 0
   P1_damageApplied: 0
   P2_damageApplied: 0
   weaponDamageAllowed: 0
