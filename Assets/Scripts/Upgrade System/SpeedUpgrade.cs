@@ -20,40 +20,40 @@ public class SpeedUpgrade : UpgradeBase
 
     public override void Upgrade()
     {
-        //float initialSpeed = 1000f; //Set to same value as starting movement speed.. //Put this in playermovement.
-        float initialSpeed = player1Movement.originalWalkingSpeed;
+        ////float initialSpeed = 1000f; //Set to same value as starting movement speed.. //Put this in playermovement.
+        //float initialSpeed = player1Movement.originalWalkingSpeed;
 
-        #region TMP
-        if (currentLevel >= maxLevel)
-        {
-            UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
-            return;
-        }
+        //#region TMP
+        //if (currentLevel >= maxLevel)
+        //{
+        //    UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
+        //    return;
+        //}
 
-        if (!CanUpgrade(GoldDropManager.Instance.GetGoldAmount()))
-        {
-            UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowNotEnoughGoldMessage());
-            return;
-        }
-        #endregion
+        //if (!CanUpgrade(GoldDropManager.Instance.GetGoldAmount()))
+        //{
+        //    UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowNotEnoughGoldMessage());
+        //    return;
+        //}
+        //#endregion
 
-        float newSpeed = player1Movement.GetWalkingSpeed() + speedIncrease;
-        float maxAllowedSpeed = initialSpeed * maxSpeedMultiplier;
+        //float newSpeed = player1Movement.GetWalkingSpeed() + speedIncrease;
+        //float maxAllowedSpeed = initialSpeed * maxSpeedMultiplier;
 
-        if (newSpeed <= maxAllowedSpeed)
-        {
-            player1Movement.SetWalkingSpeed(newSpeed);
-            player2Movement.SetWalkingSpeed(newSpeed);
-            currentLevel++;
+        //if (newSpeed <= maxAllowedSpeed)
+        //{
+        //    player1Movement.SetWalkingSpeed(newSpeed);
+        //    player2Movement.SetWalkingSpeed(newSpeed);
+        //    currentLevel++;
 
-            GoldDropManager.Instance.SpendGold(CalculateUpgradeCost());
+        //    GoldDropManager.Instance.SpendGold(CalculateUpgradeCost());
 
-            Debug.Log("Speed upgraded - speed: " + newSpeed);
-        }
-        else
-        {
-            Debug.LogWarning("Max speed upgrade reached");
-            UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
-        }
+        //    Debug.Log("Speed upgraded - speed: " + newSpeed);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Max speed upgrade reached");
+        //    UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
+        //}
     }
 }

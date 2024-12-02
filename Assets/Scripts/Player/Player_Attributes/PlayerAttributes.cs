@@ -7,12 +7,12 @@ public class PlayerAttributes : MonoBehaviour
     [Header("Class specific attributes")]
     [SerializeField] private ClassAttributeSO[] _classesAttributes;
 
-    public float attackDamage { get; private set; }
-    public float maxHP { get; private set; }
-    public float movementSpeed { get; private set; }
-    public float mass { get; private set; }
-    public float knockBack { get; private set; }
-    public float attackSpeed { get; private set; }
+    public float attackDamage { get; set; }
+    public float maxHP { get; set; }
+    public float movementSpeed { get; set; }
+    public float mass { get; set; }
+    public float knockBack { get; set; }
+    public float attackSpeed { get; set; }
 
     private float _upgradeAttackDamage;
     private float _upgradeMaxHP;

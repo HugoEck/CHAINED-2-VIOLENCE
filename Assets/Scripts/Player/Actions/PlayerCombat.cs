@@ -199,6 +199,7 @@ private void Awake()
     /// <param name="newPlayerClass"></param>
     public void SetCurrentPlayerClass(PlayerClass newPlayerClass)
     {
+        StatsTransfer.Instance.SaveStats();
         if (playerId == 1)
         {
 
