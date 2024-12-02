@@ -50,29 +50,35 @@ public class PlayerAttributes : MonoBehaviour
 
     public void AdjustAttackDamage(float plusMinusDamage)
     {
+        _upgradeAttackDamage = 0;
         _upgradeAttackDamage += plusMinusDamage; 
         attackDamage = Mathf.Max(0, attackDamage + _upgradeAttackDamage); 
     }
 
     public void AdjustMaxHP(float plusMinusHP)
     {
+        _upgradeMaxHP = 0;
         _upgradeMaxHP += plusMinusHP;
-        maxHP = Mathf.Max(0, maxHP + _upgradeMaxHP);
+        maxHP = Mathf.Max(0, maxHP + _upgradeMaxHP);       
     }
 
     public void AdjustMovementSpeed(float plusMinusMovementSpeed)
     {
+        _upgradeMovementSpeed = 0;
         _upgradeMovementSpeed += plusMinusMovementSpeed;
         movementSpeed = Mathf.Max(0, movementSpeed + _upgradeMovementSpeed);
     }
 
     public void AdjustKnocback(float plusMinusKnockback)
     {
+        _upgradeKnockBack = 0;
         _upgradeKnockBack += plusMinusKnockback;
         knockBack = Mathf.Max(0, knockBack + _upgradeKnockBack);
     }
     public void AdjustAttackSpeed(float plusMinusAttackSpeed)
     {
+
+        _upgradeAttackSpeed = 0;
         _upgradeAttackSpeed += plusMinusAttackSpeed;
         attackSpeed = Mathf.Max(0, attackSpeed + _upgradeAttackSpeed);
     }
