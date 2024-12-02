@@ -117,7 +117,7 @@ public class WaveManager : MonoBehaviour
 
     public void SpawnWave(Wave wave)
     {
-        text.text = "Wave " + currentWave;
+        text.text = "Wave " + (currentWave + 1);
         StartCoroutine(FadeInText(1, 3));
         StartCoroutine(SpawnWaveCoroutine(wave));
     }

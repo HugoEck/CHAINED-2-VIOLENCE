@@ -19,24 +19,80 @@ public class AIBehaviorMethods
     SimpleSmoothModifier smoothing;
     Collider[] capsuleColliders;
 
+    enum GameMode
+    {
+        OnePlayer,
+        TwoPlayer
+    }
+    GameMode gameMode = new GameMode();
+    float distanceToPlayer1Sqr;
+    float distanceToPlayer2Sqr;
+    bool testBool;
+
+
     public AIBehaviorMethods(BaseManager manager)
     {
         agent = manager;
+
+        //if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned == false)
+        //{
+        //    gameMode = GameMode.OnePlayer;
+        //}
+        //else
+        //{
+        //    gameMode = GameMode.TwoPlayer;
+        //}
+
     }
 
     public Transform CalculateClosestTarget()
     {
-        float distanceToPlayer1Sqr = (agent.transform.position - agent.player1.transform.position).sqrMagnitude;
-        float distanceToPlayer2Sqr = (agent.transform.position - agent.player2.transform.position).sqrMagnitude;
+        testBool = Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned;
 
-        if (distanceToPlayer1Sqr < distanceToPlayer2Sqr)
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned == false)
         {
-            return agent.player1.transform;
+            gameMode = GameMode.OnePlayer;
         }
         else
         {
-            return agent.player2.transform;
+            gameMode = GameMode.TwoPlayer;
         }
+
+        switch (gameMode)
+        {
+            case GameMode.OnePlayer:
+
+                return agent.player1.transform;
+
+            case GameMode.TwoPlayer:
+
+                if (agent.playerManager1._bIsPlayerDisabled)
+                {
+                    return agent.player2.transform;
+                }
+                else if (agent.playerManager2._bIsPlayerDisabled)
+                {
+                    return agent.player1.transform;
+                }
+                distanceToPlayer1Sqr = (agent.transform.position - agent.player1.transform.position).sqrMagnitude;
+                distanceToPlayer2Sqr = (agent.transform.position - agent.player2.transform.position).sqrMagnitude;
+
+                if (distanceToPlayer1Sqr < distanceToPlayer2Sqr)
+                {
+                    return agent.player1.transform;
+                }
+                else
+                {
+                    return agent.player2.transform;
+                }
+
+            default:
+
+                Debug.Log("AGENT CANNOT FIND PLAYER TARGET");
+                return null;
+
+        }
+
     }
 
     public bool IsAttackAllowed()
