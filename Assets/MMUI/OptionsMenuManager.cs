@@ -36,9 +36,17 @@ public class OptionsMenuManager : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
     }
 
-    public void SetVolume (float volume)
+    public void SetMasterVolume (float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        audioMixer.SetFloat("MasterVolume", volume);
+    }
+    public void SetSFXVolume(float volume)
+    {
+        audioMixer.SetFloat("SFXVolume", volume);
+    }
+    public void SetMusicVolume(float volume)
+    {
+        audioMixer.SetFloat("MusicVolume", volume);
     }
 
     public void SetQuality (int qualityIndex)
