@@ -28,6 +28,7 @@ public class DissolveManager : MonoBehaviour
     public GameObject sciFiArena;
 
     public GameObject floor;
+    public Material startFloorMaterial;
     public Material romanFloorMaterial;
     public Material fantasyFloorMaterial;
     public Material pirateFloorMaterial;
@@ -79,7 +80,6 @@ public class DissolveManager : MonoBehaviour
         materialYRanges.Add(currentDayMaterials, new Vector2(3, initialOffsetsCurrentDay)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(sciFiMaterials, new Vector2(110, initialOffsetsSciFi)); // Roman Y range: 0.2 to -0.1
 
-        StartCoroutine(DissolveAndChangeMaterial(romanFloorMaterial, fantasyFloorMaterial));
     }
 
     private void Update()
@@ -89,6 +89,8 @@ public class DissolveManager : MonoBehaviour
         {
             romanArena.SetActive(true);
             ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f, sciFiArena);
+            StartCoroutine(InitialDissolveAndChangeMaterial(romanFloorMaterial));
+
             hasChangedToRoman = true;
         }
         if (WaveManager.currentWave == 10 && !hasChangedToFantasy)
@@ -96,36 +98,47 @@ public class DissolveManager : MonoBehaviour
 
             fantasyArena.SetActive(true);
             ChangeArena(fantasyMaterials, 25f, initialOffsetsFantasy, romanArena);
+            StartCoroutine(DissolveAndChangeMaterial(romanFloorMaterial, fantasyFloorMaterial));
+
             hasChangedToFantasy = true;
         }
         if (WaveManager.currentWave == 20 && !hasChangedToPirate)
         {
             pirateArena.SetActive(true);
             ChangeArena(pirateMaterials, 25f, initialOffsetsPirate, fantasyArena);
+            StartCoroutine(DissolveAndChangeMaterial(fantasyFloorMaterial, pirateFloorMaterial));
+
             hasChangedToPirate = true;
         }
         if (WaveManager.currentWave == 30 && !hasChangedToWestern)
         {
             westernArena.SetActive(true);
             ChangeArena(westernMaterials, 25f, initialOffsetsWestern, pirateArena);
+            StartCoroutine(DissolveAndChangeMaterial(pirateFloorMaterial, westernFloorMaterial));
+
             hasChangedToWestern = true;
         }
         if (WaveManager.currentWave == 40 && !hasChangedToFarm)
         {
             farmArena.SetActive(true);
             ChangeArena(farmMaterials, 10f, initialOffsetsFarm, westernArena);
+            StartCoroutine(DissolveAndChangeMaterial(westernFloorMaterial, farmFloorMaterial));
             hasChangedToFarm = true;
         }
         if (WaveManager.currentWave == 50 && !hasChangedToCurrentDay)
         {
             currentDayArena.SetActive(true);
             ChangeArena(currentDayMaterials, 3f, initialOffsetsCurrentDay, farmArena);
+            StartCoroutine(DissolveAndChangeMaterial(farmFloorMaterial, currentDayFloorMaterial));
+
             hasChangedToCurrentDay = true;
         }
         if (WaveManager.currentWave == 60 && !hasChangedToSciFi)
         {
             sciFiArena.SetActive(true);
             ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
+            StartCoroutine(DissolveAndChangeMaterial(currentDayFloorMaterial, sciFiFloorMaterial));
+
             hasChangedToSciFi = true;
         }
 
@@ -198,20 +211,43 @@ public class DissolveManager : MonoBehaviour
 
     private IEnumerator DissolveAndChangeMaterial(Material oldMaterial, Material newMaterial)
     {
+        float dissolveValue;
         // Phase 1: Dissolve from 0 to 100
-        float dissolveValue = 0;
-        while (dissolveValue < 1)
+        currentFloorMaterial = oldMaterial;
+            dissolveValue = 0;
+            while (dissolveValue < 1)
+            {
+                dissolveValue += Time.deltaTime / 3f;
+                UpdateDissolve(dissolveValue);
+                yield return null;
+            }
+        
+        // Change material after dissolve reaches 100%
+        floorRenderer.material = newMaterial; // You can change this to any material you'd like
+
+        currentFloorMaterial = newMaterial;
+        oldMaterial.SetFloat("_Dissolve", 0);
+        // Phase 2: Dissolve from 100 to 0
+        dissolveValue = 1;
+        while (dissolveValue > 0)
         {
-            dissolveValue += Time.deltaTime / 3f;
+            dissolveValue -= Time.deltaTime / 3f;
             UpdateDissolve(dissolveValue);
             yield return null;
         }
 
-        // Change material after dissolve reaches 100%
-        floorRenderer.material = fantasyFloorMaterial; // You can change this to any material you'd like
+    }
+
+    private IEnumerator InitialDissolveAndChangeMaterial(Material newMaterial)
+    {
+        float dissolveValue;
+        // Phase 1: Dissolve from 0 to 100
         
-        currentFloorMaterial = fantasyFloorMaterial;
-        oldMaterial.SetFloat("_Dissolve", 0);
+
+        // Change material after dissolve reaches 100%
+        floorRenderer.material = newMaterial; // You can change this to any material you'd like
+
+        currentFloorMaterial = newMaterial;
         // Phase 2: Dissolve from 100 to 0
         dissolveValue = 1;
         while (dissolveValue > 0)
@@ -226,9 +262,9 @@ public class DissolveManager : MonoBehaviour
     private void UpdateDissolve(float dissolveValue)
     {
         // Ensure the material has a dissolve property to update
-        
-            currentFloorMaterial.SetFloat("_Dissolve", dissolveValue);
-        
+
+        currentFloorMaterial.SetFloat("_Dissolve", dissolveValue);
+
     }
 
 
@@ -257,6 +293,14 @@ public class DissolveManager : MonoBehaviour
         hasChangedToFantasy = false;
         hasChangedToCurrentDay = false;
         hasChangedToSciFi = false;
+
+        romanFloorMaterial.SetFloat("_Dissolve", 1);
+        fantasyFloorMaterial.SetFloat("_Dissolve", 1);
+        pirateFloorMaterial.SetFloat("_Dissolve", 1);
+        westernFloorMaterial.SetFloat("_Dissolve", 1);
+        farmFloorMaterial.SetFloat("_Dissolve", 1);
+        currentDayFloorMaterial.SetFloat("_Dissolve", 1);
+        sciFiFloorMaterial.SetFloat("_Dissolve", 1);
     }
 
     private void ResetMaterialGroup(Material[] materials, float initialOffset)
