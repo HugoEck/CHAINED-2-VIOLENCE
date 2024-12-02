@@ -17,14 +17,17 @@ public class BoulderManager : MonoBehaviour
     [SerializeField] public GameObject portalParticle;
     [SerializeField] public GameObject dustParticle;
 
+
     // PRIVATE
     private float boulderDamage = 3f;
     private float dustSpawnTimer = 0f;
     private float dustSpawnInterval = 0.4f;
+    private float damageCooldownDuration = 3f; // Cooldown duration in seconds
 
     private Vector3 moveDirection;
     private Vector3 targetPosition;
 
+    private Dictionary<GameObject, float> damageCooldowns = new Dictionary<GameObject, float>();
     private Rigidbody rb;
     #endregion
 
@@ -98,10 +101,20 @@ public class BoulderManager : MonoBehaviour
 
             if (player != null)
             {
-                Debug.Log("Player hit by boulder. Current health: " + player.currentHealth);
+                // Check if the player is on cooldown
+                if (damageCooldowns.TryGetValue(collision.gameObject, out float lastDamageTime))
+                {
+                    // Skip if still on cooldown
+                    if (Time.time - lastDamageTime < damageCooldownDuration)
+                        return;
+                }
 
                 // Apply damage to the player
+                Debug.Log($"Player hit by boulder. Current health: {player.currentHealth}");
                 player.SetHealth(boulderDamage);
+
+                // Update the cooldown time for this player
+                damageCooldowns[collision.gameObject] = Time.time;
 
                 // Skip further processing to ensure the boulder keeps its direction
                 return;
@@ -203,11 +216,13 @@ public class BoulderManager : MonoBehaviour
     }
     #endregion
 
+    #region DESTROY BOULDER
     private IEnumerator DestroyBoulderWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
+    #endregion
 
     #region TARGET & TORQUE
     private Vector3 DetermineTargetPosition(Vector3 spawnPosition)
