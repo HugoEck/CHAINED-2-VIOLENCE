@@ -10,6 +10,11 @@ public class MoveToPosition : Node
     public override NodeState Evaluate(BaseManager agent)
     {
         BannerManManager bm = agent as BannerManManager;
+
+        agent.animator.SetBool("BannerMan_Running", true);
+        agent.animator.SetBool("BannerMan_Scared", false);
+        agent.animator.SetBool("BannerMan_Electrocute", false);
+
         agent.navigation.isStopped = false;
         agent.navigation.destination = bm.newDestination;
         float distance = Vector3.Distance(agent.transform.position, bm.newDestination);

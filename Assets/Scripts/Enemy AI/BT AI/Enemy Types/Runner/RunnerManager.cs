@@ -25,8 +25,8 @@ public class RunnerManager : BaseManager
 
     private void FixedUpdate()
     {
-        FixedEvaluate();
-        //rootNode.Evaluate(this);
+        //FixedEvaluate();
+        rootNode.Evaluate(this);
     }
 
     private void LoadStats()
