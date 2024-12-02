@@ -21,6 +21,9 @@ public class StatsTransfer : MonoBehaviour
     public static float Player2WalkingSpeed { get; set; }
     public static float CurrentChainLength { get; set; }
 
+    private PlayerAttributes player1Attributes;
+    private PlayerAttributes player2Attributes;
+
     private bool _bHasPlayer1HpBeenSet = false;
     private bool _bHasPlayer2HpBeenSet = false;
 
@@ -32,34 +35,76 @@ public class StatsTransfer : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             player1.GetComponent<Player>().PlayerSpawnedIn += OnPlayer1SpawnedIn;
             player2.GetComponent<Player>().PlayerSpawnedIn += OnPlayer2SpawnedIn;
+            if (player1 != null) player1Attributes = player1.GetComponent<PlayerAttributes>();
+            if (player2 != null) player2Attributes = player2.GetComponent<PlayerAttributes>();
+
+            ApplyStats();
         }
+
         else
         {
             Destroy(gameObject);
         }
     }
+
     private void OnDestroy()
     {
         player1.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer1SpawnedIn;
         player2.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer2SpawnedIn;
+        SaveStats();
     }
+
+    public void ApplyStats()
+    {
+        if (player1Attributes != null)
+        {
+            player1Attributes.AdjustAttackDamage(Player1AttackDamage);
+            player1Attributes.AdjustMaxHP(Player1MaxHealth);
+            player1Attributes.AdjustMovementSpeed(Player1WalkingSpeed);
+        }
+
+        if (player2Attributes != null)
+        {
+            player2Attributes.AdjustAttackDamage(Player2AttackDamage);
+            player2Attributes.AdjustMaxHP(Player2MaxHealth);
+            player2Attributes.AdjustMovementSpeed(Player2WalkingSpeed);
+        }
+    }
+
+    public void SaveStats()
+    {
+        if (player1Attributes != null)
+        {
+            Player1AttackDamage = player1Attributes.attackDamage;
+            Player1MaxHealth = player1Attributes.maxHP;
+            Player1WalkingSpeed = player1Attributes.movementSpeed;
+        }
+
+        if (player2Attributes != null)
+        {
+            Player2AttackDamage = player2Attributes.attackDamage;
+            Player2MaxHealth = player2Attributes.maxHP;
+            Player2WalkingSpeed = player2Attributes.movementSpeed;
+        }
+    }
+
 
     private void OnPlayer2SpawnedIn(float maxHealth)
     {
-        if(!_bHasPlayer2HpBeenSet)
+        if (!_bHasPlayer2HpBeenSet)
         {
             Player2Health = maxHealth;
             _bHasPlayer2HpBeenSet = true;
-        }    
+        }
     }
 
     private void OnPlayer1SpawnedIn(float maxHealth)
     {
-        if(!_bHasPlayer1HpBeenSet)
+        if (!_bHasPlayer1HpBeenSet)
         {
             Player1Health = maxHealth;
             _bHasPlayer1HpBeenSet = true;
         }
-       
+
     }
 }

@@ -14,12 +14,37 @@ public class PlayerAttributes : MonoBehaviour
     public float knockBack { get; private set; }
     public float attackSpeed { get; private set; }
 
-    private float _upgradeAttackDamage; 
-    private float _upgradeMaxHP; 
+    private float _upgradeAttackDamage;
+    private float _upgradeMaxHP;
     private float _upgradeMovementSpeed;
     private float _upgrademMass; 
     private float _upgradeKnockBack; 
-    private float _upgradeAttackSpeed; 
+    private float _upgradeAttackSpeed;
+
+    // Base attributes for upgrade system.
+    private float _baseAttackDamage;
+    private float _baseMaxHP;
+    private float _baseMovementSpeed;
+    private float _baseAttackSpeed;
+
+    #region Methods for the Upgrade System.
+    public void UpgradeAttackDamage(float damageAmount) {
+        _upgradeAttackDamage += damageAmount;
+        attackDamage = Mathf.Max(0, _baseAttackDamage + _upgradeAttackDamage);
+    }
+    public void UpgradeMaxHealth(float healthAmount) {
+        _upgradeMaxHP += healthAmount;
+        maxHP = Mathf.Max(0, _baseMaxHP + _upgradeMaxHP);
+    }
+    public void UpgradeMovementSpeed(float movementSpeedAmount) {
+        _upgradeMovementSpeed += movementSpeedAmount;
+        movementSpeed = Mathf.Max(0, _baseMovementSpeed + _upgradeMovementSpeed);
+    }
+    public void UpgradeAttackSpeed(float attackSpeedAmount) {
+        _upgradeAttackSpeed += attackSpeedAmount;
+        attackSpeed = Mathf.Max(0, _baseAttackSpeed + _upgradeAttackSpeed);
+    } 
+    #endregion
 
     #region UPGRADE METHODS FOR PLAYER ATTRIBUTES
 
@@ -59,6 +84,13 @@ public class PlayerAttributes : MonoBehaviour
         _currentPlayerClass.OnClassSwitched += PlayerCombatOnClassSwitched;
 
         //SetBaseValues(_currentPlayerClass.currentPlayerClass);
+
+        #region Base Attributes for upgrade system.
+        _baseAttackDamage = attackDamage;
+        _baseMaxHP = maxHP;
+        _baseMovementSpeed = movementSpeed;
+        _baseAttackSpeed = attackSpeed;
+        #endregion
     }
     private void OnDestroy()
     {
