@@ -11,8 +11,8 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
   
     [SerializeField] private float _playerRotateSpeedMouse = 5.0f;
     [SerializeField] private float _playerRotateSpeedJoystick = 10.0f;
+    [SerializeField] private PlayerAttributes playerAttributes;
 
-    public float _walkingSpeed { get; set; }
     private Camera _mainCameraReference;
 
     private Rigidbody _playerRigidBody;
@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 
     private Vector2 _playerMoveDirection = Vector2.zero; // Direction on 2d plane (movement input)
     private Vector3 _isometricPlayerMoveDirection = Vector3.zero; // Adjust the player direction based on camera angle
-    public float originalWalkingSpeed { get; private set; }
 
     private Vector3 _externalForce = Vector3.zero;
 
@@ -35,7 +34,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         _mainCameraReference = Camera.main;
         _playerRigidBody = GetComponent<Rigidbody>();
 
-        originalWalkingSpeed = _walkingSpeed;
 
         _groundLayer = LayerMask.GetMask("Ground");
     }
@@ -71,7 +69,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
             // Avoid faster diagonal speed
             _isometricPlayerMoveDirection.Normalize();
 
-            float playerSpeedDt = _walkingSpeed * Time.deltaTime;
+            float playerSpeedDt = playerAttributes.movementSpeed * Time.deltaTime;
 
             Vector3 newVelocity = new Vector3(
                 _isometricPlayerMoveDirection.x * playerSpeedDt,
@@ -118,18 +116,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 
         // Normalize the vector to ensure consistent movement speed
         return cameraVector.normalized;
-    }
-
-
-    // Used for upgrading the player movement speed thru the upgrade system.
-    public void SetWalkingSpeed(float newSpeed)
-    {
-        _walkingSpeed = newSpeed;
-    }
-
-    public float GetWalkingSpeed()
-    {
-        return _walkingSpeed;
     }
 
     #endregion
