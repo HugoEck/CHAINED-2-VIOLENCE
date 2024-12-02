@@ -12,6 +12,7 @@ public class StunAgent : Node
 
         agent.navigation.isStopped = true;
         agent.chainEffects.stunActivated = true;
+        SetAnimation(agent);
 
         if (!isStunInitialized)
         {
@@ -38,17 +39,105 @@ public class StunAgent : Node
 
     private void SetAnimation(BaseManager agent)
     {
+        if (agent.enemyID == "Plebian")
+        {
+            SetAnimationPlebian(agent);
+        }
+        else if (agent.enemyID == "Runner")
+        {
+            SetAnimationRunner(agent);
+        }
+        else if (agent.enemyID == "RockThrower")
+        {
+            SetAnimationRockThrower(agent);
+        }
+        else if (agent.enemyID == "Swordsman")
+        {
+            SetAnimationSwordsman(agent);
+        }
+        else if (agent.enemyID == "BannerMan")
+        {
+            SetAnimationBannerMan(agent);
+        }
+    }
+
+    private void SetAnimationPlebian(BaseManager agent)
+    {
         if (agent.chainEffects.stunType == "Ghost")
         {
-            //IMPLEMENTERA GHOST ANIMATION HÄR
+            agent.animator.SetBool("Plebian_Scared", true);
         }
 
-        if (agent.chainEffects.stunType == "Shock")
+        else if (agent.chainEffects.stunType == "Shock")
         {
-            //IMPLEMENTERA SHOCK ANIMATION HÄR
+            agent.animator.SetBool("Plebian_Electrocute", true);
         }
 
-        //STÄNG AV ALLA ANDRA ANIMATIONER
+        agent.animator.SetBool("Plebian_Attack", false);
+        agent.animator.SetBool("Plebian_Chase", false);
+    }
+
+    private void SetAnimationRunner(BaseManager agent)
+    {
+        if (agent.chainEffects.stunType == "Ghost")
+        {
+            agent.animator.SetBool("Runner_Scared", true);
+        }
+
+        else if (agent.chainEffects.stunType == "Shock")
+        {
+            agent.animator.SetBool("Runner_Electrocute", true);
+        }
+
+        agent.animator.SetBool("Runner_Attack", false);
+        agent.animator.SetBool("Runner_Chase", false);
+    }
+
+    private void SetAnimationRockThrower(BaseManager agent)
+    {
+        if (agent.chainEffects.stunType == "Ghost")
+        {
+            agent.animator.SetBool("RockThrower_Scared", true);
+        }
+
+        else if (agent.chainEffects.stunType == "Shock")
+        {
+            agent.animator.SetBool("RockThrower_Electrocute", true);
+        }
+
+        agent.animator.SetBool("RockThrower_Attack", false);
+        agent.animator.SetBool("RockThrower_Chase", false);
+        agent.animator.SetBool("RockThrower_Idle", false);
+    }
+    private void SetAnimationSwordsman(BaseManager agent)
+    {
+        if (agent.chainEffects.stunType == "Ghost")
+        {
+            agent.animator.SetBool("Swordsman_Scared", true);
+        }
+
+        else if (agent.chainEffects.stunType == "Shock")
+        {
+            agent.animator.SetBool("Swordsman_Electrocute", true);
+        }
+
+        agent.animator.SetBool("Swordsman_Attack", false);
+        agent.animator.SetBool("Swordsman_Chase", false);
+
+    }
+    private void SetAnimationBannerMan(BaseManager agent)
+    {
+        if (agent.chainEffects.stunType == "Ghost")
+        {
+            agent.animator.SetBool("BannerMan_Scared", true);
+        }
+
+        else if (agent.chainEffects.stunType == "Shock")
+        {
+            agent.animator.SetBool("BannerMan_Electrocute", true);
+        }
+
+        agent.animator.SetBool("BannerMan_Running", false);
     }
 }
 

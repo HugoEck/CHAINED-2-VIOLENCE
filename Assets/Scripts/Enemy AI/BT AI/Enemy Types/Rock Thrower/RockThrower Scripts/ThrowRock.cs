@@ -8,7 +8,9 @@ public class ThrowRock : Node
     public override NodeState Evaluate(BaseManager agent)
     {
         agent.animator.SetBool("RockThrower_Chase", false);
-        
+        agent.animator.SetBool("RockThrower_Electrocute", false);
+        agent.animator.SetBool("RockThrower_Scared", false);
+
         RockThrowerManager rockThrower = agent as RockThrowerManager;
 
         if (agent.behaviorMethods.IsAttackAllowed())
