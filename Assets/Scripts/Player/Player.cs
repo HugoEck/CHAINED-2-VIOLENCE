@@ -20,13 +20,15 @@ public class Player : MonoBehaviour
     private AnimationStateController _animationStateController;
 
     private Collider _playerCollider;
+    private Rigidbody _playerRigidbody;
+    [SerializeField] private PlayerAttributes playerAttributes;
 
     #endregion
 
     #region Player attributes
 
     [Header("Player attributes")]
-    [SerializeField] private float _maxHealth;
+    private float _maxHealth;
     public float currentHealth { get; private set; }
     public float InitialMaxHealth { get; private set; }
 
@@ -101,33 +103,12 @@ public class Player : MonoBehaviour
         _animationStateController = GetComponent<AnimationStateController>();
 
         _playerCollider = GetComponent<Collider>();
-
+        _playerRigidbody = GetComponent<Rigidbody>();
         #endregion
 
         #region Set attributes
 
-        currentHealth = _maxHealth;
-
-        if (_playerId == 1)
-        {
-            //_maxHealth = StatsTransfer.Player1MaxHealth > 0 ? StatsTransfer.Player1MaxHealth : _maxHealth;
-            //currentHealth = StatsTransfer.Player1Health > 0 ? StatsTransfer.Player1Health : _maxHealth;
-
-
-            PlayerSpawnedIn?.Invoke(_maxHealth);
-            _maxHealth = StatsTransfer.Player1Health;
-        }
-        else if (_playerId == 2)
-        {
-            //_maxHealth = StatsTransfer.Player2MaxHealth > 0 ? StatsTransfer.Player2MaxHealth : _maxHealth;
-            //currentHealth = StatsTransfer.Player2Health > 0 ? StatsTransfer.Player2Health : _maxHealth;
-
-            PlayerSpawnedIn?.Invoke(_maxHealth);
-            _maxHealth = StatsTransfer.Player2Health;
-        }
-
-        InitialMaxHealth = _maxHealth;
-        currentHealth = _maxHealth;
+       
 
         _defaultIgnoreCollisionLayer = _playerCollider.excludeLayers.value;
 
@@ -147,6 +128,12 @@ public class Player : MonoBehaviour
             DisableColliders();
         else
             EnableColliders();
+
+        playerAttributes.SetBaseValues(_playerCombat.currentPlayerClass);
+        _playerMovement._walkingSpeed = playerAttributes.movementSpeed;
+        _maxHealth = playerAttributes.maxHP;
+        currentHealth = _maxHealth;
+        InitialMaxHealth = _maxHealth;
     }
     private void FixedUpdate()
     {
@@ -573,11 +560,13 @@ public class Player : MonoBehaviour
         if (GhostChain._bIsGhostChainActive)
         {
             _playerCollider.excludeLayers = GhostChain.ignoreCollisionLayers;
+            _playerRigidbody.excludeLayers = GhostChain.ignoreCollisionLayers;
 
         }
         else
         {
             _playerCollider.excludeLayers = _defaultIgnoreCollisionLayer;
+            _playerRigidbody.excludeLayers = _defaultIgnoreCollisionLayer;
         }
 
     }

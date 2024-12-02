@@ -62,7 +62,7 @@ public class FireSpread : MonoBehaviour
         if (_damageTimer >= _damageInterval)
         {
             // Apply damage to the enemy
-            enemyManager.DealDamageToEnemy(_fireDamage);
+            enemyManager.DealDamageToEnemy(_fireDamage, BaseManager.DamageType.UltimateAbilityDamage);
             _damageTimer = 0f; // Reset the damage timer
         }
     }

@@ -7,6 +7,11 @@ public class Player2StartCombo : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if(Player2ComboManager.instance.bIsPlayer2Attacking)
+        {
+            animator.SetBool("IsMoving", false);
+            Attack(animator);
+        }
         Player2ComboManager.instance.bIsPlayer2Attacking = false;
         animator.SetBool("ComboCancelled", false);
         animator.SetBool("ComboOver", true);
@@ -15,6 +20,33 @@ public class Player2StartCombo : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Attack(animator);
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (Player2ComboManager.instance.bIsPlayer2Attacking)
+        {
+            animator.SetBool("IsMoving", false);
+            Attack(animator);
+        }
+        Player2ComboManager.instance.bIsPlayer2Attacking = false;
+    }
+
+    // OnStateMove is called right after Animator.OnAnimatorMove()
+    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    // Implement code that processes and affects root motion
+    //}
+
+    // OnStateIK is called right after Animator.OnAnimatorIK()
+    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    // Implement code that sets up animation IK (inverse kinematics)
+    //}
+    private void Attack(Animator animator)
+    {
         if (!animator.IsInTransition(0) && Player2ComboManager.instance.bIsPlayer2Attacking && animator.GetBool("ComboOver"))
         {
             bool hasComboStarted = false;
@@ -22,7 +54,7 @@ public class Player2StartCombo : StateMachineBehaviour
             {
                 case Weapon.WeaponType.Unarmed:
 
-                    if(Player2ComboManager.instance.currentPlayer2Class == PlayerCombat.PlayerClass.Default) // Default
+                    if (Player2ComboManager.instance.currentPlayer2Class == PlayerCombat.PlayerClass.Default) // Default
                     {
                         hasComboStarted = true;
                         Player2ComboManager.instance.currentPlayer2ComboInSequence = ComboAnimationStatesData.unarmedSubStateDefault + "." + ComboAnimationStatesData.combosInUnarmedDefaultState[0];
@@ -99,23 +131,5 @@ public class Player2StartCombo : StateMachineBehaviour
 
         }
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        Player2ComboManager.instance.bIsPlayer2Attacking = false;
-    }
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 }
 

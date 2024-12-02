@@ -8,10 +8,11 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 {
     [Header("Player Movement")]
-    [SerializeField] private float _walkingSpeed = 200.0f;
+  
     [SerializeField] private float _playerRotateSpeedMouse = 5.0f;
     [SerializeField] private float _playerRotateSpeedJoystick = 10.0f;
 
+    public float _walkingSpeed { get; set; }
     private Camera _mainCameraReference;
 
     private Rigidbody _playerRigidBody;
@@ -33,15 +34,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     {
         _mainCameraReference = Camera.main;
         _playerRigidBody = GetComponent<Rigidbody>();
-
-        if (gameObject.CompareTag("Player1"))
-        {
-            _walkingSpeed = StatsTransfer.Player1WalkingSpeed > 0 ? StatsTransfer.Player1WalkingSpeed : _walkingSpeed;
-        }
-        else if (gameObject.CompareTag("Player2"))
-        {
-            _walkingSpeed = StatsTransfer.Player2WalkingSpeed > 0 ? StatsTransfer.Player2WalkingSpeed : _walkingSpeed;
-        }
 
         originalWalkingSpeed = _walkingSpeed;
 

@@ -16,7 +16,7 @@ public class GhostChainSegment : MonoBehaviour
             BaseManager enemyManager = other.GetComponent<BaseManager>();
             if (enemyManager != null)
             {
-                /// CALL MakeEnemyScared METHOD FROM HERE
+                enemyManager.chainEffects.ActivateGhostChainEffect(2);
             }
         }
     }

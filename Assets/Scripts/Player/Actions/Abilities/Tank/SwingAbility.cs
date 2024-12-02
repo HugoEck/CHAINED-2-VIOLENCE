@@ -22,7 +22,7 @@ public class SwingAbility : MonoBehaviour, IAbility
     private Rigidbody otherPlayerRb;      // Rigidbody of the other player
     private Rigidbody anchorRb;           // Rigidbody of this (anchor) player
 
-    public PlayerCombat playerCombat;
+    public PlayerAttributes playerAttributes;
     public GameObject swingEffectPrefab;
 
     private HashSet<Collider> hitEnemies;
@@ -34,7 +34,6 @@ public class SwingAbility : MonoBehaviour, IAbility
             otherPlayerRb = otherPlayer.GetComponent<Rigidbody>();
         }
         anchorRb = GetComponent<Rigidbody>(); // Get the Rigidbody of this player (anchor)
-        playerCombat = GetComponent<PlayerCombat>();
     }
 
     public void UseAbility()
@@ -53,7 +52,7 @@ public class SwingAbility : MonoBehaviour, IAbility
 
     void StartSwing()
     {
-        swingDamage = baseSwingDamage + playerCombat.attackDamage;
+        swingDamage = baseSwingDamage + playerAttributes.attackDamage;
 
         GameObject swingEffect = Instantiate(swingEffectPrefab, transform.position, Quaternion.identity);
 
@@ -113,7 +112,7 @@ public class SwingAbility : MonoBehaviour, IAbility
                 BaseManager enemyManager = enemy.GetComponent<BaseManager>();
                 if (enemyManager != null)
                 {
-                    enemyManager.DealDamageToEnemy(baseSwingDamage);
+                    enemyManager.DealDamageToEnemy(baseSwingDamage, BaseManager.DamageType.AbilityDamage);
                     Debug.Log("Hit enemy during swing: " + enemy.name + swingDamage);
 
                     // Apply knockback force
@@ -121,8 +120,9 @@ public class SwingAbility : MonoBehaviour, IAbility
                     if (enemyRb != null)
                     {
                         Vector3 knockbackDirection = (enemy.transform.position - swingCenter).normalized;
-                        enemyRb.AddForce(knockbackDirection * 20f, ForceMode.Impulse); // Adjust force value as needed
+                        //enemyRb.AddForce(knockbackDirection * 20f, ForceMode.Impulse); // Adjust force value as needed
                     }
+                        enemyManager.chainEffects.ActivateRagdollStun(3, gameObject, 100);
                 }
             }
 

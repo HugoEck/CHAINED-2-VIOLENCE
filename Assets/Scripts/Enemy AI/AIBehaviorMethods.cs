@@ -137,6 +137,55 @@ public class AIBehaviorMethods
             aiPath.enabled = false;
             smoothing.enabled = false;
             destinationSetter.enabled = false;
+
+
+        }
+    }
+
+    public void ToggleRagdoll(bool enabled, Transform affectingTransform)
+    {
+        if (!enabled)
+        {
+            agent.animator.enabled = true;
+
+            foreach (Rigidbody rbs in rigidbodies)
+            {
+                rbs.isKinematic = true;
+                rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+            }
+
+            foreach (Collider capsule1 in capsuleColliders)
+            {
+                capsule1.enabled = false;
+            }
+            agent.c_collider.enabled = true;
+            agent.rb.isKinematic = false;
+            obiCollider.enabled = true;
+            obiRb.enabled = true;
+            aiPath.enabled = true;
+            smoothing.enabled = true;
+            destinationSetter.enabled = true;
+        }
+        else
+        {
+            agent.animator.enabled = false;
+
+            foreach (Rigidbody rbs in rigidbodies)
+            {
+                rbs.isKinematic = false;
+                rbs.constraints = RigidbodyConstraints.None;
+            }
+            foreach (Collider capsule1 in capsuleColliders)
+            {
+                capsule1.enabled = true;
+            }
+            obiCollider.enabled = false;
+            obiRb.enabled = false;
+            aiPath.enabled = false;
+            smoothing.enabled = false;
+            destinationSetter.enabled = false;
+
+
         }
     }
     public void GetRagdollComponents(BaseManager agent)

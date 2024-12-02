@@ -127,15 +127,15 @@ public class UpgradeManager : MonoBehaviour
     {
         damageUpgrade.Upgrade();
 
-        if (player1Combat != null)
-        {
-            StatsTransfer.Player1AttackDamage = player1Combat.attackDamage;
-        }
+        //if (player1Combat != null)
+        //{
+        //    StatsTransfer.Player1AttackDamage = player1Combat.attackDamage;
+        //}
 
-        if (player2Combat != null)
-        {
-            StatsTransfer.Player2AttackDamage = player2Combat.attackDamage;
-        }
+        //if (player2Combat != null)
+        //{
+        //    StatsTransfer.Player2AttackDamage = player2Combat.attackDamage;
+        //}
 
         UpdateUpgradeLevelText();
     }

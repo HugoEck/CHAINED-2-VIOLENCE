@@ -6,6 +6,7 @@ public class BannerLogic : BaseManager
 {
     [HideInInspector] public float buffMultiplier = 1.25f; 
     private HashSet<BaseManager> buffedEnemies = new HashSet<BaseManager>();
+    [SerializeField] GameObject buffParticle;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class BannerLogic : BaseManager
             {
                 buffedEnemies.Add(agent);
                 agent.behaviorMethods.BannerManBuff(buffMultiplier);
+                Instantiate(buffParticle, agent.transform);
             }
 
         }

@@ -9,6 +9,14 @@ using UnityEngine.AI;
 public class BaseManager : MonoBehaviour
 {
 
+    public enum DamageType
+    {
+        WeaponDamage,
+        UnarmedDamage,
+        TrapsDamage,
+        AbilityDamage,
+        UltimateAbilityDamage
+    }
     //Detta skript innehåller alla baskomponenter, basvariabler och basmetoder för alla andra enemy managers.
 
     //----------------------------------------------------------------------------------------
@@ -87,15 +95,21 @@ public class BaseManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            chainEffects.ActivateRagdollStun(4);
+            chainEffects.ActivateRagdollStun(4, this.gameObject, 100);
         }
         visuals.FlashColor();
     }
-    public virtual void DealDamageToEnemy(float damage)
+    public virtual void DealDamageToEnemy(float damage, DamageType damageType)
     {
+        if(damageType == DamageType.WeaponDamage || damageType == DamageType.UnarmedDamage)
+        {
+            particleEffects.ActivateHitParticles(transform);
+        }
+        
         if (defense - damage < 0)
         {
             particleEffects.ActivateBloodParticles(transform);
+            
             currentHealth = currentHealth + defense - damage;
 
 

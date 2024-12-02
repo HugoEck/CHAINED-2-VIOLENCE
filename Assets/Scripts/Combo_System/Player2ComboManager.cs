@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player2ComboManager : MonoBehaviour
@@ -12,6 +13,13 @@ public class Player2ComboManager : MonoBehaviour
     [SerializeField] private PlayerCombat player2Combat;
     [SerializeField] private PlayerAttributes _player2Attributes;
     [SerializeField] private WeaponManager player2WeaponManager;
+
+    [Header("Unarmed slash effect")]
+    [SerializeField] private GameObject[] _defaultSlashes;
+    [SerializeField] private GameObject[] _tankSlashes;
+    [SerializeField] private GameObject[] _warriorSlashes;
+    [SerializeField] private GameObject[] _rangedSlashes;
+    [SerializeField] private GameObject[] _supportSlashes;
 
     public PlayerCombat.PlayerClass currentPlayer2Class { get; private set; }
 
@@ -91,7 +99,6 @@ public class Player2ComboManager : MonoBehaviour
 
     private void OnDestroy()
     {
-
         player2WeaponManager.OnWeaponEquipped -= WeaponManager_OnWeaponEquippedPlayer2;
         player2WeaponManager.OnWeaponBroken -= WeaponManager_OnWeaponBrokenPlayer2;
         player2Combat.OnClassSwitched -= PlayerCombatOnClassSwitched;
@@ -107,7 +114,7 @@ public class Player2ComboManager : MonoBehaviour
 
     }
 
-    public void DealDamageToEnemies(float attackRange, float attackDamage)
+    public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce, float maxAngle)
     {
         bool durabilityReduced = false;
 
@@ -116,7 +123,7 @@ public class Player2ComboManager : MonoBehaviour
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange + weaponSlashSize + 3);
         foreach (Collider enemy in hitEnemies)
         {
-            float maxAngleCos = Mathf.Cos(90 * Mathf.Deg2Rad);
+            float maxAngleCos = Mathf.Cos(maxAngle * Mathf.Deg2Rad);
 
             // Calculate direction to the enemy
             Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
@@ -128,8 +135,16 @@ public class Player2ComboManager : MonoBehaviour
                 if (enemyManager != null)
                 {
                     // Deal damage if within cone
-                    enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage);
-                    Debug.Log("Hit enemy: " + enemy.name);
+                    if (currentPlayer2Weapon != null)
+                    {
+                        enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage, BaseManager.DamageType.WeaponDamage);
+                    }
+                    else
+                    {
+                        enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage);
+                    }
+                    enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
+
 
                     if (_currentPlayer2WeaponObject != null)
                     {
@@ -143,20 +158,41 @@ public class Player2ComboManager : MonoBehaviour
                 }
             }
         }
+        
     }
 
     private void ApplyWeaponSlashEffect(int comboIndex)
     {
         if (currentAnimator.GetBool("WeaponSlash"))
         {
-            weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer2Weapon.playerPosition.position;
-            ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
-            var mainModule = particle.main;
-            mainModule.startSize = currentPlayer2Weapon.combos[comboIndex].attackRange;
-            weaponSlashSize = mainModule.startSize.constant;
+            if (currentPlayer2Weapon != null)
+            {
+                weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer2Weapon.playerPosition.position;
 
-            particle.Play();
-            currentAnimator.SetBool("WeaponSlash", false);
+                ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
+                var mainModule = particle.main;
+                mainModule.startSize = currentPlayer2Weapon.combos[comboIndex].attackRange;
+                weaponSlashSize = mainModule.startSize.constant;
+
+                particle.Play();
+                currentAnimator.SetBool("WeaponSlash", false);
+            }
+            else
+            {
+                if (currentPlayer2Class != PlayerCombat.PlayerClass.Default)
+                {
+                    ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
+                    var mainModule = particle.main;
+                    mainModule.startSize = player2UnarmedCombos[comboIndex].attackRange;
+                    weaponSlashSize = mainModule.startSize.constant;
+
+                    particle.Play();
+                    currentAnimator.SetBool("WeaponSlash", false);
+                }
+
+            }
+
+
         }
     }
     private void TriggerWeaponSlash()
@@ -221,8 +257,7 @@ public class Player2ComboManager : MonoBehaviour
     }
 
     private void PlayerCombatOnClassSwitched(PlayerCombat.PlayerClass newClass)
-    {
-        DefaultCombo();
+    {        
 
         if (newClass == PlayerCombat.PlayerClass.Default)
         {
@@ -255,6 +290,7 @@ public class Player2ComboManager : MonoBehaviour
             player2UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
         }
         currentPlayer2Class = newClass;
+        DefaultCombo();
     }
 
     public void AssignWeaponCombos(Weapon weapon)
@@ -296,30 +332,34 @@ public class Player2ComboManager : MonoBehaviour
     {
         currentEquippedPlayer2WeaponType = Weapon.WeaponType.Unarmed;
 
-
         if (currentPlayer2Class == PlayerCombat.PlayerClass.Default)
         {
             currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateDefault;
+            weaponSlashEffects = _defaultSlashes;
             player2UnarmedCombos = _availableUnarmedCombos.unarmedDefaultCombos;
         }
         else if (currentPlayer2Class == PlayerCombat.PlayerClass.Tank)
         {
             currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateTank;
+            weaponSlashEffects = _tankSlashes;
             player2UnarmedCombos = _availableUnarmedCombos.unarmedTankCombos;
         }
         else if (currentPlayer2Class == PlayerCombat.PlayerClass.Warrior)
         {
             currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateWarrior;
+            weaponSlashEffects = _warriorSlashes;
             player2UnarmedCombos = _availableUnarmedCombos.unarmedWarriorCombos;
         }
         else if (currentPlayer2Class == PlayerCombat.PlayerClass.Ranged)
         {
             currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateRanged;
+            weaponSlashEffects = _rangedSlashes;
             player2UnarmedCombos = _availableUnarmedCombos.unarmedRangedCombos;
         }
         else if (currentPlayer2Class == PlayerCombat.PlayerClass.Support)
         {
             currentPlayer2ComboSubstate = ComboAnimationStatesData.unarmedSubStateSupport;
+            weaponSlashEffects = _supportSlashes;
             player2UnarmedCombos = _availableUnarmedCombos.unarmedSupportCombos;
         }
     }

@@ -35,22 +35,22 @@ public class DamageUpgrade : UpgradeBase
         }
         #endregion
 
-        float newDamage = player1Combat.attackDamage + damageIncrease;
-        float maxAllowedDamage = initialAttackDamage * maxDamageMultiplier;
+        //float newDamage = player1Combat.attackDamage + damageIncrease;
+        //float maxAllowedDamage = initialAttackDamage * maxDamageMultiplier;
 
-        if (newDamage <= maxAllowedDamage)
-        {
-            player1Combat.SetAttackDamage(newDamage);
-            player2Combat.SetAttackDamage(newDamage);
-            currentLevel++;
+        //if (newDamage <= maxAllowedDamage)
+        //{
+        //    player1Combat.SetAttackDamage(newDamage);
+        //    player2Combat.SetAttackDamage(newDamage);
+        //    currentLevel++;
 
-            GoldDropManager.Instance.SpendGold(CalculateUpgradeCost());
-            Debug.Log("Damage upgraded - New Attack Damage: " + newDamage);
-        }
-        else
-        {
-            Debug.LogWarning("Max damage upgrade reached");
-            UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
-        }
+        //    GoldDropManager.Instance.SpendGold(CalculateUpgradeCost());
+        //    Debug.Log("Damage upgraded - New Attack Damage: " + newDamage);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Max damage upgrade reached");
+        //    UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
+        //}
     }
 }
