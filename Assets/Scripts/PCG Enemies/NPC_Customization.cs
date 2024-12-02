@@ -276,7 +276,7 @@ public class NPC_Customization : MonoBehaviour
         Rigidbody[] rigidbodies = enemy.GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody rbs in rigidbodies)
         {
-            rbs.isKinematic = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+            rbs.isKinematic = true; 
             rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         }
         Collider[] capsuleColliders = enemy.GetComponentsInChildren<Collider>();
