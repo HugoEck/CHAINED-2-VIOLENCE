@@ -1,13 +1,17 @@
+using HighlightPlus;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static ItemGenerator;
 
 public class Weapon : MonoBehaviour
 {
+
+
+
     public enum WeaponType
     {
         Unarmed, // Don't set this for the weapons, it's just default value for the combo manager
-
         TwoHanded,
         OneHanded,
         ReallyBigTwoHanded,
@@ -15,6 +19,18 @@ public class Weapon : MonoBehaviour
         Dagger,
         BigPen
     }
+
+    public enum WeaponRarity
+    {
+        Common,
+        Rare,
+        Epic,
+        Legendary
+    }
+
+    public WeaponRarity weaponRarity;
+    public HighlightEffect highlightEffect;
+
     [SerializeField] private GameObject OneHandSlashEffect;
     [SerializeField] private GameObject TwoHandSlashEffect;
     [SerializeField] private GameObject ReallyBigTwoHandSlashEffect;
@@ -36,11 +52,52 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         AssignWeaponSlashEffect();
+        UpdateGlowColor();
     }
-    
+
+    void Start()
+    {
+        
+    }
+
     public void DecreaseDurability()
     {
         durability -= 1;
+    }
+
+    public void UpdateGlowColor()
+    {
+        if (highlightEffect == null)
+        {
+            Debug.LogWarning("HighlightEffect script is not assigned!");
+            return;
+        }
+
+        // Color to assign to the glow
+        Color glowColor;
+
+        // Switch statement for assigning color based on rarity
+        switch (weaponRarity)
+        {
+            case WeaponRarity.Common:
+                glowColor = Color.green;
+                break;
+            case WeaponRarity.Rare:
+                glowColor = Color.blue;
+                break;
+            case WeaponRarity.Epic:
+                glowColor = Color.magenta;
+                break;
+            case WeaponRarity.Legendary:
+                glowColor = Color.yellow;
+                break;
+            default:
+                Debug.LogWarning("Unhandled rarity type: " + weaponRarity);
+                glowColor = Color.white; // Default fallback
+                break;
+        }
+
+        highlightEffect.SetGlowColor(glowColor);
     }
 
     private void AssignWeaponSlashEffect()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [Serializable]
 public class ClassWeaponParent
@@ -11,6 +12,7 @@ public class ClassWeaponParent
 
 public class WeaponManager : MonoBehaviour
 {
+    [SerializeField] private PlayerCombat playerCombat;
     [SerializeField] private List<ClassWeaponParent> classWeaponsParentsList;
     private Dictionary<PlayerCombat.PlayerClass, Transform> classWeaponsParents = new Dictionary<PlayerCombat.PlayerClass, Transform>();
     private GameObject currentWeapon;
@@ -29,8 +31,9 @@ public class WeaponManager : MonoBehaviour
             {
                 classWeaponsParents.Add(entry.playerClass, entry.weaponsParent);
             }
+            
         }
-        if (classWeaponsParents.TryGetValue(PlayerCombat.PlayerClass.Default, out var defaultWeaponsParent))
+        if (classWeaponsParents.TryGetValue(playerCombat.currentPlayerClass, out var defaultWeaponsParent))
         {
             LoadWeapons(defaultWeaponsParent);
         }
