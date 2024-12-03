@@ -7,6 +7,8 @@ public class WalkToPlayer : Node
     public override NodeState Evaluate(BaseManager agent)
     {
         agent.animator.SetBool("BannerMan_Running", true);
+        agent.animator.SetBool("BannerMan_Scared", false);
+        agent.animator.SetBool("BannerMan_Electrocute", false);
         
         BannerManManager bm = agent as BannerManManager;
         agent.navigation.isStopped = false;

@@ -9,20 +9,26 @@ public class BoulderManager : MonoBehaviour
     // PUBLIC
     public float despawnTime = 5f;
     public float boulderSpeed = 10f;
-    
+
     public List<GameObject> objectsToRemove = new List<GameObject>();
     public itemAreaSpawner spawner;
-    
+
     [SerializeField] public GameObject destructionParticle;
     [SerializeField] public GameObject portalParticle;
+    [SerializeField] public GameObject dustParticle;
+    public GameObject pathParticle; // Particle prefab for the path trail
 
     // PRIVATE
     private float boulderDamage = 3f;
+    private float dustSpawnTimer = 0f;
+    private float dustSpawnInterval = 0.4f;
+    private float damageCooldownDuration = 3f; // Cooldown duration in seconds
 
     private Vector3 moveDirection;
     private Vector3 targetPosition;
 
-
+    private GameObject currentPathParticle; // Reference to the active path particle
+    private Dictionary<GameObject, float> damageCooldowns = new Dictionary<GameObject, float>();
     private Rigidbody rb;
     #endregion
 
@@ -36,7 +42,9 @@ public class BoulderManager : MonoBehaviour
         }
 
         targetPosition = DetermineTargetPosition(transform.position);
-        moveDirection = (targetPosition - transform.position).normalized; // Properly calculate direction
+        moveDirection = (targetPosition - transform.position).normalized;
+
+        SpawnPathParticle();
     }
 
     private void FixedUpdate()
@@ -48,8 +56,61 @@ public class BoulderManager : MonoBehaviour
 
         // Apply torque to make it roll
         ApplyRollingTorque();
+        UpdatePathParticle();
+        SpawnDustParticles();
     }
 
+    #region Path Particle
+    private void SpawnPathParticle()
+    {
+        if (pathParticle != null)
+        {
+            // Instantiate the path particle at the boulder's spawn position
+            Vector3 particlePosition = transform.position;
+            Quaternion particleRotation = Quaternion.LookRotation(moveDirection);
+
+            currentPathParticle = Instantiate(pathParticle, particlePosition, particleRotation);
+            Debug.Log($"Path particle spawned at: {particlePosition}");
+        }
+        else
+        {
+            Debug.LogWarning("Path particle prefab is not assigned.");
+        }
+    }
+    private void UpdatePathParticle()
+    {
+        if (currentPathParticle != null)
+        {
+            // Move the particle along the boulder's path
+            currentPathParticle.transform.position = Vector3.MoveTowards(
+                currentPathParticle.transform.position,
+                targetPosition,
+                (boulderSpeed * 1.5f) * Time.fixedDeltaTime
+            );
+
+            // Update the rotation to always face the travel direction
+            currentPathParticle.transform.rotation = Quaternion.LookRotation(moveDirection);
+
+            // Destroy the path particle if it reaches the target position
+            if (Vector3.Distance(currentPathParticle.transform.position, targetPosition) < 0.1f)
+            {
+                Destroy(currentPathParticle);
+                currentPathParticle = null;
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Destroy the path particle when the boulder is destroyed
+        if (currentPathParticle != null)
+        {
+            Destroy(currentPathParticle);
+        }
+    }
+    #endregion
+
+    #region DAMAGE AND COLLIDE LOGIC
     private void OnCollisionEnter(Collision collision)
     {
         // Check for specific collision tags
@@ -94,10 +155,20 @@ public class BoulderManager : MonoBehaviour
 
             if (player != null)
             {
-                Debug.Log("Player hit by boulder. Current health: " + player.currentHealth);
+                // Check if the player is on cooldown
+                if (damageCooldowns.TryGetValue(collision.gameObject, out float lastDamageTime))
+                {
+                    // Skip if still on cooldown
+                    if (Time.time - lastDamageTime < damageCooldownDuration)
+                        return;
+                }
 
                 // Apply damage to the player
+                Debug.Log($"Player hit by boulder. Current health: {player.currentHealth}");
                 player.SetHealth(boulderDamage);
+
+                // Update the cooldown time for this player
+                damageCooldowns[collision.gameObject] = Time.time;
 
                 // Skip further processing to ensure the boulder keeps its direction
                 return;
@@ -155,20 +226,58 @@ public class BoulderManager : MonoBehaviour
             StartCoroutine(DestroyBoulderWithDelay(0.3f));
         }
     }
+    #endregion
+
+    #region PARTICLES
+    private void SpawnDustParticles()
+    {
+        // Update the dust spawn timer
+        dustSpawnTimer += Time.fixedDeltaTime;
+
+        // Check if it's time to spawn a new particle
+        if (dustSpawnTimer >= dustSpawnInterval)
+        {
+            dustSpawnTimer = 0f; // Reset the timer
+
+            if (dustParticle != null)
+            {
+                // Ensure the spawn position is at the center of the boulder's X and Z axes
+                Vector3 spawnPosition = new Vector3(
+                    transform.position.x,
+                    transform.position.y - (GetComponent<Collider>().bounds.extents.y + 0.2f), // Slightly below the boulder
+                    transform.position.z
+                );
+
+                Quaternion spawnRotation = Quaternion.identity;
+
+                // Adjust rotation to face the opposite of the boulder's velocity
+                if (rb != null && rb.velocity.magnitude > 0.1f)
+                {
+                    spawnRotation = Quaternion.LookRotation(-rb.velocity.normalized, Vector3.up);
+                }
+
+                // Instantiate the dust particle
+                GameObject dust = Instantiate(dustParticle, spawnPosition, spawnRotation);
+
+                // Destroy the particle after a short duration
+                Destroy(dust, 1f);
+            }
+            else
+            {
+                Debug.LogWarning("Dust particle prefab is not assigned.");
+            }
+        }
+    }
+    #endregion
+
+    #region DESTROY BOULDER
     private IEnumerator DestroyBoulderWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        Destroy(pathParticle);
         Destroy(gameObject);
     }
-    //private IEnumerator DeactivateRagdoll(BaseManager baseManager, float delay)
-    //{
-    //    yield return new WaitForSeconds(delay);
-    //    if (baseManager != null && baseManager.behaviorMethods != null)
-    //    {
-    //        baseManager.behaviorMethods.ToggleRagdoll(false);
-    //        Debug.Log("Ragdoll deactivated for: " + baseManager.gameObject.name);
-    //    }
-    //}
+    #endregion
 
     #region TARGET & TORQUE
     private Vector3 DetermineTargetPosition(Vector3 spawnPosition)
@@ -203,5 +312,4 @@ public class BoulderManager : MonoBehaviour
         rb.AddTorque(rollingAxis * torqueMagnitude, ForceMode.Acceleration);
     }
     #endregion
-    
 }

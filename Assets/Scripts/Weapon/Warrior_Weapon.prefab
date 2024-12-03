@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 2550396384967050671}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0018696813, y: 0.008524924, z: 0.00005758756, w: 0.999962}
-  m_LocalPosition: {x: -0, y: -0.782, z: -0.003}
+  m_LocalPosition: {x: 0, y: -0.782, z: -0.003}
   m_LocalScale: {x: 2.2000005, y: 2.2000005, z: 2.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14907,7 +14907,7 @@ Transform:
   m_GameObject: {fileID: 6373730580190222719}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0018696813, y: 0.008524924, z: 0.00005758756, w: 0.999962}
-  m_LocalPosition: {x: 0, y: -0.097, z: -0}
+  m_LocalPosition: {x: 0, y: -0.097, z: 0}
   m_LocalScale: {x: 1.4666669, y: 1.466667, z: 1.4666666}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24864,17 +24864,18 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2234932385064241055, guid: 40fe5114e1b7b184680717f868623884, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3176825188543343338, guid: 40fe5114e1b7b184680717f868623884,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3615601494588060940}
+      addedObject: {fileID: 1750515204004647324}
     - targetCorrespondingSourceObject: {fileID: 3176825188543343338, guid: 40fe5114e1b7b184680717f868623884,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1750515204004647324}
+      addedObject: {fileID: 3615601494588060940}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2836573981829754960, guid: 40fe5114e1b7b184680717f868623884,
         type: 3}
@@ -24892,6 +24893,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1354360339785308360}
+    - targetCorrespondingSourceObject: {fileID: 2836573981829754960, guid: 40fe5114e1b7b184680717f868623884,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3267488171747786742}
   m_SourcePrefab: {fileID: 100100000, guid: 40fe5114e1b7b184680717f868623884, type: 3}
 --- !u!4 &2627299749875529122 stripped
 Transform:
@@ -25159,6 +25164,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &3267488171747786742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404118370641899288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 2
 --- !u!1001 &2246343442303932470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25259,11 +25277,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3072130329792721875}
+      addedObject: {fileID: 318624474995341686}
     - targetCorrespondingSourceObject: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 318624474995341686}
+      addedObject: {fileID: 3072130329792721875}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9199442243369390583, guid: 031b58f6572dbc24e8ee6b81f88f351e,
         type: 3}
@@ -25281,6 +25299,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 27693339207111240}
+    - targetCorrespondingSourceObject: {fileID: 9199442243369390583, guid: 031b58f6572dbc24e8ee6b81f88f351e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5365166887477741883}
   m_SourcePrefab: {fileID: 100100000, guid: 031b58f6572dbc24e8ee6b81f88f351e, type: 3}
 --- !u!1 &6955359440191916481 stripped
 GameObject:
@@ -25542,6 +25564,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &5365166887477741883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955359440191916481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 1
 --- !u!4 &7768065197339366267 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
@@ -25631,17 +25666,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6764676798279060069, guid: 3ae6e1abb9097e04381f85ffa9d93a11, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3371309241931349038, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7411501474637980668}
+      addedObject: {fileID: 796238415251889409}
     - targetCorrespondingSourceObject: {fileID: 3371309241931349038, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 796238415251889409}
+      addedObject: {fileID: 7411501474637980668}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2702893461459134100, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
         type: 3}
@@ -25659,6 +25695,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 684328643641909561}
+    - targetCorrespondingSourceObject: {fileID: 2702893461459134100, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 540458783170993260}
   m_SourcePrefab: {fileID: 100100000, guid: 3ae6e1abb9097e04381f85ffa9d93a11, type: 3}
 --- !u!1 &1328975412299122733 stripped
 GameObject:
@@ -25920,6 +25960,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &540458783170993260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328975412299122733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 0
 --- !u!4 &1817950891716711063 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3371309241931349038, guid: 3ae6e1abb9097e04381f85ffa9d93a11,
@@ -26009,18 +26062,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword 3 (21)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5060124074165580405, guid: 12073530738e22e4aa112b732f4d0a86, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7250209499881883297, guid: 12073530738e22e4aa112b732f4d0a86, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4935791805954215282}
+      addedObject: {fileID: 1954705007566835443}
     - targetCorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1954705007566835443}
+      addedObject: {fileID: 4935791805954215282}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 783026104044848977, guid: 12073530738e22e4aa112b732f4d0a86,
         type: 3}
@@ -26038,6 +26092,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1031379039700104799}
+    - targetCorrespondingSourceObject: {fileID: 783026104044848977, guid: 12073530738e22e4aa112b732f4d0a86,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6264025305206193112}
   m_SourcePrefab: {fileID: 100100000, guid: 12073530738e22e4aa112b732f4d0a86, type: 3}
 --- !u!1 &3594646796827184214 stripped
 GameObject:
@@ -26299,6 +26357,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &6264025305206193112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594646796827184214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 1
 --- !u!4 &4226927987252074220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 114295038338653675, guid: 12073530738e22e4aa112b732f4d0a86,
@@ -26395,11 +26466,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1504632563863678750, guid: 431ec6dafbc34724788c5c6ff8c60aab,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8755448879427883565}
+      addedObject: {fileID: 59351013437165299}
     - targetCorrespondingSourceObject: {fileID: 1504632563863678750, guid: 431ec6dafbc34724788c5c6ff8c60aab,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 59351013437165299}
+      addedObject: {fileID: 8755448879427883565}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2281732870259357092, guid: 431ec6dafbc34724788c5c6ff8c60aab,
         type: 3}
@@ -26417,6 +26488,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3689648970998946252}
+    - targetCorrespondingSourceObject: {fileID: 2281732870259357092, guid: 431ec6dafbc34724788c5c6ff8c60aab,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8314210800140816508}
   m_SourcePrefab: {fileID: 100100000, guid: 431ec6dafbc34724788c5c6ff8c60aab, type: 3}
 --- !u!4 &7430607317409324499 stripped
 Transform:
@@ -26684,3 +26759,16 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &8314210800140816508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7806146976137447273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 0

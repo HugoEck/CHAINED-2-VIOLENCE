@@ -7,47 +7,78 @@ public class PlayerAttributes : MonoBehaviour
     [Header("Class specific attributes")]
     [SerializeField] private ClassAttributeSO[] _classesAttributes;
 
-    public float attackDamage { get; private set; }
-    public float maxHP { get; private set; }
-    public float movementSpeed { get; private set; }
-    public float mass { get; private set; }
-    public float knockBack { get; private set; }
-    public float attackSpeed { get; private set; }
+    public float attackDamage { get; set; }
+    public float maxHP { get; set; }
+    public float movementSpeed { get; set; }
+    public float mass { get; set; }
+    public float knockBack { get; set; }
+    public float attackSpeed { get; set; }
 
-    private float _upgradeAttackDamage; 
-    private float _upgradeMaxHP; 
+    private float _upgradeAttackDamage;
+    private float _upgradeMaxHP;
     private float _upgradeMovementSpeed;
     private float _upgrademMass; 
     private float _upgradeKnockBack; 
-    private float _upgradeAttackSpeed; 
+    private float _upgradeAttackSpeed;
+
+    // Base attributes for upgrade system.
+    private float _baseAttackDamage;
+    private float _baseMaxHP;
+    private float _baseMovementSpeed;
+    private float _baseAttackSpeed;
+
+    #region Methods for the Upgrade System.
+    public void UpgradeAttackDamage(float damageAmount) {
+        _upgradeAttackDamage += damageAmount;
+        attackDamage = Mathf.Max(0, _baseAttackDamage + _upgradeAttackDamage);
+    }
+    public void UpgradeMaxHealth(float healthAmount) {
+        _upgradeMaxHP += healthAmount;
+        maxHP = Mathf.Max(0, _baseMaxHP + _upgradeMaxHP);
+    }
+    public void UpgradeMovementSpeed(float movementSpeedAmount) {
+        _upgradeMovementSpeed += movementSpeedAmount;
+        movementSpeed = Mathf.Max(0, _baseMovementSpeed + _upgradeMovementSpeed);
+    }
+    public void UpgradeAttackSpeed(float attackSpeedAmount) {
+        _upgradeAttackSpeed += attackSpeedAmount;
+        attackSpeed = Mathf.Max(0, _baseAttackSpeed + _upgradeAttackSpeed);
+    } 
+    #endregion
 
     #region UPGRADE METHODS FOR PLAYER ATTRIBUTES
 
     public void AdjustAttackDamage(float plusMinusDamage)
     {
+        _upgradeAttackDamage = 0;
         _upgradeAttackDamage += plusMinusDamage; 
         attackDamage = Mathf.Max(0, attackDamage + _upgradeAttackDamage); 
     }
 
     public void AdjustMaxHP(float plusMinusHP)
     {
+        _upgradeMaxHP = 0;
         _upgradeMaxHP += plusMinusHP;
-        maxHP = Mathf.Max(0, maxHP + _upgradeMaxHP);
+        maxHP = Mathf.Max(0, maxHP + _upgradeMaxHP);       
     }
 
     public void AdjustMovementSpeed(float plusMinusMovementSpeed)
     {
+        _upgradeMovementSpeed = 0;
         _upgradeMovementSpeed += plusMinusMovementSpeed;
         movementSpeed = Mathf.Max(0, movementSpeed + _upgradeMovementSpeed);
     }
 
     public void AdjustKnocback(float plusMinusKnockback)
     {
+        _upgradeKnockBack = 0;
         _upgradeKnockBack += plusMinusKnockback;
         knockBack = Mathf.Max(0, knockBack + _upgradeKnockBack);
     }
     public void AdjustAttackSpeed(float plusMinusAttackSpeed)
     {
+
+        _upgradeAttackSpeed = 0;
         _upgradeAttackSpeed += plusMinusAttackSpeed;
         attackSpeed = Mathf.Max(0, attackSpeed + _upgradeAttackSpeed);
     }
@@ -59,6 +90,13 @@ public class PlayerAttributes : MonoBehaviour
         _currentPlayerClass.OnClassSwitched += PlayerCombatOnClassSwitched;
 
         //SetBaseValues(_currentPlayerClass.currentPlayerClass);
+
+        #region Base Attributes for upgrade system.
+        _baseAttackDamage = attackDamage;
+        _baseMaxHP = maxHP;
+        _baseMovementSpeed = movementSpeed;
+        _baseAttackSpeed = attackSpeed;
+        #endregion
     }
     private void OnDestroy()
     {

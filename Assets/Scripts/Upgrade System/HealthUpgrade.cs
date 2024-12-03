@@ -21,38 +21,38 @@ public class HealthUpgrade : UpgradeBase
     {
         //float initialMaxHealth = 100f; //Give player a max health?
 
-        #region TMP
-        if (currentLevel >= maxLevel)
-        {
-            UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
-            return;
-        }
+        //#region TMP
+        //if (currentLevel >= maxLevel)
+        //{
+        //    UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
+        //    return;
+        //}
 
-        if (!CanUpgrade(GoldDropManager.Instance.GetGoldAmount()))
-        {
-            Debug.LogWarning("Not enough gold or max level is reached for health upgrade");
-            UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowNotEnoughGoldMessage());
-            return;
-        }
-        #endregion
+        //if (!CanUpgrade(GoldDropManager.Instance.GetGoldAmount()))
+        //{
+        //    Debug.LogWarning("Not enough gold or max level is reached for health upgrade");
+        //    UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowNotEnoughGoldMessage());
+        //    return;
+        //}
+        //#endregion
 
-        float initialMaxHealth = player1.InitialMaxHealth;
-        float newMaxHealth = player1.currentHealth + healthIncrease;
-        float maxAllowedHealth = initialMaxHealth * maxHealthMultiplier;
+        //float initialMaxHealth = player1.InitialMaxHealth;
+        //float newMaxHealth = player1.currentHealth + healthIncrease;
+        //float maxAllowedHealth = initialMaxHealth * maxHealthMultiplier;
 
-        if (newMaxHealth <= maxAllowedHealth)
-        {
-            player1.SetMaxHealth(newMaxHealth);
-            player2.SetMaxHealth(newMaxHealth);
-            currentLevel++;
+        //if (newMaxHealth <= maxAllowedHealth)
+        //{
+        //    player1.SetMaxHealth(newMaxHealth);
+        //    player2.SetMaxHealth(newMaxHealth);
+        //    currentLevel++;
 
-            GoldDropManager.Instance.SpendGold(CalculateUpgradeCost());
-            Debug.Log("Health upgraded - health: " + newMaxHealth + "current hp = " + player1.currentHealth);
-        }
-        else
-        {
-            Debug.LogWarning("Max health upgrade reached");
-            UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
-        }
+        //    GoldDropManager.Instance.SpendGold(CalculateUpgradeCost());
+        //    Debug.Log("Health upgraded - health: " + newMaxHealth + "current hp = " + player1.currentHealth);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Max health upgrade reached");
+        //    UpgradeManager.Instance.StartCoroutine(UpgradeManager.Instance.ShowMaxUpgradeReachedMessage());
+        //}
     }
 }

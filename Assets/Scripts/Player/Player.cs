@@ -27,10 +27,7 @@ public class Player : MonoBehaviour
 
     #region Player attributes
 
-    [Header("Player attributes")]
-    private float _maxHealth;
     public float currentHealth { get; private set; }
-    public float InitialMaxHealth { get; private set; }
 
     GameObject player1Obj;
     GameObject player2Obj;
@@ -130,10 +127,25 @@ public class Player : MonoBehaviour
             EnableColliders();
 
         playerAttributes.SetBaseValues(_playerCombat.currentPlayerClass);
-        _playerMovement._walkingSpeed = playerAttributes.movementSpeed;
-        _maxHealth = playerAttributes.maxHP;
-        currentHealth = _maxHealth;
-        InitialMaxHealth = _maxHealth;
+        StatsTransfer.Instance.SaveStatsPlayer1();
+        StatsTransfer.Instance.SaveStatsPlayer2();
+
+        if ( _playerId == 1)
+        {
+            playerAttributes.maxHP = StatsTransfer.Player1MaxHealth;
+            playerAttributes.movementSpeed = StatsTransfer.Player1WalkingSpeed;
+            playerAttributes.attackDamage = StatsTransfer.Player1AttackDamage;
+
+        }
+        else if (_playerId == 2)
+        {
+            playerAttributes.maxHP = StatsTransfer.Player2MaxHealth;
+            playerAttributes.movementSpeed = StatsTransfer.Player2WalkingSpeed;
+            playerAttributes.attackDamage = StatsTransfer.Player2AttackDamage;
+        }
+
+        currentHealth = playerAttributes.maxHP;
+
     }
     private void FixedUpdate()
     {
@@ -150,7 +162,7 @@ public class Player : MonoBehaviour
         GetPlayerMovementInput();
 
         UpdatePlayerCombat();
-
+        UpdateHealthBar();
         GhostChainIgnoreCollision();
     }
     #region Player Movement
@@ -345,7 +357,7 @@ public class Player : MonoBehaviour
         if (_respawnTime <= 0)
         {
             playersDefeated--;
-            currentHealth = InitialMaxHealth;
+            currentHealth = playerAttributes.maxHP;
             _bIsPlayerDisabled = false;
             respawnTimerSet = false;
 
@@ -397,32 +409,40 @@ public class Player : MonoBehaviour
             //Debug.Log(gameObject.tag + " has died.");
         }
 
-        if (HealthBar.Instance != null)
-        {
-            HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
-        }
+        //if (HealthBar.Instance != null)
+        //{
+        //    HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
+        //}
 
         //Flash indication
         ActivateVisuals();
     }
 
-    //Used for upgrades
-    public void SetMaxHealth(float newMaxHealth)
+    public void UpdateHealthBar()
     {
-        _maxHealth = newMaxHealth;
-        currentHealth = _maxHealth;// heal to full when upgrading health
-
-        if (currentHealth > _maxHealth)
+        if (HealthBar.Instance != null)
         {
-            currentHealth = _maxHealth;
+            HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
         }
-
-        Debug.Log("Player max health set to: " + _maxHealth);
     }
+
+    //Used for upgrades
+    //public void SetMaxHealth(float newMaxHealth)
+    //{
+    //    playerAttributes.maxHP = newMaxHealth;
+    //    currentHealth = _maxHealth;// heal to full when upgrading health
+
+    //    if (currentHealth > _maxHealth)
+    //    {
+    //        currentHealth = _maxHealth;
+    //    }
+
+    //    Debug.Log("Player max health set to: " + _maxHealth);
+    //}
 
     public float GetMaxHealth()
     {
-        return _maxHealth;
+        return playerAttributes.maxHP;
     }
 
     #endregion

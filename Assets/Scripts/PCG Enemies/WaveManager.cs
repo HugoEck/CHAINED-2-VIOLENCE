@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
+    [SerializeField] Camera cam;
+
     [Header("Fonts")]
     public TMP_Asset romanFont;
     public TMP_Asset scifiFont;
@@ -117,7 +119,7 @@ public class WaveManager : MonoBehaviour
 
     public void SpawnWave(Wave wave)
     {
-        text.text = "Wave " + currentWave;
+        text.text = "Wave " + (currentWave);
         StartCoroutine(FadeInText(1, 3));
         StartCoroutine(SpawnWaveCoroutine(wave));
     }
@@ -146,6 +148,7 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < enemyConfig.waveSize; i++)
             {
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+                CheckValidSpawn(ref spawnPoint);
                 enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass); // Apply to each enemy
                 GameObject newEnemy = Instantiate(enemyCreator.currentBody, spawnPoint.position, spawnPoint.rotation);
                 newEnemy.name = $"{enemyConfig.enemyClass} enemy {i + 1}";
@@ -161,6 +164,21 @@ public class WaveManager : MonoBehaviour
 
         yield return null;
     }
+
+    public void CheckValidSpawn(ref Transform spawn)
+    {
+        // Convert the spawn position to viewport coordinates
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(spawn.position);
+
+        // Check if the spawn is within the camera's viewport bounds (0 to 1 in both x and y)
+        if (viewportPos.x >= 0f && viewportPos.x <= 1f && viewportPos.y >= 0f && viewportPos.y <= 1f)
+        {
+            // If inside, reroll (choose a new spawn point from your list of spawn points)
+            spawn = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+            CheckValidSpawn(ref spawn);
+        }
+    }
+
 
     private IEnumerator FadeInText(float fadeDuration, float stayDuration)
     {

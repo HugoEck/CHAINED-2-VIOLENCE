@@ -9,14 +9,7 @@ using UnityEngine.AI;
 public class BaseManager : MonoBehaviour
 {
 
-    public enum DamageType
-    {
-        WeaponDamage,
-        UnarmedDamage,
-        TrapsDamage,
-        AbilityDamage,
-        UltimateAbilityDamage
-    }
+    
     //Detta skript innehåller alla baskomponenter, basvariabler och basmetoder för alla andra enemy managers.
 
     //----------------------------------------------------------------------------------------
@@ -54,6 +47,16 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public bool agentIsDead = false;
     [HideInInspector] public bool PCG_componentsInstantiated = false;
     [HideInInspector] public Vector3 originalScale;
+
+    //PLAYER EFFECTS
+    public enum DamageType
+    {
+        WeaponDamage,
+        UnarmedDamage,
+        TrapsDamage,
+        AbilityDamage,
+        UltimateAbilityDamage
+    }
 
     public virtual void Awake()
     {
@@ -98,6 +101,12 @@ public class BaseManager : MonoBehaviour
             chainEffects.ActivateRagdollStun(4, this.gameObject, 100);
         }
         visuals.FlashColor();
+
+        //Hej sam förlåt för jag har rört i din manager //Victor
+        if(gameObject.transform.position.y > 10)
+        {
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+        }
     }
     public virtual void DealDamageToEnemy(float damage, DamageType damageType)
     {

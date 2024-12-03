@@ -11,39 +11,27 @@ using System.Runtime.CompilerServices;
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance { get; private set; }
-    #region References
-    private GameObject player1;
-    private GameObject player2;
-
     private AdjustChainLength adjustChainLength;
 
-    private Player player1Manager;
-    private Player player2Manager;
 
-    private PlayerCombat player1Combat;
-    private PlayerCombat player2Combat;
+    private PlayerAttributes player1Attributes;
+    private PlayerAttributes player2Attributes;
 
-    private PlayerMovement player1Movement;
-    private PlayerMovement player2Movement;
-
-    private HealthUpgrade healthUpgrade;
-    private DamageUpgrade damageUpgrade;
-    private SpeedUpgrade speedUpgrade;
-    private ChainUpgrade chainUpgrade;
-    #endregion
-
-    [SerializeField] private int MaxUpgradeLevel = 10;
+    [SerializeField] private int baseUpgradeCost = 20;
+    [SerializeField] private int maxUpgradeLevel = 10;
     [SerializeField] public int UpgradeCostIncrease = 20;
 
-    // How much to increase the upgrade with.
+    [Header("Upgrade Increments")]
     [SerializeField] private float attackDamageIncrease = 1f;
-    [SerializeField] private int healthIncrease = 20;
-    [SerializeField] private float speedIncrease = 20f;
+    [SerializeField] private float maxHealthIncrease = 20f;
+    [SerializeField] private float movementSpeedIncrease = 10f;
 
-    // Upgrade cap, % increase from the base value.
-    [SerializeField] private float MaxAttackMultiplier = 1.3f;
-    [SerializeField] private float MaxHealthMultiplier = 1.5f;
-    [SerializeField] private float MaxSpeedMultiplier = 1.3f;
+    [Header("Upgrade Levels")]
+    private int healthLevel = 0;
+    private int attackLevel = 0;
+    private int speedLevel = 0;
+    private int chainLevel = 0;
+
     #region TextMeshPro
     public TMP_Text attackLevelText;
     public TMP_Text healthLevelText;
@@ -60,34 +48,29 @@ public class UpgradeManager : MonoBehaviour
     private void Awake()
     {
         // Singleton
-        if (Instance == null)
-        {
+        if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
+        else {
             Destroy(gameObject);
         }
     }
 
     void Start()
     {
-        player1 = GameObject.FindGameObjectWithTag("Player1");
-        player2 = GameObject.FindGameObjectWithTag("Player2");
+        GameObject player1 = GameObject.FindGameObjectWithTag("Player1");
+        GameObject player2 = GameObject.FindGameObjectWithTag("Player2");
 
-        if (player1 == null || player2 == null)
+        if (player1 != null) player1Attributes = player1.GetComponent<PlayerAttributes>();
+        if (player2 != null) player2Attributes = player2.GetComponent<PlayerAttributes>();
+
+        if (player1Attributes == null || player2Attributes == null)
         {
-            Debug.LogError("Player 1 and 2 not found");
-            return;
+            Debug.LogError("PlayerAttributes script not found on players!");
         }
 
-        player1Manager = player1.GetComponent<Player>();
-        player2Manager = player2.GetComponent<Player>();
-        player1Combat = player1.GetComponent<PlayerCombat>();
-        player2Combat = player2.GetComponent<PlayerCombat>();
-        player1Movement = player1.GetComponent<PlayerMovement>();
-        player2Movement = player2.GetComponent<PlayerMovement>();
+        Debug.Log("Speed Upgrade Start Value" + player1Attributes.movementSpeed);
 
         GameObject chainObject = GameObject.Find("Obi_Chain");
         if (chainObject != null)
@@ -95,116 +78,168 @@ public class UpgradeManager : MonoBehaviour
             adjustChainLength = chainObject.GetComponent<AdjustChainLength>();
         }
 
-        healthUpgrade = new HealthUpgrade(player1Manager, player2Manager, healthIncrease, MaxHealthMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
-        damageUpgrade = new DamageUpgrade(player1Combat, player2Combat, attackDamageIncrease, MaxAttackMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
-        speedUpgrade = new SpeedUpgrade(player1Movement, player2Movement, speedIncrease, MaxSpeedMultiplier, MaxUpgradeLevel, UpgradeCostIncrease);
-
-        if (adjustChainLength != null)
-        {
-            chainUpgrade = new ChainUpgrade(adjustChainLength, 1, AdjustChainLength.AMOUNT_OF_UPGRADES, UpgradeCostIncrease);
-        }
-    }
-    public void UpgradeHealth()
-    {
-        healthUpgrade.Upgrade();
-
-        if (player1Manager != null)
-        {
-            StatsTransfer.Player1Health = player1Manager.currentHealth;
-            StatsTransfer.Player1MaxHealth = player1Manager.GetMaxHealth();
-        }
-
-        if (player2Manager != null)
-        {
-            StatsTransfer.Player2Health = player2Manager.currentHealth;
-            StatsTransfer.Player2MaxHealth = player2Manager.GetMaxHealth();
-        }
-
-        UpdateUpgradeLevelText();
-    }
-
-    public void UpgradeDamage()
-    {
-        damageUpgrade.Upgrade();
-
-        //if (player1Combat != null)
+        //if (adjustChainLength != null)
         //{
-        //    StatsTransfer.Player1AttackDamage = player1Combat.attackDamage;
+        //    chainUpgrade = new ChainUpgrade(adjustChainLength, 1, AdjustChainLength.AMOUNT_OF_UPGRADES, UpgradeCostIncrease);
         //}
-
-        //if (player2Combat != null)
-        //{
-        //    StatsTransfer.Player2AttackDamage = player2Combat.attackDamage;
-        //}
-
-        UpdateUpgradeLevelText();
     }
 
-    public void UpgradeSpeed()
+    public void UpgradeMaxHealth()
     {
-        speedUpgrade.Upgrade();
+        int cost = CalculateUpgradeCost(healthLevel);
 
-        if (player1Movement != null)
+        if (CanAfford(cost) && healthLevel < maxUpgradeLevel)
         {
-            StatsTransfer.Player1WalkingSpeed = player1Movement.GetWalkingSpeed();
-        }
+            player1Attributes.UpgradeMaxHealth(maxHealthIncrease);
+            player2Attributes.UpgradeMaxHealth(maxHealthIncrease);
 
-        if (player2Movement != null)
+            SpendGold(cost);
+            healthLevel++;
+
+            StatsTransfer.Instance.SaveStatsPlayer1();
+            StatsTransfer.Instance.SaveStatsPlayer2();
+            UpdateUI();
+        }
+        else
         {
-            StatsTransfer.Player2WalkingSpeed = player2Movement.GetWalkingSpeed();
+            ShowUpgradeError(healthLevel);
         }
-
-        UpdateUpgradeLevelText();
     }
 
+    public void UpgradeAttackDamage()
+    {
+        int cost = CalculateUpgradeCost(attackLevel);
+        if (CanAfford(cost) && attackLevel < maxUpgradeLevel)
+        {
+            player1Attributes.UpgradeAttackDamage(attackDamageIncrease);
+            player2Attributes.UpgradeAttackDamage(attackDamageIncrease);
+            Debug.Log("Upgrade new player attack damage:" + player1Attributes.attackDamage);
+
+            SpendGold(cost);
+            attackLevel++;
+
+            StatsTransfer.Instance.SaveStatsPlayer1();
+            StatsTransfer.Instance.SaveStatsPlayer2();
+            UpdateUI();
+        }
+        else
+        {
+            ShowUpgradeError(attackLevel);
+        }
+    }
+
+    public void UpgradeMovementSpeed()
+    {
+        int cost = CalculateUpgradeCost(speedLevel);
+        if (CanAfford(cost) && speedLevel < maxUpgradeLevel)
+        {
+            player1Attributes.UpgradeMovementSpeed(movementSpeedIncrease);
+            player2Attributes.UpgradeMovementSpeed(movementSpeedIncrease);
+            Debug.Log("Speed upgraded " + player1Attributes.movementSpeed);
+            SpendGold(cost);
+            speedLevel++;
+
+            StatsTransfer.Instance.SaveStatsPlayer1();
+            StatsTransfer.Instance.SaveStatsPlayer2();
+            UpdateUI();
+        }
+        else
+        {
+            ShowUpgradeError(speedLevel);
+        }
+    }
 
     public void UpgradeChain()
     {
-        chainUpgrade.Upgrade();
-        UpdateUpgradeLevelText();
+        int cost = CalculateUpgradeCost(chainLevel);
+        int lengthIncreasePerUpgrade = 1;
+        if (CanAfford(cost) && chainLevel < AdjustChainLength.AMOUNT_OF_UPGRADES)
+        {
+            adjustChainLength.IncreaseRopeLength(lengthIncreasePerUpgrade);
+            chainLevel++;
+
+            SpendGold(cost);
+            StatsTransfer.CurrentChainLength = adjustChainLength.ReturnCurrentChainLength();
+            UpdateUI();
+        }
+        else
+        {
+            ShowUpgradeError(chainLevel);      
+        }
+    }
+
+    private bool CanAfford(int cost)
+    {
+        return GoldDropManager.Instance.GetGoldAmount() >= cost;
+    }
+
+    private void SpendGold(int amount)
+    {
+        GoldDropManager.Instance.SpendGold(amount);
+    }
+
+    private int CalculateUpgradeCost(int currentLevel)
+    {
+        return Mathf.CeilToInt(baseUpgradeCost * Mathf.Pow(1.5f, currentLevel));
+    }
+
+    private bool CanUpgrade()
+    {
+        // fix later if needed.
+        return true;
+    }
+
+    private void ShowUpgradeError(int level)
+    {
+        if (level >= maxUpgradeLevel)
+        {
+            StartCoroutine(ShowMaxUpgradeReachedMessage());
+        }
+        else
+        {
+            StartCoroutine(ShowNotEnoughGoldMessage());
+        }
     }
 
     #region Text UI Updates
-    private void UpdateUpgradeLevelText() // Fix so that it checks the value instead of level so even if its below 10 it displays Cost: Maxed
+    private void UpdateUI()
     {
-        if (attackLevelText != null)
-        {
-            attackLevelText.text = "Attack Level: " + damageUpgrade.currentLevel.ToString();
-        }
+        // Update Level Texts
+        if (healthLevelText != null) healthLevelText.text = $"Health Level: {healthLevel}";
 
-        if (healthLevelText != null)
-        {
-            healthLevelText.text = "Health Level: " + healthUpgrade.currentLevel.ToString();
-        }
+        if (attackLevelText != null) attackLevelText.text = $"Attack Level: {attackLevel}";
 
-        if (speedLevelText != null)
-        {
-            speedLevelText.text = "Speed Level: " + speedUpgrade.currentLevel.ToString();
-        }
+        if (speedLevelText != null) speedLevelText.text = $"Speed Level: {speedLevel}";
 
-        if (chainLevelText != null)
+        if (chainLevelText != null) chainLevelText.text = $"Chain Level: {chainLevel}";
+
+        // Update Cost Texts
+        if (healthUpgradeCostText != null)
         {
-            chainLevelText.text = "Chain Level: " + chainUpgrade.currentLevel.ToString();
+            healthUpgradeCostText.text = healthLevel >= maxUpgradeLevel
+                ? "Cost: Maxed"
+                : $"Cost: {CalculateUpgradeCost(healthLevel)}";
         }
 
         if (attackUpgradeCostText != null)
         {
-            attackUpgradeCostText.text = damageUpgrade.currentLevel >= damageUpgrade.MaxLevel ? "Cost: Maxed" : $"Cost: {damageUpgrade.CalculateUpgradeCost()}";
-        }
-
-        if (healthUpgradeCostText != null)
-        {
-            healthUpgradeCostText.text = healthUpgrade.currentLevel >= healthUpgrade.MaxLevel ? "Cost: Maxed" : $"Cost: {healthUpgrade.CalculateUpgradeCost()}";
+            attackUpgradeCostText.text = attackLevel >= maxUpgradeLevel
+                ? "Cost: Maxed"
+                : $"Cost: {CalculateUpgradeCost(attackLevel)}";
         }
 
         if (speedUpgradeCostText != null)
         {
-            speedUpgradeCostText.text = speedUpgrade.currentLevel >= speedUpgrade.MaxLevel ? "Cost: Maxed" : $"Cost: {speedUpgrade.CalculateUpgradeCost()}";
+            speedUpgradeCostText.text = speedLevel >= maxUpgradeLevel
+                ? "Cost: Maxed"
+                : $"Cost: {CalculateUpgradeCost(speedLevel)}";
         }
 
         if (chainUpgradeCostText != null)
         {
-            chainUpgradeCostText.text = chainUpgrade.currentLevel >= chainUpgrade.MaxLevel ? "Cost: Maxed" : $"Cost: {chainUpgrade.CalculateUpgradeCost()}";
+            chainUpgradeCostText.text = chainLevel >= AdjustChainLength.AMOUNT_OF_UPGRADES //fix later
+                ? "Cost: Maxed"
+                : $"Cost: {CalculateUpgradeCost(chainLevel)}";
         }
     }
 
@@ -237,5 +272,17 @@ public class UpgradeManager : MonoBehaviour
             maxUpgradeReachedText.text = "";
         }
     }
+
+    private void UpdateLevelUI()
+    {
+        // Update level texts
+        healthLevelText.text = $"Health: Level {healthLevel}";
+        attackLevelText.text = $"Attack: Level {attackLevel}";
+        speedLevelText.text = $"Speed: Level {speedLevel}";
+
+        // Update gold text
+        //goldText.text = $"Gold: {GoldDropManager.Instance.GetGoldAmount()}";
+    }
+
     #endregion
 }

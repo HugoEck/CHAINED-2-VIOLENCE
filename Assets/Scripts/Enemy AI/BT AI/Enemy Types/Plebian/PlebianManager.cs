@@ -34,8 +34,6 @@ public class PlebianManager : BaseManager
         //FixedEvaluate();
         rootNode.Evaluate(this);
 
-
-
     }
 
     private void ConstructBT()
