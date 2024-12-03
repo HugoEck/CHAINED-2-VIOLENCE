@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
         GetPlayerMovementInput();
 
         UpdatePlayerCombat();
-
+        UpdateHealthBar();
         GhostChainIgnoreCollision();
     }
     #region Player Movement
@@ -409,13 +409,21 @@ public class Player : MonoBehaviour
             //Debug.Log(gameObject.tag + " has died.");
         }
 
+        //if (HealthBar.Instance != null)
+        //{
+        //    HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
+        //}
+
+        //Flash indication
+        ActivateVisuals();
+    }
+
+    public void UpdateHealthBar()
+    {
         if (HealthBar.Instance != null)
         {
             HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
         }
-
-        //Flash indication
-        ActivateVisuals();
     }
 
     //Used for upgrades
