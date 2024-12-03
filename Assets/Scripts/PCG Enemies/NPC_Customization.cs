@@ -78,7 +78,7 @@ public class NPC_Customization : MonoBehaviour
     [SerializeField] GameObject bloodSplatter;
     [SerializeField] GameObject smokeTrail;
     [SerializeField] GameObject hitEffect;
-
+    [SerializeField] GameObject electricityEffect;
 
     [SerializeField] private Dictionary<NPCTheme, ThemeData> themeDataDict;
 
@@ -265,7 +265,7 @@ public class NPC_Customization : MonoBehaviour
        
         GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
         GameObject hitEffectCopy = Instantiate(hitEffect, enemy.transform);
-        
+        GameObject electricityEffectParticles = Instantiate(electricityEffect, enemy.transform);
         //Physics.SyncTransforms();
 
         triggerCollider.isTrigger = true;
