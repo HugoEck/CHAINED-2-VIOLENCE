@@ -65,8 +65,8 @@ public class BoulderManager : MonoBehaviour
     {
         if (pathParticle != null)
         {
-            // Instantiate the path particle at the boulder's spawn position
-            Vector3 particlePosition = transform.position;
+            float yOffset = 1.0f; // Adjust this value to set the desired height
+            Vector3 particlePosition = new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z);
             Quaternion particleRotation = Quaternion.LookRotation(moveDirection);
 
             currentPathParticle = Instantiate(pathParticle, particlePosition, particleRotation);
@@ -81,10 +81,12 @@ public class BoulderManager : MonoBehaviour
     {
         if (currentPathParticle != null)
         {
-            // Move the particle along the boulder's path
+            float yOffset = 1.0f; // Same Y offset as in SpawnPathParticle
+            Vector3 targetPositionWithOffset = new Vector3(targetPosition.x, targetPosition.y + yOffset, targetPosition.z);
+
             currentPathParticle.transform.position = Vector3.MoveTowards(
                 currentPathParticle.transform.position,
-                targetPosition,
+                targetPositionWithOffset,
                 (boulderSpeed * 1.5f) * Time.fixedDeltaTime
             );
 
@@ -282,7 +284,7 @@ public class BoulderManager : MonoBehaviour
     #region TARGET & TORQUE
     private Vector3 DetermineTargetPosition(Vector3 spawnPosition)
     {
-        // Determine the target position based on the spawn position
+        // Handle edges
         if (Mathf.Approximately(spawnPosition.x, 45)) // Spawned on Right Edge
             return new Vector3(-45, spawnPosition.y, spawnPosition.z);
         else if (Mathf.Approximately(spawnPosition.x, -45)) // Spawned on Left Edge
@@ -292,8 +294,15 @@ public class BoulderManager : MonoBehaviour
         else if (Mathf.Approximately(spawnPosition.z, -45)) // Spawned on Bottom Edge
             return new Vector3(spawnPosition.x, spawnPosition.y, 45);
 
-        // Default target position if no match
-        return Vector3.zero;
+        // Handle specific corner cases
+        if (Mathf.Approximately(spawnPosition.x, -35) && Mathf.Approximately(spawnPosition.z, -35))
+            return new Vector3(35, spawnPosition.y, 35); // Target Right
+        if (Mathf.Approximately(spawnPosition.x, -35) && Mathf.Approximately(spawnPosition.z, 35))
+            return new Vector3(35, spawnPosition.y, -35); // Target Bottom
+
+        // Log a warning for unexpected spawn positions
+        Debug.LogWarning($"Unexpected spawn position: {spawnPosition}. Defaulting to Vector3.zero.");
+        return Vector3.zero; // Default target position if no match
     }
     public void SetMovementDirection(Vector3 direction)
     {
