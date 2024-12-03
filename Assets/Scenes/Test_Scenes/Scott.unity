@@ -139,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 1354360339785308360, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1354360339785308360, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
@@ -214,6 +214,11 @@ PrefabInstance:
     - target: {fileID: 5893767741862142502, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172755423452092343, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Type
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -21745,7 +21750,7 @@ PrefabInstance:
     - target: {fileID: 2090039392077388216, guid: 95d199657b548f64996651afb42591be,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -32
+      value: -23.46
       objectReference: {fileID: 0}
     - target: {fileID: 2090039392077388216, guid: 95d199657b548f64996651afb42591be,
         type: 3}
@@ -23317,7 +23322,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerCombat: {fileID: 0}
+  playerAttributes: {fileID: 0}
   swingEffectPrefab: {fileID: 0}
 --- !u!114 &1749255297
 MonoBehaviour:
@@ -23339,8 +23344,6 @@ MonoBehaviour:
   currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
-  attackRange: 2
-  attackDamage: 10
 --- !u!114 &1749255298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23397,7 +23400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingSpeed: 1000
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
 --- !u!114 &1749255301
@@ -23412,7 +23414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  playerAttributes: {fileID: 0}
   _bIsPlayerDisabled: 0
   isFlashing: 0
 --- !u!54 &1749255302
@@ -24264,6 +24266,52 @@ MonoBehaviour:
   attackRange: 0
   knockback: 0
   stunDuration: 0
+--- !u!1 &1939718835
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939718837}
+  - component: {fileID: 1939718836}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1939718836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939718835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1939718837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939718835}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1958699461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24401,52 +24449,6 @@ MonoBehaviour:
   attackRange: 0
   knockback: 0
   stunDuration: 0
---- !u!1 &1985991580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1985991582}
-  - component: {fileID: 1985991581}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1985991581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1985991580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1985991582
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1985991580}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989254137
 GameObject:
   m_ObjectHideFlags: 0
@@ -24790,7 +24792,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerCombat: {fileID: 0}
+  playerAttributes: {fileID: 0}
   swingEffectPrefab: {fileID: 0}
 --- !u!114 &2044101849
 MonoBehaviour:
@@ -24812,8 +24814,6 @@ MonoBehaviour:
   currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
-  attackRange: 2
-  attackDamage: 10
 --- !u!114 &2044101850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24870,7 +24870,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingSpeed: 1000
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
 --- !u!114 &2044101853
@@ -24885,7 +24884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  playerAttributes: {fileID: 0}
   _bIsPlayerDisabled: 0
   isFlashing: 0
 --- !u!54 &2044101854
@@ -31027,4 +31026,4 @@ SceneRoots:
   - {fileID: 846261289}
   - {fileID: 1495155706}
   - {fileID: 1304405}
-  - {fileID: 1985991582}
+  - {fileID: 1939718837}

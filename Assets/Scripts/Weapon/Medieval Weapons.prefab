@@ -29829,6 +29829,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2427371126406365138}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: f889e90018e2a3a4eaebfac0e6ca93c6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1332856292453486270}
   m_SourcePrefab: {fileID: 100100000, guid: f889e90018e2a3a4eaebfac0e6ca93c6, type: 3}
 --- !u!1 &896288552743182819 stripped
 GameObject:
@@ -29848,6 +29852,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRarity: 0
+  highlightEffect: {fileID: 0}
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
@@ -30109,6 +30115,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &1332856292453486270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896288552743182819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 1
 --- !u!4 &896288552743484867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f889e90018e2a3a4eaebfac0e6ca93c6,
@@ -30219,6 +30238,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7298306460659522601}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 28c16d6a2f9d0d149a647997134995de,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9051651020781933456}
   m_SourcePrefab: {fileID: 100100000, guid: 28c16d6a2f9d0d149a647997134995de, type: 3}
 --- !u!4 &3865336396298053553 stripped
 Transform:
@@ -30244,6 +30267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRarity: 0
+  highlightEffect: {fileID: 0}
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
@@ -30505,6 +30530,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &9051651020781933456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3865336396298091409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 1
 --- !u!1001 &3962283148741617054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30523,15 +30561,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30539,7 +30577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.86
+      value: -2.51
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733, type: 3}
       propertyPath: m_LocalPosition.z
@@ -30609,6 +30647,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3300844130416530229}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 64f8891d0014a2f48a8498712c7b8733,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4938241735372201496}
   m_SourcePrefab: {fileID: 100100000, guid: 64f8891d0014a2f48a8498712c7b8733, type: 3}
 --- !u!1 &3962283148741649214 stripped
 GameObject:
@@ -30628,6 +30670,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRarity: 0
+  highlightEffect: {fileID: 0}
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
@@ -30889,6 +30933,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &4938241735372201496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962283148741649214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 1
 --- !u!4 &3962283148741754654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 64f8891d0014a2f48a8498712c7b8733,
@@ -30913,15 +30970,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a29e10a78af23e243949a44795e2787f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30999,6 +31056,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1041890195615790255}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: a29e10a78af23e243949a44795e2787f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2637008343506146126}
   m_SourcePrefab: {fileID: 100100000, guid: a29e10a78af23e243949a44795e2787f, type: 3}
 --- !u!4 &7186554070558109449 stripped
 Transform:
@@ -31024,6 +31085,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRarity: 0
+  highlightEffect: {fileID: 0}
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
@@ -31285,6 +31348,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &2637008343506146126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7186554070558536489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 0
 --- !u!1001 &8107495340442039130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31303,15 +31379,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8c62a730971cc934c88a622c7237487c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31389,6 +31465,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 9157934116103991953}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 8c62a730971cc934c88a622c7237487c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7063598194919616545}
   m_SourcePrefab: {fileID: 100100000, guid: 8c62a730971cc934c88a622c7237487c, type: 3}
 --- !u!4 &8107495340441643482 stripped
 Transform:
@@ -31435,6 +31515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRarity: 0
+  highlightEffect: {fileID: 0}
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
@@ -31675,6 +31757,19 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &7063598194919616545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8107495340442072570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 2
 --- !u!1001 &8703209590536760442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31779,6 +31874,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3705863067305498364}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 1c6172cca7780d549a35ed79ce6d37c6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2038361691978898768}
   m_SourcePrefab: {fileID: 100100000, guid: 1c6172cca7780d549a35ed79ce6d37c6, type: 3}
 --- !u!4 &8703209590536369914 stripped
 Transform:
@@ -31853,6 +31952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRarity: 0
+  highlightEffect: {fileID: 0}
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
@@ -32065,3 +32166,16 @@ MonoBehaviour:
   hitFxFadeOutDuration: 0.25
   hitFxColor: {r: 1, g: 1, b: 1, a: 1}
   hitFxRadius: 0.5
+--- !u!114 &2038361691978898768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8703209590536727258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208a8d77a8d5a614c89b3ab5b39e3a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRarity: 2
