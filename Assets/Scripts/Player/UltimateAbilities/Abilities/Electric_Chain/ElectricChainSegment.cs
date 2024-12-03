@@ -20,7 +20,6 @@ public class ElectricChainSegment : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-
         // Check if the collided object's layer is within the specified layers to collide with
         if (((1 << other.gameObject.layer) & _layersToCollideWith) != 0)
         {
