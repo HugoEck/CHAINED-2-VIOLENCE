@@ -101,6 +101,12 @@ public class BaseManager : MonoBehaviour
             chainEffects.ActivateRagdollStun(4, this.gameObject, 100);
         }
         visuals.FlashColor();
+
+        //Hej sam förlåt för jag har rört i din manager //Victor
+        if(gameObject.transform.position.y > 10)
+        {
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+        }
     }
     public virtual void DealDamageToEnemy(float damage, DamageType damageType)
     {
