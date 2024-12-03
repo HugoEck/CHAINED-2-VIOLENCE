@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     private PlayerMovement _playerMovement;
     private PlayerCombat _playerCombat;
+    private PlayerHealth _playerHealth;
     private ShieldAbility _shieldAbility;
     private AnimationStateController _animationStateController;
 
@@ -96,6 +97,7 @@ public class Player : MonoBehaviour
 
         _playerMovement = GetComponent<PlayerMovement>();
         _playerCombat = GetComponent<PlayerCombat>();
+        _playerHealth = GetComponent<PlayerHealth>();
         _shieldAbility = GetComponent<ShieldAbility>(); // Get reference to the ShieldAbility
         _animationStateController = GetComponent<AnimationStateController>();
 
@@ -155,7 +157,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        HandleKnockout();
+        //HandleKnockout();
 
         if (_bIsPlayerDisabled) return;
 
@@ -276,153 +278,155 @@ public class Player : MonoBehaviour
     /// <summary>
     /// MAYBE SEPERATE SCRIPT FOR HANDLING PLAYER DEFEAT
     /// </summary>
-    public void ToggleRagdoll(bool turnOn, GameObject player)
-    {
-        if(turnOn)
-        {
-            player.GetComponentInChildren<Animator>(false).enabled = false;
-            player.GetComponent<CapsuleCollider>().enabled = false;
-        }
-        else if(!turnOn)
-        {
-            player.GetComponentInChildren<Animator>(false).enabled = true;
-            player.GetComponent<CapsuleCollider>().enabled = true;
-        }
-    }
-    
-    private void HandleKnockout()
-    {
-        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;
+    //public void ToggleRagdoll(bool turnOn, GameObject player)
+    //{
+    //    if(turnOn)
+    //    {
+    //        player.GetComponentInChildren<Animator>(false).enabled = false;
+    //        player.GetComponent<CapsuleCollider>().enabled = false;
+    //    }
+    //    else if(!turnOn)
+    //    {
+    //        player.GetComponentInChildren<Animator>(false).enabled = true;
+    //        player.GetComponent<CapsuleCollider>().enabled = true;
+    //    }
+    //}
+    //
+    //private void HandleKnockout()
+    //{
+    //    if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;
+    //
+    //    if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+    //    {
+    //        if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
+    //        {
+    //            ToggleRagdoll(true, player1Obj);
+    //            _bIsPlayerDisabled = true;
+    //            playersDefeated++;
+    //
+    //        }
+    //        else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
+    //        {
+    //            ToggleRagdoll(true, player2Obj);
+    //            _bIsPlayerDisabled = true;
+    //            playersDefeated++;
+    //
+    //        }
+    //
+    //        if (_bIsPlayerDisabled)
+    //        {
+    //            EnableColliders();
+    //            Respawn();
+    //        }
+    //
+    //        if (playersDefeated == 2)
+    //        {
+    //            playersDefeated = 0;
+    //            Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+    //        }
+    //    }
+    //    else
+    //    {
+    //
+    //        if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
+    //        {
+    //            ToggleRagdoll(true, player1Obj);
+    //            _bIsPlayerDisabled = true;
+    //            playersDefeated++;
+    //
+    //        }
+    //
+    //        if (playersDefeated == 1)
+    //        {
+    //            playersDefeated = 0;
+    //            Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+    //            HealthBar.Instance.ResetPlayerHealthBars();
+    //        }
+    //    }
+    //
+    //}
+    //private bool respawnTimerSet = false;
+    //private void Respawn()
+    //{
+    //    if (!respawnTimerSet)
+    //    {
+    //        _respawnTime = _respawnCooldown;
+    //        respawnTimerSet = true;
+    //    }
+    //
+    //    _respawnTime -= Time.deltaTime;
+    //
+    //    if (_respawnTime <= 0)
+    //    {
+    //        playersDefeated--;
+    //        currentHealth = playerAttributes.maxHP;
+    //        _bIsPlayerDisabled = false;
+    //        respawnTimerSet = false;
+    //
+    //        if (_playerId == 1)
+    //        {
+    //            ToggleRagdoll(false, player1Obj);
+    //
+    //            DisableColliders();
+    //        }
+    //        else if (_playerId == 2)
+    //        {
+    //            ToggleRagdoll(false, player2Obj);
+    //
+    //            DisableColliders();
+    //        }
+    //
+    //    }
+    //}
 
-        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
-        {
-            if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
-            {
-                ToggleRagdoll(true, player1Obj);
-                _bIsPlayerDisabled = true;
-                playersDefeated++;
+   public void SetHealth(float damage)
+   {
+       //if (GhostChain._bIsGhostChainActive) return;
+   
+       //// Check if the shield is active and absorb damage first
+       //if (_shieldAbility != null && _shieldAbility.IsShieldActive())
+       //{
+       //    // Absorb the damage with the shield
+       //    float remainingDamage = _shieldAbility.AbsorbDamage(damage);
+   
+       //    // If the shield completely absorbed the damage, exit the function
+       //    if (remainingDamage <= 0)
+       //    {
+       //        Debug.Log("Shield absorbed all the damage.");
+       //        return;
+       //    }
+   
+       //    // If the shield breaks and there's leftover damage, apply it to the player's health
+       //    damage = remainingDamage;
+       //}
+   
+       //// Apply the remaining damage to the player's health
+       //currentHealth -= damage;
+       //Debug.Log(gameObject.tag + " took: " + damage + " damage, current health = " + currentHealth);
+   
+       //if (currentHealth <= 0)
+       //{
+   
+       //    // Handle player's death here if needed
+       //    //Debug.Log(gameObject.tag + " has died.");
+       //}
+   
+       ////if (HealthBar.Instance != null)
+       ////{
+       ////    HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
+       ////}
+   
+       ////Flash indication
+       //ActivateVisuals();
 
-            }
-            else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
-            {
-                ToggleRagdoll(true, player2Obj);
-                _bIsPlayerDisabled = true;
-                playersDefeated++;
-
-            }
-
-            if (_bIsPlayerDisabled)
-            {
-                EnableColliders();
-                Respawn();
-            }
-
-            if (playersDefeated == 2)
-            {
-                playersDefeated = 0;
-                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
-            }
-        }
-        else
-        {
-
-            if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
-            {
-                ToggleRagdoll(true, player1Obj);
-                _bIsPlayerDisabled = true;
-                playersDefeated++;
-
-            }
-
-            if (playersDefeated == 1)
-            {
-                playersDefeated = 0;
-                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
-                HealthBar.Instance.ResetPlayerHealthBars();
-            }
-        }
-
-    }
-    private bool respawnTimerSet = false;
-    private void Respawn()
-    {
-        if (!respawnTimerSet)
-        {
-            _respawnTime = _respawnCooldown;
-            respawnTimerSet = true;
-        }
-
-        _respawnTime -= Time.deltaTime;
-
-        if (_respawnTime <= 0)
-        {
-            playersDefeated--;
-            currentHealth = playerAttributes.maxHP;
-            _bIsPlayerDisabled = false;
-            respawnTimerSet = false;
-
-            if (_playerId == 1)
-            {
-                ToggleRagdoll(false, player1Obj);
-
-                DisableColliders();
-            }
-            else if (_playerId == 2)
-            {
-                ToggleRagdoll(false, player2Obj);
-
-                DisableColliders();
-            }
-
-        }
-    }
-
-    public void SetHealth(float damage)
-    {
-        if (GhostChain._bIsGhostChainActive) return;
-
-        // Check if the shield is active and absorb damage first
-        if (_shieldAbility != null && _shieldAbility.IsShieldActive())
-        {
-            // Absorb the damage with the shield
-            float remainingDamage = _shieldAbility.AbsorbDamage(damage);
-
-            // If the shield completely absorbed the damage, exit the function
-            if (remainingDamage <= 0)
-            {
-                Debug.Log("Shield absorbed all the damage.");
-                return;
-            }
-
-            // If the shield breaks and there's leftover damage, apply it to the player's health
-            damage = remainingDamage;
-        }
-
-        // Apply the remaining damage to the player's health
-        currentHealth -= damage;
-        Debug.Log(gameObject.tag + " took: " + damage + " damage, current health = " + currentHealth);
-
-        if (currentHealth <= 0)
-        {
-
-            // Handle player's death here if needed
-            //Debug.Log(gameObject.tag + " has died.");
-        }
-
-        //if (HealthBar.Instance != null)
-        //{
-        //    HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
-        //}
-
-        //Flash indication
-        ActivateVisuals();
-    }
+        _playerHealth.SetHealth(damage);
+   }
 
     public void UpdateHealthBar()
     {
         if (HealthBar.Instance != null)
         {
-            HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
+            HealthBar.Instance.UpdateHealthBar(_playerId, _playerHealth.currentHealth, GetMaxHealth());
         }
     }
 
@@ -447,86 +451,86 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    public void InitializeFlash()
-    {
-        // Iterate through all the children (deeply) of the player object
-        foreach (Transform child in transform)
-        {
-            // Skip if the GameObject is inactive or specific named GameObjects
-            if (!child.gameObject.activeInHierarchy || child.name == "Root" || child.name == "Cube" || child.name == "Chain_Joint")
-            {
-                continue;
-            }
+    //public void InitializeFlash()
+    //{
+    //    // Iterate through all the children (deeply) of the player object
+    //    foreach (Transform child in transform)
+    //    {
+    //        // Skip if the GameObject is inactive or specific named GameObjects
+    //        if (!child.gameObject.activeInHierarchy || child.name == "Root" || child.name == "Cube" || child.name == "Chain_Joint")
+    //        {
+    //            continue;
+    //        }
 
-            // Try to get the Renderer component from this child
-            renderer = child.GetComponentInChildren<Renderer>(false);  // `true` includes inactive objects
-            if (renderer != null)
-            {
-                material = renderer.material;
-                break;  // We found a Renderer, no need to continue searching
-            }
-        }
+    //        // Try to get the Renderer component from this child
+    //        renderer = child.GetComponentInChildren<Renderer>(false);  // `true` includes inactive objects
+    //        if (renderer != null)
+    //        {
+    //            material = renderer.material;
+    //            break;  // We found a Renderer, no need to continue searching
+    //        }
+    //    }
 
-        if (renderer != null)
-        {
-            material.EnableKeyword("_EMISSION");
-            originalColor = material.GetColor("_EmissionColor");
-        }
-        else
-        {
-            Debug.LogError("No Renderer found in children!");
-        }
-    }
+    //    if (renderer != null)
+    //    {
+    //        material.EnableKeyword("_EMISSION");
+    //        originalColor = material.GetColor("_EmissionColor");
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("No Renderer found in children!");
+    //    }
+    //}
 
-    public void ActivateVisuals()
-    {
-        if (!isFlashing)
-        {
-            InitializeFlash();
-            StartCoroutine(FlashCoroutine());
-        }
-    }
+    //public void ActivateVisuals()
+    //{
+    //    if (!isFlashing)
+    //    {
+    //        InitializeFlash();
+    //        StartCoroutine(FlashCoroutine());
+    //    }
+    //}
 
-    private IEnumerator FlashCoroutine()
-    {
-        isFlashing = true;
+    //private IEnumerator FlashCoroutine()
+    //{
+    //    isFlashing = true;
 
-        float elapsedTime = 0f;
+    //    float elapsedTime = 0f;
 
-        // Enable emission if it's off
-        material.EnableKeyword("_EMISSION");
+    //    // Enable emission if it's off
+    //    material.EnableKeyword("_EMISSION");
 
-        while (elapsedTime < flashDuration)
-        {
-            // Calculate the current color by interpolating between the original and flash colors
-            Color currentColor = Color.Lerp(originalColor, flashColor, elapsedTime / flashDuration);
-            material.SetColor("_EmissionColor", currentColor);
+    //    while (elapsedTime < flashDuration)
+    //    {
+    //        // Calculate the current color by interpolating between the original and flash colors
+    //        Color currentColor = Color.Lerp(originalColor, flashColor, elapsedTime / flashDuration);
+    //        material.SetColor("_EmissionColor", currentColor);
 
-            // Increment elapsed time
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+    //        // Increment elapsed time
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        // Set to the flash color at the end of the flashDuration
-        material.SetColor("_EmissionColor", flashColor);
+    //    // Set to the flash color at the end of the flashDuration
+    //    material.SetColor("_EmissionColor", flashColor);
 
-        // Lerp back to the original color
-        elapsedTime = 0f;
-        while (elapsedTime < flashDuration)
-        {
-            Color currentColor = Color.Lerp(flashColor, originalColor, elapsedTime / flashDuration);
-            material.SetColor("_EmissionColor", currentColor);
+    //    // Lerp back to the original color
+    //    elapsedTime = 0f;
+    //    while (elapsedTime < flashDuration)
+    //    {
+    //        Color currentColor = Color.Lerp(flashColor, originalColor, elapsedTime / flashDuration);
+    //        material.SetColor("_EmissionColor", currentColor);
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-        // Reset to the original color and disable emission if it was off
-        material.SetColor("_EmissionColor", originalColor);
-        material.DisableKeyword("_EMISSION");
+    //    // Reset to the original color and disable emission if it was off
+    //    material.SetColor("_EmissionColor", originalColor);
+    //    material.DisableKeyword("_EMISSION");
 
-        isFlashing = false;
-    }
+    //    isFlashing = false;
+    //}
 
     #region Events
 
