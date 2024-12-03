@@ -10,8 +10,7 @@ using UnityEngine;
 /// </summary>
 public class SpawnAbilityChainSegments : MonoBehaviour
 {
-    public static SpawnAbilityChainSegments instance { get; private set; }
-
+   
     [Header("Ultimate ability segment prefabs")]
     [SerializeField] private GameObject _laserSegment;
     [SerializeField] private GameObject _electricSegment;
@@ -31,28 +30,9 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     ObiRopeChainRenderer chainRenderer2;
     ObiRopeLineRenderer lineRenderer;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     private void Start()
     {
-        _chain = GetComponent<ObiActor>();
-
-        ObiRopeChainRenderer[] chainRenderers = gameObject.GetComponents<ObiRopeChainRenderer>();
-
-        chainRenderer1 = chainRenderers[0];
-        chainRenderer2 = chainRenderers[1];
-        lineRenderer = GetComponent<ObiRopeLineRenderer>();
+        FindChainInScene();
 
         InstantiateLaserChainSegments();
         InstantiateElectricChainSegments();
@@ -61,6 +41,40 @@ public class SpawnAbilityChainSegments : MonoBehaviour
     }
 
     #region Ghost Chain
+
+    private void Update()
+    {
+        if (_chain != null) return;
+
+
+        FindChainInScene();
+
+    }
+
+    private void FindChainInScene()
+    {
+        _chain = FindObjectOfType<ObiActor>();
+
+        // Find all ObiRopeChainRenderers in the scene and get the first two
+        ObiRopeChainRenderer[] chainRenderers = FindObjectsOfType<ObiRopeChainRenderer>();
+
+        if (chainRenderers.Length > 1)
+        {
+            chainRenderer1 = chainRenderers[0];
+            chainRenderer2 = chainRenderers[1];
+        }
+        else if (chainRenderers.Length > 0)
+        {
+            chainRenderer1 = chainRenderers[0];
+            chainRenderer2 = null; // Or handle the case where there's only one renderer
+        }
+        else
+        {
+            chainRenderer1 = null;
+            chainRenderer2 = null;
+        }
+        lineRenderer = _chain.GetComponent<ObiRopeLineRenderer>();
+    }
 
     /// <summary>
     /// This method is called when you want to spawn all the ghost chain segments
