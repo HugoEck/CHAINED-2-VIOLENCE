@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class MoveUpwards : MonoBehaviour
 {
+    #region VARIABLES
     public float targetY = 0f;
     public float moveSpeed = 10f;
 
     private WobbleEffect wobble;
+    #endregion
 
+    #region START & UPDATE
     private void Start()
     {
         wobble = gameObject.AddComponent<WobbleEffect>();
@@ -34,4 +37,5 @@ public class MoveUpwards : MonoBehaviour
             moveSpeed = 0f;
         }
     }
+    #endregion
 }
