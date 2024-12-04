@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,11 @@ using UnityEngine;
 public class DissolveManager : MonoBehaviour
 {
     public WaveManager waveManager;
+    public CinemachineFreeLook cam;
+
+    float zoomedOutFov = 120;
+    float normalFov = 40;
+
 
     public Material[] newMaterials;
     public Material[] activeMaterials;
@@ -60,6 +66,7 @@ public class DissolveManager : MonoBehaviour
 
     private void Start()
     {
+        cam = FindObjectOfType<CinemachineFreeLook>();
         floorRenderer = floor.GetComponent<Renderer>();
         currentFloorMaterial = romanFloorMaterial;
 
@@ -87,9 +94,10 @@ public class DissolveManager : MonoBehaviour
         Debug.Log(WaveManager.currentWave);
         if (WaveManager.currentWave == 1 && !hasChangedToRoman)
         {
+            StartCoroutine(ZoomOutcamera());
             romanArena.SetActive(true);
-            ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f, sciFiArena);
-            StartCoroutine(InitialDissolveAndChangeMaterial(romanFloorMaterial));
+            
+            
 
             hasChangedToRoman = true;
         }
@@ -154,6 +162,11 @@ public class DissolveManager : MonoBehaviour
 
     private IEnumerator HandleArenaTransition(Material[] desiredArena, float stopY, float startY, GameObject oldArena)
     {
+        
+
+
+        
+
         // Phase 1: Fully dissolve the active arena
         if (activeMaterials != null && activeMaterials.Length > 0)
         {
@@ -163,8 +176,34 @@ public class DissolveManager : MonoBehaviour
         // Phase 2: Fully reveal the desired arena
         yield return StartCoroutine(DissolveArena(desiredArena, dissolveOut: false));
 
+        
         // Set the new materials as the currently active ones
         activeMaterials = desiredArena;
+    }
+
+    private IEnumerator ZoomIncamera()
+    {
+        float time = 0;
+
+        while (time < 3)
+        {
+            cam.m_Lens.FieldOfView = Mathf.Lerp(zoomedOutFov, normalFov, time / 1.5f);
+            yield return null;
+            time += Time.deltaTime;
+        }
+    }
+    private IEnumerator ZoomOutcamera()
+    {
+        float time = 0;
+
+        while (time < 3)
+        {
+            cam.m_Lens.FieldOfView = Mathf.Lerp(normalFov, zoomedOutFov, time / 1.5f);
+            yield return null;
+            time += Time.deltaTime;
+        }
+        ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f, sciFiArena);
+        StartCoroutine(InitialDissolveAndChangeMaterial(romanFloorMaterial));
     }
 
     private IEnumerator DissolveArena(Material[] arenaMaterials, bool dissolveOut)
@@ -256,7 +295,7 @@ public class DissolveManager : MonoBehaviour
             UpdateDissolve(dissolveValue);
             yield return null;
         }
-
+        StartCoroutine(ZoomIncamera());
     }
 
     private void UpdateDissolve(float dissolveValue)

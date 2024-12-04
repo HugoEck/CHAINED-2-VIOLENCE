@@ -6,6 +6,13 @@ public class WaveData : MonoBehaviour
 {
     public void LoadWaves(List<Wave> waves)
     {
+        waves.Add(CreateWave("Wave 0",
+            new List<EnemyConfig>
+            {
+
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 1 }
+            }
+        ));
         waves.Add(CreateWave("Wave 1",
             new List<EnemyConfig>
             {
