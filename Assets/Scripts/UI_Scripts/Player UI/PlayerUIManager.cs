@@ -52,7 +52,7 @@ public class PlayerUIManager : MonoBehaviour
             timeOfArenaRunLengthText.gameObject.SetActive(true);
             remainingEnemiesPerWaveText.gameObject.SetActive(true);
             remainingEnemiesPerWaveText.text = "Remaining Enemies: " + WaveManager.ActiveEnemies;
-            currentWaveText.text = "Wave: " + (WaveManager.currentWave - 1);
+            currentWaveText.text = "Wave: " + (WaveManager.currentWave);
         }
     }
 

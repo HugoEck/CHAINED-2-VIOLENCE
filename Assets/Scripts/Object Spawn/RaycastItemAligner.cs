@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class RaycastItemAligner : MonoBehaviour
 {
+    #region VARIABLES
     public float raycastDistance = 100f;
     public float overlapTestBoxSize = 1f;
     public LayerMask spawnedObjectLayer;
+    #endregion
 
+    #region ALIGN-ITEM
     public void AlignItem(GameObject item)
     {
         RaycastHit hit;
@@ -34,4 +37,5 @@ public class RaycastItemAligner : MonoBehaviour
             }
         }
     }
+    #endregion
 }
