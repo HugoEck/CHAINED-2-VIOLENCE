@@ -83,7 +83,7 @@ public class ChargerManager : BaseManager
         defense = 1;
         navigation.maxSpeed = 5;
         attackSpeed = 1.5f;
-        attackRange = 4f;
+        attackRange = 4.5f;
         unitCost = 50;
 
     }

@@ -37,7 +37,7 @@ public class RunnerManager : BaseManager
         defense = 0;
         navigation.maxSpeed = 9;
         attackSpeed = 1;
-        attackRange = 3f;
+        attackRange = 3.5f;
         unitCost = 2;
 
     }

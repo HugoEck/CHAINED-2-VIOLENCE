@@ -74,7 +74,7 @@ public class SwordsmanManager : BaseManager
         defense = 0;
         navigation.maxSpeed = 6;
         attackSpeed = 1;
-        attackRange = 4;
+        attackRange = 4.5f;
         rb.mass = 10;
         unitCost = 10;
         transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);

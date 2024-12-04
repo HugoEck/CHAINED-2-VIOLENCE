@@ -75,7 +75,7 @@ public class PlebianManager : BaseManager
         defense = 0;
         navigation.maxSpeed = 5;
         attackSpeed = 1;
-        attackRange = 2.5f;
+        attackRange = 3.5f;
         unitCost = 1;
         
     }
