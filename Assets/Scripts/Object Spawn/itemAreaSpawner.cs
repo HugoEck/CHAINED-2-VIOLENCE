@@ -8,8 +8,9 @@ using UnityEngine.Rendering;
 
 public class itemAreaSpawner : MonoBehaviour
 {
-    #region Variables
-    // Array of objects that can be spawned
+    #region VARIABLES
+
+    // PUBLIC
     public GameObject[] romanObjects;
     public GameObject[] fantasyObjects;
     public GameObject[] pirateObjects;
@@ -27,15 +28,17 @@ public class itemAreaSpawner : MonoBehaviour
 
     // Size of the box for overlap check
     public float overlapTestBoxSize = 1f;
+
     // The spread of objects around the map
     public float itemXSpread;
     public float itemYSpread;
     public float itemZSpread;
-    private float cooldownTimer = 0f;
 
-    // Layer that is to be checked for overlaps
     public LayerMask spawnedObjectLayer;
     public WaveManager waveManager;
+
+    // PRIVATE
+    private float cooldownTimer = 0f;
 
     private bool itemsSpawnedForRomanWave = false;
     private bool itemsSpawnedForFantasyWave = false;
@@ -63,6 +66,7 @@ public class itemAreaSpawner : MonoBehaviour
 
     #endregion
 
+    #region UPDATE
     private void Update()
     {
         SpawnWithWaves();
@@ -73,8 +77,10 @@ public class itemAreaSpawner : MonoBehaviour
             Debug.Log(WaveManager.currentWave);
         }
     }
+    #endregion
 
-    void SpawnItems(GameObject[] objectArray)
+    #region SPAWN & SPREAD ITEMS
+    private void SpawnItems(GameObject[] objectArray)
     {
         int successfullySpawned = 0;
 
@@ -92,7 +98,7 @@ public class itemAreaSpawner : MonoBehaviour
         }
     }
 
-    bool SpreadItem(GameObject[] objectArray)
+    private bool SpreadItem(GameObject[] objectArray)
     {
         int maxAttempts = 5;  // Maximum number of attempts to find a valid position
         int attempt = 0;
@@ -143,8 +149,10 @@ public class itemAreaSpawner : MonoBehaviour
         }
         return false;  // Failed to spawn due to overlap
     }
+    #endregion
 
-    void DespawnObjects()
+    #region DESPAWN OBJECTS
+    private void DespawnObjects()
     {
         foreach (GameObject obj in spawnedObjects)
         {
@@ -198,8 +206,32 @@ public class itemAreaSpawner : MonoBehaviour
         }
         spawnedObjects.Clear();
     }
+    #endregion
 
-    void SpawnWithWaves()
+    #region WAVE LOGIC
+    private void HandleWave(int waveNumber, GameObject[] objectsToSpawn, ref bool itemsSpawnedFlag)
+    {
+        if (WaveManager.currentWave == waveNumber && !itemsSpawnedFlag)
+        {
+            if (!isDespawning)
+            {
+                DespawnObjects();
+                isDespawning = true;
+                cooldownTimer = 5f; // Reset cooldown timer
+            }
+            else
+            {
+                cooldownTimer -= Time.deltaTime;
+                if (cooldownTimer <= 0)
+                {
+                    SpawnItems(objectsToSpawn);
+                    itemsSpawnedFlag = true;
+                    isDespawning = false; // Reset despawning for next wave
+                }
+            }
+        }
+    }
+    private void SpawnWithWaves()
     {
         if (waveManager != null)
         {
@@ -232,7 +264,9 @@ public class itemAreaSpawner : MonoBehaviour
             itemsSpawnedForRomanWave = true;
         }
     }
+    #endregion
 
+    #region BOULDER LOGIC
     private void HandleBoulders()
     {
         if (WaveManager.currentWave == 5 && !boulderForRoman)
@@ -278,7 +312,7 @@ public class itemAreaSpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnBoulderWithDelay()
+    public IEnumerator SpawnBoulderWithDelay()
     {
         // Generate a random delay between 10 and 20 seconds
         float delay = Random.Range(10f, 20f);
@@ -326,29 +360,6 @@ public class itemAreaSpawner : MonoBehaviour
             Debug.LogError("BoulderManager script not found on boulder prefab.");
         }
     }
-
-    void HandleWave(int waveNumber, GameObject[] objectsToSpawn, ref bool itemsSpawnedFlag)
-    {
-        if (WaveManager.currentWave == waveNumber && !itemsSpawnedFlag)
-        {
-            if (!isDespawning)
-            {
-                DespawnObjects();
-                isDespawning = true;
-                cooldownTimer = 5f; // Reset cooldown timer
-            }
-            else
-            {
-                cooldownTimer -= Time.deltaTime;
-                if (cooldownTimer <= 0)
-                {
-                    SpawnItems(objectsToSpawn);
-                    itemsSpawnedFlag = true;
-                    isDespawning = false; // Reset despawning for next wave
-                }
-            }
-        }
-    }
     public void RemoveObjectFromCollision(GameObject obj)
     {
         if (spawnedObjects.Contains(obj))
@@ -357,4 +368,5 @@ public class itemAreaSpawner : MonoBehaviour
             Debug.Log($"Removed {obj.name} from spawnedObjects list.");
         }
     }
+    #endregion
 }

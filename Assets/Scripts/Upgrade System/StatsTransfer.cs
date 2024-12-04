@@ -21,8 +21,8 @@ public class StatsTransfer : MonoBehaviour
     public static float Player2WalkingSpeed { get; set; }
     public static float CurrentChainLength { get; set; }
 
-    [SerializeField]private PlayerAttributes player1Attributes;
-    [SerializeField]private PlayerAttributes player2Attributes;
+    private PlayerAttributes player1Attributes;
+    private PlayerAttributes player2Attributes;
 
     private bool _bHasPlayer1HpBeenSet = false;
     private bool _bHasPlayer2HpBeenSet = false;
@@ -47,16 +47,30 @@ public class StatsTransfer : MonoBehaviour
 
     private void Start()
     {
-        ApplyStatsPlayer1();
-        ApplyStatsPlayer2();
+        //ApplyStatsPlayer1();
+        //ApplyStatsPlayer2();
     }
 
     private void OnDestroy()
     {
         player1.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer1SpawnedIn;
         player2.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer2SpawnedIn;
-        SaveStatsPlayer1();
-        SaveStatsPlayer2();
+        SaveStatsPlayer1(player1Attributes);
+        SaveStatsPlayer2(player2Attributes);
+    }
+
+    private void Update()
+    {
+        if(player1Attributes == null)
+        {
+            player1Attributes = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerAttributes>();
+            ApplyStatsPlayer1();
+        }
+        if(player2Attributes == null)
+        {
+            player2Attributes = GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerAttributes>();
+            ApplyStatsPlayer2();
+        }
     }
 
     public void ApplyStatsPlayer1()
@@ -79,8 +93,10 @@ public class StatsTransfer : MonoBehaviour
         }
     }
 
-    public void SaveStatsPlayer1()
+    public void SaveStatsPlayer1(PlayerAttributes player1AttributesTMP)
     {
+        player1Attributes = player1AttributesTMP;
+
         if (player1Attributes != null)
         {
             Player1AttackDamage = player1Attributes.attackDamage;
@@ -89,8 +105,10 @@ public class StatsTransfer : MonoBehaviour
         }
     }
 
-    public void SaveStatsPlayer2()
+    public void SaveStatsPlayer2(PlayerAttributes player2AttributesTMP)
     {
+        player2Attributes = player2AttributesTMP;
+
         if (player2Attributes != null)
         {
             Player2AttackDamage = player2Attributes.attackDamage;

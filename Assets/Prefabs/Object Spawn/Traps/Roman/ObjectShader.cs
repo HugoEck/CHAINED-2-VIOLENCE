@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ObjectShader : MonoBehaviour
 {
+    #region VARIABLES
     public Material dissolveMaterial;  // The material with the dissolve shader
+    
+    public Vector2 dissolveYRange = new Vector2(-0.1f, 15f); // Y range for dissolving
 
     private Renderer objectRenderer;
     private Coroutine dissolveCoroutine;
+    #endregion
 
-    public Vector2 dissolveYRange = new Vector2(-0.1f, 15f); // Y range for dissolving
-
+    #region START
     private void Start()
     {
         // Cache the renderer component
@@ -21,7 +24,9 @@ public class ObjectShader : MonoBehaviour
         // Trigger the spawn effect
         StartSpawn();
     }
+    #endregion
 
+    #region SPAWN & DESPAWN
     public void StartSpawn()
     {
         if (dissolveCoroutine != null)
@@ -43,7 +48,9 @@ public class ObjectShader : MonoBehaviour
         // Start the despawn (reverse dissolve) process over a fixed duration (e.g., 3 seconds)
         dissolveCoroutine = StartCoroutine(DissolveObject(3f, dissolveYRange.y, dissolveYRange.x, true));  // From endY to startY
     }
+    #endregion
 
+    #region DISSOLVE
     private IEnumerator DissolveObject(float duration, float startY, float endY, bool destroyOnComplete)
     {
         float timeElapsed = 0f;
@@ -81,4 +88,5 @@ public class ObjectShader : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 }

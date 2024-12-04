@@ -29,6 +29,7 @@ public class TrapManager : MonoBehaviour
     private GameObject currentParticle; // Reference to the active particle
     #endregion
 
+    #region START & UPDATE
     void Start()
     {
         // Start the trap below the surface
@@ -47,8 +48,9 @@ public class TrapManager : MonoBehaviour
             DespawnTrap();
         }
     }
+    #endregion
 
-    #region Moving up/down & Particle
+    #region MOVING UP/DOWN & PARTICLE
     private void Movement()
     {
         if (!isDespawning)
@@ -117,7 +119,7 @@ public class TrapManager : MonoBehaviour
     }
     #endregion
 
-    #region Despawn
+    #region DESPAWN
     public void DespawnTrap()
     {
         isDespawning = true;
@@ -137,7 +139,7 @@ public class TrapManager : MonoBehaviour
     }
     #endregion
 
-    #region Deal Damage
+    #region DEAL DAMAGE
     private void OnCollisionEnter(Collision collision)
     {
         // DAMAGE PLAYER

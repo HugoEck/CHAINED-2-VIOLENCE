@@ -17,6 +17,8 @@ public class ClassSelector : MonoBehaviour
     private bool _bIsPlayer1ChoosingClass = false;
     private bool _bIsPlayer2ChoosingClass = false;
 
+    private bool _bIsInsideClassSelectArea = false;
+
     private int _playerId = 0;
 
     void Start()
@@ -27,39 +29,40 @@ public class ClassSelector : MonoBehaviour
         _weaponManager = GetComponent<WeaponManager>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-       
         PlayerCombat.PlayerClass classType;
 
-        if(other.CompareTag("Tank"))
+        if (other.CompareTag("Tank"))
         {
             classType = PlayerCombat.PlayerClass.Tank;
             ShowClassPrompt(other.gameObject, classType);
+            _bIsInsideClassSelectArea = true;
         }
-        else if(other.CompareTag("Warrior"))
+        else if (other.CompareTag("Warrior"))
         {
             classType = PlayerCombat.PlayerClass.Warrior;
             ShowClassPrompt(other.gameObject, classType);
+            _bIsInsideClassSelectArea = true;
         }
-        else if(other.CompareTag("Ranged"))
+        else if (other.CompareTag("Ranged"))
         {
 
             classType = PlayerCombat.PlayerClass.Ranged;
             ShowClassPrompt(other.gameObject, classType);
+            _bIsInsideClassSelectArea = true;
         }
-        else if(other.CompareTag("Support"))
+        else if (other.CompareTag("Support"))
         {
             classType = PlayerCombat.PlayerClass.Support;
             ShowClassPrompt(other.gameObject, classType);
+            _bIsInsideClassSelectArea = true;
         }
         else
         {
             return;
         }
-
     }
-
     private void OnTriggerExit(Collider other)
     {
 
@@ -69,21 +72,25 @@ public class ClassSelector : MonoBehaviour
         {
             classType = PlayerCombat.PlayerClass.Tank;
             Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+            _bIsInsideClassSelectArea = false;
         }
         else if (other.CompareTag("Warrior"))
         {
             classType = PlayerCombat.PlayerClass.Warrior;
             Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+            _bIsInsideClassSelectArea = false;
         }
         else if (other.CompareTag("Ranged"))
         {
             classType = PlayerCombat.PlayerClass.Ranged;
             Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+            _bIsInsideClassSelectArea = false;
         }
         else if (other.CompareTag("Support"))
         {
             classType = PlayerCombat.PlayerClass.Support;
             Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+            _bIsInsideClassSelectArea = false;
         }
         else
         {
@@ -101,8 +108,8 @@ public class ClassSelector : MonoBehaviour
         targetClass = classType;
 
         // Show prompt and update text
-        uiPrompt.SetActive(true);
-        uiPrompt.GetComponent<Text>().text = "Switch to: " + targetClass + " [E]";
+        //uiPrompt.SetActive(true);
+        //uiPrompt.GetComponent<Text>().text = "Switch to: " + targetClass + " [E]";
         Debug.Log("Showing class prompt for class: " + targetClass);
     }
 
@@ -119,7 +126,7 @@ public class ClassSelector : MonoBehaviour
         
         if(_playerId == 1)
         {
-            if(_bIsPlayer1ChoosingClass = InputManager.Instance.GetInteractInput_P1())
+            if(_bIsPlayer1ChoosingClass = InputManager.Instance.GetInteractInput_P1() && _bIsInsideClassSelectArea)
             {
                 SwitchClass(gameObject, targetClass);
                 Debug.Log(gameObject.tag + " Changed class");
@@ -127,7 +134,7 @@ public class ClassSelector : MonoBehaviour
         }
         else if(_playerId == 2)
         {
-            if(_bIsPlayer2ChoosingClass = InputManager.Instance.GetInteractInput_P2())
+            if(_bIsPlayer2ChoosingClass = InputManager.Instance.GetInteractInput_P2() && _bIsInsideClassSelectArea)
             {
                 SwitchClass(gameObject, targetClass);
                 Debug.Log(gameObject.tag + " Changed class");

@@ -8,7 +8,7 @@ public class BoulderManager : MonoBehaviour
     #region VARIABLES
     // PUBLIC
     public float despawnTime = 5f;
-    public float boulderSpeed = 14f;
+    public float boulderSpeed = 15f;
 
     public List<GameObject> objectsToRemove = new List<GameObject>();
     public itemAreaSpawner spawner;
@@ -24,14 +24,18 @@ public class BoulderManager : MonoBehaviour
     private float dustSpawnInterval = 0.4f;
     private float damageCooldownDuration = 3f; // Cooldown duration in seconds
 
+    private bool isActive = false; // Track if the boulder is active
+    
     private Vector3 moveDirection;
     private Vector3 targetPosition;
 
     private GameObject currentPathParticle; // Reference to the active path particle
     private Dictionary<GameObject, float> damageCooldowns = new Dictionary<GameObject, float>();
     private Rigidbody rb;
+    private MeshRenderer meshRenderer;
     #endregion
 
+    #region START & UPDATE
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,15 +45,29 @@ public class BoulderManager : MonoBehaviour
             return;
         }
 
+        meshRenderer = GetComponent<MeshRenderer>();
+        if (meshRenderer == null)
+        {
+            Debug.LogError("MeshRenderer not found on the boulder! Ensure the boulder has a MeshRenderer component.");
+            return;
+        }
+
+        // Disable visibility and movement initially
+        meshRenderer.enabled = false;
+        rb.isKinematic = true;
+
         targetPosition = DetermineTargetPosition(transform.position);
         moveDirection = (targetPosition - transform.position).normalized;
 
         SpawnPathParticle();
+
+        // Start the activation timer
+        StartCoroutine(ActivateBoulderAfterDelay(2f));
     }
 
     private void FixedUpdate()
     {
-        if (rb == null) return;
+        if (!isActive || rb == null) return;
 
         // Apply force to move the boulder
         rb.velocity = moveDirection * boulderSpeed;
@@ -59,6 +77,7 @@ public class BoulderManager : MonoBehaviour
 
         SpawnDustParticles();
     }
+    #endregion
 
     #region DAMAGE AND COLLIDE LOGIC
     private void OnCollisionEnter(Collision collision)
@@ -189,20 +208,11 @@ public class BoulderManager : MonoBehaviour
 
             currentPathParticle = Instantiate(pathParticle, particlePosition, particleRotation);
 
-            Destroy(currentPathParticle, 2f);
+            Destroy(currentPathParticle, 2f); // Destroy particle after 2 seconds
         }
         else
         {
             Debug.LogWarning("Path particle prefab is not assigned.");
-        }
-    }
-
-    private void OnDestroy()
-    {
-        // Destroy the path particle when the boulder is destroyed
-        if (currentPathParticle != null)
-        {
-            Destroy(currentPathParticle);
         }
     }
     #endregion
@@ -249,7 +259,17 @@ public class BoulderManager : MonoBehaviour
     }
     #endregion
 
-    #region DESTROY BOULDER
+    #region SPAWN & DESTROY BOULDER
+    private IEnumerator ActivateBoulderAfterDelay(float delay)
+    {
+        // Wait for the delay
+        yield return new WaitForSeconds(delay);
+
+        // Enable the boulder visibility and movement
+        meshRenderer.enabled = true;
+        rb.isKinematic = false; // Enable movement
+        isActive = true;
+    }
     private IEnumerator DestroyBoulderWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -279,6 +299,7 @@ public class BoulderManager : MonoBehaviour
 
         return Vector3.zero; // Default target position if no match
     }
+
     public void SetMovementDirection(Vector3 direction)
     {
         moveDirection = direction.normalized;

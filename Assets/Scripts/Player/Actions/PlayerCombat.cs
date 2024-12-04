@@ -45,6 +45,8 @@ public class PlayerCombat : MonoBehaviour
     private int playerId;
 
     private ClassSelector classSelector;
+
+    public PlayerAttributes playerAttributesRef { get; set; }
     
     #region Ability components
 
@@ -217,12 +219,12 @@ private void Awake()
         if (playerId == 1)
         {
             ClassManager._currentPlayer1Class = newPlayerClass;
-            StatsTransfer.Instance.SaveStatsPlayer1();
+            StatsTransfer.Instance.SaveStatsPlayer1(playerAttributesRef);
         }
         else if (playerId == 2)
         {
             ClassManager._currentPlayer2Class = newPlayerClass;
-            StatsTransfer.Instance.SaveStatsPlayer2();
+            StatsTransfer.Instance.SaveStatsPlayer2(playerAttributesRef);
         }
 
         // Event when switched class, used for ability UI.
