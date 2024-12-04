@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class MoveDownwards : MonoBehaviour
 {
+    #region VARIABLES
+    // PUBLIC
+    public itemAreaSpawner spawner;
+    
     public float targetY = -15f;
     public float movementSpeed = 10f;
+    
+    // PRIVATE
     private float delayBeforeMove = 2f;
     private float delayTimer;
 
-    public itemAreaSpawner spawner;
     private WobbleEffect wobble;
+    #endregion
 
+    #region START
     private void Start()
     {
         wobble = gameObject.AddComponent<WobbleEffect>();
         wobble.StartWobble();
         delayTimer = delayBeforeMove;
     }
+    #endregion
 
+    #region UPDATE
     public void Update()
     {
         if (delayTimer > 0)
@@ -43,4 +52,5 @@ public class MoveDownwards : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 }
