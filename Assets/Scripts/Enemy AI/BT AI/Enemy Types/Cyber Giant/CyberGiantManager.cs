@@ -20,6 +20,7 @@ public class CyberGiantManager : BaseManager
     public GameObject energyShield;
     [HideInInspector] public CapsuleCollider damageCollider;
     private CapsuleCollider weaponCollider;
+    public GameObject effectPrefab;
 
     [Header("CG STATS")]
 
@@ -65,7 +66,7 @@ public class CyberGiantManager : BaseManager
     private float lastMidRangeTime = -10;
     private float lastCloseRangeTime = -5;
 
-    public float debugTimer;
+    //public float debugTimer;
 
     void Start()
     {
