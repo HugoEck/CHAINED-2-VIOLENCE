@@ -20,6 +20,10 @@ public class CGKill : Node
 
         deathTimer -= Time.deltaTime;
 
+        if (deathTimer < 7 && deathTimer > 6.5f)
+        {
+            cg.effectPrefab.SetActive(false);
+        }
 
         if (deathTimer < 2.5f && runOnce == false)
         {

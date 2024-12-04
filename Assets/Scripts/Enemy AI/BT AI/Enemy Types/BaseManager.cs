@@ -72,9 +72,9 @@ public class BaseManager : MonoBehaviour
         rb = GetComponentInChildren<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         c_collider = GetComponentInChildren<CapsuleCollider>();
-        c_collider.center = new Vector3(0, 0.75f, 0);
+        c_collider.center = new Vector3(0, 1f, 0);
         c_collider.radius = 0.5f;
-        c_collider.height = 2.5f;
+        c_collider.height = 2f;
         originalScale = transform.localScale;
 
 
