@@ -278,7 +278,7 @@ public class itemAreaSpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnBoulderWithDelay()
+    public IEnumerator SpawnBoulderWithDelay()
     {
         // Generate a random delay between 10 and 20 seconds
         float delay = Random.Range(10f, 20f);
