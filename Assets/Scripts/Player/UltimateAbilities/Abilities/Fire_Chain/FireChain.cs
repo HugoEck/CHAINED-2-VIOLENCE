@@ -9,6 +9,9 @@ public class FireChain : MonoBehaviour, IUltimateAbility
     [SerializeField] private float _fireChainActiveDuration = 10.0f;
     [SerializeField] private float _fireChainCooldown = 20.0f;
 
+    [Header("Spawner")]
+    [SerializeField] private SpawnAbilityChainSegments _spawner;
+
     public static bool _bIsFireChainActive = false;
     private bool _bCanUseFireChain = true;
 
@@ -21,7 +24,7 @@ public class FireChain : MonoBehaviour, IUltimateAbility
         _fireChainTimer = _fireChainActiveDuration;
         _bCanUseFireChain = false;
         Debug.Log("Fire Chain Activated");
-        SpawnAbilityChainSegments.instance.SpawnFireChainSegments();
+        _spawner.SpawnFireChainSegments();
     }
 
     public void Deactivate()
@@ -29,7 +32,7 @@ public class FireChain : MonoBehaviour, IUltimateAbility
         _bIsFireChainActive = false;
         _cooldownTimer = _fireChainCooldown;
         Debug.Log("Fire Chain Deactivated");
-        SpawnAbilityChainSegments.instance.DeactivateFireChainSegments();
+        _spawner.DeactivateFireChainSegments();
         UltimateAbilityManager.instance._bIsBothPlayersUsingUltimate = false;
     }
 
@@ -44,7 +47,7 @@ public class FireChain : MonoBehaviour, IUltimateAbility
             }
             else
             {
-                SpawnAbilityChainSegments.instance.UpdateFireChainSegments();
+                _spawner.UpdateFireChainSegments();
             }
         }
 

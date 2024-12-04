@@ -96,8 +96,8 @@ public class UpgradeManager : MonoBehaviour
             SpendGold(cost);
             healthLevel++;
 
-            StatsTransfer.Instance.SaveStatsPlayer1();
-            StatsTransfer.Instance.SaveStatsPlayer2();
+            StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
             UpdateUI();
         }
         else
@@ -118,8 +118,8 @@ public class UpgradeManager : MonoBehaviour
             SpendGold(cost);
             attackLevel++;
 
-            StatsTransfer.Instance.SaveStatsPlayer1();
-            StatsTransfer.Instance.SaveStatsPlayer2();
+            StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
             UpdateUI();
         }
         else
@@ -139,8 +139,8 @@ public class UpgradeManager : MonoBehaviour
             SpendGold(cost);
             speedLevel++;
 
-            StatsTransfer.Instance.SaveStatsPlayer1();
-            StatsTransfer.Instance.SaveStatsPlayer2();
+            StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
             UpdateUI();
         }
         else

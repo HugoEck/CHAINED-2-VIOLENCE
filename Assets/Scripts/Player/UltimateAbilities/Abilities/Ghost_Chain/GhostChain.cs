@@ -10,6 +10,9 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
     [SerializeField] private float _ghostChainCooldown = 20.0f;
     [SerializeField] private LayerMask _setIgnoreCollisionLayers;
 
+    [Header("Spawner")]
+    [SerializeField] private SpawnAbilityChainSegments _spawner;
+
     public static LayerMask ignoreCollisionLayers;
 
     public static bool _bIsGhostChainActive = false;
@@ -37,7 +40,7 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
         _ghostChainTimer = _ghostChainActiveDuration;
         _bCanUseGhostChain = false;
         Debug.Log("Ghost Chain Activated");
-        SpawnAbilityChainSegments.instance.SpawnGhostChainSegments();
+        _spawner.SpawnGhostChainSegments();
     }
    
     public void Deactivate()
@@ -45,7 +48,7 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
         _bIsGhostChainActive = false;
         _cooldownTimer = _ghostChainCooldown;
         Debug.Log("Ghost Chain Deactivated");
-        SpawnAbilityChainSegments.instance.DeactivateGhostChainSegments();
+        _spawner.DeactivateGhostChainSegments();
         UltimateAbilityManager.instance._bIsBothPlayersUsingUltimate = false;
     }
 
@@ -60,7 +63,7 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
             }
             else
             {
-                SpawnAbilityChainSegments.instance.UpdateGhostChainSegments();
+                _spawner.UpdateGhostChainSegments();
             }
         }
 

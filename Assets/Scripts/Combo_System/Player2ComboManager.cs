@@ -141,10 +141,13 @@ public class Player2ComboManager : MonoBehaviour
                     }
                     else
                     {
-                        enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage);
+                        if(currentPlayer2Class != PlayerCombat.PlayerClass.Default)
+                        {
+                            enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage);
+                        }        
                     }
-                    enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
 
+                    enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
 
                     if (_currentPlayer2WeaponObject != null)
                     {

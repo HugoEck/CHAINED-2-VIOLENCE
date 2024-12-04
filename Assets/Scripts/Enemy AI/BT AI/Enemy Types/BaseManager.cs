@@ -55,7 +55,9 @@ public class BaseManager : MonoBehaviour
         UnarmedDamage,
         TrapsDamage,
         AbilityDamage,
-        UltimateAbilityDamage
+        UltimateElectricity,
+        UltimateFire,
+        UltimateLaser,
     }
 
     public virtual void Awake()

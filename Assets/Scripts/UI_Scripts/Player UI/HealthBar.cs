@@ -10,6 +10,8 @@ public class HealthBar : MonoBehaviour
 
     [SerializeField] private Image healthBarFillPlayer1;
     [SerializeField] private Image healthBarFillPlayer2;
+    [SerializeField] private TMP_Text healthBarTextPlayer1;
+    [SerializeField] private TMP_Text healthBarTextPlayer2;
     [SerializeField] private Gradient colorGradient;
 
     private void Awake()
@@ -40,11 +42,21 @@ public class HealthBar : MonoBehaviour
         {
             healthBarFillPlayer1.fillAmount = targetFillAmount;
             healthBarFillPlayer1.color = colorGradient.Evaluate(targetFillAmount);
+
+            if (healthBarTextPlayer1 != null)
+            {
+                healthBarTextPlayer1.text = $"{currentHealth}/{maxHealth}";
+            }
         }
         else if (playerId == 2)
         {
             healthBarFillPlayer2.fillAmount = targetFillAmount;
             healthBarFillPlayer2.color = colorGradient.Evaluate(targetFillAmount);
+
+            if (healthBarTextPlayer2 != null)
+            {
+                healthBarTextPlayer2.text = $"{currentHealth}/{maxHealth}";
+            }
         }
     }
 

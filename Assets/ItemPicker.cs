@@ -8,6 +8,12 @@ public class ItemPicker : MonoBehaviour
     public GameObject item2;
     public GameObject item3;
 
+    public GameObject button1;
+    public GameObject button2;
+    public GameObject button3;
+
+    public Material[] rarityMaterials;
+
     public GameObject canvas;
 
     public PlayerAttributes playerAttributes1;
@@ -36,6 +42,8 @@ public class ItemPicker : MonoBehaviour
 
     private void Start()
     {
+
+
         item1.SetActive(false);
         item2.SetActive(false);
         item3.SetActive(false);
@@ -52,12 +60,16 @@ public class ItemPicker : MonoBehaviour
         Destroy(item2);
         Destroy(item3);
 
+
         // Instantiate items at specific positions
         item1 = RandomizeItem(new Vector3(-2, 0, 5));
         item2 = RandomizeItem(new Vector3(0, 0, 5));
         item3 = RandomizeItem(new Vector3(2, 0, 5));
 
+
+
         canvas.SetActive(true);
+
 
         // Activate all child objects (the instantiated items)
         for (int i = 0; i < transform.childCount; i++)
@@ -65,6 +77,7 @@ public class ItemPicker : MonoBehaviour
             GameObject child = transform.GetChild(i).gameObject;
             child.SetActive(true);
         }
+        StartCoroutine(DissolveItems());
     }
 
     public void DisableItems()
@@ -79,6 +92,11 @@ public class ItemPicker : MonoBehaviour
         item3.SetActive(false);
 
         canvas.SetActive(false);
+
+        foreach(Material mat in rarityMaterials)
+        {
+            mat.SetFloat("_Dissolve", 1f);
+        }
     }
 
     public void PickItem2()
@@ -86,7 +104,7 @@ public class ItemPicker : MonoBehaviour
         //Assign item logic to player here
         AssignItemToPlayer(item2.GetComponent<Item>());
         DisableItems();
-        itemPicked=true;
+        itemPicked = true;
         isPicking = false;
     }
 
@@ -121,7 +139,33 @@ public class ItemPicker : MonoBehaviour
         adjustChainLength.IncreaseRopeLength(item.chainkModifier);
     }
 
+    public IEnumerator DissolveItems()
+    {
 
+        button1.SetActive(false);
+        button2.SetActive(false);
+        button3.SetActive(false);
+
+        float dissolveValue = 1f;     // Start at 0
+        float startTime = Time.time;  // Record the time when the dissolve starts
+
+        // Phase 1: Dissolve from 0 to 1 over 2 seconds
+        while (dissolveValue > 0f)
+        {
+           
+            dissolveValue -= Time.deltaTime / 3f;
+
+            for (int i = 0; i < rarityMaterials.Length; i++)
+            {
+                rarityMaterials[i].SetFloat("_Dissolve", dissolveValue);
+            }
+            yield return null;  // Wait for the next frame
+        }
+
+        button1.SetActive(true);
+        button2.SetActive(true);
+        button3.SetActive(true);
+    }
 
 
     private float Gaussian(float x, float mean, float stdDev)

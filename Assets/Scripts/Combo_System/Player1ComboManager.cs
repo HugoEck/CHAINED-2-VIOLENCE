@@ -97,7 +97,6 @@ public class Player1ComboManager : MonoBehaviour
 
     private void Start()
     {
-        
         DefaultCombo();
     }
 
@@ -144,7 +143,10 @@ public class Player1ComboManager : MonoBehaviour
                     }
                     else
                     {
-                        enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage);
+                        if(currentPlayer1Class != PlayerCombat.PlayerClass.Default)
+                        {
+                            enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage);
+                        }
                     }
                     
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
