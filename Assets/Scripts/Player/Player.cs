@@ -127,11 +127,13 @@ public class Player : MonoBehaviour
             EnableColliders();
 
         playerAttributes.SetBaseValues(_playerCombat.currentPlayerClass);
-        StatsTransfer.Instance.SaveStatsPlayer1();
-        StatsTransfer.Instance.SaveStatsPlayer2();
+        
+       
 
         if ( _playerId == 1)
         {
+            _playerCombat.playerAttributesRef = playerAttributes;
+            StatsTransfer.Instance.SaveStatsPlayer1(playerAttributes);
             playerAttributes.maxHP = StatsTransfer.Player1MaxHealth;
             playerAttributes.movementSpeed = StatsTransfer.Player1WalkingSpeed;
             playerAttributes.attackDamage = StatsTransfer.Player1AttackDamage;
@@ -139,6 +141,8 @@ public class Player : MonoBehaviour
         }
         else if (_playerId == 2)
         {
+            _playerCombat.playerAttributesRef = playerAttributes;
+            StatsTransfer.Instance.SaveStatsPlayer2(playerAttributes);
             playerAttributes.maxHP = StatsTransfer.Player2MaxHealth;
             playerAttributes.movementSpeed = StatsTransfer.Player2WalkingSpeed;
             playerAttributes.attackDamage = StatsTransfer.Player2AttackDamage;
