@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private PlayerCombat _playerCombat;
     private ShieldAbility _shieldAbility;
     private AnimationStateController _animationStateController;
+    private ClassSelector _classSelector;
 
     private Collider _playerCollider;
     private Rigidbody _playerRigidbody;
@@ -88,6 +89,7 @@ public class Player : MonoBehaviour
         Chained2ViolenceGameManager.Instance.OnGameStateChanged -= Chained2ViolenceGameManagerOnGameStateChanged;
         Chained2ViolenceGameManager.Instance.OnLobbyStateChanged -= Chained2ViolenceGameManagerOnLobbyStateChanged;
         Chained2ViolenceGameManager.Instance.OnSceneStateChanged -= Chained2ViolenceGameManagerOnSceneStateChanged;
+        _classSelector.OnClassSwitched -= PlayerCombatOnClassSwitched;
     }
 
     void Start()
@@ -98,6 +100,7 @@ public class Player : MonoBehaviour
         _playerCombat = GetComponent<PlayerCombat>();
         _shieldAbility = GetComponent<ShieldAbility>(); // Get reference to the ShieldAbility
         _animationStateController = GetComponent<AnimationStateController>();
+        _classSelector = GetComponent<ClassSelector>();
 
         _playerCollider = GetComponent<Collider>();
         _playerRigidbody = GetComponent<Rigidbody>();
@@ -114,6 +117,7 @@ public class Player : MonoBehaviour
         Chained2ViolenceGameManager.Instance.OnGameStateChanged += Chained2ViolenceGameManagerOnGameStateChanged;
         Chained2ViolenceGameManager.Instance.OnLobbyStateChanged += Chained2ViolenceGameManagerOnLobbyStateChanged;
         Chained2ViolenceGameManager.Instance.OnSceneStateChanged += Chained2ViolenceGameManagerOnSceneStateChanged;
+        _classSelector.OnClassSwitched += PlayerCombatOnClassSwitched;
 
         StartCoroutine(DisablePlayerMovementTmp());
 
@@ -151,6 +155,7 @@ public class Player : MonoBehaviour
         currentHealth = playerAttributes.maxHP;
 
     }
+
     private void FixedUpdate()
     {
         if (_bIsPlayerDisabled) return;
@@ -564,7 +569,10 @@ public class Player : MonoBehaviour
     {
 
     }
-
+    private void PlayerCombatOnClassSwitched(GameObject player, PlayerCombat.PlayerClass newClass)
+    {
+        currentHealth = playerAttributes.maxHP;
+    }
     private IEnumerator DisablePlayerMovementTmp()
     {
         _bIsPlayerDisabled = true;
