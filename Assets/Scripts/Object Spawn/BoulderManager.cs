@@ -8,15 +8,15 @@ public class BoulderManager : MonoBehaviour
     #region VARIABLES
     // PUBLIC
     public float despawnTime = 5f;
-    public float boulderSpeed = 10f;
+    public float boulderSpeed = 14f;
 
     public List<GameObject> objectsToRemove = new List<GameObject>();
     public itemAreaSpawner spawner;
+    public GameObject pathParticle; // Particle prefab for the path trail
 
     [SerializeField] public GameObject destructionParticle;
     [SerializeField] public GameObject portalParticle;
     [SerializeField] public GameObject dustParticle;
-    public GameObject pathParticle; // Particle prefab for the path trail
 
     // PRIVATE
     private float boulderDamage = 3f;
@@ -56,61 +56,9 @@ public class BoulderManager : MonoBehaviour
 
         // Apply torque to make it roll
         ApplyRollingTorque();
-        UpdatePathParticle();
+
         SpawnDustParticles();
     }
-
-    #region Path Particle
-    private void SpawnPathParticle()
-    {
-        if (pathParticle != null)
-        {
-            float yOffset = 1.0f; // Adjust this value to set the desired height
-            Vector3 particlePosition = new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z);
-            Quaternion particleRotation = Quaternion.LookRotation(moveDirection);
-
-            currentPathParticle = Instantiate(pathParticle, particlePosition, particleRotation);
-            Debug.Log($"Path particle spawned at: {particlePosition}");
-        }
-        else
-        {
-            Debug.LogWarning("Path particle prefab is not assigned.");
-        }
-    }
-    private void UpdatePathParticle()
-    {
-        if (currentPathParticle != null)
-        {
-            float yOffset = 1.0f; // Same Y offset as in SpawnPathParticle
-            Vector3 targetPositionWithOffset = new Vector3(targetPosition.x, targetPosition.y + yOffset, targetPosition.z);
-
-            currentPathParticle.transform.position = Vector3.MoveTowards(
-                currentPathParticle.transform.position,
-                targetPositionWithOffset,
-                (boulderSpeed * 1.5f) * Time.fixedDeltaTime
-            );
-
-            // Update the rotation to always face the travel direction
-            currentPathParticle.transform.rotation = Quaternion.LookRotation(moveDirection);
-
-            // Destroy the path particle if it reaches the target position
-            if (Vector3.Distance(currentPathParticle.transform.position, targetPosition) < 0.1f)
-            {
-                Destroy(currentPathParticle);
-                currentPathParticle = null;
-            }
-        }
-    }
-
-    private void OnDestroy()
-    {
-        // Destroy the path particle when the boulder is destroyed
-        if (currentPathParticle != null)
-        {
-            Destroy(currentPathParticle);
-        }
-    }
-    #endregion
 
     #region DAMAGE AND COLLIDE LOGIC
     private void OnCollisionEnter(Collision collision)
@@ -230,7 +178,36 @@ public class BoulderManager : MonoBehaviour
     }
     #endregion
 
-    #region PARTICLES
+    #region PATH PARTICLE
+    private void SpawnPathParticle()
+    {
+        if (pathParticle != null)
+        {
+            float yOffset = 0.1f; // Adjust this value to set the desired height
+            Vector3 particlePosition = new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z);
+            Quaternion particleRotation = Quaternion.LookRotation(moveDirection);
+
+            currentPathParticle = Instantiate(pathParticle, particlePosition, particleRotation);
+
+            Destroy(currentPathParticle, 2f);
+        }
+        else
+        {
+            Debug.LogWarning("Path particle prefab is not assigned.");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Destroy the path particle when the boulder is destroyed
+        if (currentPathParticle != null)
+        {
+            Destroy(currentPathParticle);
+        }
+    }
+    #endregion
+
+    #region DUST PARTICLE
     private void SpawnDustParticles()
     {
         // Update the dust spawn timer
@@ -292,7 +269,7 @@ public class BoulderManager : MonoBehaviour
         else if (Mathf.Approximately(spawnPosition.z, 45)) // Spawned on Top Edge
             return new Vector3(spawnPosition.x, spawnPosition.y, -45);
         else if (Mathf.Approximately(spawnPosition.z, -45)) // Spawned on Bottom Edge
-            return new Vector3(spawnPosition.x, spawnPosition.y, 45);
+            return new Vector3(spawnPosition.x, spawnPosition.y, 50);
 
         // Handle specific corner cases
         if (Mathf.Approximately(spawnPosition.x, -35) && Mathf.Approximately(spawnPosition.z, -35))
@@ -300,8 +277,6 @@ public class BoulderManager : MonoBehaviour
         if (Mathf.Approximately(spawnPosition.x, -35) && Mathf.Approximately(spawnPosition.z, 35))
             return new Vector3(35, spawnPosition.y, -35); // Target Bottom
 
-        // Log a warning for unexpected spawn positions
-        Debug.LogWarning($"Unexpected spawn position: {spawnPosition}. Defaulting to Vector3.zero.");
         return Vector3.zero; // Default target position if no match
     }
     public void SetMovementDirection(Vector3 direction)
