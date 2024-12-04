@@ -7,6 +7,7 @@ public class DissolveManager : MonoBehaviour
 {
     public WaveManager waveManager;
     public CinemachineFreeLook cam;
+    [SerializeField] itemAreaSpawner itemSpawner;
 
     float zoomedOutFov = 120;
     float normalFov = 40;
@@ -203,6 +204,7 @@ public class DissolveManager : MonoBehaviour
             time += Time.deltaTime;
         }
         ChangeArena(romanMaterials, initialOffsetsRoman, 0.2f, sciFiArena);
+        itemSpawner.SpawnRomanObjects();
         StartCoroutine(InitialDissolveAndChangeMaterial(romanFloorMaterial));
     }
 
