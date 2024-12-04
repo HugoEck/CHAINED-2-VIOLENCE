@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
 {
+    public PlayerAttributes playerAttributes;
+
     public GameObject projectilePrefab;
     public Transform firePoint;
     public float cooldown;
@@ -9,6 +11,8 @@ public class Projectile : MonoBehaviour, IAbility
     private float projectileSpeed = 20f;
     private float projectileLifeTime = 5f;
 
+
+   
     public void UseAbility()
     {
         if (Time.time >= lastShootTime + cooldown)
@@ -49,10 +53,12 @@ public class Projectile : MonoBehaviour, IAbility
         }
 
         Vector3 direction = transform.forward.normalized;
-        Debug.Log("Spawning projectile with direction: " + direction);
+        //Debug.Log("Spawning projectile with direction: " + direction);
 
         // Instantiate the projectile
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 3f, Quaternion.LookRotation(direction));
+        ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
+        projectileBehavior.playerAttributes = playerAttributes; // Assuming "this" is the PlayerCombat instance
 
         if (projectile != null)
         {

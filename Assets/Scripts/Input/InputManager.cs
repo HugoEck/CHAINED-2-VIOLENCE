@@ -204,7 +204,7 @@ public class InputManager : MonoBehaviour
 
                 if(!Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
                 {
-                    Debug.Log("Switched to Keyboard and Mouse input");
+                    //Debug.Log("Switched to Keyboard and Mouse input");
                 }           
             }
         }

@@ -32,7 +32,6 @@ public class SwordsmanManager : BaseManager
     {
 
         FixedEvaluate();
-        //rootNode.Evaluate(this);
 
     }
 

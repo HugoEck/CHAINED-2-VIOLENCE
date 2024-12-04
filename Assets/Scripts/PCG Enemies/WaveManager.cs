@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
+    [SerializeField] Camera cam;
+
     [Header("Fonts")]
     public TMP_Asset romanFont;
     public TMP_Asset scifiFont;
@@ -14,7 +16,7 @@ public class WaveManager : MonoBehaviour
     public TMP_Asset currentDayFont;
 
 
-    [Header(" ")]
+    [Header("Enemy stuff")]
     [SerializeField] GameObject enemyCreatorObject;
     NPC_Customization enemyCreator;
     public static int ActiveEnemies = 0;
@@ -22,14 +24,16 @@ public class WaveManager : MonoBehaviour
     private float targetTime = 50;
     private float timer = 0;
 
-    [SerializeField] GameObject spawnPortal;
-
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     List<Wave> waves = new List<Wave>();
     WaveData waveData = new WaveData();
 
     [SerializeField] TextMeshProUGUI text;
     public static int currentWave = 0;
+    private int previousWave = -1;
+
+    [Header("Items")]
+    public ItemPicker itemPicker;
 
     public enum CurrentEra
     {
@@ -65,16 +69,41 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (ActiveEnemies == 0 || timer > targetTime)
+        if (ActiveEnemies == 0 /*|| timer > targetTime*/)
         {
             timer = 0;
-            ChangeEra();
-            SpawnWave(waves[currentWave]);
-            currentWave++;
-        }
+            //ChangeEra();
+            //SpawnWave(waves[currentWave]);
+            if (currentWave > 0 && !itemPicker.itemPicked && !itemPicker.isPicking)
+            {
+                itemPicker.isPicking = true;
+                itemPicker.ActivateItems();
+            }
 
-        //Debug spawner
-        if (Input.GetKeyDown(KeyCode.L))
+            // Once items are picked, move to the next wave
+            if (itemPicker.itemPicked)
+            {
+                currentWave++; // Increment the wave
+                itemPicker.itemPicked = false; // Reset itemPicked so we can pick again in the next wave
+                itemPicker.isPicking = false; // Reset picking state
+            }
+
+            if (currentWave != previousWave)
+            {
+                // Update the previous wave tracker
+                previousWave = currentWave;
+
+                // Change the era based on the wave
+                ChangeEra();
+
+                // Spawn the wave
+                SpawnWave(waves[currentWave]);
+            }
+                //currentWave++;
+            }
+
+            //Debug spawner
+            if (Input.GetKeyDown(KeyCode.L))
         {
             ChangeEra();
             SpawnWave(waves[currentWave]);
@@ -90,7 +119,7 @@ public class WaveManager : MonoBehaviour
 
     public void SpawnWave(Wave wave)
     {
-        text.text = "Wave " + currentWave;
+        text.text = "Wave " + (currentWave);
         StartCoroutine(FadeInText(1, 3));
         StartCoroutine(SpawnWaveCoroutine(wave));
     }
@@ -119,6 +148,7 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < enemyConfig.waveSize; i++)
             {
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+                CheckValidSpawn(ref spawnPoint);
                 enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass); // Apply to each enemy
                 GameObject newEnemy = Instantiate(enemyCreator.currentBody, spawnPoint.position, spawnPoint.rotation);
                 newEnemy.name = $"{enemyConfig.enemyClass} enemy {i + 1}";
@@ -134,6 +164,21 @@ public class WaveManager : MonoBehaviour
 
         yield return null;
     }
+
+    public void CheckValidSpawn(ref Transform spawn)
+    {
+        // Convert the spawn position to viewport coordinates
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(spawn.position);
+
+        // Check if the spawn is within the camera's viewport bounds (0 to 1 in both x and y)
+        if (viewportPos.x >= 0f && viewportPos.x <= 1f && viewportPos.y >= 0f && viewportPos.y <= 1f)
+        {
+            // If inside, reroll (choose a new spawn point from your list of spawn points)
+            spawn = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+            CheckValidSpawn(ref spawn);
+        }
+    }
+
 
     private IEnumerator FadeInText(float fadeDuration, float stayDuration)
     {

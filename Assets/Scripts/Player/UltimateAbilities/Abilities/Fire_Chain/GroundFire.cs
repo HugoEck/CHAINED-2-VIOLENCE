@@ -18,9 +18,15 @@ public class GroundFire : MonoBehaviour
 
     private FireChainSegment _fireChainSegment;
 
+    private float _fireDamage;
+    private float _fireActiveDuration;
+
     private void Start()
     {
         _fireChainSegment = FindObjectOfType<FireChainSegment>();
+
+        _fireDamage = _fireChainSegment.GetFireDamage;
+        _fireActiveDuration = _fireChainSegment.GetFireActiveDuration;
 
         _groundFireActiveTimer = _groundFireActiveDuration;
     }
@@ -47,74 +53,34 @@ public class GroundFire : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _enemyCollider = other.GetComponentInParent<CapsuleCollider>();
         string layerNameToCompare = "Enemy";
 
         int layerToCompare = LayerMask.NameToLayer(layerNameToCompare);
 
         if (other.gameObject.layer == layerToCompare)
         {
+            _enemyCollider = other.GetComponentInParent<CapsuleCollider>();
             Transform fire = ObjectHierarchyHelper.FindChildWithTag(other.gameObject, "Fire");
+
+            if (fire.gameObject.activeInHierarchy) return;
 
             if (fire != null)
             {
-                fire.gameObject.SetActive(true);
-            }
-            else
-            {
-                // Create a new child GameObject
-                GameObject fireObject = new GameObject("Fire");
-                fireObject.tag = "Fire";
-                // Set the new object as a child of the collided object
-                fireObject.transform.parent = other.transform;
-                fireObject.transform.position = other.transform.position;
-
-                // Add the ElectricitySpread component to the new child GameObject
-                FireSpread newFire = fireObject.AddComponent<FireSpread>();
-                newFire._fireDamage =  _fireChainSegment.GetFireDamage;
-                newFire._fireActiveDuration = _fireChainSegment.GetFireActiveDuration;
-
-                // Instantiate the electricity particles and set it as a child of electricityObject
-                GameObject particlesInstance = Instantiate(_fireParticles, fireObject.transform);
-                newFire._fireParticles = _fireParticles;
-
                 // Get the ParticleSystem component
-                ParticleSystem particleSystem = particlesInstance.GetComponent<ParticleSystem>();
+                ParticleSystem particleSystem = fire.GetComponent<ParticleSystem>();
+                FireSpread spreadLogic = fire.GetComponent<FireSpread>();
 
+                spreadLogic._fireActiveDuration = _fireActiveDuration;
+                spreadLogic._fireDamage = _fireDamage;
+                spreadLogic.enemyManager = other.GetComponent<BaseManager>();
+                spreadLogic._enemyCollider = _enemyCollider;
                 // Access the Shape module
                 ParticleSystem.ShapeModule shapeModule = particleSystem.shape;
 
-                // Check for MeshRenderer or SkinnedMeshRenderer
-                MeshRenderer meshRenderer = other.GetComponentInChildren<MeshRenderer>(false);
                 SkinnedMeshRenderer skinnedMeshRenderer = other.GetComponentInChildren<SkinnedMeshRenderer>(false);
 
-                if (meshRenderer != null)
+                if (skinnedMeshRenderer != null)
                 {
-                    // Normal MeshRenderer found
-                    MeshFilter meshFilter = meshRenderer.GetComponent<MeshFilter>();
-                    if (meshFilter != null && meshFilter.sharedMesh != null)
-                    {
-                        shapeModule.shapeType = ParticleSystemShapeType.MeshRenderer; // Set to Mesh
-                        shapeModule.meshRenderer = meshRenderer;
-
-                        // Calculate the size of the mesh
-                        Bounds meshBounds = meshFilter.sharedMesh.bounds;
-                        Vector3 meshSize = meshBounds.size; // Get the size of the mesh
-
-                        // Set particle system size based on mesh size
-                        var mainModule = particleSystem.main;
-                        mainModule.startSizeX = _enemyCollider.radius * fireMultiplier; // Scale X
-                        mainModule.startSizeY = _enemyCollider.height * fireMultiplier; // Scale Y
-                        mainModule.startSizeZ = _enemyCollider.radius * fireMultiplier; // Scale Z
-                    }
-                    else
-                    {
-                        Debug.LogWarning("No valid MeshFilter found for the MeshRenderer.");
-                    }
-                }
-                else if (skinnedMeshRenderer != null)
-                {
-                    // SkinnedMeshRenderer found
                     if (skinnedMeshRenderer.sharedMesh != null)
                     {
                         shapeModule.shapeType = ParticleSystemShapeType.SkinnedMeshRenderer; // Set to Skinned Mesh
@@ -140,6 +106,7 @@ public class GroundFire : MonoBehaviour
                     Debug.LogWarning("No MeshRenderer or SkinnedMeshRenderer found in the hierarchy.");
                 }
 
+                fire.gameObject.SetActive(true);
             }
         }
     }

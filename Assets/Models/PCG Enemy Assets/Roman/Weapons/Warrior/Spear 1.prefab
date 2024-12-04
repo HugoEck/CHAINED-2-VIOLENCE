@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2544072875193360571}
   - component: {fileID: 336269709417354353}
   - component: {fileID: 4581220225554945954}
+  - component: {fileID: 14661781573332373}
   m_Layer: 0
   m_Name: Spear 1
   m_TagString: Untagged
@@ -26,12 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2281732870259357092}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2544072875193360571
 MeshFilter:
@@ -52,10 +54,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,6 +84,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &4581220225554945954
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -88,9 +93,43 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2281732870259357092}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7210843128546750312, guid: e3cabce66f535e146afa40e71a2125c7, type: 2}
+--- !u!114 &14661781573332373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281732870259357092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a05979d67eff7447a12be0c079bddde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponType: 1
+  combos:
+  - {fileID: 11400000, guid: d68e27f721edb554e8815d9942b95e9b, type: 2}
+  - {fileID: 11400000, guid: f9a520b3d3280934abd25bdc688115f2, type: 2}
+  - {fileID: 11400000, guid: f0b792e2907f2e345a3b364eeb4bdf00, type: 2}
+  weaponSlashEffects: []
+  playerPosition: {fileID: 0}
+  weaponId: 0
+  weaponName: 
+  damage: 0
+  durability: 0
+  attackRange: 0
+  knockback: 0
+  stunDuration: 0

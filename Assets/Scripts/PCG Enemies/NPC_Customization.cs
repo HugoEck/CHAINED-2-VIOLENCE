@@ -45,6 +45,12 @@ public class ThemeData
     public List<GameObject> rockThrowerBodies;
     public List<GameObject> rockThrowerWeapons;
     public List<GameObject> rockThrowerShields;
+    [Header("BannerMan")]
+    public List<GameObject> BannermanHelmets;
+    public List<GameObject> BannermanCapes;
+    public List<GameObject> BannermanBodies;
+    public List<GameObject> BannermanWeapons;
+    public List<GameObject> BannermanShields;
     //Add future classes under new Header
 
 }
@@ -62,12 +68,18 @@ public class NPC_Customization : MonoBehaviour
     [SerializeField] GameObject RomanRock;
     [SerializeField] GameObject PirateRock;
     [SerializeField] GameObject FarmRock;
+
+    [SerializeField] GameObject PirateBanner;
+
+
     [SerializeField] GameObject RagdollRoot;
 
     [Header("NPC Particles")]
     [SerializeField] GameObject bloodSplatter;
     [SerializeField] GameObject smokeTrail;
-
+    [SerializeField] GameObject hitEffect;
+    [SerializeField] GameObject electricityEffect;
+    [SerializeField] GameObject fireEffect;
 
     [SerializeField] private Dictionary<NPCTheme, ThemeData> themeDataDict;
 
@@ -99,7 +111,8 @@ public class NPC_Customization : MonoBehaviour
         Runner,
         Charger,
         RockThrower,
-        Warrior
+        Warrior,
+        Bannerman
         //Add more classes here
     }
     public NPCTheme Theme;
@@ -122,18 +135,6 @@ public class NPC_Customization : MonoBehaviour
     //Animations
     Animator currentAnimator;
     [SerializeField] RuntimeAnimatorController animController;
-
-    //private void Awake()
-    //{
-    //    themeDataDict = new Dictionary<NPCTheme, ThemeData>()
-    //    {
-    //        { NPCTheme.Roman, romanTheme },
-    //        { NPCTheme.Farm, farmTheme },
-    //        { NPCTheme.Mini, miniTheme },
-    //        { NPCTheme.Fantasy, fantasyTheme }
-    //        //Connect future themes here
-    //    };
-    //}
 
     private ThemeData GetThemeDataByTheme(NPCTheme theme)
     {
@@ -167,11 +168,11 @@ public class NPC_Customization : MonoBehaviour
         if (themeData != null)
         {
             // Connect future assets and classes in their lists
-            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets);
-            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons);
-            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.runnerBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies);
-            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes);
-            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields);
+            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets, themeData.BannermanHelmets);
+            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons, themeData.BannermanWeapons);
+            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.runnerBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies, themeData.BannermanBodies);
+            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes, themeData.BannermanCapes);
+            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields, themeData.BannermanShields);
 
             // Instantiate body and set up animator
             if (bodies != null && bodies.Count > 0)
@@ -259,11 +260,14 @@ public class NPC_Customization : MonoBehaviour
         BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
         IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
         ignoreChain.ObjectIgnoresLaserChain();
+        
 
         enemy.transform.localScale *= 1.5f;
-
+       
         GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
-        
+        GameObject hitEffectCopy = Instantiate(hitEffect, enemy.transform);
+        GameObject electricityEffectParticles = Instantiate(electricityEffect, enemy.transform);
+        GameObject fireEffectParticles = Instantiate(fireEffect, enemy.transform);
         //Physics.SyncTransforms();
 
         triggerCollider.isTrigger = true;
@@ -274,7 +278,7 @@ public class NPC_Customization : MonoBehaviour
         Rigidbody[] rigidbodies = enemy.GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody rbs in rigidbodies)
         {
-            rbs.isKinematic = true; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+            rbs.isKinematic = true; 
             rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         }
         Collider[] capsuleColliders = enemy.GetComponentsInChildren<Collider>();
@@ -324,6 +328,13 @@ public class NPC_Customization : MonoBehaviour
                 behaviour.rockPrefab = FarmRock;
             }
         }
+        else if(Class == NPCClass.Bannerman)
+        {
+            BannerManManager behaviour = enemy.AddComponent<BannerManManager>();
+
+            behaviour.flagPrefab = PirateBanner;
+        }
+
         else if (Class == NPCClass.Charger)
         {
             GameObject smokeTrailCopy = Instantiate(smokeTrail, enemy.transform);
@@ -332,7 +343,7 @@ public class NPC_Customization : MonoBehaviour
         }
     }
 
-    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> runner, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior /*add future classes in paramter*/)
+    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> runner, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior, List<GameObject> bannerman /*add future classes in paramter*/)
     {
         switch (Class)
         {
@@ -348,6 +359,8 @@ public class NPC_Customization : MonoBehaviour
                 return rockThrower;
             case NPCClass.Warrior:
                 return warrior;
+                case NPCClass.Bannerman:
+                    return bannerman;
             //Add future classes in switch case
             default:
                 return null;

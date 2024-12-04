@@ -31,7 +31,20 @@ public class AnimationStateController : MonoBehaviour
         {
             _mainCamera = Camera.main;
         }
-
+        if(_player._playerId == 1)
+        {
+            if (Player1ComboManager.instance.bIsPlayer1Attacking)
+            {
+                return;
+            }
+        }
+        else if(_player._playerId == 2)
+        {
+            if(Player2ComboManager.instance.bIsPlayer2Attacking)
+            {
+                return;
+            }
+        }
         Vector2 movementInput = _player.GetMovementInput();
 
         Vector3 playerForward = transform.forward;
@@ -73,7 +86,7 @@ public class AnimationStateController : MonoBehaviour
 
     public void StartAttackAnimation()
     {
-        Debug.Log("Attack initiated");
+        //Debug.Log("Attack initiated");
         _isAttackPlaying = true;
         _animator.SetBool("isAttacking", true);
         Invoke("StopAttackAnimation", 0.5f);
@@ -115,7 +128,7 @@ public class AnimationStateController : MonoBehaviour
 
     public void AttackIsCalled()
     {
-        Debug.Log("Base Attack is used, animation event called");
+        //Debug.Log("Base Attack is used, animation event called");
         _playerCombat.UseBaseAttack();
     }
 }

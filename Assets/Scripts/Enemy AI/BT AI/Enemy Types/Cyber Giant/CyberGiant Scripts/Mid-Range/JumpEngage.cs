@@ -20,10 +20,24 @@ public class JumpEngage : Node
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
+
         agent.navigation.isStopped = true;
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
 
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
+
+
+        cg.weaponDamageType = "JumpEngage";
+        if(animationTimer < 4 && animationTimer > 2 )
+        {
+            cg.weaponDamageAllowed = true;
+        }
+        else
+        {
+            cg.weaponDamageAllowed = false;
+        }
+
+
 
         if (animationTimer < 5.5f && animationTimer > 3.5f)
         {
@@ -49,6 +63,9 @@ public class JumpEngage : Node
         {
             animationTimer = animationTotTime;
             cg.jumpEngageActive = false;
+            cg.P1_damageApplied = false;
+            cg.P2_damageApplied = false;
+
             return NodeState.SUCCESS;
         }
         else
@@ -75,5 +92,7 @@ public class JumpEngage : Node
         agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
         agent.animator.SetBool("CyberGiant_Idle", false);
+        agent.animator.SetBool("CyberGiant_Stagger", false);
+        agent.animator.SetBool("CyberGiant_Death", false);
     }
 }

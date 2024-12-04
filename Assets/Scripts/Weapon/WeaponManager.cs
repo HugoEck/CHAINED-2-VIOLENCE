@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [Serializable]
 public class ClassWeaponParent
@@ -11,12 +12,17 @@ public class ClassWeaponParent
 
 public class WeaponManager : MonoBehaviour
 {
+    [SerializeField] private PlayerCombat playerCombat;
     [SerializeField] private List<ClassWeaponParent> classWeaponsParentsList;
     private Dictionary<PlayerCombat.PlayerClass, Transform> classWeaponsParents = new Dictionary<PlayerCombat.PlayerClass, Transform>();
     private GameObject currentWeapon;
     private Dictionary<int, GameObject> weaponDictionary = new Dictionary<int, GameObject>();
     public bool hasWeapon => currentWeapon != null;
 
+    public event Action<GameObject> OnWeaponEquipped;
+    public event Action<GameObject> OnWeaponBroken;
+
+    private float startDurability;
     private void Start()
     {
         foreach (var entry in classWeaponsParentsList)
@@ -25,8 +31,9 @@ public class WeaponManager : MonoBehaviour
             {
                 classWeaponsParents.Add(entry.playerClass, entry.weaponsParent);
             }
+            
         }
-        if (classWeaponsParents.TryGetValue(PlayerCombat.PlayerClass.Default, out var defaultWeaponsParent))
+        if (classWeaponsParents.TryGetValue(playerCombat.currentPlayerClass, out var defaultWeaponsParent))
         {
             LoadWeapons(defaultWeaponsParent);
         }
@@ -86,7 +93,11 @@ public class WeaponManager : MonoBehaviour
 
         if (weaponDictionary.TryGetValue(weaponId, out currentWeapon))
         {
+            startDurability = currentWeapon.GetComponent<Weapon>().durability;
             currentWeapon.SetActive(true);
+
+            // Get the current weapon and apply combo stats to it from ComboAttack script
+            OnWeaponEquipped?.Invoke(currentWeapon);
         }
         else
         {
@@ -95,15 +106,16 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void ReduceWeaponDurability()
     {
         if (currentWeapon != null)
         {
             Weapon weaponScript = currentWeapon.GetComponent<Weapon>();
-            weaponScript.Attack();
+            weaponScript.DecreaseDurability();
 
             if (weaponScript.durability <= 0)
             {
+                weaponScript.durability = startDurability;
                 BreakWeapon();
             }
         }
@@ -114,6 +126,9 @@ public class WeaponManager : MonoBehaviour
         if (currentWeapon != null)
         {
             currentWeapon.SetActive(false);
+
+            OnWeaponBroken?.Invoke(currentWeapon);
+
             currentWeapon = null;
         }
     }

@@ -18,7 +18,7 @@ public class CyberGiantManager : BaseManager
     public Transform bombShootPoint;
     public Transform missileShootPoint;
     public GameObject energyShield;
-    private CapsuleCollider damageCollider;
+    [HideInInspector] public CapsuleCollider damageCollider;
     private CapsuleCollider weaponCollider;
 
     [Header("CG STATS")]
@@ -27,6 +27,8 @@ public class CyberGiantManager : BaseManager
     [HideInInspector] public float baseDefense;
     public float bombDamage;
     public float missileDamage;
+    public float overheadSmashDamage;
+    public float jumpEngageDamage;
     public float bombCooldown;
     public float longRangeCooldown;
     public float midRangeCooldown;
@@ -50,11 +52,20 @@ public class CyberGiantManager : BaseManager
     [HideInInspector] public bool overheadSmashActive = false;
     [HideInInspector] public bool shieldWalkActive = false;
     [HideInInspector] public bool staggerActive = false;
+    [HideInInspector] public bool deathActive = false;
+
+    [HideInInspector] public bool P1_damageApplied = false;
+    [HideInInspector] public bool P2_damageApplied = false;
+    [HideInInspector] public bool weaponDamageAllowed = false;
+    [HideInInspector] public string weaponDamageType;
+    [HideInInspector] private float currentWeaponDamage;
 
     private float lastBombShotTime = 0;
     private float lastLongRangeTime = -5;
     private float lastMidRangeTime = -10;
     private float lastCloseRangeTime = -5;
+
+    public float debugTimer;
 
     void Start()
     {
@@ -62,8 +73,6 @@ public class CyberGiantManager : BaseManager
         animator.SetBool("CyberGiant_StartChasing", true);
         damageCollider = gameObject.AddComponent<CapsuleCollider>();
         damageCollider.isTrigger = true;
-        weaponCollider = weaponPrefab.GetComponent<CapsuleCollider>();
-        weaponCollider.enabled = true;
         LoadStats();
         ConstructBT();
         rb.isKinematic = true;
@@ -75,11 +84,13 @@ public class CyberGiantManager : BaseManager
         rootNode.Evaluate(this);
 
         ToggleEnergyShield();
+
+        
     }
 
     private void LoadStats()
     {
-        maxHealth = 100;
+        //maxHealth = 50;
         currentHealth = maxHealth;
         navigation.maxSpeed = speed;
         baseDefense = defense;
@@ -92,9 +103,32 @@ public class CyberGiantManager : BaseManager
         damageCollider.height = 2.25f;
 
     }
+
+    public void DealDamageWithWeapon(string player)
+    {
+
+        if (CheckIfDamageAllowed(player))
+        {
+            GetCurrentWeaponDamage();
+
+            if(player == "p1")
+            {
+                playerManager1.SetHealth(currentWeaponDamage);
+                P1_damageApplied = true;
+            }
+            else
+            {
+                playerManager2.SetHealth(currentWeaponDamage);
+                P2_damageApplied = true;
+            }
+        }
+    }
+
+    
+
     public bool CheckIfAbilityInProgress()
     {
-        if (missileRainActive || jumpEngageActive || overheadSmashActive || staggerActive)
+        if (missileRainActive || jumpEngageActive || overheadSmashActive || staggerActive || deathActive)
         {
             return true;
         }
@@ -154,12 +188,14 @@ public class CyberGiantManager : BaseManager
             {
                 energyShield.SetActive(true);
                 damageCollider.radius = 1.4f;
+                c_collider.radius = 1.4f;
                 defense = energyShieldDefense;
             }
             else
             {
                 energyShield.SetActive(false);
                 damageCollider.radius = 0.75f;
+                c_collider.radius = 0.75f;
                 defense = baseDefense;
             }
         }
@@ -176,7 +212,6 @@ public class CyberGiantManager : BaseManager
         if (Time.time > lastBombShotTime + bombCooldown)
         {
             lastBombShotTime = Time.time;
-            //bombReady = true;
             return true;
         }
         else
@@ -186,11 +221,50 @@ public class CyberGiantManager : BaseManager
         }
     }
 
+    private bool CheckIfDamageAllowed(string player)
+    {
+        if (player == "p1")
+        {
+            if (weaponDamageAllowed && !P1_damageApplied)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (player == "p2")
+        {
+            if (weaponDamageAllowed && !P2_damageApplied)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else { return false; }
+    }
+
+    private float GetCurrentWeaponDamage()
+    {
+        if (weaponDamageType == "JumpEngage")
+        {
+            currentWeaponDamage = jumpEngageDamage;
+        }
+        else if (weaponDamageType == "OverheadSmash")
+        {
+            currentWeaponDamage = overheadSmashDamage;
+        }
+        return currentWeaponDamage;
+    }
+
     private void ConstructBT()
     {
 
-        CheckIfDead checkIfDead = new CheckIfDead();
-        KillAgent killAgent = new KillAgent();
+
         CalculateBombPosition calculateBombPosition = new CalculateBombPosition();
         ShootBomb shootBomb = new ShootBomb();
         LongRangeConditions longRangeConditions = new LongRangeConditions();
@@ -205,14 +279,24 @@ public class CyberGiantManager : BaseManager
         ChaseConditions chaseConditions = new ChaseConditions();
         CGChasePlayer cg_ChasePlayer = new CGChasePlayer();
         Idle idle = new Idle();
+        StaggerConditions staggerConditions = new StaggerConditions();
+        Stagger stagger = new Stagger();
+        DeathConditions deathConditions = new DeathConditions();
+        CGKill cgKill = new CGKill();
 
         //-----------------------------------------------------------------------------------------------------
 
-        //DIIIE DIIIE
-        Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
+        //DEATH
+        Sequence killBoss = new Sequence(new List<Node> { deathConditions, cgKill });
 
         //-----------------------------------------------------------------------------------------------------
 
+        //STAGGER
+
+        Sequence staggerBehavior = new Sequence(new List<Node> { staggerConditions, stagger });
+
+
+        //-----------------------------------------------------------------------------------------------------
         //ATTACK
 
         //Long-Range Branch
@@ -240,6 +324,6 @@ public class CyberGiantManager : BaseManager
         Sequence chase = new Sequence(new List<Node> { chaseConditions, cg_ChasePlayer });
 
         //-------------------------------------------------------------------------------------------------------
-        rootNode = new Selector(new List<Node>() { isDead, attack, chase, idle });
+        rootNode = new Selector(new List<Node>() { killBoss, staggerBehavior, attack, chase, idle });
     }
 }

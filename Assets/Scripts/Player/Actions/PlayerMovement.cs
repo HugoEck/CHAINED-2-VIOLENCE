@@ -8,9 +8,10 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 {
     [Header("Player Movement")]
-    [SerializeField] private float _walkingSpeed = 200.0f;
+  
     [SerializeField] private float _playerRotateSpeedMouse = 5.0f;
     [SerializeField] private float _playerRotateSpeedJoystick = 10.0f;
+    [SerializeField] private PlayerAttributes playerAttributes;
 
     private Camera _mainCameraReference;
 
@@ -21,7 +22,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 
     private Vector2 _playerMoveDirection = Vector2.zero; // Direction on 2d plane (movement input)
     private Vector3 _isometricPlayerMoveDirection = Vector3.zero; // Adjust the player direction based on camera angle
-    public float originalWalkingSpeed { get; private set; }
 
     private Vector3 _externalForce = Vector3.zero;
 
@@ -34,16 +34,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         _mainCameraReference = Camera.main;
         _playerRigidBody = GetComponent<Rigidbody>();
 
-        if (gameObject.CompareTag("Player1"))
-        {
-            _walkingSpeed = StatsTransfer.Player1WalkingSpeed > 0 ? StatsTransfer.Player1WalkingSpeed : _walkingSpeed;
-        }
-        else if (gameObject.CompareTag("Player2"))
-        {
-            _walkingSpeed = StatsTransfer.Player2WalkingSpeed > 0 ? StatsTransfer.Player2WalkingSpeed : _walkingSpeed;
-        }
-
-        originalWalkingSpeed = _walkingSpeed;
 
         _groundLayer = LayerMask.GetMask("Ground");
     }
@@ -79,7 +69,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
             // Avoid faster diagonal speed
             _isometricPlayerMoveDirection.Normalize();
 
-            float playerSpeedDt = _walkingSpeed * Time.deltaTime;
+            float playerSpeedDt = playerAttributes.movementSpeed * Time.deltaTime;
 
             Vector3 newVelocity = new Vector3(
                 _isometricPlayerMoveDirection.x * playerSpeedDt,
@@ -102,7 +92,7 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         {
             _bIsGrounded = true;
             Debug.DrawRay(rayOrigin, Vector3.down * _groundCheckDistance, Color.green);
-            Debug.Log("Ground detected at distance: " + hit.distance);
+            //Debug.Log("Ground detected at distance: " + hit.distance);
         }
         else
         {
@@ -128,18 +118,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         return cameraVector.normalized;
     }
 
-
-    // Used for upgrading the player movement speed thru the upgrade system.
-    public void SetWalkingSpeed(float newSpeed)
-    {
-        _walkingSpeed = newSpeed;
-    }
-
-    public float GetWalkingSpeed()
-    {
-        return _walkingSpeed;
-    }
-
     #endregion
 
     ////////// ROTATION MIGHT NEED WORK IN FUTURE (USE INPUT SYSTEM INSTEAD AND MAYBE CALCULATE WITHOUT RAYCAST)
@@ -155,8 +133,8 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         // Convert mouse position to a ray that originates from the camera
         Ray ray = _mainCameraReference.ScreenPointToRay(mouseScreenPosition);
 
-        // Plane where the player is walking (XZ)
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        // Plane where the player is walking (XZ), dynamically positioned at the player's level
+        Plane groundPlane = new Plane(Vector3.up, transform.position);
 
         // Calculate where the ray hits the ground plane
         if (groundPlane.Raycast(ray, out float enter))
@@ -165,8 +143,9 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
             Vector3 hitPoint = ray.GetPoint(enter);
 
             // Calculate the direction from the player to the hit point
-            Vector3 directionToLook = hitPoint - transform.position;
-            directionToLook.y = 0; // Ensure the player only rotates on the Y-axis
+            Vector3 rayOrigin = transform.position; // Player's position
+            Vector3 directionToLook = hitPoint - rayOrigin; // Direction to mouse position
+            directionToLook.y = 0; // Ensure the player only rotates on the XZ plane
 
             // Only rotate if there is a direction
             if (directionToLook != Vector3.zero)
@@ -178,10 +157,10 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
 
                 // Smoothly interpolate the rotation based on _playerLookSpeed
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, playerRotationSpeedDt);
-
             }
         }
     }
+
 
     public void RotatePlayerWithJoystick(Vector2 joystickInput)
     {

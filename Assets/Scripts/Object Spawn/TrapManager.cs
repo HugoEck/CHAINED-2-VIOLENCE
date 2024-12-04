@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static UnityEngine.ParticleSystem;
 
 public class TrapManager : MonoBehaviour
 {
     #region Variables
     private float surfaceY = -0.3f;
+    private float particleSurfacePosition = 0.2f;
     private float spawnY = -15f;
     public float riseSpeed = 15f;
     public float despawnSpeed = 10f;
@@ -23,6 +25,8 @@ public class TrapManager : MonoBehaviour
 
     public float trapDamage = 1f;
 
+    [SerializeField] private GameObject riseParticle; // Particle prefab for the trap rising
+    private GameObject currentParticle; // Reference to the active particle
     #endregion
 
     void Start()
@@ -34,19 +38,17 @@ public class TrapManager : MonoBehaviour
 
     void Update()
     {
+        if (!isDespawning)
         {
-            if (!isDespawning)
-            {
-                Movement();
-            }
-            else
-            {
-                DespawnTrap();
-            }
+            Movement();
+        }
+        else
+        {
+            DespawnTrap();
         }
     }
 
-    #region Moving up/down
+    #region Moving up/down & Particle
     private void Movement()
     {
         if (!isDespawning)
@@ -63,32 +65,52 @@ public class TrapManager : MonoBehaviour
             }
             else if (isMovingUp)
             {
-                // Rising towards the surface
+                // Rising towards the surface with acceleration
                 if (transform.position.y < surfaceY)
                 {
+                    float acceleration = 5f; // Adjust this value for faster/slower acceleration
+                    riseSpeed = Mathf.Min(riseSpeed + acceleration * Time.deltaTime, 15f); // Cap at max speed
                     transform.position += Vector3.up * riseSpeed * Time.deltaTime;
+
+                    // Play the rise particle effect at the surface
+                    if (currentParticle == null && riseParticle != null)
+                    {
+                        Vector3 particlePosition = new Vector3(transform.position.x, particleSurfacePosition, transform.position.z);
+                        currentParticle = Instantiate(riseParticle, particlePosition, Quaternion.identity);
+                    }
                 }
                 else
                 {
-                    // Once above the surface, wait for a random time
+                    // Once above the surface, reset riseSpeed and set a fixed wait time
+                    riseSpeed = 0f; // Reset the rise speed
                     isMovingUp = false;
                     waitingAbove = true;
-                    timer = Random.Range(minWaitTime, maxWaitTime);
+                    timer = 2f; // Fixed wait time at the surface
+
+                    // Stop the rise particle effect
+                    if (currentParticle != null)
+                    {
+                        Destroy(currentParticle);
+                        currentParticle = null;
+                    }
                 }
             }
             else
             {
-                // Sinking back to the spawn position
+                // Sinking back to the spawn position with acceleration
                 if (transform.position.y > spawnY)
                 {
+                    float acceleration = 5f; // Adjust this value for faster/slower deceleration
+                    riseSpeed = Mathf.Min(riseSpeed + acceleration * Time.deltaTime, 15f); // Cap at max speed
                     transform.position += Vector3.down * riseSpeed * Time.deltaTime;
                 }
                 else
                 {
-                    // Once below the surface, wait for a random time
+                    // Once below the surface, reset riseSpeed and set a random wait time
+                    riseSpeed = 0f; // Reset the rise speed
                     isMovingUp = true;
                     waitingBelow = true;
-                    timer = Random.Range(minWaitTime, maxWaitTime);
+                    timer = Random.Range(10f, 20f); // Random wait time below the surface
                 }
             }
         }
@@ -104,6 +126,13 @@ public class TrapManager : MonoBehaviour
         if (transform.position.y > spawnY)
         {
             transform.position += Vector3.down * despawnSpeed * Time.deltaTime;
+
+            // Stop the rise particle effect if the trap is despawning
+            if (currentParticle != null)
+            {
+                Destroy(currentParticle);
+                currentParticle = null;
+            }
         }
     }
     #endregion
@@ -111,7 +140,6 @@ public class TrapManager : MonoBehaviour
     #region Deal Damage
     private void OnCollisionEnter(Collision collision)
     {
-
         // DAMAGE PLAYER
         if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
         {
@@ -122,17 +150,16 @@ public class TrapManager : MonoBehaviour
                 player.SetHealth(trapDamage);
             }
         }
-        
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
             BaseManager enemy = collision.gameObject.GetComponent<BaseManager>();
 
             if (enemy != null)
             {
-                enemy.DealDamageToEnemy(trapDamage);
+                enemy.DealDamageToEnemy(trapDamage, BaseManager.DamageType.TrapsDamage);
             }
         }
     }
     #endregion
 }
-    

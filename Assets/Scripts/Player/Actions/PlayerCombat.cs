@@ -12,11 +12,11 @@ public class PlayerCombat : MonoBehaviour
 {
     public enum PlayerClass
     {
-        Default,
-        Tank,
-        Warrior,
-        Support,
-        Ranged
+        Default = 0,
+        Tank = 1,
+        Warrior = 2,
+        Support = 3,
+        Ranged = 4
     };
 
     [Header("Class reference objects")]
@@ -27,15 +27,13 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private GameObject _warriorObject;
 
     private WeaponManager _weaponManager;
-    public static event Action<int, PlayerClass> OnClassSwitched; // Used for abilites UI.
+    public static event Action<int, PlayerClass> OnClassSwitchedUI; // Used for abilites UI.
+    public event Action<PlayerClass> OnClassSwitched;
 
     public PlayerClass currentPlayerClass;   
 
     public float attackCooldown = 1f;  // Cooldown between attacks
     public float abilityCooldown = 5f; // Cooldown between abilities
-    public float attackRange = 2f;     // Range of attack
-    public float attackDamage = 10f;   // Damage per attack
-    public float InitialAttackDamage { get; private set; }
 
     protected float lastAttackTime;
     protected float lastAbilityTime;
@@ -68,26 +66,26 @@ private void Awake()
 
     Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
     classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
-}
 
-
-    private void Start()
-    {
         playerId = gameObject.GetComponent<Player>()._playerId;
-        InitialAttackDamage = attackDamage;
+       
         // Set the player classes to the saved player class in the class manager. This is because player objects are destroyed between scenes
         if (playerId == 1)
-        {
-            attackDamage = StatsTransfer.Player1AttackDamage > 0 ? StatsTransfer.Player1AttackDamage : attackDamage;
+        {          
             currentPlayerClass = ClassManager._currentPlayer1Class;
             SetActiveClassModel(currentPlayerClass);
         }
         else if (playerId == 2)
-        {
-            attackDamage = StatsTransfer.Player2AttackDamage > 0 ? StatsTransfer.Player2AttackDamage : attackDamage;
+        {          
             currentPlayerClass = ClassManager._currentPlayer2Class;
             SetActiveClassModel(currentPlayerClass);
         }
+    }
+
+
+    private void Start()
+    {
+        
 
         swingAbility = GetComponent<SwingAbility>();
         projectile = GetComponent<Projectile>();
@@ -129,34 +127,14 @@ private void Awake()
     /// </summary>
     public void UseBaseAttack()
     {
-        bool durabilityReduced = false;
-        // Find all enemies within the attack range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange);
-        foreach (Collider enemy in hitEnemies)
+        if(playerId == 1)
         {
-            // Calculate the direction to the enemy
-            Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
-
-            // Check if the enemy is within the 120-degree cone
-            if (Vector3.Angle(transform.forward, directionToEnemy) <= 60) // 60 degrees on each side
-            {
-                BaseManager enemyManager = enemy.GetComponent<BaseManager>();
-                if (enemyManager != null)
-                {
-                    // Deal damage if within cone
-                    enemyManager.DealDamageToEnemy(attackDamage);
-                    Debug.Log("Hit enemy: " + enemy.name);
-
-                    if (!durabilityReduced)
-                    {
-                        ReduceWeaponDurabilility();
-                        durabilityReduced = true;
-                    }
-                }
-            }
+            Player1ComboManager.instance.Attack();
         }
-
-        Debug.Log("Base Attack triggered in 120-degree cone.");
+        else if(playerId == 2)
+        {
+            Player2ComboManager.instance.Attack();
+        }
     }
     public bool IsAttackAllowed()
     {
@@ -170,17 +148,7 @@ private void Awake()
             return false;
         }
     }
-    private void ReduceWeaponDurabilility()
-    {
-        WeaponManager weaponManager = GetComponent<WeaponManager>();
-        if (weaponManager != null) 
-        {
-            weaponManager.Attack();
-        
-        }
-
-    }
-
+    
     /// <summary>
     /// This method uses the ability that the player has for its class (Called in Player script)
     /// </summary>
@@ -225,13 +193,6 @@ private void Awake()
         AbilityCdEventsUI.AbilityUsed(playerId, currentPlayerClass, cooldown);
     }
 
-    // Method to set the player's attack damage (used for upgrades)
-    public void SetAttackDamage(float newAttackDamage)
-    {
-        attackDamage = newAttackDamage;
-        Debug.Log("Player attack damage set to: " + attackDamage);
-    }
-
     /// <summary>
     /// This method is used for setting the player class 
     /// </summary>
@@ -240,7 +201,6 @@ private void Awake()
     {
         if (playerId == 1)
         {
-
             if (newPlayerClass == ClassManager._currentPlayer2Class) return;
 
 
@@ -257,15 +217,18 @@ private void Awake()
         if (playerId == 1)
         {
             ClassManager._currentPlayer1Class = newPlayerClass;
+            StatsTransfer.Instance.SaveStatsPlayer1();
         }
         else if (playerId == 2)
         {
             ClassManager._currentPlayer2Class = newPlayerClass;
+            StatsTransfer.Instance.SaveStatsPlayer2();
         }
 
         // Event when switched class, used for ability UI.
-        PlayerCombat.OnClassSwitched?.Invoke(playerId, currentPlayerClass);
+        OnClassSwitchedUI?.Invoke(playerId, currentPlayerClass);
 
+        OnClassSwitched?.Invoke(currentPlayerClass);
     }
     private void SetActiveClassModel(PlayerClass currentPlayerClass)
     {

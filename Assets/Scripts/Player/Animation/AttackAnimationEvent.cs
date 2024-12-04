@@ -18,4 +18,10 @@ public class AttackAnimationEvent : MonoBehaviour
             _animationStateController.AttackIsCalled();
         }
     }
+
+    public void DealDamage()
+    {
+        _animationStateController._animator.SetBool("DealDamage", true);
+        _animationStateController._animator.SetBool("WeaponSlash", true);
+    }
 }

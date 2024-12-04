@@ -12,35 +12,28 @@ public class Stagger : Node
     {
         CyberGiantManager cg = agent as CyberGiantManager;
 
-        agent.defense = cg.energyShieldDefense;
         cg.energyShield.SetActive(true);
-
-
+        cg.damageCollider.radius = 1.4f;
+        cg.c_collider.radius = 1.4f;
+        cg.defense = cg.energyShieldDefense;
 
 
         SetAnimation(agent);
         agent.navigation.isStopped = true;
 
 
-        if (animationTimer > 3f)
-        {
-            //animation1
-
-        }
-        else if (animationTimer < 3f && animationTimer > 0f)
-        {
-            //animation2
-        }
-
-
         animationTimer -= Time.deltaTime;
 
         if (animationTimer < 0)
         {
+
+            cg.energyShield.SetActive(false);
+            cg.damageCollider.radius = 0.75f;
+            cg.c_collider.radius = 0.75f;
+            cg.defense = cg.baseDefense;
             animationTimer = animationTotTime;
             cg.staggerActive = false;
-            agent.defense = cg.baseDefense;
-            cg.energyShield.SetActive(false);
+
             return NodeState.SUCCESS;
 
         }
@@ -53,11 +46,15 @@ public class Stagger : Node
 
     private void SetAnimation(BaseManager agent)
     {
+        agent.animator.SetBool("CyberGiant_Stagger", true);
         agent.animator.SetBool("CyberGiant_MissileRain", false);
         agent.animator.SetBool("CyberGiant_Walk", false);
         agent.animator.SetBool("CyberGiant_ShieldWalk", false);
         agent.animator.SetBool("CyberGiant_JumpEngage", false);
         agent.animator.SetBool("CyberGiant_Idle", false);
+        agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
+        agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
+        agent.animator.SetBool("CyberGiant_Death", false);
 
     }
 }

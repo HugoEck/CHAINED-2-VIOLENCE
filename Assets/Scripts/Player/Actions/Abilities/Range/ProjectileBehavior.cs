@@ -1,13 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
     public float explosionRadius = 5f;
-    public float explosionDamage = 50f;
+    public float baseExplosionDamage = 50f;
+    public float explosionDamage;
     public LayerMask enemyLayer;
     public GameObject explosionEffectPrefab;
 
+    private HashSet<Collider> hitEnemiesOnce;
+    public PlayerAttributes playerAttributes;
     private bool hasExploded = false;
+
+    private void Start()
+    {
+        hitEnemiesOnce = new HashSet<Collider>();
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         // Ensure the explosion happens only once
@@ -37,6 +47,8 @@ public class ProjectileBehavior : MonoBehaviour
     // Method to handle the explosion and damage enemies in the radius
     void Explode()
     {
+        explosionDamage = baseExplosionDamage + playerAttributes.attackDamage;
+
         Debug.Log("Projectile exploded!");
 
         // Find all colliders within the explosion radius that are on the enemy layer
@@ -44,12 +56,21 @@ public class ProjectileBehavior : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
+            // Check if enemy has been hit
+            if (hitEnemiesOnce.Contains(enemy)) continue;
+
+            hitEnemiesOnce.Add(enemy);
+
             // Apply damage to each enemy
             BaseManager enemyManager = enemy.GetComponent<BaseManager>();
             if (enemyManager != null)
             {
-                enemyManager.DealDamageToEnemy(explosionDamage);
-                Debug.Log("Damaged enemy: " + enemy.name);
+                enemyManager.DealDamageToEnemy(explosionDamage,BaseManager.DamageType.AbilityDamage);
+                Debug.Log("Damaged enemy: " + enemy.name + explosionDamage);
+
+
+                //Enemy ragdoll
+                enemyManager.chainEffects.ActivateRagdollStun(4f, this.gameObject, 500);
             }
         }
     }

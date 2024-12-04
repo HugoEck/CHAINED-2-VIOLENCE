@@ -39,18 +39,24 @@ public class AttackPlayer : Node
     {
         if (agent.enemyID == "Plebian")
         {
-            agent.animator.SetBool("Plebian_Chase", false);
             agent.animator.SetBool("Plebian_Attack", true);
+            agent.animator.SetBool("Plebian_Chase", false);
+            agent.animator.SetBool("Plebian_Electrocute", false);
+            agent.animator.SetBool("Plebian_Scared", false);
         }
         else if (agent.enemyID == "Runner")
         {
             agent.animator.SetBool("Runner_Chase", false);
             agent.animator.SetBool("Runner_Attack", true);
+            agent.animator.SetBool("Runner_Electrocute", false);
+            agent.animator.SetBool("Runner_Scared", false);
         }
         else if (agent.enemyID == "Swordsman")
         {
             agent.animator.SetBool("Swordsman_Chase", false);
             agent.animator.SetBool("Swordsman_Attack", true);
+            agent.animator.SetBool("Swordsman_Electrocute", false);
+            agent.animator.SetBool("Swordsman_Scared", false);
         }
         else if(agent.enemyID == "Charger")
         {

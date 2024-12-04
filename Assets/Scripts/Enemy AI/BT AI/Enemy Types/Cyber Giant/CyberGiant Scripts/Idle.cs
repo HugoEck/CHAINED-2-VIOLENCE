@@ -24,5 +24,7 @@ public class Idle : Node
         agent.animator.SetBool("CyberGiant_JumpEngage", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash1", false);
         agent.animator.SetBool("CyberGiant_OverheadSmash2", false);
+        agent.animator.SetBool("CyberGiant_Stagger", false);
+        agent.animator.SetBool("CyberGiant_Death", false);
     }
 }
