@@ -203,13 +203,13 @@ public class itemAreaSpawner : MonoBehaviour
     {
         if (waveManager != null)
         {
-            // Wave 1 - Spawn Roman objects
-            if (WaveManager.currentWave == 1 && !itemsSpawnedForRomanWave)
-            {
-                SpawnItems(romanObjects);
-                StartCoroutine(SpawnBoulderWithDelay());
-                itemsSpawnedForRomanWave = true;
-            }
+            //// Wave 1 - Spawn Roman objects
+            //if (WaveManager.currentWave == 1 && !itemsSpawnedForRomanWave)
+            //{
+            //    SpawnItems(romanObjects);
+            //    StartCoroutine(SpawnBoulderWithDelay());
+            //    itemsSpawnedForRomanWave = true;
+            //}
 
             HandleBoulders();
 
@@ -220,6 +220,16 @@ public class itemAreaSpawner : MonoBehaviour
             HandleWave(40, farmObjects, ref itemsSpawnedForFarmWave);
             HandleWave(50, modernDayObjects, ref itemsSpawnedForModernDayWave);
             HandleWave(60, scifiObjects, ref itemsSpawnedForSciFiWave);
+        }
+    }
+    public void SpawnRomanObjects()
+    {
+        // Wave 1 - Spawn Roman objects
+        if (WaveManager.currentWave == 1 && !itemsSpawnedForRomanWave)
+        {
+            SpawnItems(romanObjects);
+            StartCoroutine(SpawnBoulderWithDelay());
+            itemsSpawnedForRomanWave = true;
         }
     }
 

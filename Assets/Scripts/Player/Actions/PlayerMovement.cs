@@ -98,7 +98,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
         {
             _bIsGrounded = false;
             Debug.DrawRay(rayOrigin, Vector3.down * _groundCheckDistance, Color.red);
-            Debug.Log("No ground detected within range.");
         }
     }
 

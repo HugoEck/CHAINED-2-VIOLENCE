@@ -6,6 +6,7 @@ public class WaveManager : MonoBehaviour
 {
     [SerializeField] Camera cam;
 
+
     [Header("Fonts")]
     public TMP_Asset romanFont;
     public TMP_Asset scifiFont;

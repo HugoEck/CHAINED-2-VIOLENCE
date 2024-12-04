@@ -51,7 +51,6 @@ public class AIChainEffects
             Transform spine = agent.transform.Find("Root/Hips/Spine_01/Spine_02");
             if (spine == null)
             {
-                Debug.Log(":(");
                 return;
             }
 
