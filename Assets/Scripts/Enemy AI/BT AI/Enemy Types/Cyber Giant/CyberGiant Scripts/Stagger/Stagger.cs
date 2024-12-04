@@ -28,6 +28,7 @@ public class Stagger : Node
             cg.longRangeCooldown = 15;
             cg.overheadSmashDamage = 40;
             cg.jumpEngageDamage = 40;
+            cg.effectPrefab.SetActive(true);
         }
 
     animationTimer -= Time.deltaTime;
