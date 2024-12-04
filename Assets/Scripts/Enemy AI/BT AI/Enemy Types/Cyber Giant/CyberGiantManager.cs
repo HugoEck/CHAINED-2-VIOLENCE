@@ -65,7 +65,7 @@ public class CyberGiantManager : BaseManager
     private float lastMidRangeTime = -10;
     private float lastCloseRangeTime = -5;
 
-    public float debugTimer;
+    //public float debugTimer;
 
     void Start()
     {
