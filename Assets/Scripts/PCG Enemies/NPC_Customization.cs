@@ -149,11 +149,7 @@ public class NPC_Customization : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //Randomize();
-        }
-        transform.Rotate(0, 0.3f, 0);
+
     }
     public void Randomize(NPCTheme npcTheme, NPCClass npcClass)
     {
