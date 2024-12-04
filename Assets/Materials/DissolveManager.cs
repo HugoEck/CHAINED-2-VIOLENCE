@@ -297,6 +297,8 @@ public class DissolveManager : MonoBehaviour
             UpdateDissolve(dissolveValue);
             yield return null;
         }
+
+        yield return new WaitForSeconds(1.5f);
         StartCoroutine(ZoomIncamera());
     }
 
