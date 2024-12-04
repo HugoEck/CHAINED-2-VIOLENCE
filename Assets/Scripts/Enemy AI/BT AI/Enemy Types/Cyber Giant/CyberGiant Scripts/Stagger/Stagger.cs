@@ -29,6 +29,7 @@ public class Stagger : Node
             cg.overheadSmashDamage = 40;
             cg.jumpEngageDamage = 40;
             cg.effectPrefab.SetActive(true);
+
         }
 
     animationTimer -= Time.deltaTime;
