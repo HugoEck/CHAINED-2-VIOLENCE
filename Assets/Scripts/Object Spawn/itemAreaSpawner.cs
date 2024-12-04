@@ -246,12 +246,12 @@ public class itemAreaSpawner : MonoBehaviour
             HandleBoulders();
 
             // For each wave with despawning and cooldown before spawning new items
-            HandleWave(10, fantasyObjects, ref itemsSpawnedForFantasyWave);
-            HandleWave(20, pirateObjects, ref itemsSpawnedForPirateWave);
-            HandleWave(30, westernObjects, ref itemsSpawnedForWesternWave);
-            HandleWave(40, farmObjects, ref itemsSpawnedForFarmWave);
+            HandleWave(3, fantasyObjects, ref itemsSpawnedForFantasyWave);
+            HandleWave(5, pirateObjects, ref itemsSpawnedForPirateWave);
+            HandleWave(7, westernObjects, ref itemsSpawnedForWesternWave);
+            HandleWave(9, farmObjects, ref itemsSpawnedForFarmWave);
             HandleWave(50, modernDayObjects, ref itemsSpawnedForModernDayWave);
-            HandleWave(60, scifiObjects, ref itemsSpawnedForSciFiWave);
+            HandleWave(11, scifiObjects, ref itemsSpawnedForSciFiWave);
         }
     }
     public void SpawnRomanObjects()

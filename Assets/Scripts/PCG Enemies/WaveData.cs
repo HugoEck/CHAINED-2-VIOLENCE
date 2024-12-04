@@ -13,6 +13,13 @@ public class WaveData : MonoBehaviour
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 10 }
             }
         ));
+        waves.Add(CreateWave("Wave 0",
+            new List<EnemyConfig>
+            {
+
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 10 }
+            }
+        ));
         waves.Add(CreateWave("Wave 1",
             new List<EnemyConfig>
             {
@@ -49,8 +56,8 @@ public class WaveData : MonoBehaviour
         waves.Add(CreateWave("Wave 5",
             new List<EnemyConfig>
             {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Pirate, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 10 },
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Pirate, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 2 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Pirate, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 5 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Pirate, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 30 }
             }
         ));
         waves.Add(CreateWave("Wave 6",
