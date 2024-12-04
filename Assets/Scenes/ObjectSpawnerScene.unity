@@ -169,52 +169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _otherPlayerChainJointTransform: {fileID: 550922372}
---- !u!1 &79842332
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 79842334}
-  - component: {fileID: 79842333}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &79842333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79842332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &79842334
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79842332}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &109889340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1345886e61811614693b86d765f420d0,
@@ -861,6 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
+  playerAttributes: {fileID: 0}
 --- !u!114 &440461382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,6 +1154,52 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2127177915}
   m_SourcePrefab: {fileID: 100100000, guid: b64ab1cab3031dd49865cc044d66262b, type: 3}
+--- !u!1 &868578529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 868578531}
+  - component: {fileID: 868578530}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &868578530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868578529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &868578531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868578529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &997227116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1338,6 +1339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserChainActiveDuration: 10
   _laserChainCooldown: 20
+  _spawner: {fileID: 0}
 --- !u!114 &1142426575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1385,6 +1387,7 @@ MonoBehaviour:
   _setIgnoreCollisionLayers:
     serializedVersion: 2
     m_Bits: 0
+  _spawner: {fileID: 0}
 --- !u!114 &1142426578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1399,6 +1402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireChainActiveDuration: 10
   _fireChainCooldown: 20
+  _spawner: {fileID: 0}
 --- !u!114 &1142426579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1413,6 +1417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _electricityChainActiveDuration: 10
   _electricityChainCooldown: 20
+  _spawner: {fileID: 0}
 --- !u!1 &1152424574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1896,6 +1901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
+  playerAttributes: {fileID: 0}
 --- !u!114 &1430627312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2143,7 +2149,7 @@ Transform:
   m_GameObject: {fileID: 1482983540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.37, y: 0.63, z: 0.21}
+  m_LocalPosition: {x: -1, y: 0.63, z: -50.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3607,4 +3613,4 @@ SceneRoots:
   - {fileID: 360167025}
   - {fileID: 426050752}
   - {fileID: 1692651909}
-  - {fileID: 79842334}
+  - {fileID: 868578531}
