@@ -20,6 +20,7 @@ public class CyberGiantManager : BaseManager
     public GameObject energyShield;
     [HideInInspector] public CapsuleCollider damageCollider;
     private CapsuleCollider weaponCollider;
+    public GameObject effectPrefab;
 
     [Header("CG STATS")]
 
