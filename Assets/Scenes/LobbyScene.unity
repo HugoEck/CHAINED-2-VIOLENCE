@@ -4187,6 +4187,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &948568351 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7243957081438368797, guid: 210d70f921843c9408755c51ed1fe20b,
+    type: 3}
+  m_PrefabInstance: {fileID: 948568348}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &949239116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4275,6 +4281,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6179444468948258341, guid: 7d404866640dd154ba4ca705c2b28f0d,
+        type: 3}
+      propertyPath: goldCanvas
+      value: 
+      objectReference: {fileID: 948568351}
     - target: {fileID: 6179444468948258341, guid: 7d404866640dd154ba4ca705c2b28f0d,
         type: 3}
       propertyPath: interactionDistance
@@ -6624,6 +6635,7 @@ MonoBehaviour:
   _setIgnoreCollisionLayers:
     serializedVersion: 2
     m_Bits: 1728
+  _spawner: {fileID: 0}
 --- !u!114 &1305177478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6638,6 +6650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireChainActiveDuration: 10
   _fireChainCooldown: 30
+  _spawner: {fileID: 0}
 --- !u!114 &1305177479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6652,6 +6665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _electricityChainActiveDuration: 10
   _electricityChainCooldown: 30
+  _spawner: {fileID: 0}
 --- !u!114 &1305177480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6666,6 +6680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserChainActiveDuration: 10
   _laserChainCooldown: 30
+  _spawner: {fileID: 0}
 --- !u!114 &1305177481
 MonoBehaviour:
   m_ObjectHideFlags: 0
