@@ -49,12 +49,12 @@ public class Player : MonoBehaviour
 
     public bool _bIsPlayerDisabled = false;
 
-    private static int playersDefeated = 0;
+    public static int playersDefeated = 0;
 
     public event Action<float> PlayerSpawnedIn;
 
-    private float _respawnCooldown = 10;
-    private float _respawnTime;
+    //private float _respawnCooldown = 10;
+    //private float _respawnTime;
 
     // Arrays to store the found colliders
     private List<Collider> capsuleColliders = new List<Collider>();
@@ -124,9 +124,9 @@ public class Player : MonoBehaviour
 
         // Turn off the colliders (disable their components)
         if (_playerId == 1)
-            DisableColliders();
+            _playerHealth.DisableColliders();
         else
-            EnableColliders();
+            _playerHealth.EnableColliders();
 
         playerAttributes.SetBaseValues(_playerCombat.currentPlayerClass);
         StatsTransfer.Instance.SaveStatsPlayer1();
@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
             playerAttributes.attackDamage = StatsTransfer.Player2AttackDamage;
         }
 
-        currentHealth = playerAttributes.maxHP;
+        _playerHealth.SetMaxHealth(playerAttributes.maxHP); // Synchronize health
 
     }
     private void FixedUpdate()
@@ -426,7 +426,7 @@ public class Player : MonoBehaviour
     {
         if (HealthBar.Instance != null)
         {
-            HealthBar.Instance.UpdateHealthBar(_playerId, _playerHealth.currentHealth, GetMaxHealth());
+            HealthBar.Instance.UpdateHealthBar(_playerId, _playerHealth.currentHealth, _playerHealth.GetMaxHealth());
         }
     }
 
@@ -444,10 +444,10 @@ public class Player : MonoBehaviour
     //    Debug.Log("Player max health set to: " + _maxHealth);
     //}
 
-    public float GetMaxHealth()
-    {
-        return playerAttributes.maxHP;
-    }
+    //public float GetMaxHealth()
+    //{
+    //    return playerAttributes.maxHP;
+    //}
 
     #endregion
 
@@ -620,39 +620,39 @@ public class Player : MonoBehaviour
     }
 
     // Method to disable the colliders by turning off the components
-    void DisableColliders()
-    {
-        // Disable all CapsuleColliders
-        foreach (var capsuleCollider in capsuleColliders)
-        {
-            capsuleCollider.enabled = false;
-        }
-
-        // Disable all BoxColliders
-        foreach (var boxCollider in boxColliders)
-        {
-            boxCollider.enabled = false;
-        }
-
-        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
-    }
-
-    void EnableColliders()
-    {
-        // Disable all CapsuleColliders
-        foreach (var capsuleCollider in capsuleColliders)
-        {
-            capsuleCollider.enabled = true;
-        }
-
-        // Disable all BoxColliders
-        foreach (var boxCollider in boxColliders)
-        {
-            boxCollider.enabled = true;
-        }
-
-        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
-    }
+    //void DisableColliders()
+    //{
+    //    // Disable all CapsuleColliders
+    //    foreach (var capsuleCollider in capsuleColliders)
+    //    {
+    //        capsuleCollider.enabled = false;
+    //    }
+    //
+    //    // Disable all BoxColliders
+    //    foreach (var boxCollider in boxColliders)
+    //    {
+    //        boxCollider.enabled = false;
+    //    }
+    //
+    //    Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+    //}
+    //
+    //void EnableColliders()
+    //{
+    //    // Disable all CapsuleColliders
+    //    foreach (var capsuleCollider in capsuleColliders)
+    //    {
+    //        capsuleCollider.enabled = true;
+    //    }
+    //
+    //    // Disable all BoxColliders
+    //    foreach (var boxCollider in boxColliders)
+    //    {
+    //        boxCollider.enabled = true;
+    //    }
+    //
+    //    Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+    //}
 
 
     #endregion

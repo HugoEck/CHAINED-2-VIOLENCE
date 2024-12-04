@@ -20,11 +20,13 @@ public class ShieldAbility : MonoBehaviour, IAbility
     private GameObject activatingPlayer;
 
     private Player player;
+    private PlayerHealth playerHealth;
 
     private void Start()
     {
         // Try to get the Player script
         player = GetComponent<Player>();
+        playerHealth = GetComponent<PlayerHealth>();
         if (player == null)
         {
             Debug.LogError("Player script not found on the GameObject! Ensure it is attached.");
@@ -45,7 +47,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
     {
         if (player != null)
         {
-            maxShieldHealth = player.GetMaxHealth() * 0.2f; // Base shield health + 20% of player's base HP
+            maxShieldHealth = playerHealth.GetMaxHealth() * 0.2f; // Base shield health + 20% of player's base HP
         }
     }
 

@@ -1,17 +1,29 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private PlayerAttributes _playerAttributes;
+
+    private float _maxHealth;
     [SerializeField] private float regenerationRate = 1f; // Health per second
-    [SerializeField] private float respawnCooldown = 10f;
+   // [SerializeField] private float respawnCooldown = 10f;
+    private float regenerationCooldown = 10f; // Time to wait before regenerating health
+    private float timeSinceLastDamageOrAction = 0f; // Tracks time since the last damage or action
 
     public float currentHealth;
     private bool isDead;
-    private bool respawnTimerSet;
-    private float respawnTime;
+    //private bool respawnTimerSet;
+    //private float respawnTime;
+
+    private float _respawnCooldown = 10;
+    private float _respawnTime;
+
+    // Arrays to store the found colliders
+    private List<Collider> capsuleColliders = new List<Collider>();
+    private List<Collider> boxColliders = new List<Collider>();
 
     private Animator animator;
     private CapsuleCollider capsuleCollider;
@@ -23,33 +35,70 @@ public class PlayerHealth : MonoBehaviour
     private bool isFlashing;
     private Renderer renderer;
 
+    public bool _bIsPlayerDisabled = false;
+    public int _playerId { get; private set; }
+
     public event Action<float> OnHealthChanged; // For UI or effects
     public event Action OnPlayerDeath;
     public event Action OnPlayerRespawn;
 
     private ShieldAbility _shieldAbility;
+    public GameObject player1Obj;
+    public GameObject player2Obj;
 
     private void Awake()
+    {
+        if (gameObject.tag == "Player1")
+        {
+            player1Obj = gameObject;
+            _playerId = 1;
+        }
+        else if (gameObject.tag == "Player2")
+        {
+            player2Obj = gameObject;
+            _playerId = 2;
+            currentHealth = 0;
+        }
+    }
+
+    private void Start()
     {
         animator = GetComponentInChildren<Animator>(false);
         capsuleCollider = GetComponent<CapsuleCollider>();
         _shieldAbility = GetComponent<ShieldAbility>();
-        InitializeVisuals();
-
-        currentHealth = maxHealth;
+        _maxHealth = _playerAttributes.maxHP;
+        currentHealth = _maxHealth;
         isDead = false;
     }
 
     private void Update()
     {
-        if (isDead)
+        if (!isDead)
         {
-            HandleRespawn();
-        }
-        else
-        {
-            RegenerateHealth();
-        }
+            // Increment timer if no actions have been performed
+            timeSinceLastDamageOrAction += Time.deltaTime;
+
+            // Start regenerating health only if the cooldown has passed
+            if (timeSinceLastDamageOrAction >= regenerationCooldown)
+            {
+                RegenerateHealth();
+            }
+        }    
+    }
+
+    public void SetMaxHealth(float newMaxHealth)
+    {
+        _maxHealth = newMaxHealth;
+        _playerAttributes.maxHP = newMaxHealth;
+
+        // Heal to full if upgrading max health
+        currentHealth = _maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
+    }
+
+    public float GetMaxHealth()
+    {
+        return _playerAttributes.maxHP;
     }
 
     /// <summary>
@@ -57,6 +106,9 @@ public class PlayerHealth : MonoBehaviour
     /// </summary>
     public void SetHealth(float damage)
     {
+        // Reset the cooldown timer when the player takes damage
+        timeSinceLastDamageOrAction = 0f;
+
         //if (GhostChain._bIsGhostChainActive) return; // Ignore damage if GhostChain is active
 
         // Check if the shield is active and absorb damage first
@@ -78,7 +130,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Apply the remaining damage to the player's health
         currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // Ensure health doesn't go below 0
+        currentHealth = Mathf.Clamp(currentHealth, 0, _maxHealth); // Ensure health doesn't go below 0
 
         Debug.Log($"{gameObject.name} took {damage} damage, current health: {currentHealth}");
 
@@ -86,7 +138,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0 && !isDead)
         {
-            HandleDeath();
+            HandleKnockout();
         }
         else
         {
@@ -94,74 +146,123 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Regenerates health over time if below max health.
-    /// </summary>
+    public void OnPlayerAttack()
+    {
+        timeSinceLastDamageOrAction = 0f; // Reset the timer when the player attacks
+    }
+
     private void RegenerateHealth()
     {
-        if (currentHealth < maxHealth)
+        if (currentHealth < _maxHealth)
         {
             currentHealth += regenerationRate * Time.deltaTime;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            currentHealth = Mathf.Clamp(currentHealth, 0, _maxHealth);
             OnHealthChanged?.Invoke(currentHealth);
+        }
+    }
+
+    public void ToggleRagdoll(bool turnOn, GameObject player)
+    {
+        if (turnOn)
+        {
+            player.GetComponentInChildren<Animator>(false).enabled = false;
+            player.GetComponent<CapsuleCollider>().enabled = false;
+        }
+        else if (!turnOn)
+        {
+            player.GetComponentInChildren<Animator>(false).enabled = true;
+            player.GetComponent<CapsuleCollider>().enabled = true;
         }
     }
 
     /// <summary>
     /// Handles player death by toggling ragdoll and marking as dead.
     /// </summary>
-    private void HandleDeath()
+    private void HandleKnockout()
     {
-        isDead = true;
-        ToggleRagdoll(true);
-        OnPlayerDeath?.Invoke();
+        if (Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.ArenaScene) return;
 
-        Debug.Log($"{gameObject.name} has died.");
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+        {
+            if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
+            {
+                ToggleRagdoll(true, player1Obj);
+                _bIsPlayerDisabled = true;
+                Player.playersDefeated++;
+
+            }
+            else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
+            {
+                ToggleRagdoll(true, player2Obj);
+                _bIsPlayerDisabled = true;
+                Player.playersDefeated++;
+
+            }
+
+            if (_bIsPlayerDisabled)
+            {
+                EnableColliders();
+                Respawn();
+            }
+
+            if (Player.playersDefeated == 2)
+            {
+                Player.playersDefeated = 0;
+                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+            }
+        }
+        else
+        {
+
+            if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
+            {
+                ToggleRagdoll(true, player1Obj);
+                _bIsPlayerDisabled = true;
+                Player.playersDefeated++;
+
+            }
+
+            if (Player.playersDefeated == 1)
+            {
+                Player.playersDefeated = 0;
+                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+                HealthBar.Instance.ResetPlayerHealthBars();
+            }
+        }
+
     }
-
-    /// <summary>
-    /// Handles the respawn process after a cooldown.
-    /// </summary>
-    private void HandleRespawn()
+    private bool respawnTimerSet = false;
+    private void Respawn()
     {
         if (!respawnTimerSet)
         {
-            respawnTime = respawnCooldown;
+            _respawnTime = _respawnCooldown;
             respawnTimerSet = true;
         }
 
-        respawnTime -= Time.deltaTime;
+        _respawnTime -= Time.deltaTime;
 
-        if (respawnTime <= 0)
+        if (_respawnTime <= 0)
         {
-            Respawn();
+            Player.playersDefeated--;
+            currentHealth = _playerAttributes.maxHP;
+            _bIsPlayerDisabled = false;
+            respawnTimerSet = false;
+
+            if (_playerId == 1)
+            {
+                ToggleRagdoll(false, player1Obj);
+
+                DisableColliders();
+            }
+            else if (_playerId == 2)
+            {
+                ToggleRagdoll(false, player2Obj);
+
+                DisableColliders();
+            }
+
         }
-    }
-
-    /// <summary>
-    /// Respawns the player by resetting health and toggling ragdoll off.
-    /// </summary>
-    private void Respawn()
-    {
-        isDead = false;
-        currentHealth = maxHealth;
-        respawnTimerSet = false;
-
-        ToggleRagdoll(false);
-        OnPlayerRespawn?.Invoke();
-
-        Debug.Log($"{gameObject.name} has respawned.");
-    }
-
-    /// <summary>
-    /// Toggles ragdoll by enabling/disabling animator and collider.
-    /// </summary>
-    private void ToggleRagdoll(bool enable)
-    {
-        if (animator != null) animator.enabled = !enable;
-        if (capsuleCollider != null) capsuleCollider.enabled = !enable;
-
-        Debug.Log($"{gameObject.name} ragdoll state: {(enable ? "Enabled" : "Disabled")}");
     }
 
     /// <summary>
@@ -200,7 +301,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!isFlashing)
         {
-            //InitializeVisuals();
+            InitializeVisuals();
             StartCoroutine(FlashCoroutine());
         }
     }
@@ -239,7 +340,42 @@ public class PlayerHealth : MonoBehaviour
         isFlashing = false;
     }
 
-    public float GetCurrentHealth() => currentHealth;
+    // Method to disable the colliders by turning off the components
+    public void DisableColliders()
+    {
+        // Disable all CapsuleColliders
+        foreach (var capsuleCollider in capsuleColliders)
+        {
+            capsuleCollider.enabled = false;
+        }
 
-    public float GetMaxHealth() => maxHealth;
+        // Disable all BoxColliders
+        foreach (var boxCollider in boxColliders)
+        {
+            boxCollider.enabled = false;
+        }
+
+        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+    }
+
+    public void EnableColliders()
+    {
+        // Disable all CapsuleColliders
+        foreach (var capsuleCollider in capsuleColliders)
+        {
+            capsuleCollider.enabled = true;
+        }
+
+        // Disable all BoxColliders
+        foreach (var boxCollider in boxColliders)
+        {
+            boxCollider.enabled = true;
+        }
+
+        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+    }
+
+    //public float GetCurrentHealth() => currentHealth;
+    //
+    //public float GetMaxHealth() => maxHealth;
 }
