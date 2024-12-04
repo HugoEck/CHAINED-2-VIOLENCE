@@ -21,17 +21,8 @@ public class Stagger : Node
         SetAnimation(agent);
         agent.navigation.isStopped = true;
 
-        if (animationTimer < 3 && animationTimer > 2.5f)
-        {
-            cg.closeRangeCooldown = 5;
-            cg.midRangeCooldown = 15;
-            cg.longRangeCooldown = 15;
-            cg.overheadSmashDamage = 40;
-            cg.jumpEngageDamage = 40;
-            cg.effectPrefab.SetActive(true);
-        }
 
-    animationTimer -= Time.deltaTime;
+        animationTimer -= Time.deltaTime;
 
         if (animationTimer < 0)
         {

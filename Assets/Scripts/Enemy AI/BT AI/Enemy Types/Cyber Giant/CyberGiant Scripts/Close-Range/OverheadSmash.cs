@@ -63,13 +63,13 @@ public class OverheadSmash : Node
 
 
         animationTimer -= Time.deltaTime;
-        //cg.debugTimer = animationTimer;
+        cg.debugTimer = animationTimer;
 
         if (animationTimer < 0)
         {
             agent.navigation.rotationSpeed = 360;
             animationTimer = animationTotTime;
-            //cg.debugTimer = animationTimer;
+            cg.debugTimer = animationTimer;
             cg.overheadSmashActive = false;
 
             cg.P1_damageApplied = false;
