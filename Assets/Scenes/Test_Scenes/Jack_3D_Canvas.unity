@@ -795,8 +795,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a190a0766e49c4cbac05844cd544cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldPool: {fileID: 1596704656}
-  dropChance: 1
+  goldAmount: 0
+  goldCounterText: {fileID: 0}
+  goldDisplayCanvas: {fileID: 0}
 --- !u!1001 &169100042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2588,6 +2589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b299c46794c71c9418903cb1a3c2bd72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!153 &464956687
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -2733,9 +2735,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingSpeed: 400
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
+  playerAttributes: {fileID: 0}
 --- !u!114 &464956692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2748,7 +2750,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  playerAttributes: {fileID: 0}
+  _bIsPlayerDisabled: 0
+  isFlashing: 0
 --- !u!54 &464956694
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4996,9 +5000,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6859662c64799d94f96225f59be2b0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseUpgradeCost: 20
+  maxUpgradeLevel: 10
+  UpgradeCostIncrease: 20
+  attackDamageIncrease: 1
+  maxHealthIncrease: 20
+  movementSpeedIncrease: 10
   attackLevelText: {fileID: 384471207}
   healthLevelText: {fileID: 646854493}
   speedLevelText: {fileID: 1699287241}
+  chainLevelText: {fileID: 0}
+  notEnoughGoldText: {fileID: 0}
+  maxUpgradeReachedText: {fileID: 0}
+  attackUpgradeCostText: {fileID: 0}
+  healthUpgradeCostText: {fileID: 0}
+  speedUpgradeCostText: {fileID: 0}
+  chainUpgradeCostText: {fileID: 0}
 --- !u!4 &998550104
 Transform:
   m_ObjectHideFlags: 0
@@ -6632,6 +6649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeUICanvas: {fileID: 1913904265}
+  goldCanvas: {fileID: 0}
   interactionDistance: 10
 --- !u!65 &1433551154
 BoxCollider:
@@ -6748,6 +6766,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a6ffe22acfa21449b647f5c233e080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSceneState: 0
+  currentGameState: 0
+  currentLobbyState: 0
 --- !u!4 &1481567991
 Transform:
   m_ObjectHideFlags: 0
@@ -10136,6 +10157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b299c46794c71c9418903cb1a3c2bd72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!153 &2143577513
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -10281,9 +10303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingSpeed: 400
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
+  playerAttributes: {fileID: 0}
 --- !u!114 &2143577518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10296,7 +10318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  playerAttributes: {fileID: 0}
+  _bIsPlayerDisabled: 0
+  isFlashing: 0
 --- !u!54 &2143577520
 Rigidbody:
   m_ObjectHideFlags: 0

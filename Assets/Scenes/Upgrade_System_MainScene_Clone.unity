@@ -1653,9 +1653,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingSpeed: 400
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
+  playerAttributes: {fileID: 0}
 --- !u!114 &318182161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1668,7 +1668,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  playerAttributes: {fileID: 0}
+  _bIsPlayerDisabled: 0
+  isFlashing: 0
 --- !u!54 &318182164
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4275,9 +4277,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingSpeed: 400
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
+  playerAttributes: {fileID: 0}
 --- !u!114 &927899838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4290,7 +4292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  playerAttributes: {fileID: 0}
+  _bIsPlayerDisabled: 0
+  isFlashing: 0
 --- !u!54 &927899841
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5114,6 +5118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeUICanvas: {fileID: 57684443}
+  goldCanvas: {fileID: 0}
   interactionDistance: 10
 --- !u!1 &1061053714
 GameObject:
@@ -6473,9 +6478,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6859662c64799d94f96225f59be2b0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseUpgradeCost: 20
+  maxUpgradeLevel: 10
+  UpgradeCostIncrease: 20
+  attackDamageIncrease: 1
+  maxHealthIncrease: 20
+  movementSpeedIncrease: 10
   attackLevelText: {fileID: 0}
   healthLevelText: {fileID: 0}
   speedLevelText: {fileID: 0}
+  chainLevelText: {fileID: 0}
+  notEnoughGoldText: {fileID: 0}
+  maxUpgradeReachedText: {fileID: 0}
+  attackUpgradeCostText: {fileID: 0}
+  healthUpgradeCostText: {fileID: 0}
+  speedUpgradeCostText: {fileID: 0}
+  chainUpgradeCostText: {fileID: 0}
 --- !u!4 &1624659527
 Transform:
   m_ObjectHideFlags: 0

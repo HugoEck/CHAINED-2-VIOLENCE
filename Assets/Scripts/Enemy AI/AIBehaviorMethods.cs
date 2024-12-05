@@ -190,7 +190,6 @@ public class AIBehaviorMethods
                 capsule1.enabled = true;
             }
             box.enabled = false;
-            capsule.enabled = false;
             obiCollider.enabled = false;
             obiRb.enabled = false;
             aiPath.enabled = false;

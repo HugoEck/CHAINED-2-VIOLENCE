@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -131,6 +131,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 104499550172009026, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 700997260924860229, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_Name
@@ -206,16 +211,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3781033917873038074, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 5001280945338749247, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5378532953324093202, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 5893767741862142502, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6158994306040847730, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+    - target: {fileID: 6165360369538395890, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 9172755423452092343, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_Type
@@ -412,6 +437,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordGlowTest_Legendary
       objectReference: {fileID: 0}
+    - target: {fileID: 5358508629812661985, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 5779111828396037992, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -634,6 +664,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordGlowTest_Epic
       objectReference: {fileID: 0}
+    - target: {fileID: 5358508629812661985, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 5779111828396037992, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1404,8 +1439,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12332,7 +12367,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18166,6 +18201,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 940813070845026165, guid: 031b58f6572dbc24e8ee6b81f88f351e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+    - target: {fileID: 940813070845026165, guid: 031b58f6572dbc24e8ee6b81f88f351e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+    - target: {fileID: 3290205242199696367, guid: 031b58f6572dbc24e8ee6b81f88f351e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -19783,6 +19833,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordGlowTest_Rare
       objectReference: {fileID: 0}
+    - target: {fileID: 5358508629812661985, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 5779111828396037992, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20329,6 +20384,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 940813070845026165, guid: 031b58f6572dbc24e8ee6b81f88f351e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+    - target: {fileID: 940813070845026165, guid: 031b58f6572dbc24e8ee6b81f88f351e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+    - target: {fileID: 3290205242199696367, guid: 031b58f6572dbc24e8ee6b81f88f351e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 8422060428094409549, guid: 031b58f6572dbc24e8ee6b81f88f351e,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -22728,6 +22798,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordGlowTest_Uncommon
       objectReference: {fileID: 0}
+    - target: {fileID: 5358508629812661985, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 5779111828396037992, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23266,6 +23341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c066b6f427469cb4fb0cd25e312839fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCombat: {fileID: 0}
   classWeaponsParentsList: []
 --- !u!114 &1749255294
 MonoBehaviour:
@@ -23402,6 +23478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
+  playerAttributes: {fileID: 0}
 --- !u!114 &1749255301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24736,6 +24813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c066b6f427469cb4fb0cd25e312839fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCombat: {fileID: 0}
   classWeaponsParentsList: []
 --- !u!114 &2044101846
 MonoBehaviour:
@@ -24872,6 +24950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
+  playerAttributes: {fileID: 0}
 --- !u!114 &2044101853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30612,6 +30691,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 104499550172009026, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 154357953129206434, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_IsActive
@@ -30707,6 +30791,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3781033917873038074, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 4226927987252074220, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -30717,11 +30806,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5378532953324093202, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 6101976643841713571, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6158994306040847730, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+    - target: {fileID: 6165360369538395890, guid: b3a4a25c73de703428203f51cc5687b0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 7430607317409324499, guid: b3a4a25c73de703428203f51cc5687b0,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -30856,6 +30960,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordGlowTest
       objectReference: {fileID: 0}
+    - target: {fileID: 5358508629812661985, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 5779111828396037992, guid: 9f83ba99e40104e47bb87fac14a2f2fa,
         type: 3}
       propertyPath: m_LocalPosition.x
