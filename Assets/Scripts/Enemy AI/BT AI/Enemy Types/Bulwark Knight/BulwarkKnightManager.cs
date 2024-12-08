@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class BulwarkKnightManager : BaseManager
 {
-    // Start is called before the first frame update
+    [Header("BULWARK KNIGHT MANAGER")]
+    public GameObject shield;
+    Transform[] children;
+
     void Start()
     {
-        
+        enemyID = "BulwarkKnight";
+        animator.SetBool("BulwarkKnight_ShieldStand", true);
+
+        children = GetComponentsInChildren<Transform>();
+        shield = FindShieldObject()?.gameObject;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    Destroy(shield);
+        //}
+    }
+
+    Transform FindShieldObject()
+    {
+
+        foreach (Transform child in children)
+        {
+            if (child.name == "BulwarkKnight_Shield")
+
+                return child;
+            
+        }
+        return null;
     }
 }
