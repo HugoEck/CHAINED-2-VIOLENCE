@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class BKAttackConditions : MonoBehaviour
+public class BKAttackConditions : Node
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    float distance;
+
+    public override NodeState Evaluate(BaseManager agent)
     {
-        
+
+        BulwarkKnightManager bk = agent as BulwarkKnightManager;
+
+        return NodeState.SUCCESS;
+
     }
 }

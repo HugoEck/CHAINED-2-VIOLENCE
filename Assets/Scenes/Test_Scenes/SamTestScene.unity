@@ -194,7 +194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44477309}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3547349, y: -0.352272, z: 0.14639518, w: 0.8536018}
+  m_LocalRotation: {x: 0.35473493, y: -0.352272, z: 0.14639518, w: 0.8536018}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2911,52 +2911,6 @@ MonoBehaviour:
   bezierTangentLength: 0.4
   offset: 0.2
   factor: 0.1
---- !u!1 &945534798
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 945534800}
-  - component: {fileID: 945534799}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &945534799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945534798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &945534800
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945534798}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1008600849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5401457856023750393, guid: 93f23453abf717348acaacf7b6f06f4e,
@@ -3913,6 +3867,7 @@ MonoBehaviour:
   PCG_componentsInstantiated: 0
   originalScale: {x: 0, y: 0, z: 0}
   shield: {fileID: 0}
+  shieldBroken: 0
 --- !u!1 &1216612196
 GameObject:
   m_ObjectHideFlags: 3
@@ -4998,6 +4953,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1399372520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1399372522}
+  - component: {fileID: 1399372521}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1399372521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399372520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1399372522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399372520}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1433949347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5628,23 +5629,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4584463318285196, guid: a075beb9df4342b49a956b62ca3ca347, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.42222688
+      value: -0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 4584463318285196, guid: a075beb9df4342b49a956b62ca3ca347, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.9054685
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 4584463318285196, guid: a075beb9df4342b49a956b62ca3ca347, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.03899539
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4584463318285196, guid: a075beb9df4342b49a956b62ca3ca347, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.018183848
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4584463318285196, guid: a075beb9df4342b49a956b62ca3ca347, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -50
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 4584463318285196, guid: a075beb9df4342b49a956b62ca3ca347, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -5652,7 +5653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4584463318285196, guid: a075beb9df4342b49a956b62ca3ca347, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 175.068
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 4584463318285196, guid: a075beb9df4342b49a956b62ca3ca347, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -6446,4 +6447,4 @@ SceneRoots:
   - {fileID: 1236516364}
   - {fileID: 1433949347}
   - {fileID: 574513938}
-  - {fileID: 945534800}
+  - {fileID: 1399372522}
