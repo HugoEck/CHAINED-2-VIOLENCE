@@ -1025,7 +1025,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1072503254754400, guid: f090a6b49e0a273499900b9ba1ba7dd8,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1216260625}
+      addedObject: {fileID: 1216260636}
+    - targetCorrespondingSourceObject: {fileID: 1072503254754400, guid: f090a6b49e0a273499900b9ba1ba7dd8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1216260637}
   m_SourcePrefab: {fileID: 100100000, guid: f090a6b49e0a273499900b9ba1ba7dd8, type: 3}
 --- !u!1001 &630983126
 PrefabInstance:
@@ -3644,28 +3648,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 574513938}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1216260625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216260622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  smoothType: 0
-  subdivisions: 2
-  iterations: 2
-  strength: 0.5
-  uniformLength: 1
-  maxSegmentLength: 2
-  bezierTangentLength: 0.4
-  offset: 0.2
-  factor: 0.1
 --- !u!114 &1216260626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3868,6 +3850,51 @@ MonoBehaviour:
   originalScale: {x: 0, y: 0, z: 0}
   shield: {fileID: 0}
   shieldBroken: 0
+--- !u!114 &1216260636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216260622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b090bec917bbe4c3bbc612ef13f7c4a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  useRaycasting: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  thickRaycast: 1
+  thickRaycastRadius: 2
+  use2DPhysics: 0
+  raycastOffset: {x: 0, y: 0, z: 0}
+  useGraphRaycasting: 0
+  quality: 1
+--- !u!114 &1216260637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216260622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  smoothType: 0
+  subdivisions: 2
+  iterations: 2
+  strength: 0.5
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 0.2
+  factor: 0.1
 --- !u!1 &1216612196
 GameObject:
   m_ObjectHideFlags: 3
@@ -3939,7 +3966,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216612196}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.32498085, y: -0.35712743, z: 0.13411601, w: 0.8653672}
+  m_LocalRotation: {x: 0.32498088, y: -0.35712746, z: 0.13411602, w: 0.8653672}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4897,7 +4924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAIIexHpux3UwIAABMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGFVE1z2jAQ/SuMzm3HkATa3lqHkB6SMCGdXHxZ5DXWIEsefQRIhv/elWxjQw49WX77dvfth/TBhLI1cqfNwoj8QefIfo5YOLMvo954j3vYaLUS79hxXkXuykCCyHkGJzTh4+BmdYXOCP5LbWQgJwR6JQptqnm+wVRbZwkuQFokk9EueCuCPkZs3zoc2u97+I6OdOKoHJr/sbziEqoa86C2J98kHZ1OkaiokpYTVHMtpbCtDOYOdSwzhdp6KoIIuQAqKwoI/BLFpnT0Mxk6PxWFRdeKMnC4FYa600Rlv3XTsgrstlH2BtJHAcnkOopqoj58IkymV9PxTaQURlf3XfJxLMuVgm+f4cDBukFjh/DtuXqvdiC3sJb4WqJ61AujvcrJ6IwPrt7i5HYQ6lRgWiLf9rxG7wXo689DGvdDOsYW7FMpqnVAvl03wErq2PQfwQcNjecPCY6rYdtIhAYRfy2+wGa4Q63hThjryNQmVEHdWnsTqGweexaK8S7VRmGEW801KpDusKQw7nKOF7ZB2gvLHYTb0iZvbd0luHCJcM9PkgvTUu9Ow7Kl3j2gLZ+8k0JhLzoYHqlPqVaqWTN7bgxeK28K4AOvjRf5+Xaxa57A5CqHgn+fXnGcfU1mMJuux+Q3g8kUblhcPaGoTJDLRmfbHRqa6oMrWrPuDRktDNRx43MDu4V4r/RAn1CFXnGDqJ6aCF2HLBpKQjczn+eC+rNC54SK42YfGZOabzHPToGyWOl87wxkfZSM1eJNu4BkLI0vR8YCfNrkpcE3gbuQvAt2ZMd/UEsDBBQAAAgIAAAIIexqijdGbAAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSSbJBopFxSmJasoWZcXKqua6BeaK5WZJhIpCdaGSWaKoUC1RfUlmQ6peYmwrRE5BYkpGWmZeSmZeu516UmeIOMlopthYAUEsBAi0AFAAACAgAAAgh7Eem7HdTAgAAEwUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7GqKN0ZsAAAAeAAAAAkAJAAAAAAAAAAAAAAAoAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABXAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAIIeyi3L/eVQIAABMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGFVE1z2jAQ/SuMzm3HkATa3lpDSA9JmJBOLr4s8hprkCWPJAdIhv/elSxjhxx6svz27e7bD+mdCWVr5E6bpRH5vc6R/Rwxf2ZfRr3xDg+w1Wot3rDjvIjclZ4EgfMETmjCx97N6gqdEfyX2kpPTghslCi0qRb5FlNtnSW4AGmRTEY7760Ieh+xQ3Q4xu+b/45OdOKoHJr/sRrFJVQ15l5tT75JOjqdAlFRJZHjVXMtpbBRBnPHOpSZQm0bKoIIuQAqKwiY0G+JYlu6+HN2fiwKiy6KMnCcC0PdaaOy37ptWQV21yp7BdkEAcnkOohqo95/IkymV9PxTaAURld3XfJxKMuVgu+e4MjBukFjh/C8Vz8OXdqD3MFG4kuJ6kEvjW5UTkZnGu/aWJzMB6HOBaYl8l3Pa/VegE39eUjjfkin0IJDKkW18ci36xZYSx2a/sP7oKHx/CHBYTVsjESoF/HX4jNshzsUDbfCWEemmFB5dRvdGE9li9AzX0zjUm0UBjhqrlGBdMcVhXGXc7ywDdJeWG7B35aYPNq6S3DhEuCenyQXppXen4dlS72/R1s+Nk4Khb1ob3igPqVaqXbN7Eej91o3pgA+8No2Iv+4XeyaJzC5yqHg36dXHGdfkxnMppsx+c1gMoUbFlZPKCoT5KrVGbtDQ1N9cEVr1r0ho6WBOmx8bmC/FG+VHugTqtBrbhDVYxuh65BFQ0noZuaLXFB/1uicUGHc7D1jUvMd5tk5UBYqXRycgayPkrFavGrnkYyl4eXImIfPm7wy+Cpw75N3wU7s9A9QSwMEFAAACAgAAAgh7GqKN0ZsAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJJJskGikXFKYlqyhZlxcqq5roF5orlZkmEikJ1oZJZoqhQLVF9SWZDql5ibCtETkFiSkZaZl5KZl67nXpSZ4g4yWim2FgBQSwECLQAUAAAICAAACCHsoty/3lUCAAATBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAACCHsaoo3RmwAAAB4AAAACQAkAAAAAAAAAAAAAACiAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAFkDAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -5699,7 +5726,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
