@@ -14,7 +14,18 @@ public class BKAttackConditions : Node
 
         BulwarkKnightManager bk = agent as BulwarkKnightManager;
 
-        return NodeState.SUCCESS;
+        agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
+        distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
+
+        if (distance < agent.attackRange)
+        {
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.FAILURE;
+        }
 
     }
+
 }

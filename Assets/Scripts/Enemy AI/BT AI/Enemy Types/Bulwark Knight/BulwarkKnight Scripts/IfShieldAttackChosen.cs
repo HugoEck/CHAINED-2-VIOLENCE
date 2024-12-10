@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class IfShieldAttackChosen : MonoBehaviour
+public class IfShieldAttackChosen : Node
 {
-    // Start is called before the first frame update
-    void Start()
+    public override NodeState Evaluate(BaseManager agent)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        BulwarkKnightManager bk = agent as BulwarkKnightManager;
+
+        if (bk.shieldBroken == false)
+        {
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.FAILURE;
+        }
+
     }
 }

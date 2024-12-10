@@ -16,9 +16,9 @@ public class BulwarkKnightManager : BaseManager
     float baseDefense = 1;
     float shieldWalkSpeed = 3;
     float runSpeed = 7;
-    float shieldAttackSpeed = 1.5f;
+    float shieldAttackSpeed = 2.5f;
     float swordAttackSpeed = 1;
-    float shieldAttackRange = 4;
+    float shieldAttackRange = 6;
     float swordAttackRange = 6;
 
     [HideInInspector] public bool shieldBroken = false;
@@ -86,7 +86,6 @@ public class BulwarkKnightManager : BaseManager
         defense = baseDefense;
         attackSpeed = swordAttackSpeed;
         attackRange = swordAttackRange;
-        chainEffects.ActivateGhostChainEffect(2);
     }
 
     private void ConstructBT()
@@ -101,7 +100,20 @@ public class BulwarkKnightManager : BaseManager
         StunAgent stunAgent = new StunAgent();
         Sequence isStunned = new Sequence(new List<Node>() { isAgentStunned, stunAgent });
 
+        //ATTACK BRANCH
 
-        rootNode = new Selector(new List<Node>() { isStunned, bk_ChasePlayer });
+        BKAttackConditions bk_AttackConditions = new BKAttackConditions();
+        IfShieldAttackChosen ifShieldAttackChosen = new IfShieldAttackChosen();
+        ShieldAttack shieldAttack = new ShieldAttack();
+        //SwordAttack
+
+        Sequence ability_shieldAttack = new Sequence(new List<Node>() { ifShieldAttackChosen, shieldAttack });
+
+        Selector chooseAttackType = new Selector(new List<Node>() { ability_shieldAttack });
+
+        Sequence attack = new Sequence(new List<Node>() { bk_AttackConditions, chooseAttackType });
+
+
+        rootNode = new Selector(new List<Node>() { attack, bk_ChasePlayer });
     }
 }

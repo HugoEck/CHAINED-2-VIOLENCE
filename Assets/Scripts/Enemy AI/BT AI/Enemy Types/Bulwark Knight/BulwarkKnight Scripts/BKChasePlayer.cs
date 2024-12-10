@@ -8,13 +8,16 @@ public class BKChasePlayer : Node
     {
         BulwarkKnightManager bk = agent as BulwarkKnightManager;
 
+        SetAnimation(agent);
         if (bk.shieldBroken)
         {
-            //Running Animation
+            agent.animator.SetBool("BulwarkKnight_ShieldWalk", false);
+            //agent.animator.SetBool("BulwarkKnight_SwordRun", true);
         }
         else
         {
-            //Shield Animation
+            agent.animator.SetBool("BulwarkKnight_ShieldWalk", true);
+            //agent.animator.SetBool("BulwarkKnight_SwordRun", false);
         }
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
 
@@ -35,6 +38,9 @@ public class BKChasePlayer : Node
             return NodeState.SUCCESS;
         }
 
-
+    }
+    private void SetAnimation(BaseManager agent)
+    {
+        agent.animator.SetBool("BulwarkKnight_Idle", false);
     }
 }
