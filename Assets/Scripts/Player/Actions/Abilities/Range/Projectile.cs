@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
 {
+    [Header("Range Ability sound: ")]
+    [SerializeField] private AudioClip rangeAbilitySound;
+
     public PlayerAttributes playerAttributes;
 
     public GameObject projectilePrefab;
@@ -59,6 +62,8 @@ public class Projectile : MonoBehaviour, IAbility
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 3f, Quaternion.LookRotation(direction));
         ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
         projectileBehavior.playerAttributes = playerAttributes; // Assuming "this" is the PlayerCombat instance
+
+        SFXManager.instance.PlaySFXClip(rangeAbilitySound, transform, 1f);
 
         if (projectile != null)
         {
