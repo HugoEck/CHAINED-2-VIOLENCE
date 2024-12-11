@@ -5,6 +5,7 @@ using UnityEngine;
 public class DestroyRock : MonoBehaviour
 {
     [HideInInspector] public float damage;
+    [SerializeField] LayerMask groundLayer;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,5 +19,10 @@ public class DestroyRock : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if(other.gameObject.layer == groundLayer)
+        {
+            Destroy(gameObject);
+        }
     }
+    
 }

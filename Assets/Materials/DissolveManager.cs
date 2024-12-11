@@ -102,7 +102,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToRoman = true;
         }
-        if (WaveManager.currentWave == 10 && !hasChangedToFantasy)
+        if (WaveManager.currentWave == 3 && !hasChangedToFantasy)
         {
 
             fantasyArena.SetActive(true);
@@ -111,7 +111,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToFantasy = true;
         }
-        if (WaveManager.currentWave == 20 && !hasChangedToPirate)
+        if (WaveManager.currentWave == 5 && !hasChangedToPirate)
         {
             pirateArena.SetActive(true);
             ChangeArena(pirateMaterials, 25f, initialOffsetsPirate, fantasyArena);
@@ -119,7 +119,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToPirate = true;
         }
-        if (WaveManager.currentWave == 30 && !hasChangedToWestern)
+        if (WaveManager.currentWave == 7 && !hasChangedToWestern)
         {
             westernArena.SetActive(true);
             ChangeArena(westernMaterials, 25f, initialOffsetsWestern, pirateArena);
@@ -127,7 +127,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToWestern = true;
         }
-        if (WaveManager.currentWave == 40 && !hasChangedToFarm)
+        if (WaveManager.currentWave == 9 && !hasChangedToFarm)
         {
             farmArena.SetActive(true);
             ChangeArena(farmMaterials, 10f, initialOffsetsFarm, westernArena);
@@ -142,7 +142,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToCurrentDay = true;
         }
-        if (WaveManager.currentWave == 60 && !hasChangedToSciFi)
+        if (WaveManager.currentWave == 11 && !hasChangedToSciFi)
         {
             sciFiArena.SetActive(true);
             ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
@@ -297,6 +297,8 @@ public class DissolveManager : MonoBehaviour
             UpdateDissolve(dissolveValue);
             yield return null;
         }
+
+        yield return new WaitForSeconds(1.5f);
         StartCoroutine(ZoomIncamera());
     }
 
