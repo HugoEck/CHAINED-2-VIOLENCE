@@ -2,7 +2,15 @@ using UnityEngine;
 
 public class ShieldAbility : MonoBehaviour, IAbility
 {
-    [Header("Shield Settings")]
+    [Header("Activate Shield sound: ")]
+    [SerializeField] private AudioClip supportAbilitySound;
+
+    [Header("Absorb Damage sound: ")]
+    [SerializeField] private AudioClip absorbDamageSound;
+
+    [Header("Break Shield sound: ")]
+    [SerializeField] private AudioClip breakShieldSound;
+
     private float maxShieldHealth;
     private float currentShieldHealth;
 
@@ -71,6 +79,8 @@ public class ShieldAbility : MonoBehaviour, IAbility
 
         currentShieldHealth = maxShieldHealth;
         isShieldActive = true;
+
+        SFXManager.instance.PlaySFXClip(supportAbilitySound, transform, 1f);
 
         // Set the activating player
         activatingPlayer = gameObject;
@@ -146,6 +156,8 @@ public class ShieldAbility : MonoBehaviour, IAbility
         currentShieldHealth -= damage;
         Debug.Log(gameObject.name + " Shield absorbed " + damage + " damage. Remaining Shield Health: " + currentShieldHealth);
 
+        SFXManager.instance.PlaySFXClip(absorbDamageSound, transform, 1f);
+
         if (currentShieldHealth <= 0)
         {
             float remainingDamage = Mathf.Abs(currentShieldHealth);
@@ -160,6 +172,8 @@ public class ShieldAbility : MonoBehaviour, IAbility
     private void BreakShield()
     {
         if (!isShieldActive) return;
+
+        SFXManager.instance.PlaySFXClip(breakShieldSound, transform, 1f);
 
         isShieldActive = false;
         currentShieldHealth = 0;
