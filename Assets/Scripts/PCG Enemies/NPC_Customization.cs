@@ -70,6 +70,7 @@ public class NPC_Customization : MonoBehaviour
     [SerializeField] GameObject FarmRock;
 
     [SerializeField] GameObject PirateBanner;
+    [SerializeField] GameObject WesternBanner;
 
 
     [SerializeField] GameObject RagdollRoot;
@@ -328,7 +329,10 @@ public class NPC_Customization : MonoBehaviour
         {
             BannerManManager behaviour = enemy.AddComponent<BannerManManager>();
 
-            behaviour.flagPrefab = PirateBanner;
+            if (Theme == NPCTheme.Pirate)
+                behaviour.flagPrefab = PirateBanner;
+            else if (Theme == NPCTheme.Natives)
+                behaviour.flagPrefab = WesternBanner;
         }
 
         else if (Class == NPCClass.Charger)

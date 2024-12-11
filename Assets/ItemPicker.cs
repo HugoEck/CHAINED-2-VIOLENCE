@@ -53,8 +53,6 @@ public class ItemPicker : MonoBehaviour
 
     public void ActivateItems()
     {
-        itemPicked = false;
-        isPicking = true;
         // Destroy old items before spawning new ones
         Destroy(item1);
         Destroy(item2);
