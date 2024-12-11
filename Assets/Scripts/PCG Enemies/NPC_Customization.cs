@@ -99,7 +99,7 @@ public class NPC_Customization : MonoBehaviour
         Mini,
         Pirate,
         Cowboys,
-        Indians,
+        Natives,
         CurrentDay
         //Add more Themes here
     };
