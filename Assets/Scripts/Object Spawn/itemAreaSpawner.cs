@@ -257,7 +257,7 @@ public class itemAreaSpawner : MonoBehaviour
     public void SpawnRomanObjects()
     {
         // Wave 1 - Spawn Roman objects
-        if (WaveManager.currentWave == 1 && !itemsSpawnedForRomanWave)
+        if (WaveManager.currentWave == 0 && !itemsSpawnedForRomanWave)
         {
             SpawnItems(romanObjects);
             StartCoroutine(SpawnBoulderWithDelay());

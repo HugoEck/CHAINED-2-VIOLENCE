@@ -102,8 +102,8 @@ public class DissolveManager : MonoBehaviour
 
             StartCoroutine(ZoomOutcamera());
             romanArena.SetActive(true);
-
-
+            
+            
 
             hasChangedToRoman = true;
         }
@@ -180,10 +180,10 @@ public class DissolveManager : MonoBehaviour
 
     private IEnumerator HandleArenaTransition(Material[] desiredArena, float stopY, float startY, GameObject oldArena)
     {
+        
 
 
-
-
+        
 
         // Phase 1: Fully dissolve the active arena
         if (activeMaterials != null && activeMaterials.Length > 0)
@@ -196,7 +196,7 @@ public class DissolveManager : MonoBehaviour
         SFXManager.instance.PlaySFXClip(dissolveClip, transform, 1f);
         yield return StartCoroutine(DissolveArena(desiredArena, dissolveOut: false));
         isChangingArena = false;
-
+        
         // Set the new materials as the currently active ones
         activeMaterials = desiredArena;
     }
@@ -274,14 +274,14 @@ public class DissolveManager : MonoBehaviour
         float dissolveValue;
         // Phase 1: Dissolve from 0 to 100
         currentFloorMaterial = oldMaterial;
-        dissolveValue = 0;
-        while (dissolveValue < 1)
-        {
-            dissolveValue += Time.deltaTime / 3f;
-            UpdateDissolve(dissolveValue);
-            yield return null;
-        }
-
+            dissolveValue = 0;
+            while (dissolveValue < 1)
+            {
+                dissolveValue += Time.deltaTime / 3f;
+                UpdateDissolve(dissolveValue);
+                yield return null;
+            }
+        
         // Change material after dissolve reaches 100%
         floorRenderer.material = newMaterial; // You can change this to any material you'd like
 
@@ -302,7 +302,7 @@ public class DissolveManager : MonoBehaviour
     {
         float dissolveValue;
         // Phase 1: Dissolve from 0 to 100
-
+        
 
         // Change material after dissolve reaches 100%
         floorRenderer.material = newMaterial; // You can change this to any material you'd like

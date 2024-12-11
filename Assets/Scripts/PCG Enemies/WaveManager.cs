@@ -87,8 +87,8 @@ public class WaveManager : MonoBehaviour
                 // If arena change is in progress, do not process the wave increment
                 //if (dissolveManager.isChangingArena)
                 //{
-                // Optionally: you could add some visual or debug feedback that we're waiting for arena to change
-                return; // Skip processing until the arena is ready
+                    // Optionally: you could add some visual or debug feedback that we're waiting for arena to change
+                    return; // Skip processing until the arena is ready
                 //}
 
                 // Otherwise, the arena is ready, so we can start the wave
