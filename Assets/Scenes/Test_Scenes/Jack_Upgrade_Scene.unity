@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -812,9 +812,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a190a0766e49c4cbac05844cd544cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldAmount: 0
-  goldCounterText: {fileID: 0}
-  goldDisplayCanvas: {fileID: 0}
+  goldPool: {fileID: 1596704656}
+  dropChance: 1
 --- !u!4 &112558951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1345886e61811614693b86d765f420d0,
@@ -3073,22 +3072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6859662c64799d94f96225f59be2b0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseUpgradeCost: 20
-  maxUpgradeLevel: 10
-  UpgradeCostIncrease: 20
-  attackDamageIncrease: 1
-  maxHealthIncrease: 20
-  movementSpeedIncrease: 10
   attackLevelText: {fileID: 384471207}
   healthLevelText: {fileID: 646854493}
   speedLevelText: {fileID: 1699287241}
-  chainLevelText: {fileID: 0}
-  notEnoughGoldText: {fileID: 0}
-  maxUpgradeReachedText: {fileID: 0}
-  attackUpgradeCostText: {fileID: 0}
-  healthUpgradeCostText: {fileID: 0}
-  speedUpgradeCostText: {fileID: 0}
-  chainUpgradeCostText: {fileID: 0}
 --- !u!4 &998550104
 Transform:
   m_ObjectHideFlags: 0
@@ -4105,7 +4091,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeUICanvas: {fileID: 1913904265}
-  goldCanvas: {fileID: 0}
   interactionDistance: 10
 --- !u!65 &1433551154
 BoxCollider:
@@ -4293,9 +4278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walkingSpeed: 550.2
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
-  playerAttributes: {fileID: 0}
 --- !u!114 &1446530443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4308,9 +4293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttributes: {fileID: 0}
-  _bIsPlayerDisabled: 0
-  isFlashing: 0
+  _maxHealth: 100
 --- !u!54 &1446530444
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4431,6 +4414,8 @@ MonoBehaviour:
   currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
 --- !u!114 &1446530449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4447,16 +4432,13 @@ MonoBehaviour:
   swingDuration: 3
   swingSpeed: 200
   swingRadius: 5
-  baseSwingDamage: 20
-  cooldown: 5
+  swingDamage: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
-  playerAttributes: {fileID: 0}
-  swingEffectPrefab: {fileID: 0}
 --- !u!1 &1481567988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4697,9 +4679,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walkingSpeed: 400
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
-  playerAttributes: {fileID: 0}
 --- !u!114 &1579101369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4712,9 +4694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttributes: {fileID: 0}
-  _bIsPlayerDisabled: 0
-  isFlashing: 0
+  _maxHealth: 100
 --- !u!54 &1579101370
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4853,6 +4833,8 @@ MonoBehaviour:
   currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
 --- !u!114 &1579101376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4869,16 +4851,13 @@ MonoBehaviour:
   swingDuration: 3
   swingSpeed: 200
   swingRadius: 5
-  baseSwingDamage: 20
-  cooldown: 5
+  swingDamage: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
-  playerAttributes: {fileID: 0}
-  swingEffectPrefab: {fileID: 0}
 --- !u!1 &1596704654
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028434, g: 0.22571492, b: 0.30692297, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3040,16 +3040,13 @@ MonoBehaviour:
   swingDuration: 3
   swingSpeed: 200
   swingRadius: 5
-  baseSwingDamage: 20
-  cooldown: 5
+  swingDamage: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerAttributes: {fileID: 0}
-  swingEffectPrefab: {fileID: 0}
 --- !u!114 &787229175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3070,6 +3067,8 @@ MonoBehaviour:
   currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
 --- !u!114 &787229176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3126,9 +3125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walkingSpeed: 1000
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
-  playerAttributes: {fileID: 0}
 --- !u!114 &787229179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3141,9 +3140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttributes: {fileID: 0}
-  _bIsPlayerDisabled: 0
-  isFlashing: 0
+  _maxHealth: 10
 --- !u!54 &787229180
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3863,16 +3860,13 @@ MonoBehaviour:
   swingDuration: 3
   swingSpeed: 200
   swingRadius: 5
-  baseSwingDamage: 20
-  cooldown: 5
+  swingDamage: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerAttributes: {fileID: 0}
-  swingEffectPrefab: {fileID: 0}
 --- !u!114 &931360423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3893,6 +3887,8 @@ MonoBehaviour:
   currentPlayerClass: 0
   attackCooldown: 1
   abilityCooldown: 5
+  attackRange: 2
+  attackDamage: 10
 --- !u!114 &931360424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3949,9 +3945,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef281c31889f44e43a08eb947463e382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walkingSpeed: 1000
   _playerRotateSpeedMouse: 5
   _playerRotateSpeedJoystick: 10
-  playerAttributes: {fileID: 0}
 --- !u!114 &931360427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3964,9 +3960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAttributes: {fileID: 0}
-  _bIsPlayerDisabled: 0
-  isFlashing: 0
+  _maxHealth: 10
 --- !u!54 &931360428
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,6 +1,9 @@
 using Obi;
 using Pathfinding;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class AIBehaviorMethods
 {
@@ -190,6 +193,7 @@ public class AIBehaviorMethods
                 capsule1.enabled = true;
             }
             box.enabled = false;
+            capsule.enabled = false;
             obiCollider.enabled = false;
             obiRb.enabled = false;
             aiPath.enabled = false;

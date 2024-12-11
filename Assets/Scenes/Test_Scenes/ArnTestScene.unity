@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -330,7 +330,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserChainActiveDuration: 10
   _laserChainCooldown: 20
-  _spawner: {fileID: 0}
 --- !u!114 &183960631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +374,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _electricityChainActiveDuration: 50
   _electricityChainCooldown: 20
-  _spawner: {fileID: 0}
 --- !u!114 &183960634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +388,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireChainActiveDuration: 50
   _fireChainCooldown: 20
-  _spawner: {fileID: 0}
 --- !u!114 &183960635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +405,6 @@ MonoBehaviour:
   _setIgnoreCollisionLayers:
     serializedVersion: 2
     m_Bits: 1728
-  _spawner: {fileID: 0}
 --- !u!1 &233618862
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,7 +724,6 @@ MonoBehaviour:
   attackRange: 3
   unitCost: 0
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -740,8 +735,6 @@ MonoBehaviour:
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  PCG_componentsInstantiated: 0
-  originalScale: {x: 0, y: 0, z: 0}
 --- !u!4 &394824029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4958464907473990, guid: 12c4abf4689be7e489107ccb6010bcba,
@@ -983,7 +976,6 @@ MonoBehaviour:
   attackRange: 3
   unitCost: 0
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -995,8 +987,6 @@ MonoBehaviour:
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  PCG_componentsInstantiated: 0
-  originalScale: {x: 0, y: 0, z: 0}
 --- !u!4 &509575240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4958464907473990, guid: 12c4abf4689be7e489107ccb6010bcba,
@@ -3005,7 +2995,6 @@ MonoBehaviour:
   attackRange: 3
   unitCost: 0
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -3017,8 +3006,6 @@ MonoBehaviour:
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  PCG_componentsInstantiated: 0
-  originalScale: {x: 0, y: 0, z: 0}
 --- !u!4 &1229534639 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4958464907473990, guid: 12c4abf4689be7e489107ccb6010bcba,
@@ -3430,21 +3417,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 630877227804285337, guid: 93f23453abf717348acaacf7b6f06f4e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
-    - target: {fileID: 2911027143848469763, guid: 93f23453abf717348acaacf7b6f06f4e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
-    - target: {fileID: 2911027143848469763, guid: 93f23453abf717348acaacf7b6f06f4e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     - target: {fileID: 3581291613882826159, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
       propertyPath: m_Name
@@ -3500,21 +3472,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5431520556523227796, guid: 93f23453abf717348acaacf7b6f06f4e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
-    - target: {fileID: 5431520556523227796, guid: 93f23453abf717348acaacf7b6f06f4e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
-    - target: {fileID: 7766452711293154830, guid: 93f23453abf717348acaacf7b6f06f4e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3743,7 +3700,6 @@ MonoBehaviour:
   attackRange: 3
   unitCost: 0
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -3755,8 +3711,6 @@ MonoBehaviour:
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  PCG_componentsInstantiated: 0
-  originalScale: {x: 0, y: 0, z: 0}
 --- !u!4 &1895697659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4958464907473990, guid: 12c4abf4689be7e489107ccb6010bcba,

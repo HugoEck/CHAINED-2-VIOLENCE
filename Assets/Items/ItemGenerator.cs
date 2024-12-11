@@ -4,6 +4,8 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
+
 public class ItemGenerator : MonoBehaviour
 {
 
@@ -132,6 +134,8 @@ public class ItemGenerator : MonoBehaviour
         }
 
         string path = "Assets/Items/Items/" + itemName + ".prefab";
+
+        PrefabUtility.SaveAsPrefabAsset(itemPrefab, path);
 
         Debug.Log("Prefab saved: " + path);
     }

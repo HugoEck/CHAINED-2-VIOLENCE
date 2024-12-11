@@ -105,7 +105,7 @@ public class BaseManager : MonoBehaviour
         visuals.FlashColor();
 
         //Hej sam förlåt för jag har rört i din manager //Victor
-        if(gameObject.transform.position.y < -10 && currentHealth > 0)
+        if(gameObject.transform.position.y > 10)
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
         }
