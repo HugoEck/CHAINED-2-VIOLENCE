@@ -12,6 +12,7 @@ public class DissolveManager : MonoBehaviour
     float zoomedOutFov = 120;
     float normalFov = 40;
 
+    [SerializeField] private AudioClip dissolveClip;
 
     public Material[] newMaterials;
     public Material[] activeMaterials;
@@ -54,6 +55,8 @@ public class DissolveManager : MonoBehaviour
     private bool hasChangedToCurrentDay = false;
     private bool hasChangedToSciFi = false;
 
+    public bool isChangingArena = true;
+
     float initialOffsetsPirate = -10f;
     float initialOffsetsFarm = -3f;
     float initialOffsetsRoman = -0.1f;
@@ -93,17 +96,21 @@ public class DissolveManager : MonoBehaviour
     private void Update()
     {
         Debug.Log(WaveManager.currentWave);
-        if (WaveManager.currentWave == 1 && !hasChangedToRoman)
+        if (WaveManager.currentWave == 0 && !hasChangedToRoman)
         {
+            isChangingArena = true;
+
             StartCoroutine(ZoomOutcamera());
             romanArena.SetActive(true);
-            
-            
+
+
 
             hasChangedToRoman = true;
         }
         if (WaveManager.currentWave == 3 && !hasChangedToFantasy)
         {
+            isChangingArena = true;
+            Debug.Log("now i change arena");
 
             fantasyArena.SetActive(true);
             ChangeArena(fantasyMaterials, 25f, initialOffsetsFantasy, romanArena);
@@ -113,6 +120,8 @@ public class DissolveManager : MonoBehaviour
         }
         if (WaveManager.currentWave == 5 && !hasChangedToPirate)
         {
+            isChangingArena = true;
+
             pirateArena.SetActive(true);
             ChangeArena(pirateMaterials, 25f, initialOffsetsPirate, fantasyArena);
             StartCoroutine(DissolveAndChangeMaterial(fantasyFloorMaterial, pirateFloorMaterial));
@@ -121,6 +130,8 @@ public class DissolveManager : MonoBehaviour
         }
         if (WaveManager.currentWave == 7 && !hasChangedToWestern)
         {
+            isChangingArena = true;
+
             westernArena.SetActive(true);
             ChangeArena(westernMaterials, 25f, initialOffsetsWestern, pirateArena);
             StartCoroutine(DissolveAndChangeMaterial(pirateFloorMaterial, westernFloorMaterial));
@@ -129,6 +140,8 @@ public class DissolveManager : MonoBehaviour
         }
         if (WaveManager.currentWave == 9 && !hasChangedToFarm)
         {
+            isChangingArena = true;
+
             farmArena.SetActive(true);
             ChangeArena(farmMaterials, 10f, initialOffsetsFarm, westernArena);
             StartCoroutine(DissolveAndChangeMaterial(westernFloorMaterial, farmFloorMaterial));
@@ -136,6 +149,8 @@ public class DissolveManager : MonoBehaviour
         }
         if (WaveManager.currentWave == 50 && !hasChangedToCurrentDay)
         {
+            isChangingArena = true;
+
             currentDayArena.SetActive(true);
             ChangeArena(currentDayMaterials, 3f, initialOffsetsCurrentDay, farmArena);
             StartCoroutine(DissolveAndChangeMaterial(farmFloorMaterial, currentDayFloorMaterial));
@@ -144,6 +159,8 @@ public class DissolveManager : MonoBehaviour
         }
         if (WaveManager.currentWave == 11 && !hasChangedToSciFi)
         {
+            isChangingArena = true;
+
             sciFiArena.SetActive(true);
             ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
             StartCoroutine(DissolveAndChangeMaterial(currentDayFloorMaterial, sciFiFloorMaterial));
@@ -163,21 +180,23 @@ public class DissolveManager : MonoBehaviour
 
     private IEnumerator HandleArenaTransition(Material[] desiredArena, float stopY, float startY, GameObject oldArena)
     {
-        
 
 
-        
+
+
 
         // Phase 1: Fully dissolve the active arena
         if (activeMaterials != null && activeMaterials.Length > 0)
         {
+            SFXManager.instance.PlaySFXClip(dissolveClip, transform, 1f);
             yield return StartCoroutine(DissolveArena(activeMaterials, dissolveOut: true));
         }
         oldArena.SetActive(false);
         // Phase 2: Fully reveal the desired arena
+        SFXManager.instance.PlaySFXClip(dissolveClip, transform, 1f);
         yield return StartCoroutine(DissolveArena(desiredArena, dissolveOut: false));
+        isChangingArena = false;
 
-        
         // Set the new materials as the currently active ones
         activeMaterials = desiredArena;
     }
@@ -255,14 +274,14 @@ public class DissolveManager : MonoBehaviour
         float dissolveValue;
         // Phase 1: Dissolve from 0 to 100
         currentFloorMaterial = oldMaterial;
-            dissolveValue = 0;
-            while (dissolveValue < 1)
-            {
-                dissolveValue += Time.deltaTime / 3f;
-                UpdateDissolve(dissolveValue);
-                yield return null;
-            }
-        
+        dissolveValue = 0;
+        while (dissolveValue < 1)
+        {
+            dissolveValue += Time.deltaTime / 3f;
+            UpdateDissolve(dissolveValue);
+            yield return null;
+        }
+
         // Change material after dissolve reaches 100%
         floorRenderer.material = newMaterial; // You can change this to any material you'd like
 
@@ -283,7 +302,7 @@ public class DissolveManager : MonoBehaviour
     {
         float dissolveValue;
         // Phase 1: Dissolve from 0 to 100
-        
+
 
         // Change material after dissolve reaches 100%
         floorRenderer.material = newMaterial; // You can change this to any material you'd like
