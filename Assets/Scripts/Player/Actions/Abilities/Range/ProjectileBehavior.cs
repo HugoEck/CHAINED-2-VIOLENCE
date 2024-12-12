@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
+    [Header("Explosion Sound: ")]
+    [SerializeField] private AudioClip explosionSound;
+
     public float explosionRadius = 5f;
     public float baseExplosionDamage = 50f;
     public float explosionDamage;
@@ -48,6 +51,8 @@ public class ProjectileBehavior : MonoBehaviour
     void Explode()
     {
         explosionDamage = baseExplosionDamage + playerAttributes.attackDamage;
+
+        SFXManager.instance.PlaySFXClip(explosionSound, transform, 1f);
 
         Debug.Log("Projectile exploded!");
 
