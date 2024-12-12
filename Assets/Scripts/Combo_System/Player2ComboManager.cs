@@ -114,6 +114,20 @@ public class Player2ComboManager : MonoBehaviour
 
     }
 
+    private float _saveNormalWalkingSpeed;
+    public void SetCombatWalkingSpeed()
+    {
+        _saveNormalWalkingSpeed = _player2Attributes.movementSpeed;
+
+        _player2Attributes.movementSpeed = _player2Attributes.movementSpeed * 0.7f;
+    }
+    public void NormalWalkingSpeed()
+    {
+        if (_saveNormalWalkingSpeed <= 0) return;
+
+        _player2Attributes.movementSpeed = _saveNormalWalkingSpeed;
+    }
+
     public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce, float maxAngle)
     {
         bool durabilityReduced = false;

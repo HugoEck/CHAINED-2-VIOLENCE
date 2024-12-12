@@ -21,6 +21,7 @@ public class Player1ComboManager : MonoBehaviour
     [SerializeField] private GameObject[] _rangedSlashes;
     [SerializeField] private GameObject[] _supportSlashes;
 
+    
     public PlayerCombat.PlayerClass currentPlayer1Class { get; private set; }
 
     private List<ComboAttackSO> _player1ComboAttacks; // Current weapon's combos
@@ -116,6 +117,19 @@ public class Player1ComboManager : MonoBehaviour
         }
     }
 
+    private float _saveNormalWalkingSpeed;
+    public void SetCombatWalkingSpeed()
+    {
+        _saveNormalWalkingSpeed = _player1Attributes.movementSpeed;
+
+        _player1Attributes.movementSpeed = _player1Attributes.movementSpeed * 0.7f;
+    }
+    public void NormalWalkingSpeed()
+    {
+        if (_saveNormalWalkingSpeed <= 0) return;
+
+        _player1Attributes.movementSpeed = _saveNormalWalkingSpeed;
+    }
     public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce, float maxAngle)
     {
         bool durabilityReduced = false;
