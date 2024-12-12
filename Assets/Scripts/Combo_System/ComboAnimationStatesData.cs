@@ -7,35 +7,35 @@ public static class ComboAnimationStatesData
     #region COMBO_DEFAULT
 
     public static string[] combosInUnarmedDefaultState = { "UnarmedDefaultCombo1" };
-    public static string unarmedSubStateDefault = "Base Layer.Attack Combos.Unarmed Default";
+    public static string unarmedSubStateDefault = "Combo Layer.Attack Combos.Unarmed Default";
 
     #endregion
 
     #region COMBO_TANK
 
     public static string[] combosInUnarmedTankState = { "UnarmedTankCombo1", "Combo2", "Combo3" };   
-    public static string unarmedSubStateTank = "Base Layer.Attack Combos.Unarmed Tank";
+    public static string unarmedSubStateTank = "Combo Layer.Attack Combos.Unarmed Tank";
 
     #endregion
 
     #region COMBO_WARRIOR
 
     public static string[] combosInUnarmedWarriorState = { "UnarmedWarriorCombo1", "Combo2"};    
-    public static string unarmedSubStateWarrior = "Base Layer.Attack Combos.Unarmed Warrior";   
+    public static string unarmedSubStateWarrior = "Combo Layer.Attack Combos.Unarmed Warrior";   
 
     #endregion
 
     #region COMBO_RANGED
 
     public static string[] combosInUnarmedRangedState = { "UnarmedRangedCombo1", "Combo2", "Combo3" };    
-    public static string unarmedSubStateRanged = "Base Layer.Attack Combos.Unarmed Ranged";   
+    public static string unarmedSubStateRanged = "Combo Layer.Attack Combos.Unarmed Ranged";   
 
     #endregion
 
     #region COMBO_SUPPORT
 
     public static string[] combosInUnarmedSupportState = { "UnarmedSupportCombo1", "Combo2", "Combo3" };
-    public static string unarmedSubStateSupport = "Base Layer.Attack Combos.Unarmed Support";
+    public static string unarmedSubStateSupport = "Combo Layer.Attack Combos.Unarmed Support";
 
     #endregion
 
@@ -49,7 +49,7 @@ public static class ComboAnimationStatesData
 
     public static string[] combosInTwoHandedState = { "TwoHandedCombo1", "Combo2", "Combo3" };
 
-    public static string twoHandedSubState = "Base Layer.Attack Combos.Two Handed";
+    public static string twoHandedSubState = "Combo Layer.Attack Combos.Two Handed";
 
 
     #endregion
@@ -58,7 +58,7 @@ public static class ComboAnimationStatesData
 
     public static string[] combosInReallyBigTwoHandedState = { "ReallyBigTwoHandedCombo1", "Combo2", "Combo3", "Combo4" };
 
-    public static string reallyBigTwoHandedSubState = "Base Layer.Attack Combos.Really Big Two Handed";
+    public static string reallyBigTwoHandedSubState = "Combo Layer.Attack Combos.Really Big Two Handed";
 
 
     #endregion
@@ -67,7 +67,7 @@ public static class ComboAnimationStatesData
 
     public static string[] combosInOneHandedState = { "OneHandedCombo1", "Combo2", "Combo3" };
 
-    public static string oneHandedSubState = "Base Layer.Attack Combos.One Handed";
+    public static string oneHandedSubState = "Combo Layer.Attack Combos.One Handed";
 
     #endregion
 
@@ -75,7 +75,7 @@ public static class ComboAnimationStatesData
 
     public static string[] combosInDaggerState = { "DaggerCombo1", "Combo2", "Combo3", "Combo4" };
 
-    public static string daggerSubState = "Base Layer.Attack Combos.Dagger";
+    public static string daggerSubState = "Combo Layer.Attack Combos.Dagger";
 
     #endregion
 
@@ -83,7 +83,7 @@ public static class ComboAnimationStatesData
 
     public static string[] combosInPolearmState = { "PolearmCombo1", "Combo2", "Combo3", "Combo4" };
 
-    public static string polearmSubState = "Base Layer.Attack Combos.Polearm";
+    public static string polearmSubState = "Combo Layer.Attack Combos.Polearm";
 
     #endregion
 
@@ -91,7 +91,7 @@ public static class ComboAnimationStatesData
 
     public static string[] combosInBigPenState = { "BigPenCombo1", "Combo2", "Combo3", "Combo4" };
 
-    public static string bigPenSubState = "Base Layer.Attack Combos.Big Pen";
+    public static string bigPenSubState = "Combo Layer.Attack Combos.Big Pen";
 
     #endregion
 

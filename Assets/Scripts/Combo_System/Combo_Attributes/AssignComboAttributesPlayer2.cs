@@ -7,7 +7,7 @@ public class AssignComboAttributesPlayer2 : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        animator.SetLayerWeight(layerIndex, 1);
         string currentComboInSequence = Player2ComboManager.instance.currentPlayer2ComboInSequence;
 
         #region Unarmed

@@ -7,11 +7,7 @@ public class Player2StartCombo : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(Player2ComboManager.instance.bIsPlayer2Attacking)
-        {
-            animator.SetBool("IsMoving", false);
-            Attack(animator);
-        }
+        
         Player2ComboManager.instance.bIsPlayer2Attacking = false;
         animator.SetBool("ComboCancelled", false);
         animator.SetBool("ComboOver", true);
@@ -20,6 +16,24 @@ public class Player2StartCombo : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (animator.GetLayerWeight(layerIndex) > 0)
+        {
+            // Gradually reduce the layer weight
+            float currentWeight = animator.GetLayerWeight(layerIndex);
+            float targetWeight = 0f; // Target is to completely blend out
+            float blendSpeed = animator.GetFloat("AttackSpeed"); // Adjust this to control the speed of blending
+
+            // Smoothly reduce layer weight
+            currentWeight = Mathf.MoveTowards(currentWeight, targetWeight, blendSpeed * Time.deltaTime);
+            animator.SetLayerWeight(layerIndex, currentWeight);
+
+            // Check if fully blended to zero and finalize
+            if (currentWeight <= 0.01f)
+            {
+                animator.SetLayerWeight(layerIndex, 0f); // Ensure it ends at exactly zero
+            }
+        }
+
         Attack(animator);
     }
 
@@ -28,7 +42,7 @@ public class Player2StartCombo : StateMachineBehaviour
     {
         if (Player2ComboManager.instance.bIsPlayer2Attacking)
         {
-            animator.SetBool("IsMoving", false);
+            
             Attack(animator);
         }
         Player2ComboManager.instance.bIsPlayer2Attacking = false;

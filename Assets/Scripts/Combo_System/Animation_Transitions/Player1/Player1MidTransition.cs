@@ -46,6 +46,21 @@ public class Player1MidTransition : StateMachineBehaviour
         {
             Player1ComboManager.instance.bIsPlayer1Attacking = false;
             animator.SetBool("ComboCancelled", true);
+
+            // Gradually reduce the layer weight
+            float currentWeight = animator.GetLayerWeight(layerIndex);
+            float targetWeight = 0f; // Target is to completely blend out
+            float blendSpeed = animator.GetFloat("AttackSpeed"); // Adjust this to control the speed of blending
+
+            // Smoothly reduce layer weight
+            currentWeight = Mathf.MoveTowards(currentWeight, targetWeight, blendSpeed * Time.deltaTime);
+            animator.SetLayerWeight(layerIndex, currentWeight);
+
+            // Check if fully blended to zero and finalize
+            if (currentWeight <= 0.01f)
+            {
+                animator.SetLayerWeight(layerIndex, 0f); // Ensure it ends at exactly zero
+            }
         }
     }
 
