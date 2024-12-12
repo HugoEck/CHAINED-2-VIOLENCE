@@ -35,12 +35,12 @@ public class RockThrowerManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 10;
+        maxHealth = 10 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 4;
-        defense = 0;
+        attack = 4 + attackModifier;
+        defense = 0 + defenseModifier;
         navigation.maxSpeed = 5;
-        attackSpeed = 4;
+        attackSpeed = 4 + attackSpeedModifier;
         attackRange = 20;
         unitCost = 5;
 

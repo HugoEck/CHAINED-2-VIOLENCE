@@ -77,12 +77,12 @@ public class ChargerManager : BaseManager
         c_collider.height = 3;
         transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
         rb.mass = 50;
-        maxHealth = 10;
+        maxHealth = 10 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 5;
-        defense = 1;
+        attack = 5 + attackModifier;
+        defense = 1 + defenseModifier;
         navigation.maxSpeed = 5;
-        attackSpeed = 1.5f;
+        attackSpeed = 1.5f + attackSpeedModifier;
         attackRange = 4f;
         unitCost = 50;
 

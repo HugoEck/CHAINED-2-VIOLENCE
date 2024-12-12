@@ -74,6 +74,12 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
+        if(waves.Count == currentWave)
+        {
+            waveData.GenerateEndlessWave(waves, "Wave " + (currentWave + 1));
+            waveData.GenerateEndlessWave(waves, "Wave " + (currentWave + 2));
+            waveData.GenerateEndlessWave(waves, "Wave " + (currentWave + 3));
+        }
         timer += Time.deltaTime;
 
         // Only process if there are no active enemies or the timer has reached the target time

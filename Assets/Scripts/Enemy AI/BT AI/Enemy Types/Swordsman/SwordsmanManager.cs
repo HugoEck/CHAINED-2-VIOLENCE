@@ -68,12 +68,12 @@ public class SwordsmanManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 10;
+        maxHealth = 10 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 15;
-        defense = 0;
+        attack = 15 + attackModifier;
+        defense = 0 + defenseModifier;
         navigation.maxSpeed = 6;
-        attackSpeed = 1;
+        attackSpeed = 1 + attackSpeedModifier;
         attackRange = 4;
         rb.mass = 10;
         unitCost = 10;

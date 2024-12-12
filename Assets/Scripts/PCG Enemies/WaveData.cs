@@ -419,6 +419,45 @@ public class WaveData : MonoBehaviour
 
     }
 
+    public void GenerateEndlessWave(List<Wave> waves, string waveName)
+    {
+        // Define the possible Roman enemy classes to choose from
+        List<NPC_Customization.NPCClass> enemyClasses = new List<NPC_Customization.NPCClass>
+        {
+            NPC_Customization.NPCClass.Basic,
+            NPC_Customization.NPCClass.Warrior,
+            NPC_Customization.NPCClass.Charger,
+            NPC_Customization.NPCClass.Bannerman,
+            NPC_Customization.NPCClass.Runner
+        };
+
+        // List to hold random enemy configurations for the new wave
+        List<EnemyConfig> enemyConfigs = new List<EnemyConfig>();
+
+        // Determine a random number of different enemy types in the wave (between 1 and 4 types)
+        int enemyTypesCount = Random.Range(1, 5);
+
+        for (int i = 0; i < enemyTypesCount; i++)
+        {
+            // Pick a random enemy class from the Roman theme
+            NPC_Customization.NPCClass randomClass = enemyClasses[Random.Range(0, enemyClasses.Count)];
+
+            // Randomly choose a wave size between 5 and 50
+            int waveSize = Random.Range(5, 6);
+
+            // Add a new enemy configuration with the random class and wave size
+            enemyConfigs.Add(new EnemyConfig
+            {
+                theme = NPC_Customization.NPCTheme.Corrupted,
+                enemyClass = randomClass,
+                waveSize = waveSize
+            });
+        }
+
+        // Add the generated wave to the list of waves
+        waves.Add(CreateWave(waveName, enemyConfigs));
+    }
+
     public Wave CreateWave(string waveName, List<EnemyConfig> enemyConfigs)
     {
         Wave newWave = new Wave

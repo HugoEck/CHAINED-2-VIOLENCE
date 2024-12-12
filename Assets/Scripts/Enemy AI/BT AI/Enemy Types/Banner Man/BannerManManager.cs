@@ -81,12 +81,12 @@ public class BannerManManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 5;
+        maxHealth = 5 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 0;
-        defense = 0;
+        attack = 0 + attackModifier;
+        defense = 0 + defenseModifier;
         navigation.maxSpeed = 9;
-        attackSpeed = 0;
+        attackSpeed = 0 + attackSpeedModifier;
         attackRange = 20f;
         unitCost = 10;
         transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);

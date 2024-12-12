@@ -22,6 +22,11 @@ public class BaseManager : MonoBehaviour
     public float attackRange;
     public float unitCost;
 
+    public float maxHealthModifier;
+    public float attackModifier;
+    public float defenseModifier;
+    public float attackSpeedModifier;
+
     [Header("GE EJ VÄRDE")]
 
     //SKRIPTS

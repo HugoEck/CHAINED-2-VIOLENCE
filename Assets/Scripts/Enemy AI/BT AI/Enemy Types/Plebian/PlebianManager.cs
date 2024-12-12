@@ -69,12 +69,12 @@ public class PlebianManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 10;
+        maxHealth = 10 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 1;
-        defense = 0;
+        attack = 1 + attackModifier;
+        defense = 0 + defenseModifier;
         navigation.maxSpeed = 5;
-        attackSpeed = 1;
+        attackSpeed = 1 + attackSpeedModifier;
         attackRange = 2.5f;
         unitCost = 1;
         

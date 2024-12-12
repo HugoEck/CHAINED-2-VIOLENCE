@@ -101,7 +101,8 @@ public class NPC_Customization : MonoBehaviour
         Pirate,
         Cowboys,
         Natives,
-        CurrentDay
+        CurrentDay,
+        Corrupted
         //Add more Themes here
     };
 
@@ -253,7 +254,14 @@ public class NPC_Customization : MonoBehaviour
         CapsuleCollider capsule = enemy.AddComponent<CapsuleCollider>();
         Rigidbody rb = enemy.AddComponent<Rigidbody>();
         ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
+
         SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
+        smoothing.strength = 0.5f;
+
+        RaycastModifier raycasts = enemy.AddComponent<RaycastModifier>();
+        raycasts.thickRaycast = true;
+        raycasts.thickRaycastRadius = 2;
+
         BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
         IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
         ignoreChain.ObjectIgnoresLaserChain();
@@ -341,8 +349,282 @@ public class NPC_Customization : MonoBehaviour
             ChargerManager behaviour = enemy.AddComponent<ChargerManager>();
 
         }
+
+        if(Theme == NPCTheme.Corrupted)
+        {
+            RandomizeStatsOnEnemies(enemy);
+        }
     }
 
+
+    private void RandomizeStatsOnEnemies(GameObject enemy)
+    {
+        int points;
+
+        // Determine points based on the wave and unit cost
+        if (Class == NPCClass.Basic)
+        {
+            PlebianManager behaviour = enemy.GetComponent<PlebianManager>();
+
+            // Calculate the points to distribute based on wave and unit cost
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            // Ensure we have at least 1 point to distribute
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            // Assign the even points to each stat
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
+            {
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+            }
+        }
+        else if (Class == NPCClass.Warrior)
+        {
+            SwordsmanManager behaviour = enemy.GetComponent<SwordsmanManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
+            {
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+            }
+        }
+        else if (Class == NPCClass.Runner)
+        {
+            RunnerManager behaviour = enemy.GetComponent<RunnerManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
+            {
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+            }
+        }
+        else if (Class == NPCClass.RockThrower)
+        {
+            RockThrowerManager behaviour = enemy.GetComponent<RockThrowerManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
+            {
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+            }
+        }
+        else if (Class == NPCClass.Bannerman)
+        {
+            BannerManManager behaviour = enemy.GetComponent<BannerManManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
+            {
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+            }
+        }
+        else if (Class == NPCClass.Charger)
+        {
+            ChargerManager behaviour = enemy.GetComponent<ChargerManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
+            {
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defense++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+
+            }
+        }
+    }
     private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> runner, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior, List<GameObject> bannerman /*add future classes in paramter*/)
     {
         switch (Class)

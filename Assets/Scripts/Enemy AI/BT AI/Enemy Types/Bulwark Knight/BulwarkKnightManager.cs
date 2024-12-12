@@ -54,11 +54,12 @@ public class BulwarkKnightManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 100;
+        maxHealth = 100 + maxHealthModifier;
+        attack = 10 + attackModifier;
         currentHealth = maxHealth;
         navigation.maxSpeed = shieldWalkSpeed;
-        defense = shieldDefense;
-        attackSpeed = shieldAttackSpeed;
+        defense = shieldDefense + defenseModifier;
+        attackSpeed = shieldAttackSpeed +attackSpeedModifier;
         attackRange = 5;
         attackRange = shieldAttackRange;
 
