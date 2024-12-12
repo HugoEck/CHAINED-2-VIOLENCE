@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 public class SwingAbility : MonoBehaviour, IAbility
 {
-    [Header("Swing Ability sound: ")]
-    [SerializeField] private AudioClip swingAbilitySound;
-
     public static bool BIsPlayerCurrentlySwinging = false;
 
     public Transform otherPlayer;         // Reference to the other player being swung
@@ -56,8 +53,6 @@ public class SwingAbility : MonoBehaviour, IAbility
     void StartSwing()
     {
         swingDamage = baseSwingDamage + playerAttributes.attackDamage;
-
-        SFXManager.instance.PlaySFXClip(swingAbilitySound, transform, 1f);
 
         GameObject swingEffect = Instantiate(swingEffectPrefab, transform.position, Quaternion.identity);
 

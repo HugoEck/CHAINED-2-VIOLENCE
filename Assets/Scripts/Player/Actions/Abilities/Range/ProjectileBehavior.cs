@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
-    [Header("Explosion sound: ")]
-    [SerializeField] private AudioClip explosionSound;
-
     public float explosionRadius = 5f;
     public float baseExplosionDamage = 50f;
     public float explosionDamage;
@@ -52,7 +49,6 @@ public class ProjectileBehavior : MonoBehaviour
     {
         explosionDamage = baseExplosionDamage + playerAttributes.attackDamage;
 
-        SFXManager.instance.PlaySFXClip(explosionSound, transform, 1f);
         Debug.Log("Projectile exploded!");
 
         // Find all colliders within the explosion radius that are on the enemy layer

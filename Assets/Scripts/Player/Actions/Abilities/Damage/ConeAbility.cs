@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class ConeAbility : MonoBehaviour, IAbility
 {
-    [Header("Cone Ability sound: ")]
-    [SerializeField] private AudioClip coneAbilitySound;
-
     public float coneRange = 10f;
     public float coneAngle = 90f;
     public float baseConeDamage = 50f;
@@ -43,7 +40,6 @@ public class ConeAbility : MonoBehaviour, IAbility
     void ActivateConeAbility()
     {
         coneDamage = baseConeDamage + playerAttributes.attackDamage;
-        SFXManager.instance.PlaySFXClip(coneAbilitySound, transform, 1f);
 
         // Instantiate the visual effect at the anchor's position
         if (coneEffectPrefab != null && coneAnchor != null)
@@ -56,6 +52,7 @@ public class ConeAbility : MonoBehaviour, IAbility
             // Align and scale the visual effect to match the cone
             coneEffect.transform.localRotation = Quaternion.identity; // Keep aligned with the anchor's forward direction
             coneEffect.transform.localScale = new Vector3(coneRange, coneRange, coneRange);
+
             Destroy(coneEffect, 2.0f); // Destroy the effect after some time if it's temporary
         }
 
