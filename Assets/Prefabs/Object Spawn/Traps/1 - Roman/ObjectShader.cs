@@ -6,7 +6,7 @@ public class ObjectShader : MonoBehaviour
     #region VARIABLES
     public Material dissolveMaterial;  // The material with the dissolve shader
     
-    public Vector2 dissolveYRange = new Vector2(-0.1f, 15f); // Y range for dissolving
+    public Vector2 dissolveYRange = new Vector2(-0.1f, 20f); // Y range for dissolving
 
     private Renderer objectRenderer;
     private Coroutine dissolveCoroutine;
