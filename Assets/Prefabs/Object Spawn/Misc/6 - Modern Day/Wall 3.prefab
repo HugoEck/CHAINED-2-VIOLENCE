@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1408441381491817063}
   - component: {fileID: 4479008039487760223}
   m_Layer: 8
-  m_Name: SM_Prop_BaseWall_01
+  m_Name: Wall 3
   m_TagString: Misc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1279273032208474, guid: 19542375af87b724dac6a4780bf66a36, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Misc
       objectReference: {fileID: 0}
     - target: {fileID: 4189689255565714, guid: 19542375af87b724dac6a4780bf66a36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -236,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1520938048520990, guid: 7009328d184126a42b40077c9dbb1faa, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Misc
       objectReference: {fileID: 0}
     - target: {fileID: 4853669681028870, guid: 7009328d184126a42b40077c9dbb1faa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -288,6 +288,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8878187344948963547}
   m_SourcePrefab: {fileID: 100100000, guid: 7009328d184126a42b40077c9dbb1faa, type: 3}
+--- !u!65 &340251750677999900 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7912965437652334866, guid: 7009328d184126a42b40077c9dbb1faa,
+    type: 3}
+  m_PrefabInstance: {fileID: 7595409892440541198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7596787824720055056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1520938048520990, guid: 7009328d184126a42b40077c9dbb1faa,
@@ -310,17 +316,11 @@ MonoBehaviour:
   inverted: 0
   material: {fileID: 0}
   filter: -65535
-  m_SourceCollider: {fileID: 7605609691838061014}
+  m_SourceCollider: {fileID: 340251750677999900}
   m_DistanceField: {fileID: 0}
 --- !u!4 &7600228360565413640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4853669681028870, guid: 7009328d184126a42b40077c9dbb1faa,
-    type: 3}
-  m_PrefabInstance: {fileID: 7595409892440541198}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &7605609691838061014 stripped
-MeshCollider:
-  m_CorrespondingSourceObject: {fileID: 64418986048000472, guid: 7009328d184126a42b40077c9dbb1faa,
     type: 3}
   m_PrefabInstance: {fileID: 7595409892440541198}
   m_PrefabAsset: {fileID: 0}
