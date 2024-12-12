@@ -33,8 +33,12 @@ public class WaveManager : MonoBehaviour
     public static int currentWave = 0;
     private int previousWave = -1;
 
+    [SerializeField] DissolveManager dissolveManager;
+
     [Header("Items")]
     public ItemPicker itemPicker;
+
+    [SerializeField] bool isWaveReadyToStart = false;
 
     public enum CurrentEra
     {
@@ -61,6 +65,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        currentEra = CurrentEra.Roman;
         enemyCreator = enemyCreatorObject.GetComponent<NPC_Customization>();
         waveData.LoadWaves(waves);
         //StartCoroutine(SpawnWavesRegularly());
@@ -70,12 +75,28 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
+
+        // Only process if there are no active enemies or the timer has reached the target time
         if (ActiveEnemies == 0 /*|| timer > targetTime*/)
         {
-            timer = 0;
-            //ChangeEra();
-            //SpawnWave(waves[currentWave]);
-            if (currentWave > 0 && !itemPicker.itemPicked && !itemPicker.isPicking)
+            timer = 0; // Reset the timer
+
+            // If the wave is not ready to start, we are waiting for the arena change
+            if (dissolveManager.isChangingArena)
+            {
+                // If arena change is in progress, do not process the wave increment
+                //if (dissolveManager.isChangingArena)
+                //{
+                // Optionally: you could add some visual or debug feedback that we're waiting for arena to change
+                return; // Skip processing until the arena is ready
+                //}
+
+                // Otherwise, the arena is ready, so we can start the wave
+                //isWaveReadyToStart = true; // Flag to indicate that we can start the wave
+            }
+
+            // Start item picking if it's not already happening
+            if (currentWave > 0 && !itemPicker.isPicking && !itemPicker.itemPicked)
             {
                 itemPicker.isPicking = true;
                 itemPicker.ActivateItems();
@@ -89,33 +110,20 @@ public class WaveManager : MonoBehaviour
                 itemPicker.isPicking = false; // Reset picking state
             }
 
-            if (currentWave != previousWave)
+            if (currentWave != previousWave && !itemPicker.isPicking && !itemPicker.itemPicked)
             {
-                // Update the previous wave tracker
-                previousWave = currentWave;
+                previousWave = currentWave; // Update previousWave tracker
 
                 // Change the era based on the wave
                 ChangeEra();
 
-                // Spawn the wave
-                SpawnWave(waves[currentWave]);
-            }
-                //currentWave++;
-            }
+                // Spawn the wave only if the arena is not changing
+                StartCoroutine(WaitForArenaChange());
 
-            //Debug spawner
-            if (Input.GetKeyDown(KeyCode.L))
-        {
-            ChangeEra();
-            SpawnWave(waves[currentWave]);
-            currentWave++;
-            timer = 0;
+                Debug.Log("now i start spawning wave");
+                //isWaveReadyToStart = false;
+            }
         }
-
-        //FPS writer
-        //deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
-        //float fps = 1.0f / deltaTime;
-        //text.text = Mathf.Ceil(fps).ToString();
     }
 
     public void SpawnWave(Wave wave)
@@ -123,6 +131,20 @@ public class WaveManager : MonoBehaviour
         text.text = "Wave " + (currentWave);
         StartCoroutine(FadeInText(1, 3));
         StartCoroutine(SpawnWaveCoroutine(wave));
+    }
+
+    private IEnumerator WaitForArenaChange()
+    {
+        yield return null; // Wait until the next frame
+
+        // Wait until the arena change is complete
+        while (dissolveManager.isChangingArena)
+        {
+            yield return null; // Wait until the next frame
+        }
+
+        // Once arena change is complete, spawn the next wave
+        SpawnWave(waves[currentWave]);
     }
 
     private IEnumerator SpawnWaveCoroutine(Wave wave)
