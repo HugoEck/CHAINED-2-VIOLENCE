@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
 {
+    [Header("Range Ability Sound: ")]
+    [SerializeField] private AudioClip rangeAbilitySound;
+
     public PlayerAttributes playerAttributes;
 
     public GameObject projectilePrefab;
@@ -39,6 +42,8 @@ public class Projectile : MonoBehaviour, IAbility
             Debug.LogError("Fire point is not assigned.");
             return;
         }
+
+        SFXManager.instance.PlaySFXClip(rangeAbilitySound, transform, 1f);
 
         // Retrieve speed from the particle system.
         ParticleSystem particleSystem = projectilePrefab.GetComponent<ParticleSystem>();

@@ -47,6 +47,12 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    // Variables for regeneration tracking
+    private float regenerationCooldown = 10f; // Time to wait before regenerating
+    private float timeSinceLastCombatAction_Player1 = 0f; // Timer for Player 1
+    private float timeSinceLastCombatAction_Player2 = 0f; // Timer for Player 2
+    [SerializeField] private float regenerationRate = 1f; // Health regenerated per second
+
     public bool _bIsPlayerDisabled = false;
 
     private static int playersDefeated = 0;
@@ -168,6 +174,28 @@ public class Player : MonoBehaviour
 
         if (_bIsPlayerDisabled) return;
 
+        // Increment inactivity timers for each player
+        if (_playerId == 1)
+        {
+            timeSinceLastCombatAction_Player1 += Time.deltaTime;
+
+            // Check if Player 1 is eligible for regeneration
+            if (timeSinceLastCombatAction_Player1 >= regenerationCooldown)
+            {
+                RegenerateHealth(1);
+            }
+        }
+        else if (_playerId == 2)
+        {
+            timeSinceLastCombatAction_Player2 += Time.deltaTime;
+
+            // Check if Player 2 is eligible for regeneration
+            if (timeSinceLastCombatAction_Player2 >= regenerationCooldown)
+            {
+                RegenerateHealth(2);
+            }
+        }
+
         GetPlayerMovementInput();
 
         UpdatePlayerCombat();
@@ -241,17 +269,20 @@ public class Player : MonoBehaviour
             {
                 _playerCombat.UseBaseAttack();
                 Debug.Log("Player 1 is using basic attack");
+                ResetCombatInactivityTimer(1);
 
             }
             else if (_bIsUsingAbilityAttack)
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 1 is using Ability");
+                ResetCombatInactivityTimer(1);
             }
             else if (_bIsUsingUltimateAttack)
             {
                 UltimateAbilityManager.instance.UseUltimateAbilityPlayer1();
                 Debug.Log("Player 1 is using Ultimate ability");
+                ResetCombatInactivityTimer(1);
             }
         }
         else if (_playerId == 2)
@@ -264,16 +295,19 @@ public class Player : MonoBehaviour
             {
                 _playerCombat.UseBaseAttack();
                 Debug.Log("Player 2 is using basic attack");
+                ResetCombatInactivityTimer(2);
             }
             else if (_bIsUsingAbilityAttack)
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 2 is using Ability");
+                ResetCombatInactivityTimer(2);
             }
             else if (_bIsUsingUltimateAttack)
             {
                 UltimateAbilityManager.instance.UseUltimateAbilityPlayer2();
                 Debug.Log("Player 2 is using Ultimate ability");
+                ResetCombatInactivityTimer(2);
             }
         }
     }
@@ -390,6 +424,10 @@ public class Player : MonoBehaviour
     {
         if (GhostChain._bIsGhostChainActive) return;
 
+        // Reset inactivity timer when taking damage
+        ResetCombatInactivityTimer(_playerId);
+
+
         // Check if the shield is active and absorb damage first
         if (_shieldAbility != null && _shieldAbility.IsShieldActive())
         {
@@ -448,6 +486,41 @@ public class Player : MonoBehaviour
 
     //    Debug.Log("Player max health set to: " + _maxHealth);
     //}
+
+    // Method to regenerate health
+    // Method to regenerate health for a specific player
+    private void RegenerateHealth(int playerId)
+    {
+        if (playerId == 1 && currentHealth < playerAttributes.maxHP)
+        {
+            currentHealth += regenerationRate * Time.deltaTime;
+            currentHealth = Mathf.Clamp(currentHealth, 0, playerAttributes.maxHP);
+
+            UpdateHealthBar();
+            Debug.Log($"Player 1 regenerated health: {currentHealth}/{playerAttributes.maxHP}");
+        }
+        else if (playerId == 2 && currentHealth < playerAttributes.maxHP)
+        {
+            currentHealth += regenerationRate * Time.deltaTime;
+            currentHealth = Mathf.Clamp(currentHealth, 0, playerAttributes.maxHP);
+
+            UpdateHealthBar();
+            Debug.Log($"Player 2 regenerated health: {currentHealth}/{playerAttributes.maxHP}");
+        }
+    }
+
+    // Method to reset the combat inactivity timer for a specific player
+    private void ResetCombatInactivityTimer(int playerId)
+    {
+        if (playerId == 1)
+        {
+            timeSinceLastCombatAction_Player1 = 0f;
+        }
+        else if (playerId == 2)
+        {
+            timeSinceLastCombatAction_Player2 = 0f;
+        }
+    }
 
     public float GetMaxHealth()
     {
