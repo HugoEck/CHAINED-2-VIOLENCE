@@ -18,8 +18,7 @@ public class PlayerHealth : MonoBehaviour
     //private bool respawnTimerSet;
     //private float respawnTime;
 
-    //Unknown reason but each floatValue = 6sec
-    private float _respawnCooldown = 2f;
+    private float _respawnCooldown = 10;
     private float _respawnTime;
 
     // Arrays to store the found colliders
@@ -221,12 +220,6 @@ public class PlayerHealth : MonoBehaviour
                 _bIsPlayerDisabled = true;
                 Player.playersDefeated++;
 
-            }
-
-            if (_bIsPlayerDisabled)
-            {
-                EnableColliders();
-                Respawn();
             }
 
             if (Player.playersDefeated == 1)
