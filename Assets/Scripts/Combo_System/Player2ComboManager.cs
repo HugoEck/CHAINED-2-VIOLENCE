@@ -133,8 +133,14 @@ public class Player2ComboManager : MonoBehaviour
         bool durabilityReduced = false;
 
         TriggerWeaponSlash();
+
+        float totalAttackRange = attackRange;
+        if (totalAttackRange > 10)
+        {
+            totalAttackRange = 10;
+        }
         // Find all enemies within the attack range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange + weaponSlashSize + 3);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, totalAttackRange);
         foreach (Collider enemy in hitEnemies)
         {
             float maxAngleCos = Mathf.Cos(maxAngle * Mathf.Deg2Rad);
@@ -188,7 +194,15 @@ public class Player2ComboManager : MonoBehaviour
 
                 ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
                 var mainModule = particle.main;
-                mainModule.startSize = currentPlayer2Weapon.combos[comboIndex].attackRange;
+
+                float attackRange = currentPlayer2Weapon.combos[comboIndex].attackRange;
+                if (attackRange > 10)
+                {
+                    attackRange = 10;
+                }
+                float totalAttackRange = (attackRange / 10f) * 4f;
+
+                mainModule.startSize = totalAttackRange;
                 weaponSlashSize = mainModule.startSize.constant;
 
                 particle.Play();
