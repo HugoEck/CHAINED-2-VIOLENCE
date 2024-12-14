@@ -285,6 +285,8 @@ public class Player2ComboManager : MonoBehaviour
 
         currentAnimator.SetInteger("ComboIndex", 0);
         DefaultCombo();
+
+        currentAnimator.SetInteger("currentWeapon", 0);
     }
 
     private void WeaponManager_OnWeaponEquippedPlayer2(GameObject equippedWeapon)
@@ -293,6 +295,8 @@ public class Player2ComboManager : MonoBehaviour
 
         currentAnimator.SetInteger("ComboIndex", 0);
         AssignWeaponCombos(_currentPlayer2WeaponObject.GetComponent<Weapon>());
+
+        currentAnimator.SetInteger("currentWeapon", (int)currentPlayer2Weapon.currentWeaponType);
     }
 
     private void PlayerCombatOnClassSwitched(PlayerCombat.PlayerClass newClass)
