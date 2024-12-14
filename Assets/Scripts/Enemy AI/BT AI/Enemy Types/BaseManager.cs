@@ -22,10 +22,10 @@ public class BaseManager : MonoBehaviour
     public float attackRange;
     public float unitCost;
 
-    public float maxHealthModifier;
-    public float attackModifier;
-    public float defenseModifier;
-    public float attackSpeedModifier;
+    [HideInInspector] public float maxHealthModifier = 0;
+    [HideInInspector] public float attackModifier = 0;
+    [HideInInspector] public float defenseModifier = 0;
+    [HideInInspector] public float attackSpeedModifier = 0;
 
     [Header("GE EJ VÄRDE")]
 
@@ -103,10 +103,7 @@ public class BaseManager : MonoBehaviour
         {
             currentHealth = 0;
         }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            chainEffects.ActivateRagdollStun(4, this.gameObject, 100);
-        }
+
         visuals.FlashColor();
 
         //Hej sam förlåt för jag har rört i din manager //Victor

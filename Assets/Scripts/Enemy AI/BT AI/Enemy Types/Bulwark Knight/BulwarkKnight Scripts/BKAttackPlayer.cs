@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldAttack : Node
+public class BKAttackPlayer : Node
 {
     public override NodeState Evaluate(BaseManager agent)
     {
-
+        agent.navigation.isStopped = true;
         BulwarkKnightManager bk = agent as BulwarkKnightManager;
 
         SetAnimation(agent);
-        RotateTowardsPlayer(agent);
+        agent.behaviorMethods.RotateTowardsClosestPlayer();
 
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         Player playerManager = agent.behaviorMethods.GetCorrectPlayerManager(agent.targetedPlayer);
@@ -32,15 +32,20 @@ public class ShieldAttack : Node
     {
 
         agent.animator.SetBool("BulwarkKnight_ShieldWalk", false);
-        agent.animator.SetBool("BulwarkKnight_SwordRun", false) ;
-        
+        agent.animator.SetBool("BulwarkKnight_SwordRun", false);
+        agent.animator.SetBool("BulwarkKnight_Electrocute", false);
+        agent.animator.SetBool("BulwarkKnight_Scared", false);
+        agent.animator.SetBool("BulwarkKnight_Rage", false);
+
     }
 
     private void SetAttackAnimation(BaseManager agent, BulwarkKnightManager bk, string type)
     {
         if (type == "enable")
         {
-            agent.animator.SetBool("BulwarkKnight_Idle", false);
+            agent.animator.SetBool("BulwarkKnight_ShieldIdle", false);
+            agent.animator.SetBool("BulwarkKnight_SwordIdle", false);
+
             if (bk.shieldBroken)
             {
                 agent.animator.SetBool("BulwarkKnight_SwordAttack", true);
@@ -52,11 +57,22 @@ public class ShieldAttack : Node
                 agent.animator.SetBool("BulwarkKnight_ShieldAttack", true);
             }
         }
-        else if(type == "disable")
+        else if (type == "disable")
         {
-            agent.animator.SetBool("BulwarkKnight_Idle", true);
+
             agent.animator.SetBool("BulwarkKnight_SwordAttack", false);
             agent.animator.SetBool("BulwarkKnight_ShieldAttack", false);
+
+            if (bk.shieldBroken)
+            {
+                agent.animator.SetBool("BulwarkKnight_ShieldIdle", false);
+                agent.animator.SetBool("BulwarkKnight_SwordIdle", true);
+            }
+            else
+            {
+                agent.animator.SetBool("BulwarkKnight_ShieldIdle", true);
+                agent.animator.SetBool("BulwarkKnight_SwordIdle", false);
+            }
         }
         else
         {

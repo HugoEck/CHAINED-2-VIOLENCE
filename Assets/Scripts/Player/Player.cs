@@ -497,7 +497,7 @@ public class Player : MonoBehaviour
             currentHealth = Mathf.Clamp(currentHealth, 0, playerAttributes.maxHP);
 
             UpdateHealthBar();
-            Debug.Log($"Player 1 regenerated health: {currentHealth}/{playerAttributes.maxHP}");
+            //Debug.Log($"Player 1 regenerated health: {currentHealth}/{playerAttributes.maxHP}");
         }
         else if (playerId == 2 && currentHealth < playerAttributes.maxHP)
         {
@@ -505,7 +505,7 @@ public class Player : MonoBehaviour
             currentHealth = Mathf.Clamp(currentHealth, 0, playerAttributes.maxHP);
 
             UpdateHealthBar();
-            Debug.Log($"Player 2 regenerated health: {currentHealth}/{playerAttributes.maxHP}");
+            //Debug.Log($"Player 2 regenerated health: {currentHealth}/{playerAttributes.maxHP}");
         }
     }
 
@@ -715,7 +715,7 @@ public class Player : MonoBehaviour
             boxCollider.enabled = false;
         }
 
-        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+        //Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
     }
 
     void EnableColliders()
@@ -732,7 +732,7 @@ public class Player : MonoBehaviour
             boxCollider.enabled = true;
         }
 
-        Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
+        //Debug.Log("Disabled all CapsuleColliders and BoxColliders.");
     }
 
 

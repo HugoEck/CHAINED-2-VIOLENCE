@@ -62,11 +62,11 @@ private void Awake()
     classSelector = GetComponent<ClassSelector>();
     if (classSelector == null)
     {
-        Debug.LogError("ClassSelector not found in the scene.");
+        //Debug.LogError("ClassSelector not found in the scene.");
         return;
     }
 
-    Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
+    //Debug.Log($"{gameObject.name} is subscribing to OnClassSwitched");
     classSelector.OnClassSwitched += ClassSelectorOnClassSwitched;
 
         playerId = gameObject.GetComponent<Player>()._playerId;

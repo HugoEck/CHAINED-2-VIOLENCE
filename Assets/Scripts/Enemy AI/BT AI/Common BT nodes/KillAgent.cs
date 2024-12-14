@@ -24,7 +24,7 @@ public class KillAgent : Node
         agent.animator.enabled = false;
         agent.navigation.isStopped = true;
 
-        if (runOnce == false)
+        if (!runOnce)
         {
             if (GoldDropManager.Instance != null) 
             {

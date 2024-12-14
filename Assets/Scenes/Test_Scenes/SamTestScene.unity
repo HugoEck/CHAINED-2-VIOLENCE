@@ -194,7 +194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44477309}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35473493, y: -0.352272, z: 0.14639518, w: 0.8536018}
+  m_LocalRotation: {x: 0.3547349, y: -0.352272, z: 0.14639518, w: 0.8536018}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1381,6 +1381,10 @@ MonoBehaviour:
   attackSpeed: 4
   attackRange: 20
   unitCost: 5
+  maxHealthModifier: 0
+  attackModifier: 0
+  defenseModifier: 0
+  attackSpeedModifier: 0
   navigation: {fileID: 0}
   visuals: {fileID: 0}
   player1: {fileID: 0}
@@ -1933,6 +1937,10 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 3
   unitCost: 2
+  maxHealthModifier: 0
+  attackModifier: 0
+  defenseModifier: 0
+  attackSpeedModifier: 0
   navigation: {fileID: 0}
   visuals: {fileID: 0}
   player1: {fileID: 0}
@@ -2285,6 +2293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAttributes: {fileID: 0}
+  regenerationRate: 1
   _bIsPlayerDisabled: 0
   isFlashing: 0
 --- !u!114 &775815868
@@ -2711,6 +2720,10 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 2.5
   unitCost: 1
+  maxHealthModifier: 0
+  attackModifier: 0
+  defenseModifier: 0
+  attackSpeedModifier: 0
   navigation: {fileID: 0}
   visuals: {fileID: 0}
   player1: {fileID: 0}
@@ -3462,6 +3475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAttributes: {fileID: 0}
+  regenerationRate: 1
   _bIsPlayerDisabled: 0
   isFlashing: 0
 --- !u!114 &1102680186
@@ -3774,7 +3788,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -3888,6 +3902,10 @@ MonoBehaviour:
   attackSpeed: 0
   attackRange: 0
   unitCost: 0
+  maxHealthModifier: 0
+  attackModifier: 0
+  defenseModifier: 0
+  attackSpeedModifier: 0
   navigation: {fileID: 0}
   visuals: {fileID: 0}
   player1: {fileID: 0}
@@ -3904,7 +3922,9 @@ MonoBehaviour:
   PCG_componentsInstantiated: 0
   originalScale: {x: 0, y: 0, z: 0}
   shield: {fileID: 0}
+  rageAnimationTimer: 4
   shieldBroken: 0
+  rageActive: 0
 --- !u!114 &1216260636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4021,7 +4041,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216612196}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.32498088, y: -0.35712746, z: 0.13411602, w: 0.8653672}
+  m_LocalRotation: {x: 0.32498085, y: -0.35712743, z: 0.13411601, w: 0.8653672}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4135,6 +4155,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 918647209437018231, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
     - target: {fileID: 1322006879910116672, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
       propertyPath: combos.Array.size
@@ -4309,7 +4334,7 @@ PrefabInstance:
     - target: {fileID: 3613874697403409015, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.41
+      value: -1.89
       objectReference: {fileID: 0}
     - target: {fileID: 3613874697403409015, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
@@ -4581,6 +4606,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 7ae08e979e94a5a4d9d21acd1b234fbc,
         type: 2}
+    - target: {fileID: 6535602299383166259, guid: 93f23453abf717348acaacf7b6f06f4e,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 7048181311283960313, guid: 93f23453abf717348acaacf7b6f06f4e,
         type: 3}
       propertyPath: combos.Array.size
@@ -4684,6 +4714,52 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1236516364}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1281554829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1281554831}
+  - component: {fileID: 1281554830}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1281554830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281554829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1281554831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281554829}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1310011894
 GameObject:
   m_ObjectHideFlags: 0
@@ -4948,52 +5024,6 @@ MonoBehaviour:
   filter: -65535
   m_SourceCollider: {fileID: 1323669733}
   m_DistanceField: {fileID: 0}
---- !u!1 &1343266094
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1343266096}
-  - component: {fileID: 1343266095}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1343266095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1343266094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1343266096
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1343266094}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392461288
 GameObject:
   m_ObjectHideFlags: 0
@@ -5800,7 +5830,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1536
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -6005,6 +6035,10 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 4
   unitCost: 10
+  maxHealthModifier: 0
+  attackModifier: 0
+  defenseModifier: 0
+  attackSpeedModifier: 0
   navigation: {fileID: 0}
   visuals: {fileID: 0}
   player1: {fileID: 0}
@@ -6539,6 +6573,7 @@ SceneRoots:
   - {fileID: 702823651}
   - {fileID: 630983126}
   - {fileID: 8747327951443119617}
+  - {fileID: 574513938}
   - {fileID: 1392461290}
   - {fileID: 2108390177}
   - {fileID: 90663788}
@@ -6547,5 +6582,4 @@ SceneRoots:
   - {fileID: 1323669736}
   - {fileID: 1236516364}
   - {fileID: 1433949347}
-  - {fileID: 574513938}
-  - {fileID: 1343266096}
+  - {fileID: 1281554831}
