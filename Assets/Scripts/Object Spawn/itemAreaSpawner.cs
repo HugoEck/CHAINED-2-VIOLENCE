@@ -71,11 +71,11 @@ public class itemAreaSpawner : MonoBehaviour
     {
         SpawnWithWaves();
 
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            WaveManager.currentWave++;
-            Debug.Log(WaveManager.currentWave);
-        }
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    WaveManager.currentWave++;
+        //    Debug.Log(WaveManager.currentWave);
+        //}
     }
     #endregion
 
@@ -246,12 +246,12 @@ public class itemAreaSpawner : MonoBehaviour
             HandleBoulders();
 
             // For each wave with despawning and cooldown before spawning new items
-            HandleWave(3, fantasyObjects, ref itemsSpawnedForFantasyWave);
-            HandleWave(5, pirateObjects, ref itemsSpawnedForPirateWave);
-            HandleWave(7, westernObjects, ref itemsSpawnedForWesternWave);
-            HandleWave(9, farmObjects, ref itemsSpawnedForFarmWave);
-            HandleWave(50, modernDayObjects, ref itemsSpawnedForModernDayWave);
-            HandleWave(11, scifiObjects, ref itemsSpawnedForSciFiWave);
+            HandleWave(5, fantasyObjects, ref itemsSpawnedForFantasyWave);
+            HandleWave(10, pirateObjects, ref itemsSpawnedForPirateWave);
+            HandleWave(15, westernObjects, ref itemsSpawnedForWesternWave);
+            HandleWave(20, farmObjects, ref itemsSpawnedForFarmWave);
+            HandleWave(25, modernDayObjects, ref itemsSpawnedForModernDayWave);
+            HandleWave(30, scifiObjects, ref itemsSpawnedForSciFiWave);
         }
     }
     public void SpawnRomanObjects()
