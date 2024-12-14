@@ -5,6 +5,8 @@ using UnityEngine;
 public class ActivateLocomotionLayer : StateMachineBehaviour
 {
     [SerializeField] private Weapon.WeaponType thisLayerWeaponType;
+    [SerializeField] private PlayerCombat.PlayerClass thisLayerPlayerClass;
+    [SerializeField] private bool bIsUnarmedLocomotion;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -14,7 +16,11 @@ public class ActivateLocomotionLayer : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(animator.GetInteger("currentWeapon") == (int)thisLayerWeaponType)
+        if(bIsUnarmedLocomotion && animator.GetInteger("currentWeapon") == 0 && animator.GetInteger("currentPlayerClass") == (int)thisLayerPlayerClass)
+        {
+            animator.SetLayerWeight(layerIndex, 1);
+        }
+        else if(!bIsUnarmedLocomotion && animator.GetInteger("currentWeapon") == (int)thisLayerWeaponType)
         {
             animator.SetLayerWeight(layerIndex, 1);
         }

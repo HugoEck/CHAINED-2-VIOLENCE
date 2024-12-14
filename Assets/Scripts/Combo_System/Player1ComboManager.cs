@@ -197,8 +197,8 @@ public class Player1ComboManager : MonoBehaviour
     }
 
     private void Update()
-    {      
-        
+    {
+        currentAnimator.SetInteger("currentPlayerClass", (int)currentPlayer1Class);
         SetAttackSpeed();
     }
 
@@ -335,6 +335,7 @@ public class Player1ComboManager : MonoBehaviour
         }
         currentPlayer1Class = newClass;
         DefaultCombo();
+        
     }
     public void AssignWeaponCombos(Weapon weapon)
     {
