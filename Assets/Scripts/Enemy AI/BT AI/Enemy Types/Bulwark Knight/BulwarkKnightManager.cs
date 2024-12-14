@@ -12,7 +12,7 @@ public class BulwarkKnightManager : BaseManager
     Transform[] children;
 
 
-    float shieldDefense = 2;
+    float shieldDefense = 20;
     float baseDefense = 1;
     float shieldWalkSpeed = 3;
     float runSpeed = 9;
@@ -45,16 +45,11 @@ public class BulwarkKnightManager : BaseManager
         {
             RageTimer();
         }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            currentHealth = maxHealth / 2;
-        }
     }
 
     private void LoadStats()
     {
-        maxHealth = 10 + maxHealthModifier;
+        maxHealth = 100 + maxHealthModifier;
         attack = 10 + attackModifier;
         currentHealth = maxHealth;
         navigation.maxSpeed = shieldWalkSpeed;
