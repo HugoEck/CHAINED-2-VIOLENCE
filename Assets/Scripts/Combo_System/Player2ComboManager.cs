@@ -214,7 +214,15 @@ public class Player2ComboManager : MonoBehaviour
                 {
                     ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
                     var mainModule = particle.main;
-                    mainModule.startSize = player2UnarmedCombos[comboIndex].attackRange;
+
+                    float attackRange = player2UnarmedCombos[comboIndex].attackRange;
+                    if (attackRange > 10)
+                    {
+                        attackRange = 10;
+                    }
+                    float totalAttackRange = (attackRange / 10f) * 4f;
+
+                    mainModule.startSize = totalAttackRange;
                     weaponSlashSize = mainModule.startSize.constant;
 
                     particle.Play();
