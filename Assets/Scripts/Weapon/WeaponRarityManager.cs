@@ -11,7 +11,9 @@ public class WeaponRarityHandler : MonoBehaviour
         Legendary
     }
 
-    [SerializeField] WeaponRarity weaponRarity;
+    [SerializeField] private WeaponRarity weaponRarity; // Private field
+
+    public WeaponRarity rarity => weaponRarity; // Public property for access
     private HighlightEffect highlightEffect;
     private Light weaponLight;
     private ParticleSystem weaponParticles;

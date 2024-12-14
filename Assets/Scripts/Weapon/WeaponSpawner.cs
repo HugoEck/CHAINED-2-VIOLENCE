@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class RarityProbability
+{
+    public WeaponRarityHandler.WeaponRarity rarity;
+    public float spawnChance; // The relative weight of this rarity
+}
+
 public class WeaponSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject farmWeaponsPrefab;
@@ -9,6 +16,9 @@ public class WeaponSpawner : MonoBehaviour
     [SerializeField] private GameObject medievalWeaponsPrefab;
     [SerializeField] private Transform waypointsParent;  // Reference to the parent GameObject containing waypoints as child objects
     [SerializeField] private float respawnTime = 10f;
+
+    [Header("Rarity Spawn Probabilities")]
+    [SerializeField] private List<RarityProbability> rarityProbabilities;
 
     private List<GameObject> weaponPrefabs = new List<GameObject>();
     private Transform[] spawnPoints;
@@ -55,12 +65,53 @@ public class WeaponSpawner : MonoBehaviour
     {
         if (!spawnPointOccupied[spawnIndex])
         {
-            GameObject randomWeaponPrefab = weaponPrefabs[Random.Range(0, weaponPrefabs.Count)];
+            // Filter weapons by chosen rarity
+            WeaponRarityHandler.WeaponRarity chosenRarity = GetRandomRarity();
+            List<GameObject> filteredWeapons = weaponPrefabs.FindAll(w =>
+            {
+                var rarityHandler = w.GetComponent<WeaponRarityHandler>();
+                return rarityHandler != null && rarityHandler.rarity == chosenRarity;
+            });
+
+            if (filteredWeapons.Count == 0)
+            {
+                Debug.LogWarning($"No weapons found for rarity {chosenRarity}");
+                return;
+            }
+
+            // Spawn a random weapon from the filtered list
+            GameObject randomWeaponPrefab = filteredWeapons[Random.Range(0, filteredWeapons.Count)];
             GameObject newWeapon = Instantiate(randomWeaponPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);
             newWeapon.SetActive(true);
 
             spawnPointOccupied[spawnIndex] = true;
         }
+    }
+
+    private WeaponRarityHandler.WeaponRarity GetRandomRarity()
+    {
+        // Calculate total weight
+        float totalWeight = 0f;
+        foreach (var rarity in rarityProbabilities)
+        {
+            totalWeight += rarity.spawnChance;
+        }
+
+        // Choose a random value within the total weight
+        float randomValue = Random.Range(0, totalWeight);
+
+        // Determine the rarity
+        foreach (var rarity in rarityProbabilities)
+        {
+            if (randomValue < rarity.spawnChance)
+            {
+                return rarity.rarity;
+            }
+            randomValue -= rarity.spawnChance;
+        }
+
+        // Fallback to a default rarity
+        return WeaponRarityHandler.WeaponRarity.Common;
     }
 
     private IEnumerator RespawnWeapons()
