@@ -6,18 +6,19 @@ public class BKChasePlayer : Node
 {
     public override NodeState Evaluate(BaseManager agent)
     {
+        agent.navigation.isStopped = false;
         BulwarkKnightManager bk = agent as BulwarkKnightManager;
 
         SetAnimation(agent);
         if (bk.shieldBroken)
         {
             agent.animator.SetBool("BulwarkKnight_ShieldWalk", false);
-            //agent.animator.SetBool("BulwarkKnight_SwordRun", true);
+            agent.animator.SetBool("BulwarkKnight_SwordRun", true);
         }
         else
         {
             agent.animator.SetBool("BulwarkKnight_ShieldWalk", true);
-            //agent.animator.SetBool("BulwarkKnight_SwordRun", false);
+            agent.animator.SetBool("BulwarkKnight_SwordRun", false);
         }
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
 
@@ -25,22 +26,24 @@ public class BKChasePlayer : Node
 
         if (distance > agent.attackRange)
         {
-            agent.navigation.isStopped = false;
             agent.navigation.destination = agent.targetedPlayer.position;
-
             return NodeState.RUNNING;
         }
 
         else
         {
-            agent.navigation.isStopped = true;
-
             return NodeState.SUCCESS;
         }
 
     }
     private void SetAnimation(BaseManager agent)
     {
-        agent.animator.SetBool("BulwarkKnight_Idle", false);
+        agent.animator.SetBool("BulwarkKnight_ShieldIdle", false);
+        agent.animator.SetBool("BulwarkKnight_SwordIdle", false);
+        agent.animator.SetBool("BulwarkKnight_ShieldAttack", false);
+        agent.animator.SetBool("BulwarkKnight_SwordAttack", false);
+        agent.animator.SetBool("BulwarkKnight_Electrocute", false);
+        agent.animator.SetBool("BulwarkKnight_Scared", false);
+        agent.animator.SetBool("BulwarkKnight_Rage", false);
     }
 }

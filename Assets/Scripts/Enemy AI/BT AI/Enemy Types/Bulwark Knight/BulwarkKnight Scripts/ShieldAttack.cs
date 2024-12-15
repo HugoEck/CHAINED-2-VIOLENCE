@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class ShieldAttack : Node
 {
-
-
-    float distance;
-
     public override NodeState Evaluate(BaseManager agent)
     {
 
@@ -21,15 +17,12 @@ public class ShieldAttack : Node
 
         if (agent.behaviorMethods.IsAttackAllowed())
         {
-            agent.animator.SetBool("BulwarkKnight_ShieldAttack", true);
-            agent.animator.SetBool("BulwarkKnight_Idle", false);
-            //playerManager.SetHealth(agent.attack);
-            Debug.Log("Player attacked");
+            SetAttackAnimation(agent, bk, "enable");
+            playerManager.SetHealth(agent.attack);
         }
         else
         {
-            agent.animator.SetBool("BulwarkKnight_ShieldAttack", false);
-            agent.animator.SetBool("BulwarkKnight_Idle", true);
+            SetAttackAnimation(agent, bk, "disable");
         }
 
         return NodeState.RUNNING;
@@ -37,18 +30,44 @@ public class ShieldAttack : Node
     }
     private void SetAnimation(BaseManager agent)
     {
+
         agent.animator.SetBool("BulwarkKnight_ShieldWalk", false);
+        agent.animator.SetBool("BulwarkKnight_SwordRun", false) ;
+        
+    }
+
+    private void SetAttackAnimation(BaseManager agent, BulwarkKnightManager bk, string type)
+    {
+        if (type == "enable")
+        {
+            agent.animator.SetBool("BulwarkKnight_Idle", false);
+            if (bk.shieldBroken)
+            {
+                agent.animator.SetBool("BulwarkKnight_SwordAttack", true);
+                agent.animator.SetBool("BulwarkKnight_ShieldAttack", false);
+            }
+            else
+            {
+                agent.animator.SetBool("BulwarkKnight_SwordAttack", false);
+                agent.animator.SetBool("BulwarkKnight_ShieldAttack", true);
+            }
+        }
+        else if(type == "disable")
+        {
+            agent.animator.SetBool("BulwarkKnight_Idle", true);
+            agent.animator.SetBool("BulwarkKnight_SwordAttack", false);
+            agent.animator.SetBool("BulwarkKnight_ShieldAttack", false);
+        }
+        else
+        {
+            Debug.Log("BK Attack animation error!");
+        }
     }
 
     private void RotateTowardsPlayer(BaseManager agent)
     {
-        // Calculate the direction from the agent to the player
         Vector3 direction = (agent.targetedPlayer.position - agent.transform.position).normalized;
-
-        // Calculate the target rotation to face the player
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-
-        // Smoothly rotate the agent towards the player
         agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
     }
 }

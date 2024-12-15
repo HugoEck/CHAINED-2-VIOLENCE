@@ -9,7 +9,6 @@ public class KillAgent : Node
     float deathDurationTime = 5;
     float deathTimerStart = 0;
     private bool isTimerInitialized = false;
-    private bool giveGold = false;
     private bool runOnce = false;
 
 
@@ -24,12 +23,11 @@ public class KillAgent : Node
         agent.animator.enabled = false;
         agent.navigation.isStopped = true;
 
-        if (runOnce == false)
+        if (!runOnce)
         {
             if (GoldDropManager.Instance != null) 
             {
                 GoldDropManager.Instance.AddGold(agent.unitCost);
-                giveGold = true;
             }
             WaveManager.ActiveEnemies--;
             runOnce = true;

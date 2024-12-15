@@ -146,7 +146,7 @@ public class AIBehaviorMethods
         agent.attack *= multiplier;
         agent.navigation.maxSpeed *= multiplier;
         agent.defense *= multiplier;
-        agent.transform.localScale *= multiplier;
+        //agent.transform.localScale *= multiplier;
 
     }
 

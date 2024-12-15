@@ -7,8 +7,8 @@ public class StaggerConditions : Node
 {
 
     private bool stagger1Activated = false;
-    private bool stagger2Activated = false;
-    private bool stagger3Activated = false;
+    //private bool stagger2Activated = false;
+    //private bool stagger3Activated = false;
 
 
     public override NodeState Evaluate(BaseManager agent)

@@ -12,17 +12,20 @@ public class BulwarkKnightManager : BaseManager
     Transform[] children;
 
 
-    float shieldDefense = 20;
+    float shieldDefense = 10;
     float baseDefense = 1;
     float shieldWalkSpeed = 3;
-    float runSpeed = 7;
+    float runSpeed = 9;
     float shieldAttackSpeed = 2.5f;
-    float swordAttackSpeed = 1;
+    float swordAttackSpeed = 1.25f;
     float shieldAttackRange = 6;
     float swordAttackRange = 6;
+    float swordDamage = 15;
+
+    [HideInInspector] public float rageAnimationTimer = 4;
 
     [HideInInspector] public bool shieldBroken = false;
-    private bool runShieldMethodOnce = false;
+    [HideInInspector] public bool rageActive = false;
 
     void Start()
     {
@@ -39,16 +42,9 @@ public class BulwarkKnightManager : BaseManager
     {
         rootNode.Evaluate(this);
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (rageActive)
         {
-            BreakShield();
-            runShieldMethodOnce = true;
-        }
-
-        if (!runShieldMethodOnce && currentHealth <= maxHealth * 0.5f)
-        {
-            BreakShield();
-            runShieldMethodOnce = true;
+            RageTimer();
         }
     }
 
@@ -62,10 +58,11 @@ public class BulwarkKnightManager : BaseManager
         attackSpeed = shieldAttackSpeed +attackSpeedModifier;
         attackRange = 5;
         attackRange = shieldAttackRange;
-
-
+        rb.mass = 100;
 
     }
+
+
     Transform FindShieldObject()
     {
 
@@ -79,18 +76,35 @@ public class BulwarkKnightManager : BaseManager
         return null;
     }
 
-    private void BreakShield()
+    public void BreakShield()
     {
         Destroy(shield);
         shieldBroken = true;
         navigation.maxSpeed = runSpeed;
-        defense = baseDefense;
-        attackSpeed = swordAttackSpeed;
+        defense = baseDefense + defenseModifier;
+        attack = swordDamage + attackModifier;
+        attackSpeed = swordAttackSpeed + attackSpeedModifier;
         attackRange = swordAttackRange;
+    }
+
+    public void RageTimer()
+    {
+        rageAnimationTimer -= Time.deltaTime;
+
+        if (rageAnimationTimer + 0.2f < 0)
+        {
+            rageActive = false;
+        }
     }
 
     private void ConstructBT()
     {
+        //KILL BRANCH
+
+        CheckIfDead checkIfDead = new CheckIfDead();
+        KillAgent killAgent = new KillAgent();
+        Sequence isDead = new Sequence(new List<Node> { checkIfDead, killAgent });
+
         //CHASE BRANCH
 
         BKChasePlayer bk_ChasePlayer = new BKChasePlayer();
@@ -101,20 +115,19 @@ public class BulwarkKnightManager : BaseManager
         StunAgent stunAgent = new StunAgent();
         Sequence isStunned = new Sequence(new List<Node>() { isAgentStunned, stunAgent });
 
+        //RAGE BRANCH
+
+        RageConditions rageConditions = new RageConditions();
+        Rage rage = new Rage();
+        Sequence isRaging = new Sequence(new List<Node>() { rageConditions, rage });
+
         //ATTACK BRANCH
 
-        BKAttackConditions bk_AttackConditions = new BKAttackConditions();
-        IfShieldAttackChosen ifShieldAttackChosen = new IfShieldAttackChosen();
-        ShieldAttack shieldAttack = new ShieldAttack();
-        //SwordAttack
-
-        Sequence ability_shieldAttack = new Sequence(new List<Node>() { ifShieldAttackChosen, shieldAttack });
-
-        Selector chooseAttackType = new Selector(new List<Node>() { ability_shieldAttack });
-
-        Sequence attack = new Sequence(new List<Node>() { bk_AttackConditions, chooseAttackType });
+        AttackConditions attackConditions = new AttackConditions();
+        BKAttackPlayer bk_AttackPlayer = new BKAttackPlayer();
+        Sequence attack = new Sequence(new List<Node>() { attackConditions, bk_AttackPlayer });
 
 
-        rootNode = new Selector(new List<Node>() { attack, bk_ChasePlayer });
+        rootNode = new Selector(new List<Node>() { isDead, isStunned, isRaging, attack, bk_ChasePlayer });
     }
 }

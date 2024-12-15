@@ -320,7 +320,7 @@ public class CyberGiantManager : BaseManager
         Sequence chase = new Sequence(new List<Node> { chaseConditions, cg_ChasePlayer });
 
         //-------------------------------------------------------------------------------------------------------
-        //rootNode = new Selector(new List<Node>() { killBoss, staggerBehavior, attack, chase, idle });
-        rootNode = new Selector(new List<Node>() { chase, idle });
+        rootNode = new Selector(new List<Node>() { killBoss, staggerBehavior, attack, chase, idle });
+        //rootNode = new Selector(new List<Node>() { chase, idle });
     }
 }

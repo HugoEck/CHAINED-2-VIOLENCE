@@ -39,7 +39,7 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
         _bIsGhostChainActive = true;
         _ghostChainTimer = _ghostChainActiveDuration;
         _bCanUseGhostChain = false;
-        Debug.Log("Ghost Chain Activated");
+        //Debug.Log("Ghost Chain Activated");
         _spawner.SpawnGhostChainSegments();
     }
    
@@ -47,7 +47,7 @@ public class GhostChain : MonoBehaviour, IUltimateAbility
     {
         _bIsGhostChainActive = false;
         _cooldownTimer = _ghostChainCooldown;
-        Debug.Log("Ghost Chain Deactivated");
+        //Debug.Log("Ghost Chain Deactivated");
         _spawner.DeactivateGhostChainSegments();
         UltimateAbilityManager.instance._bIsBothPlayersUsingUltimate = false;
     }
