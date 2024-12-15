@@ -8,7 +8,7 @@ using UnityEngine;
 public class UpgradeUIActivator : MonoBehaviour
 {
     public GameObject upgradeUICanvas;
-    public GameObject goldCanvas;
+    //public GameObject goldCanvas;
     public float interactionDistance = 10f;
 
     private GameObject player1;
@@ -25,11 +25,10 @@ public class UpgradeUIActivator : MonoBehaviour
             upgradeUICanvas.SetActive(false);
         }
 
-        if (goldCanvas != null)
-        {
-            goldCanvas.SetActive(false);
-        }
-
+        //if (goldCanvas != null)
+        //{
+        //    goldCanvas.SetActive(false);
+        //}
     }
 
     void Update()
@@ -53,7 +52,7 @@ public class UpgradeUIActivator : MonoBehaviour
             {
                 bool newState = !upgradeUICanvas.activeSelf;
                 upgradeUICanvas.SetActive(newState);
-                goldCanvas.SetActive(newState);
+                //goldCanvas.SetActive(newState);
             }
         }
     }

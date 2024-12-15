@@ -32,20 +32,29 @@ public class GoldDropManager : MonoBehaviour
 
     public void Update()
     {
-        if (Chained2ViolenceGameManager.Instance != null &&
-            Chained2ViolenceGameManager.Instance.currentSceneState == Chained2ViolenceGameManager.SceneState.LobbyScene)
+        UpdateGoldCanvasVisibility();
+    }
+
+    private void UpdateGoldCanvasVisibility()
+    {
+        if (Chained2ViolenceGameManager.Instance != null)
         {
-            if (goldDisplayCanvas != null && !goldDisplayCanvas.gameObject.activeSelf)
+            if (Chained2ViolenceGameManager.Instance.currentSceneState == Chained2ViolenceGameManager.SceneState.LobbyScene)
             {
-                goldDisplayCanvas.gameObject.SetActive(true);
+                SetGoldCanvasVisibility(true);
+            }
+            else
+            {
+                SetGoldCanvasVisibility(false);
             }
         }
-        else
-{
-            if (goldDisplayCanvas != null && goldDisplayCanvas.gameObject.activeSelf)
-            {
-                goldDisplayCanvas.gameObject.SetActive(false);
-            }
+    }
+
+    private void SetGoldCanvasVisibility(bool isVisible)
+    {
+        if (goldDisplayCanvas != null && goldDisplayCanvas.gameObject.activeSelf != isVisible)
+        {
+            goldDisplayCanvas.gameObject.SetActive(isVisible);
         }
     }
 
