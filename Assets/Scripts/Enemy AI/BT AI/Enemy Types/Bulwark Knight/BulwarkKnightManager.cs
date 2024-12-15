@@ -12,7 +12,7 @@ public class BulwarkKnightManager : BaseManager
     Transform[] children;
 
 
-    float shieldDefense = 20;
+    float shieldDefense = 10;
     float baseDefense = 1;
     float shieldWalkSpeed = 3;
     float runSpeed = 9;
@@ -20,6 +20,7 @@ public class BulwarkKnightManager : BaseManager
     float swordAttackSpeed = 1.25f;
     float shieldAttackRange = 6;
     float swordAttackRange = 6;
+    float swordDamage = 15;
 
     [HideInInspector] public float rageAnimationTimer = 4;
 
@@ -81,7 +82,7 @@ public class BulwarkKnightManager : BaseManager
         shieldBroken = true;
         navigation.maxSpeed = runSpeed;
         defense = baseDefense + defenseModifier;
-        attack = 15 + attackModifier;
+        attack = swordDamage + attackModifier;
         attackSpeed = swordAttackSpeed + attackSpeedModifier;
         attackRange = swordAttackRange;
     }
