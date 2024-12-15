@@ -57,6 +57,7 @@ public class BulwarkKnightManager : BaseManager
         attackSpeed = shieldAttackSpeed +attackSpeedModifier;
         attackRange = 5;
         attackRange = shieldAttackRange;
+        rb.mass = 100;
 
     }
 

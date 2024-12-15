@@ -5,7 +5,6 @@ using UnityEngine;
 public class CGKill : Node
 {
 
-    float deathTimerTot = 10;
     float deathTimer = 10;
     bool runOnce = false;
 

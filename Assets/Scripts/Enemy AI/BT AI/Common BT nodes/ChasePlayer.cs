@@ -11,7 +11,9 @@ public class ChasePlayer : Node
     public override NodeState Evaluate(BaseManager agent)
     {
         SetChaseAnimation(agent);
-       
+
+        Debug.Log("Entered normal chasing!");
+
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         float distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
         
@@ -23,28 +25,13 @@ public class ChasePlayer : Node
             return NodeState.RUNNING;
         }
         
-        else //Denna kan aldrig bli true eftersom att PlayerInRange hinner bli true före.
+        else
         {
             agent.navigation.isStopped = true;
-            //agent.navMeshAgent.isStopped = true;
-
-            //RotateTowardsPlayer(agent, agent.targetedPlayer);
             return NodeState.SUCCESS;
         }
 
         
-    }
-
-    private void RotateTowardsPlayer(BaseManager agent, Transform targetedPlayer)
-    {
-        // Calculate the direction from the agent to the player
-        Vector3 direction = (targetedPlayer.position - agent.transform.position).normalized;
-
-        // Calculate the target rotation to face the player
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-
-        // Smoothly rotate the agent towards the player
-        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
     }
 
     public void SetChaseAnimation(BaseManager agent)
@@ -84,9 +71,13 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Charger_Attack", false);
             agent.animator.SetBool("Charger_Sprint", false);
         }
-        else if (agent.enemyID == "BannerMan")
+        else if (agent.enemyID == "Bomber")
         {
-
+            agent.animator.SetBool("Bomber_Chase", true);
+            agent.animator.SetBool("Bomber_Idle", false);
+            agent.animator.SetBool("Bomber_Sprint", false);
+            agent.animator.SetBool("Bomber_Electrocute", false);
+            agent.animator.SetBool("Bomber_Scared", false);
         }
 
 
