@@ -25,11 +25,11 @@ public class HealthBar : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (FindObjectsOfType<HealthBar>().Length > 1)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (FindObjectsOfType<HealthBar>().Length > 1)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
 
         DontDestroyOnLoad(gameObject);
     }
@@ -38,6 +38,9 @@ public class HealthBar : MonoBehaviour
     {
         float targetFillAmount = currentHealth / maxHealth;
 
+        int currentHealthInt = Mathf.FloorToInt(currentHealth);
+        int maxHealthInt = Mathf.FloorToInt(maxHealth);
+
         if (playerId == 1)
         {
             healthBarFillPlayer1.fillAmount = targetFillAmount;
@@ -45,7 +48,7 @@ public class HealthBar : MonoBehaviour
 
             if (healthBarTextPlayer1 != null)
             {
-                healthBarTextPlayer1.text = $"{currentHealth}/{maxHealth}";
+                healthBarTextPlayer1.text = $"{currentHealthInt}/{maxHealthInt}";
             }
         }
         else if (playerId == 2)
@@ -55,7 +58,7 @@ public class HealthBar : MonoBehaviour
 
             if (healthBarTextPlayer2 != null)
             {
-                healthBarTextPlayer2.text = $"{currentHealth}/{maxHealth}";
+                healthBarTextPlayer2.text = $"{currentHealthInt}/{maxHealthInt}";
             }
         }
     }

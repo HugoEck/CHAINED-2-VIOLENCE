@@ -48,11 +48,13 @@ public class UpgradeManager : MonoBehaviour
     private void Awake()
     {
         // Singleton
-        if (Instance == null) {
+        if (Instance == null)
+        {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else {
+        else
+        {
             Destroy(gameObject);
         }
     }
@@ -98,6 +100,8 @@ public class UpgradeManager : MonoBehaviour
 
             StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
             StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer1Upgrades(player1Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer2Upgrades(player2Attributes);
             UpdateUI();
         }
         else
@@ -120,6 +124,8 @@ public class UpgradeManager : MonoBehaviour
 
             StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
             StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer1Upgrades(player1Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer2Upgrades(player2Attributes);
             UpdateUI();
         }
         else
@@ -141,6 +147,8 @@ public class UpgradeManager : MonoBehaviour
 
             StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
             StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer1Upgrades(player1Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer2Upgrades(player2Attributes);
             UpdateUI();
         }
         else
@@ -164,7 +172,7 @@ public class UpgradeManager : MonoBehaviour
         }
         else
         {
-            ShowUpgradeError(chainLevel);      
+            ShowUpgradeError(chainLevel);
         }
     }
 

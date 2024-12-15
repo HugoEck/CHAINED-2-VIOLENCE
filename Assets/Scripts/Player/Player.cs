@@ -88,6 +88,8 @@ public class Player : MonoBehaviour
             _playerId = 2;
             currentHealth = 0;
         }
+
+        playerAttributes.SetPlayerId(_playerId);
     }
 
     private void OnDestroy()
@@ -138,24 +140,14 @@ public class Player : MonoBehaviour
 
         playerAttributes.SetBaseValues(_playerCombat.currentPlayerClass);
         
-       
-
         if ( _playerId == 1)
         {
-            _playerCombat.playerAttributesRef = playerAttributes;
             StatsTransfer.Instance.SaveStatsPlayer1(playerAttributes);
-            playerAttributes.maxHP = StatsTransfer.Player1MaxHealth;
-            playerAttributes.movementSpeed = StatsTransfer.Player1WalkingSpeed;
-            playerAttributes.attackDamage = StatsTransfer.Player1AttackDamage;
 
         }
         else if (_playerId == 2)
         {
-            _playerCombat.playerAttributesRef = playerAttributes;
             StatsTransfer.Instance.SaveStatsPlayer2(playerAttributes);
-            playerAttributes.maxHP = StatsTransfer.Player2MaxHealth;
-            playerAttributes.movementSpeed = StatsTransfer.Player2WalkingSpeed;
-            playerAttributes.attackDamage = StatsTransfer.Player2AttackDamage;
         }
 
         currentHealth = playerAttributes.maxHP;
@@ -200,6 +192,7 @@ public class Player : MonoBehaviour
 
         UpdatePlayerCombat();
         UpdateHealthBar();
+        TakeDebugDamage(); // Used to kill players for debug, remove later.
         GhostChainIgnoreCollision();
     }
     #region Player Movement
@@ -456,11 +449,6 @@ public class Player : MonoBehaviour
             //Debug.Log(gameObject.tag + " has died.");
         }
 
-        //if (HealthBar.Instance != null)
-        //{
-        //    HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
-        //}
-
         //Flash indication
         ActivateVisuals();
     }
@@ -472,20 +460,6 @@ public class Player : MonoBehaviour
             HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
         }
     }
-
-    //Used for upgrades
-    //public void SetMaxHealth(float newMaxHealth)
-    //{
-    //    playerAttributes.maxHP = newMaxHealth;
-    //    currentHealth = _maxHealth;// heal to full when upgrading health
-
-    //    if (currentHealth > _maxHealth)
-    //    {
-    //        currentHealth = _maxHealth;
-    //    }
-
-    //    Debug.Log("Player max health set to: " + _maxHealth);
-    //}
 
     // Method to regenerate health
     // Method to regenerate health for a specific player
@@ -525,6 +499,14 @@ public class Player : MonoBehaviour
     public float GetMaxHealth()
     {
         return playerAttributes.maxHP;
+    }
+
+    private void TakeDebugDamage()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            SetHealth(10);
+        }
     }
 
     #endregion
