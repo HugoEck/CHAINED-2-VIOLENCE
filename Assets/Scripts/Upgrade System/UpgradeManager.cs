@@ -70,7 +70,7 @@ public class UpgradeManager : MonoBehaviour
             Debug.LogError("PlayerAttributes script not found on players!");
         }
 
-        Debug.Log("Speed Upgrade Start Value" + player1Attributes.movementSpeed);
+        //Debug.Log("Speed Upgrade Start Value" + player1Attributes.movementSpeed);
 
         GameObject chainObject = GameObject.Find("Obi_Chain");
         if (chainObject != null)

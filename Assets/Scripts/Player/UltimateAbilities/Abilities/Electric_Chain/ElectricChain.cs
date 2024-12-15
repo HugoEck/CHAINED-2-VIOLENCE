@@ -24,7 +24,7 @@ public class ElectricChain : MonoBehaviour, IUltimateAbility
         _bIsElectricityChainActive = true;
         _electricityChainTimer = _electricityChainActiveDuration;
         _bCanUseElectricityChain = false;
-        Debug.Log("Electricity Chain Activated");
+        //Debug.Log("Electricity Chain Activated");
         _spawner.SpawnElectricChainSegments();
     }
 
@@ -32,7 +32,7 @@ public class ElectricChain : MonoBehaviour, IUltimateAbility
     {
         _bIsElectricityChainActive = false;
         _cooldownTimer = _electricityChainCooldown;
-        Debug.Log("Electricity Chain Deactivated");
+        //Debug.Log("Electricity Chain Deactivated");
         _spawner.DeactivateElectricChainSegments();
         UltimateAbilityManager.instance._bIsBothPlayersUsingUltimate = false;
     }

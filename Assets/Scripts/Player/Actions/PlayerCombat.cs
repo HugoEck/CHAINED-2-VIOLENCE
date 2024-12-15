@@ -119,7 +119,7 @@ private void Awake()
             _weaponManager.OnClassSwitch(targetClass);
         }
 
-        Debug.Log($"Class switched to {targetClass} for player: {player.name}");
+        //Debug.Log($"Class switched to {targetClass} for player: {player.name}");
     }
 
 

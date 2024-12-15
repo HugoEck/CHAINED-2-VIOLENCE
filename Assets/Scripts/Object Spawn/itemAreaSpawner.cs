@@ -316,7 +316,7 @@ public class itemAreaSpawner : MonoBehaviour
     {
         // Generate a random delay between 10 and 20 seconds
         float delay = Random.Range(10f, 20f);
-        Debug.Log($"Spawning boulder in {delay} seconds.");
+        //Debug.Log($"Spawning boulder in {delay} seconds.");
         yield return new WaitForSeconds(delay);
 
         // Define spawn positions and their corresponding opposite target positions

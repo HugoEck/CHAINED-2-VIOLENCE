@@ -10,21 +10,25 @@ public class ExplodeAgent : Node
 
         BomberManager bomber = agent as BomberManager;
 
-        GameObject.Instantiate(bomber.explosionParticle, agent.transform.position, agent.transform.rotation);
-        bomber.Explode();
-
-        GameObject.Destroy(agent.gameObject);
+       
 
         if (!runOnce)
         {
+            runOnce = true;
+
+            GameObject.Instantiate(bomber.explosionParticle, agent.transform.position, agent.transform.rotation);
+            bomber.Explode();
+
+            
+            Debug.Log("Hallå????");
             if (GoldDropManager.Instance != null)
             {
                 GoldDropManager.Instance.AddGold(agent.unitCost);
             }
             WaveManager.ActiveEnemies--;
-            runOnce = true;
+            
         }
-
+        GameObject.Destroy(agent.gameObject);
         return NodeState.SUCCESS;
     }
 }

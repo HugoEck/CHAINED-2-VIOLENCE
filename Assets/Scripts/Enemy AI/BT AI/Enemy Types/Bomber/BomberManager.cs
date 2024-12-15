@@ -80,25 +80,24 @@ public class BomberManager : BaseManager
             if (baseManager != null)
             {
                 baseManager.DealDamageToEnemy(attack, BaseManager.DamageType.ExplosionDamage);
+
                 if (SceneManager.GetActiveScene().name != "SamTestScene")
                 {
-                    chainEffects.ActivateRagdollStun(3, collider.gameObject, 0);
+                    baseManager.chainEffects.ActivateRagdollStun(3, gameObject, 300);
+                }
+                else
+                {
+                    rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 1, ForceMode.Impulse);
                 }
 
             }
             if (player != null)
             {
-                player.SetHealth(attack);
-            }
-
-
-            if (rb != null)
-            {
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 1, ForceMode.Impulse);
+                player.SetHealth(attack);
 
-                //Debug.Log($"Explosion affected: {collider.gameObject.name}");
             }
-        }
+       }
 
     }
     void OnDrawGizmosSelected()

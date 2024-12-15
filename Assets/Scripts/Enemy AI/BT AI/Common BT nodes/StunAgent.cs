@@ -29,6 +29,7 @@ public class StunAgent : Node
             agent.chainEffects.stunActivated = false;
             agent.navigation.isStopped = false;
             isStunInitialized = false;
+            agent.transform.position = new Vector3(agent.transform.position.x, 1.5f, agent.transform.position.z);
             return NodeState.SUCCESS;
         }
         else

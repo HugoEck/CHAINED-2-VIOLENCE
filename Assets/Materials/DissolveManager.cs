@@ -95,7 +95,7 @@ public class DissolveManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(WaveManager.currentWave);
+        //Debug.Log(WaveManager.currentWave);
         if (WaveManager.currentWave == 0 && !hasChangedToRoman)
         {
             isChangingArena = true;

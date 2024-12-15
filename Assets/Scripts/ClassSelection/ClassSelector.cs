@@ -71,25 +71,25 @@ public class ClassSelector : MonoBehaviour
         if (other.CompareTag("Tank"))
         {
             classType = PlayerCombat.PlayerClass.Tank;
-            Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+            //Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
             _bIsInsideClassSelectArea = false;
         }
         else if (other.CompareTag("Warrior"))
         {
             classType = PlayerCombat.PlayerClass.Warrior;
-            Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+            //Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
             _bIsInsideClassSelectArea = false;
         }
         else if (other.CompareTag("Ranged"))
         {
             classType = PlayerCombat.PlayerClass.Ranged;
-            Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+            //Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
             _bIsInsideClassSelectArea = false;
         }
         else if (other.CompareTag("Support"))
         {
             classType = PlayerCombat.PlayerClass.Support;
-            Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
+            //Debug.Log(other.tag + " exited the tube trigger for class: " + classType);
             _bIsInsideClassSelectArea = false;
         }
         else
@@ -110,7 +110,7 @@ public class ClassSelector : MonoBehaviour
         // Show prompt and update text
         //uiPrompt.SetActive(true);
         //uiPrompt.GetComponent<Text>().text = "Switch to: " + targetClass + " [E]";
-        Debug.Log("Showing class prompt for class: " + targetClass);
+        //Debug.Log("Showing class prompt for class: " + targetClass);
     }
 
     // Called when player exits the trigger zone
@@ -118,7 +118,7 @@ public class ClassSelector : MonoBehaviour
     {
         activePlayer = null;
         uiPrompt.SetActive(false);
-        Debug.Log("Hiding class prompt");
+        //Debug.Log("Hiding class prompt");
     }
 
     void Update()
@@ -129,7 +129,7 @@ public class ClassSelector : MonoBehaviour
             if(_bIsPlayer1ChoosingClass = InputManager.Instance.GetInteractInput_P1() && _bIsInsideClassSelectArea)
             {
                 SwitchClass(gameObject, targetClass);
-                Debug.Log(gameObject.tag + " Changed class");
+                //Debug.Log(gameObject.tag + " Changed class");
             }
         }
         else if(_playerId == 2)
@@ -137,7 +137,7 @@ public class ClassSelector : MonoBehaviour
             if(_bIsPlayer2ChoosingClass = InputManager.Instance.GetInteractInput_P2() && _bIsInsideClassSelectArea)
             {
                 SwitchClass(gameObject, targetClass);
-                Debug.Log(gameObject.tag + " Changed class");
+                //Debug.Log(gameObject.tag + " Changed class");
             }
         }
         
@@ -159,7 +159,7 @@ public class ClassSelector : MonoBehaviour
         {
             player.GetComponent<PlayerCombat>().SetCurrentPlayerClass(newClass);
             hasClassBeenSet = true;
-            Debug.Log("Has class been set");
+            //Debug.Log("Has class been set");
         }
         else if(_playerId == 2 && newClass != ClassManager._currentPlayer1Class)
         {
@@ -175,7 +175,7 @@ public class ClassSelector : MonoBehaviour
                 bool shouldEnable = classTransform.name == newClass.ToString();
                 classTransform.gameObject.SetActive(shouldEnable);
 
-                Debug.Log($"Setting {classTransform.name} to {(shouldEnable ? "enabled" : "disabled")}");
+                //Debug.Log($"Setting {classTransform.name} to {(shouldEnable ? "enabled" : "disabled")}");
             }
             OnClassSwitched?.Invoke(player, newClass);
         }     

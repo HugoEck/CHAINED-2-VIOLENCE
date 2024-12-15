@@ -31,7 +31,7 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
         _bIsLaserChainActive = true;
         _laserChainTimer = _laserChainActiveDuration;
         _bCanUseLaserChain = false;
-        Debug.Log("Laser Chain Activated");
+        //Debug.Log("Laser Chain Activated");
         _spawner.SpawnLaserChainSegments();
     }
 
@@ -39,7 +39,7 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
     {
         _bIsLaserChainActive = false;
         _cooldownTimer = _laserChainCooldown; 
-        Debug.Log("Laser Chain Deactivated");
+        //Debug.Log("Laser Chain Deactivated");
         _spawner.DeactivateLaserChainSegments();
         UltimateAbilityManager.instance._bIsBothPlayersUsingUltimate = false;
     }
@@ -66,7 +66,7 @@ public class LaserChain : MonoBehaviour, IUltimateAbility //// MUST USE IUltimat
             if (_cooldownTimer <= 0)
             {
                 _bCanUseLaserChain = true;
-                Debug.Log("Laser Chain Cooldown Finished");
+                //Debug.Log("Laser Chain Cooldown Finished");
             }
         }
     }
