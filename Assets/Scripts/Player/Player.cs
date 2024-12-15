@@ -191,6 +191,7 @@ public class Player : MonoBehaviour
         GetPlayerMovementInput();
 
         UpdatePlayerCombat();
+        CheckIfCurrentHPExceedsMaxHP();
         UpdateHealthBar();
         TakeDebugDamage(); // Used to kill players for debug, remove later.
         GhostChainIgnoreCollision();
@@ -458,6 +459,24 @@ public class Player : MonoBehaviour
         if (HealthBar.Instance != null)
         {
             HealthBar.Instance.UpdateHealthBar(_playerId, currentHealth, GetMaxHealth());
+        }
+    }
+
+    private void CheckIfCurrentHPExceedsMaxHP()
+    {
+        if (_playerId == 1)
+        {
+            if (currentHealth > playerAttributes.maxHP)
+            {
+                currentHealth = playerAttributes.maxHP;
+            }
+        }
+        else if (_playerId == 2)
+        {
+            if (currentHealth > playerAttributes.maxHP)
+            {
+                currentHealth = playerAttributes.maxHP;
+            }
         }
     }
 
