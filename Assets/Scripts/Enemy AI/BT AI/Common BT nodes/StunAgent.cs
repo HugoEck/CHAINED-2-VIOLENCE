@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StunAgent : Node
 {
@@ -26,10 +27,15 @@ public class StunAgent : Node
             {
                 agent.behaviorMethods.ToggleRagdoll(false);
             }
+
+            if (SceneManager.GetActiveScene().name != "SamTestScene")
+            {
+                agent.transform.position = new Vector3(agent.transform.position.x, 1.5f, agent.transform.position.z);
+            }
             agent.chainEffects.stunActivated = false;
             agent.navigation.isStopped = false;
             isStunInitialized = false;
-            agent.transform.position = new Vector3(agent.transform.position.x, 1.5f, agent.transform.position.z);
+
             return NodeState.SUCCESS;
         }
         else
@@ -63,6 +69,10 @@ public class StunAgent : Node
         else if (agent.enemyID == "BulwarkKnight")
         {
             SetAnimationBulwarkKnight(agent);
+        }
+        else if (agent.enemyID == "Bomber")
+        {
+            SetAnimationBomber(agent);
         }
     }
 
@@ -176,6 +186,26 @@ public class StunAgent : Node
         agent.animator.SetBool("BulwarkKnight_ShieldAttack", false);
         agent.animator.SetBool("BulwarkKnight_SwordAttack", false);
         agent.animator.SetBool("BulwarkKnight_Rage", false);
+
+    }
+
+    private void SetAnimationBomber(BaseManager agent)
+    {
+        if (agent.chainEffects.stunType == "Ghost")
+        {
+            agent.animator.SetBool("Bomber_Scared", true);
+            agent.animator.SetBool("Bomber_Electrocute", false);
+        }
+
+        else if (agent.chainEffects.stunType == "Shock")
+        {
+            agent.animator.SetBool("Bomber_Scared", false);
+            agent.animator.SetBool("Bomber_Electrocute", true);
+        }
+
+        agent.animator.SetBool("Bomber_Chase", false);
+        agent.animator.SetBool("Bomber_Sprint", false);
+        agent.animator.SetBool("Bomber_Idle", false);
 
     }
 }

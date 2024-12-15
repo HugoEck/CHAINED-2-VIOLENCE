@@ -12,8 +12,6 @@ public class ChasePlayer : Node
     {
         SetChaseAnimation(agent);
 
-        //Debug.Log("Entered normal chasing!");
-
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         float distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.transform.position);
         

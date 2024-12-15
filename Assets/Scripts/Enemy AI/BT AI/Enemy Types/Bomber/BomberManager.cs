@@ -49,10 +49,10 @@ public class BomberManager : BaseManager
         currentHealth = maxHealth;
         attack = 50 + attackModifier;
         defense = 0 + defenseModifier;
-        navigation.maxSpeed = 4;
-        attackRange = 3f;
-        unitCost = 10;
-        sprintSpeed = 10;
+        navigation.maxSpeed = 3;
+        attackRange = 10f;
+        unitCost = 15;
+        sprintSpeed = 7;
     }
 
     private void Update()
@@ -63,6 +63,16 @@ public class BomberManager : BaseManager
         if (bombActivated)
         {
             BombTimer();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            chainEffects.ActivateGhostChainEffect(3);
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            chainEffects.ActivateShockChainEffect(3);
         }
 
     }
@@ -139,6 +149,11 @@ public class BomberManager : BaseManager
         ActivateBomb activateBomb = new ActivateBomb();
         Sequence bombBranch = new Sequence(new List<Node>() { activateBombConditions, activateBomb });
 
+        //STUN BRANCH
+        IsAgentStunned isAgentStunned = new IsAgentStunned();
+        StunAgent stunAgent = new StunAgent();
+        Sequence isStunned = new Sequence(new List<Node>() { isAgentStunned, stunAgent });
+
         //KILL BRANCH
 
         BKillConditions b_KillConditions = new BKillConditions();
@@ -153,6 +168,6 @@ public class BomberManager : BaseManager
         Sequence kill = new Sequence(new List<Node>() { b_KillConditions, killPath });
 
 
-        rootNode = new Selector(new List<Node>() { kill, bombBranch, bombSprint, chase });
+        rootNode = new Selector(new List<Node>() { kill, isStunned, bombBranch, bombSprint, chase });
     }
 }
