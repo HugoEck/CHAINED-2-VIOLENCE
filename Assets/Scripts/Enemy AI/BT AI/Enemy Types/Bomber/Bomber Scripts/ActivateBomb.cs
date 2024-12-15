@@ -10,7 +10,7 @@ public class ActivateBomb : Node
         BomberManager bomber = agent as BomberManager;
         agent.navigation.isStopped = true;
 
-        Debug.Log("Entered Idle!");
+        //Debug.Log("Entered Idle!");
 
         if (bomber.bombAnimationTimer < 5)
         {

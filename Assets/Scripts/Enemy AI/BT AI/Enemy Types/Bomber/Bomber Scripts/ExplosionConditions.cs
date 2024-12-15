@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionConditions : MonoBehaviour
+public class ExplosionConditions : Node
 {
-    // Start is called before the first frame update
-    void Start()
+    public override NodeState Evaluate(BaseManager agent)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        BomberManager bomber = agent as BomberManager;
+
+        if (bomber.deathAfterActivation)
+        {
+            return NodeState.SUCCESS;
+        }
+        else
+        {
+            return NodeState.SUCCESS;
+        }
+
+
     }
 }

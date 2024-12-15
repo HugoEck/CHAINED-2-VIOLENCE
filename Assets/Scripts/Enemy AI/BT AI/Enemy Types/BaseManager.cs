@@ -63,6 +63,7 @@ public class BaseManager : MonoBehaviour
         UltimateElectricity,
         UltimateFire,
         UltimateLaser,
+        ExplosionDamage,
     }
 
     public virtual void Awake()

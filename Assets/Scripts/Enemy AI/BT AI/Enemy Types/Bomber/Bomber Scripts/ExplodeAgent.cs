@@ -2,17 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplodeAgent : MonoBehaviour
+public class ExplodeAgent : Node
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool runOnce = false;
+    public override NodeState Evaluate(BaseManager agent)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        BomberManager bomber = agent as BomberManager;
+
+        GameObject.Instantiate(bomber.explosionParticle, agent.transform.position, agent.transform.rotation);
+        bomber.Explode();
+
+        GameObject.Destroy(agent.gameObject);
+
+        if (!runOnce)
+        {
+            if (GoldDropManager.Instance != null)
+            {
+                GoldDropManager.Instance.AddGold(agent.unitCost);
+            }
+            WaveManager.ActiveEnemies--;
+            runOnce = true;
+        }
+
+        return NodeState.SUCCESS;
     }
 }

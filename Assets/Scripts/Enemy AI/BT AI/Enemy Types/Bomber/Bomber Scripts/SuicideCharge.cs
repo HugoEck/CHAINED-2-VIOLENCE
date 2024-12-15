@@ -9,7 +9,7 @@ public class SuicideCharge : Node
     {
         BomberManager bomber = agent as BomberManager;
         agent.navigation.isStopped = false;
-        Debug.Log("Entered suicide sprint!");
+        //Debug.Log("Entered suicide sprint!");
 
         agent.navigation.maxSpeed = bomber.sprintSpeed;
         agent.navigation.isStopped = false;
@@ -21,7 +21,7 @@ public class SuicideCharge : Node
         if (bomber.bombAnimationTimer < 0)
         {
             bomber.bombExploded = true;
-            Debug.Log("BOOOOM!!!");
+            //Debug.Log("BOOOOM!!!");
             return NodeState.SUCCESS;
         }
         else
