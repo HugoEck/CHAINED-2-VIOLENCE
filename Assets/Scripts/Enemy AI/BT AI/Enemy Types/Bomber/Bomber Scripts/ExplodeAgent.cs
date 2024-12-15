@@ -19,8 +19,6 @@ public class ExplodeAgent : Node
             GameObject.Instantiate(bomber.explosionParticle, agent.transform.position, agent.transform.rotation);
             bomber.Explode();
 
-            
-            Debug.Log("Hallå????");
             if (GoldDropManager.Instance != null)
             {
                 GoldDropManager.Instance.AddGold(agent.unitCost);

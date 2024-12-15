@@ -45,12 +45,12 @@ public class BomberManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 1 + maxHealthModifier;
+        maxHealth = 10 + maxHealthModifier;
         currentHealth = maxHealth;
         attack = 50 + attackModifier;
         defense = 0 + defenseModifier;
         navigation.maxSpeed = 3;
-        attackRange = 10f;
+        attackRange = 15f;
         unitCost = 15;
         sprintSpeed = 7;
     }
@@ -63,16 +63,6 @@ public class BomberManager : BaseManager
         if (bombActivated)
         {
             BombTimer();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            chainEffects.ActivateGhostChainEffect(3);
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            chainEffects.ActivateShockChainEffect(3);
         }
 
     }
