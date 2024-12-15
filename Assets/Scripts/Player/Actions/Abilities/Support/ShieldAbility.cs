@@ -30,10 +30,12 @@ public class ShieldAbility : MonoBehaviour, IAbility
 
     private Player player;
 
+    private int _playerId;
     private void Start()
     {
         // Try to get the Player script
         player = GetComponent<Player>();
+        _playerId = player._playerId;
         if (player == null)
         {
             Debug.LogError("Player script not found on the GameObject! Ensure it is attached.");
@@ -62,14 +64,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
     {
         if (Time.time >= lastBreakTime + cooldown)
         {
-            if (playerId == 1)
-            {
-                Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
-            }
-            else if (playerId == 2)
-            {
-                Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
-            }
+            
             CalculateShieldHealth();
             ActivateShield();
             ApplyShieldToOtherPlayer();
@@ -83,6 +78,15 @@ public class ShieldAbility : MonoBehaviour, IAbility
     private void ActivateShield()
     {
         if (isShieldActive) return;
+
+        if (_playerId == 1)
+        {
+            Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+        }
+        else if (_playerId == 2)
+        {
+            Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+        }
 
         SFXManager.instance.PlaySFXClip(supportAbilitySound, transform, 1f);
 

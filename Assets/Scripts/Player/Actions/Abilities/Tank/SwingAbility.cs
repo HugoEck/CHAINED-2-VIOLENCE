@@ -30,6 +30,8 @@ public class SwingAbility : MonoBehaviour, IAbility
 
     private HashSet<Collider> hitEnemies;
 
+    private AnimationStateController animationStateController;
+
     private void Start()
     {
         if (otherPlayer != null)
@@ -37,6 +39,7 @@ public class SwingAbility : MonoBehaviour, IAbility
             otherPlayerRb = otherPlayer.GetComponent<Rigidbody>();
         }
         anchorRb = GetComponent<Rigidbody>(); // Get the Rigidbody of this player (anchor)
+        animationStateController = GetComponent<AnimationStateController>();
     }
 
     public void UseAbility(int playerId)
@@ -44,6 +47,7 @@ public class SwingAbility : MonoBehaviour, IAbility
         // Check if the ability is ready (cooldown has elapsed)
         if (!isSwinging && otherPlayer != null && !BIsPlayerCurrentlySwinging && Time.time >= lastSwingTime + cooldown)
         {
+            
             if (playerId == 1)
             {
                 Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
@@ -144,7 +148,7 @@ public class SwingAbility : MonoBehaviour, IAbility
 
         isSwinging = false;
         Debug.Log("Swing ended.");
-
+        animationStateController._animator.SetBool("TankSwingOver", true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
         anchorRb.isKinematic = false;
         otherPlayerRb.isKinematic = false;
