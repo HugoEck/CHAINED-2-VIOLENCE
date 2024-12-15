@@ -1,50 +1,77 @@
+using HighlightPlus;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class ProjectileBehavior : MonoBehaviour
 {
     [Header("Explosion Sound: ")]
     [SerializeField] private AudioClip explosionSound;
 
+    [Header("Grenade explosion")]
+    [SerializeField] private float timeForGrenadeToExplode;
+    [SerializeField] private ParticleSystem explosionEffect;
+    [SerializeField] private HighlightEffect grenadeHighlight;
+
     public float explosionRadius = 5f;
     public float baseExplosionDamage = 50f;
     public float explosionDamage;
     public LayerMask enemyLayer;
-    public GameObject explosionEffectPrefab;
+    public GameObject grenadeObject;
 
     private HashSet<Collider> hitEnemiesOnce;
     public PlayerAttributes playerAttributes;
     private bool hasExploded = false;
 
+    private Rigidbody rb;
+    [SerializeField] private MeshRenderer grenadeRenderer;
+
+    private float explosionTimer;
     private void Start()
     {
         hitEnemiesOnce = new HashSet<Collider>();
+
+        rb = GetComponent<Rigidbody>();
+
+        explosionTimer = timeForGrenadeToExplode;
     }
 
-    void OnCollisionEnter(Collision collision)
+    private bool addHighlight = false;
+    private void Update()
     {
-        // Ensure the explosion happens only once
-        if (!hasExploded && collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        explosionTimer -= Time.deltaTime;
+
+        // Normalize the timer to a value between 0 and 1
+        float progress = 1f - Mathf.Clamp01(explosionTimer / timeForGrenadeToExplode);
+
+
+        grenadeHighlight.innerGlow = Mathf.Lerp(0.06f, 5, progress);
+        
+
+        if (explosionTimer <= 0 && !hasExploded)
         {
-            hasExploded = true;  // Set the flag so this block only runs once
-
-            // Disable the projectile's collider to prevent further collisions
-            GetComponent<Collider>().enabled = false;
-
-            // Trigger explosion effect and logic
             Explode();
+            explosionEffect.Play();
+            hasExploded = true;
 
-            // Instantiate the visual explosion effect
-            if (explosionEffectPrefab != null)
-            {
-                GameObject explosionInstance = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
 
-                Destroy(explosionInstance, 2f);  // Destroy the explosion effect after 2 seconds
-            }
-
-            // Destroy the projectile immediately after the explosion effect is instantiated
-            Destroy(gameObject); // This ensures the projectile is removed right away
+            grenadeObject.SetActive(false);
+            
+            
         }
+
+        if (hasExploded && !explosionEffect.isPlaying)
+        {
+            Destroy(gameObject);
+        }
+    }
+    private IEnumerator BlinkGrenade(float time)
+    {
+        yield return new WaitForSeconds(time);
+        grenadeHighlight.HitFX();
     }
 
     // Method to handle the explosion and damage enemies in the radius
@@ -52,7 +79,7 @@ public class ProjectileBehavior : MonoBehaviour
     {
         explosionDamage = baseExplosionDamage + playerAttributes.attackDamage;
 
-        SFXManager.instance.PlaySFXClip(explosionSound, transform, 1f);
+        //SFXManager.instance.PlaySFXClip(explosionSound, transform, 1f);
 
         Debug.Log("Projectile exploded!");
 
