@@ -26,11 +26,19 @@ public class ConeAbility : MonoBehaviour, IAbility
         hitEnemiesOnce = new HashSet<Collider>();
     }
 
-    public void UseAbility()
+    public void UseAbility(int playerId)
     {
         // Check if the cooldown has elapsed
         if (Time.time >= lastUseTime + cooldown)
         {
+            if (playerId == 1)
+            {
+                Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+            }
+            else if (playerId == 2)
+            {
+                Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+            }
             ActivateConeAbility();
             lastUseTime = Time.time; // Update the last use time
         }

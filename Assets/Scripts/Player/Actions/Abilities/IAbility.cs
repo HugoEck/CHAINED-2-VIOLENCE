@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IAbility
 {
-    public void UseAbility();
+    public void UseAbility(int playerId);
 }

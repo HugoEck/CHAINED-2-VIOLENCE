@@ -41,7 +41,7 @@ public class Player2ComboManager : MonoBehaviour
     [SerializeField] private Animator player2RangedAnimator;
     [SerializeField] private Animator player2SupportAnimator;
 
-    private Animator currentAnimator;
+    public Animator currentAnimator { get; private set; }
 
     [HideInInspector]
     public ComboAttackSO[] player2UnarmedCombos;

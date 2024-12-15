@@ -21,8 +21,7 @@ public class Player1ComboManager : MonoBehaviour
     [SerializeField] private GameObject[] _warriorSlashes;
     [SerializeField] private GameObject[] _rangedSlashes;
     [SerializeField] private GameObject[] _supportSlashes;
-
-    
+  
     public PlayerCombat.PlayerClass currentPlayer1Class { get; private set; }
 
     private List<ComboAttackSO> _player1ComboAttacks; // Current weapon's combos
@@ -43,7 +42,7 @@ public class Player1ComboManager : MonoBehaviour
     [SerializeField] private Animator player1RangedAnimator;
     [SerializeField] private Animator player1SupportAnimator;
 
-    private Animator currentAnimator;
+    public Animator currentAnimator { get; private set; }
 
     [HideInInspector]
     public ComboAttackSO[] player1UnarmedCombos;

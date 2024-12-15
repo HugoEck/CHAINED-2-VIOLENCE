@@ -58,10 +58,18 @@ public class ShieldAbility : MonoBehaviour, IAbility
         }
     }
 
-    public void UseAbility()
+    public void UseAbility(int playerId)
     {
         if (Time.time >= lastBreakTime + cooldown)
         {
+            if (playerId == 1)
+            {
+                Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+            }
+            else if (playerId == 2)
+            {
+                Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+            }
             CalculateShieldHealth();
             ActivateShield();
             ApplyShieldToOtherPlayer();

@@ -39,11 +39,19 @@ public class SwingAbility : MonoBehaviour, IAbility
         anchorRb = GetComponent<Rigidbody>(); // Get the Rigidbody of this player (anchor)
     }
 
-    public void UseAbility()
+    public void UseAbility(int playerId)
     {
         // Check if the ability is ready (cooldown has elapsed)
         if (!isSwinging && otherPlayer != null && !BIsPlayerCurrentlySwinging && Time.time >= lastSwingTime + cooldown)
         {
+            if (playerId == 1)
+            {
+                Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+            }
+            else if (playerId == 2)
+            {
+                Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+            }
             StartSwing();
             lastSwingTime = Time.time; // Update the last use time
         }

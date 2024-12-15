@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
@@ -14,14 +15,55 @@ public class Projectile : MonoBehaviour, IAbility
     [SerializeField] private float projectileSpeed = 3f;
     private float projectileLifeTime = 5f;
 
+    public static bool player1ThrowGrenade = false;
+    public static bool player2ThrowGrenade = false;
 
-   
-    public void UseAbility()
+    private bool bHasUsedAbility = false;
+    private int _playerId;
+
+    private void Update()
+    {
+        if(bHasUsedAbility)
+        {
+            if(_playerId == 1)
+            {
+                if(player1ThrowGrenade)
+                {
+                    player1ThrowGrenade = false;
+                    Shoot();
+                    lastShootTime = Time.time;
+
+                }
+            }
+            else if(_playerId == 2)
+            {
+                if (player2ThrowGrenade)
+                {
+                    player2ThrowGrenade = false;
+                    Shoot();
+                    lastShootTime = Time.time;
+                }
+            }
+        }
+    }
+    
+    public void UseAbility(int playerId)
     {
         if (Time.time >= lastShootTime + cooldown)
         {
-            Shoot();
-            lastShootTime = Time.time;
+            _playerId = playerId;
+
+            if (playerId == 1)
+            {
+                Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+            }
+            else if (playerId == 2)
+            {
+                Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
+            }
+
+            bHasUsedAbility = true;         
+            
         }
         else
         {

@@ -156,19 +156,19 @@ private void Awake()
     public void UseAbility()
     {
         float cooldown = 0f;
-
+        
         switch (currentPlayerClass)
         {
 
             case PlayerClass.Warrior:
 
-                coneAbility.UseAbility();
+                coneAbility.UseAbility(playerId);
                 cooldown = coneAbility.cooldown;
                 break;
 
             case PlayerClass.Support:
 
-                shieldAbility.UseAbility();
+                shieldAbility.UseAbility(playerId);
 
                 if (shieldAbility.IsShieldActive() == false)
                 {
@@ -179,14 +179,14 @@ private void Awake()
 
             case PlayerClass.Ranged:
 
-                projectile.UseAbility();
+                projectile.UseAbility(playerId);
                 cooldown = projectile.cooldown;
 
                 break;
 
             case PlayerClass.Tank:
 
-                swingAbility.UseAbility();
+                swingAbility.UseAbility(playerId);
                 cooldown = swingAbility.cooldown;
                 break;
 
