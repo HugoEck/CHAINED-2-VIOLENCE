@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour, IAbility
     public Transform firePoint;
     public float cooldown;
     private float lastShootTime = -Mathf.Infinity;
-    private float projectileSpeed = 20f;
+    [SerializeField] private float projectileSpeed = 3f;
     private float projectileLifeTime = 5f;
 
 
@@ -46,16 +46,16 @@ public class Projectile : MonoBehaviour, IAbility
         SFXManager.instance.PlaySFXClip(rangeAbilitySound, transform, 1f);
 
         // Retrieve speed from the particle system.
-        ParticleSystem particleSystem = projectilePrefab.GetComponent<ParticleSystem>();
-        if (particleSystem != null)
-        {
-            ParticleSystem.MainModule mainModule = particleSystem.main;
-            projectileSpeed = mainModule.startSpeed.constant;
-        }
-        else
-        {
-            Debug.LogWarning("Projectile prefab is missing a ParticleSystem. Using default projectile speed.");
-        }
+        //ParticleSystem particleSystem = projectilePrefab.GetComponent<ParticleSystem>();
+        //if (particleSystem != null)
+        //{
+        //    ParticleSystem.MainModule mainModule = particleSystem.main;
+        //    //projectileSpeed = mainModule.startSpeed.constant;
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Projectile prefab is missing a ParticleSystem. Using default projectile speed.");
+        //}
 
         Vector3 direction = transform.forward.normalized;
         //Debug.Log("Spawning projectile with direction: " + direction);
@@ -83,7 +83,6 @@ public class Projectile : MonoBehaviour, IAbility
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.useGravity = false;
             rb.velocity = direction * projectileSpeed;
         }
         else
@@ -91,6 +90,6 @@ public class Projectile : MonoBehaviour, IAbility
             Debug.LogError("Projectile is missing Rigidbody component.");
         }
 
-        Destroy(projectile, projectileLifeTime);
+        //Destroy(projectile, projectileLifeTime);
     }
 }
