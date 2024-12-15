@@ -31,20 +31,7 @@ public class AnimationStateController : MonoBehaviour
         {
             _mainCamera = Camera.main;
         }
-        if(_player._playerId == 1)
-        {
-            if (Player1ComboManager.instance.bIsPlayer1Attacking)
-            {
-                return;
-            }
-        }
-        else if(_player._playerId == 2)
-        {
-            if(Player2ComboManager.instance.bIsPlayer2Attacking)
-            {
-                return;
-            }
-        }
+       
         Vector2 movementInput = _player.GetMovementInput();
 
         Vector3 playerForward = transform.forward;
@@ -56,8 +43,9 @@ public class AnimationStateController : MonoBehaviour
 
         Vector2 adjustedMovementInput = AdjustMovementInputBasedOnFacing(movementInput, forwardDot, rightDot);
 
-        _animator.SetFloat("MovementX", adjustedMovementInput.x);
-        _animator.SetFloat("MovementY", adjustedMovementInput.y);
+        _animator.SetFloat("MovementX", adjustedMovementInput.x, 0.2f, Time.deltaTime);
+        _animator.SetFloat("MovementY", adjustedMovementInput.y, 0.2f, Time.deltaTime);
+
 
         bool isMoving = movementInput.magnitude > 0;
         _animator.SetBool("isMoving", isMoving);

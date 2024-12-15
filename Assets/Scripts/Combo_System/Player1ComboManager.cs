@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Player1ComboManager : MonoBehaviour
@@ -21,6 +22,7 @@ public class Player1ComboManager : MonoBehaviour
     [SerializeField] private GameObject[] _rangedSlashes;
     [SerializeField] private GameObject[] _supportSlashes;
 
+    
     public PlayerCombat.PlayerClass currentPlayer1Class { get; private set; }
 
     private List<ComboAttackSO> _player1ComboAttacks; // Current weapon's combos
@@ -116,13 +118,32 @@ public class Player1ComboManager : MonoBehaviour
         }
     }
 
+    private float _saveNormalWalkingSpeed;
+    public void SetCombatWalkingSpeed()
+    {
+        _saveNormalWalkingSpeed = _player1Attributes.movementSpeed;
+
+        _player1Attributes.movementSpeed = _player1Attributes.movementSpeed * 0.7f;
+    }
+    public void NormalWalkingSpeed()
+    {
+        if (_saveNormalWalkingSpeed <= 0) return;
+
+        _player1Attributes.movementSpeed = _saveNormalWalkingSpeed;
+    }
     public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce, float maxAngle)
     {
         bool durabilityReduced = false;
 
         TriggerWeaponSlash();
         // Find all enemies within the attack range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange + weaponSlashSize + 3);
+
+        float totalAttackRange = attackRange;
+        if(totalAttackRange > 10)
+        {
+            totalAttackRange = 10;
+        }
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, totalAttackRange);
         foreach (Collider enemy in hitEnemies)
         {
             float maxAngleCos = Mathf.Cos(maxAngle * Mathf.Deg2Rad);
@@ -176,8 +197,8 @@ public class Player1ComboManager : MonoBehaviour
     }
 
     private void Update()
-    {      
-        
+    {
+        currentAnimator.SetInteger("currentPlayerClass", (int)currentPlayer1Class);
         SetAttackSpeed();
     }
 
@@ -191,7 +212,15 @@ public class Player1ComboManager : MonoBehaviour
 
                 ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
                 var mainModule = particle.main;
-                mainModule.startSize = currentPlayer1Weapon.combos[comboIndex].attackRange;
+
+                float attackRange = currentPlayer1Weapon.combos[comboIndex].attackRange;
+                if (attackRange > 10)
+                {
+                    attackRange = 10;
+                }
+                float totalAttackRange = (attackRange / 10f) * 4f;
+
+                mainModule.startSize = totalAttackRange;
                 weaponSlashSize = mainModule.startSize.constant;
 
                 particle.Play();
@@ -203,7 +232,15 @@ public class Player1ComboManager : MonoBehaviour
                 {
                     ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
                     var mainModule = particle.main;
-                    mainModule.startSize = player1UnarmedCombos[comboIndex].attackRange;
+
+                    float attackRange = player1UnarmedCombos[comboIndex].attackRange;
+                    if (attackRange > 10)
+                    {
+                        attackRange = 10;
+                    }
+                    float totalAttackRange = (attackRange / 10f) * 4f;
+
+                    mainModule.startSize = totalAttackRange;
                     weaponSlashSize = mainModule.startSize.constant;
 
                     particle.Play();
@@ -250,7 +287,7 @@ public class Player1ComboManager : MonoBehaviour
 
         currentAnimator.SetInteger("ComboIndex", 0);
         DefaultCombo();
-        
+        currentAnimator.SetInteger("currentWeapon", 0);
     }
 
     private void WeaponManager_OnWeaponEquippedPlayer1(GameObject equippedWeapon)
@@ -260,6 +297,8 @@ public class Player1ComboManager : MonoBehaviour
         currentAnimator.SetInteger("ComboIndex", 0);
 
         AssignWeaponCombos(_currentPlayer1WeaponObject.GetComponent<Weapon>());
+
+        currentAnimator.SetInteger("currentWeapon", (int)currentPlayer1Weapon.currentWeaponType);
     }
     private void PlayerCombatOnClassSwitched(PlayerCombat.PlayerClass newClass)
     {
@@ -296,6 +335,7 @@ public class Player1ComboManager : MonoBehaviour
         }
         currentPlayer1Class = newClass;
         DefaultCombo();
+        
     }
     public void AssignWeaponCombos(Weapon weapon)
     {

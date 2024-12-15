@@ -114,13 +114,33 @@ public class Player2ComboManager : MonoBehaviour
 
     }
 
+    private float _saveNormalWalkingSpeed;
+    public void SetCombatWalkingSpeed()
+    {
+        _saveNormalWalkingSpeed = _player2Attributes.movementSpeed;
+
+        _player2Attributes.movementSpeed = _player2Attributes.movementSpeed * 0.7f;
+    }
+    public void NormalWalkingSpeed()
+    {
+        if (_saveNormalWalkingSpeed <= 0) return;
+
+        _player2Attributes.movementSpeed = _saveNormalWalkingSpeed;
+    }
+
     public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce, float maxAngle)
     {
         bool durabilityReduced = false;
 
         TriggerWeaponSlash();
+
+        float totalAttackRange = attackRange;
+        if (totalAttackRange > 10)
+        {
+            totalAttackRange = 10;
+        }
         // Find all enemies within the attack range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange + weaponSlashSize + 3);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, totalAttackRange);
         foreach (Collider enemy in hitEnemies)
         {
             float maxAngleCos = Mathf.Cos(maxAngle * Mathf.Deg2Rad);
@@ -174,7 +194,15 @@ public class Player2ComboManager : MonoBehaviour
 
                 ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
                 var mainModule = particle.main;
-                mainModule.startSize = currentPlayer2Weapon.combos[comboIndex].attackRange;
+
+                float attackRange = currentPlayer2Weapon.combos[comboIndex].attackRange;
+                if (attackRange > 10)
+                {
+                    attackRange = 10;
+                }
+                float totalAttackRange = (attackRange / 10f) * 4f;
+
+                mainModule.startSize = totalAttackRange;
                 weaponSlashSize = mainModule.startSize.constant;
 
                 particle.Play();
@@ -186,7 +214,15 @@ public class Player2ComboManager : MonoBehaviour
                 {
                     ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
                     var mainModule = particle.main;
-                    mainModule.startSize = player2UnarmedCombos[comboIndex].attackRange;
+
+                    float attackRange = player2UnarmedCombos[comboIndex].attackRange;
+                    if (attackRange > 10)
+                    {
+                        attackRange = 10;
+                    }
+                    float totalAttackRange = (attackRange / 10f) * 4f;
+
+                    mainModule.startSize = totalAttackRange;
                     weaponSlashSize = mainModule.startSize.constant;
 
                     particle.Play();
@@ -239,6 +275,7 @@ public class Player2ComboManager : MonoBehaviour
 
     private void Update()
     {
+        currentAnimator.SetInteger("currentPlayerClass", (int)currentPlayer2Class);
         SetAttackSpeed();
     }
 
@@ -249,6 +286,8 @@ public class Player2ComboManager : MonoBehaviour
 
         currentAnimator.SetInteger("ComboIndex", 0);
         DefaultCombo();
+
+        currentAnimator.SetInteger("currentWeapon", 0);
     }
 
     private void WeaponManager_OnWeaponEquippedPlayer2(GameObject equippedWeapon)
@@ -257,6 +296,8 @@ public class Player2ComboManager : MonoBehaviour
 
         currentAnimator.SetInteger("ComboIndex", 0);
         AssignWeaponCombos(_currentPlayer2WeaponObject.GetComponent<Weapon>());
+
+        currentAnimator.SetInteger("currentWeapon", (int)currentPlayer2Weapon.currentWeaponType);
     }
 
     private void PlayerCombatOnClassSwitched(PlayerCombat.PlayerClass newClass)
@@ -294,6 +335,7 @@ public class Player2ComboManager : MonoBehaviour
         }
         currentPlayer2Class = newClass;
         DefaultCombo();
+        
     }
 
     public void AssignWeaponCombos(Weapon weapon)

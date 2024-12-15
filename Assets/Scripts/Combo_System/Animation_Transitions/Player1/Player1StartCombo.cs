@@ -7,7 +7,7 @@ public class Player1StartCombo : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        Player1ComboManager.instance.NormalWalkingSpeed();
         Player1ComboManager.instance.bIsPlayer1Attacking = false;
         animator.SetBool("ComboCancelled", false);
         animator.SetBool("ComboOver", true);
@@ -148,6 +148,7 @@ public class Player1StartCombo : StateMachineBehaviour
             {
                 animator.SetBool("ComboOver", false);
                 animator.SetInteger("ComboIndex", 1);
+                Player1ComboManager.instance.SetCombatWalkingSpeed();
             }
 
         }
