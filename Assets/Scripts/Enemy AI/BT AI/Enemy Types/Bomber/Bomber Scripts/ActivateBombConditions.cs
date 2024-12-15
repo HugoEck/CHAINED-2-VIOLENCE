@@ -18,7 +18,6 @@ public class ActivateBombConditions : Node
         {
             runOnce = true;
             bomber.idleActive = true;
-            bomber.bombActivated = true;
             return NodeState.SUCCESS;
         }
         else if (bomber.idleActive)

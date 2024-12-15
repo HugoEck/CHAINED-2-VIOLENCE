@@ -9,6 +9,7 @@ public class ActivateBomb : Node
     {
         BomberManager bomber = agent as BomberManager;
         agent.navigation.isStopped = true;
+        bomber.bombActivated = true;
 
         //Debug.Log("Entered Idle!");
 

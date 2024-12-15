@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-public class ExplosionConditions : Node
+public class BKillNormalConditions : Node
 {
+
     public override NodeState Evaluate(BaseManager agent)
     {
 
         BomberManager bomber = agent as BomberManager;
 
-        if (bomber.deathAfterActivation)
+        if (bomber.deathBeforeActivation)
         {
             return NodeState.SUCCESS;
         }
@@ -17,7 +19,6 @@ public class ExplosionConditions : Node
         {
             return NodeState.FAILURE;
         }
-
 
     }
 }

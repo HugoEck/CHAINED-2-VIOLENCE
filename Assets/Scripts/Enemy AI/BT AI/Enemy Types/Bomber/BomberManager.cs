@@ -26,7 +26,7 @@ public class BomberManager : BaseManager
     float explosionRadius = 7f;
 
     private LayerMask explosionLayers;
-    private float explosionForce = 25;
+    private float explosionForce = 75;
 
     void Start()
     {
@@ -45,12 +45,12 @@ public class BomberManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 10 + maxHealthModifier;
+        maxHealth = 1 + maxHealthModifier;
         currentHealth = maxHealth;
         attack = 50 + attackModifier;
         defense = 0 + defenseModifier;
         navigation.maxSpeed = 4;
-        attackRange = 20f;
+        attackRange = 3f;
         unitCost = 10;
         sprintSpeed = 10;
     }
@@ -102,7 +102,6 @@ public class BomberManager : BaseManager
     }
     void OnDrawGizmosSelected()
     {
-        // Visualize the explosion radius in the editor
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
@@ -144,10 +143,13 @@ public class BomberManager : BaseManager
 
         BKillConditions b_KillConditions = new BKillConditions();
         ExplosionConditions explosionConditions = new ExplosionConditions();
-        ExplodeAgent explodeAgent = new ExplodeAgent();
+        ExplodeAgent explode = new ExplodeAgent();
+        BKillNormalConditions killNormalConditions = new BKillNormalConditions();
+        KillAgent killAgent = new KillAgent();
+        Sequence explosion = new Sequence(new List<Node>() { explosionConditions, explode });
+        Sequence normalDeath = new Sequence(new List<Node>() { killNormalConditions, killAgent });
 
-        Sequence explosion = new Sequence(new List<Node>() { explosionConditions, explodeAgent });
-        Selector killPath = new Selector(new List<Node>() { explosion });
+        Selector killPath = new Selector(new List<Node>() { explosion, normalDeath });
         Sequence kill = new Sequence(new List<Node>() { b_KillConditions, killPath });
 
 
