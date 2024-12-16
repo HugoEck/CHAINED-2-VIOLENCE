@@ -107,7 +107,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToRoman = true;
         }
-        if (WaveManager.currentWave == 3 && !hasChangedToFantasy)
+        if (WaveManager.currentWave == 5 && !hasChangedToFantasy)
         {
             isChangingArena = true;
             Debug.Log("now i change arena");
@@ -118,7 +118,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToFantasy = true;
         }
-        if (WaveManager.currentWave == 5 && !hasChangedToPirate)
+        if (WaveManager.currentWave == 10 && !hasChangedToPirate)
         {
             isChangingArena = true;
 
@@ -128,7 +128,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToPirate = true;
         }
-        if (WaveManager.currentWave == 7 && !hasChangedToWestern)
+        if (WaveManager.currentWave == 15 && !hasChangedToWestern)
         {
             isChangingArena = true;
 
@@ -138,7 +138,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToWestern = true;
         }
-        if (WaveManager.currentWave == 9 && !hasChangedToFarm)
+        if (WaveManager.currentWave == 20 && !hasChangedToFarm)
         {
             isChangingArena = true;
 
@@ -147,7 +147,7 @@ public class DissolveManager : MonoBehaviour
             StartCoroutine(DissolveAndChangeMaterial(westernFloorMaterial, farmFloorMaterial));
             hasChangedToFarm = true;
         }
-        if (WaveManager.currentWave == 50 && !hasChangedToCurrentDay)
+        if (WaveManager.currentWave == 25 && !hasChangedToCurrentDay)
         {
             isChangingArena = true;
 
@@ -157,7 +157,7 @@ public class DissolveManager : MonoBehaviour
 
             hasChangedToCurrentDay = true;
         }
-        if (WaveManager.currentWave == 11 && !hasChangedToSciFi)
+        if (WaveManager.currentWave == 30 && !hasChangedToSciFi)
         {
             isChangingArena = true;
 
