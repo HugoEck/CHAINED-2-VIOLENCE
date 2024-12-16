@@ -1943,6 +1943,21 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-4437281908763255870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77d47284e1c9cc4cada46e1294e6480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisLayerWeaponType: 4
+  thisLayerPlayerClass: 0
+  bIsUnarmedLocomotion: 0
 --- !u!1101 &-4357343176096932130
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -3228,6 +3243,30 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
+    m_Name: Polearm Locomotion
+    m_StateMachine: {fileID: 4293753510576835782}
+    m_Mask: {fileID: 0}
+    m_Motions:
+    - serializedVersion: 2
+      m_State: {fileID: -5627715732931346322}
+      m_Motion: {fileID: 2629654477159650427}
+    - serializedVersion: 2
+      m_State: {fileID: 4044732792040268977}
+      m_Motion: {fileID: 7400000, guid: e13af495c249a4f4aadbeffa0a53ece4, type: 2}
+    m_Behaviours:
+    - m_State: {fileID: -5627715732931346322}
+      m_StateMachineBehaviours:
+      - {fileID: -4437281908763255870}
+    - m_State: {fileID: 4044732792040268977}
+      m_StateMachineBehaviours:
+      - {fileID: 6833366274274629844}
+    m_BlendingMode: 0
+    m_SyncedLayerIndex: 0
+    m_DefaultWeight: 0
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
     m_Name: Combo Layer
     m_StateMachine: {fileID: 5533288168535365978}
     m_Mask: {fileID: 31900000, guid: 9b8f50cf497779f4bb6286fb5cb6d740, type: 2}
@@ -4006,6 +4045,53 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!206 &2629654477159650427
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Blend Tree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 20138479d6c173e4e9d466c24fbd65f3, type: 2}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Blend
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: e2d0985b1bd5db2498e2ae9cebec04a6, type: 2}
+    m_Threshold: 0.33333334
+    m_Position: {x: 0, y: -1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Blend
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 27bd66a0078a70046b8de8b331f4402f, type: 2}
+    m_Threshold: 0.6666667
+    m_Position: {x: -1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Blend
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 49ed0074c9e3e2b4997ae2c35b95eb19, type: 2}
+    m_Threshold: 1
+    m_Position: {x: 1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Blend
+    m_Mirror: 0
+  m_BlendParameter: MovementX
+  m_BlendParameterY: MovementY
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 3
 --- !u!1107 &2652573646959032437
 AnimatorStateMachine:
   serializedVersion: 6
@@ -4788,6 +4874,25 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1107 &4293753510576835782
+AnimatorStateMachine:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Polearm Locomotion
+  m_ChildStates: []
+  m_ChildStateMachines: []
+  m_AnyStateTransitions: []
+  m_EntryTransitions: []
+  m_StateMachineTransitions: {}
+  m_StateMachineBehaviours: []
+  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+  m_DefaultState: {fileID: 0}
 --- !u!206 &4396694920730042396
 BlendTree:
   m_ObjectHideFlags: 1
@@ -6030,6 +6135,21 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &6833366274274629844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77d47284e1c9cc4cada46e1294e6480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisLayerWeaponType: 4
+  thisLayerPlayerClass: 0
+  bIsUnarmedLocomotion: 0
 --- !u!1101 &6896747033182443180
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
