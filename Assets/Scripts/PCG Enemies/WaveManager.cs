@@ -67,7 +67,7 @@ public class WaveManager : MonoBehaviour
     {
         currentEra = CurrentEra.Roman;
         enemyCreator = enemyCreatorObject.GetComponent<NPC_Customization>();
-        waveData.LoadWaves(waves);
+        //waveData.LoadWaves(waves);
         //StartCoroutine(SpawnWavesRegularly());
     }
 

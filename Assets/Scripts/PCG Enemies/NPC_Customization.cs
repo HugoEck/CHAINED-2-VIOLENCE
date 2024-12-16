@@ -177,6 +177,19 @@ public class NPC_Customization : MonoBehaviour
             {
 
                 currentBody = InstantiateRandomAsset(bodies, bodyPoint);
+                //Apply glitch effect on corrupt enemies
+
+                if (Theme == NPCTheme.Corrupted)
+                {
+                    Vector2 randomOffset = new Vector2(Random.Range(0, 0.7f), Random.Range(0, 0.7f));
+
+                    currentBody.GetComponentInChildren<SkinnedMeshRenderer>().material.SetVector("_DissolveOffest", new Vector3(randomOffset.x, randomOffset.y, 0));
+
+                    Vector2 randomDirection = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
+
+                    currentBody.GetComponentInChildren<SkinnedMeshRenderer>().material.SetVector("_DissolveDirection", new Vector3(randomDirection.x, randomDirection.y, 1f));
+                }
+
 
                 currentAnimator = currentBody.GetComponent<Animator>();
                 if (currentAnimator != null)
@@ -242,9 +255,12 @@ public class NPC_Customization : MonoBehaviour
 
                 }
 
-            }
+                
+
 
             }
+
+        }
 
         }
 
