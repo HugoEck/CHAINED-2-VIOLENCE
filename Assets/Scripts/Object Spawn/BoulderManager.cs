@@ -23,6 +23,8 @@ public class BoulderManager : MonoBehaviour
     private float dustSpawnTimer = 0f;
     private float dustSpawnInterval = 0.4f;
     private float damageCooldownDuration = 3f; // Cooldown duration in seconds
+    private float activeTime = 0f; // Tracks how long the boulder has been active
+    private float maxLifetime = 11f; // Maximum time before the boulder despawns
 
     private bool isActive = false; // Track if the boulder is active
     
@@ -68,6 +70,15 @@ public class BoulderManager : MonoBehaviour
     private void FixedUpdate()
     {
         if (!isActive || rb == null) return;
+
+        activeTime += Time.fixedDeltaTime;
+
+        // Despawn the boulder after 13 seconds
+        if (activeTime >= maxLifetime)
+        {
+            StartCoroutine(DestroyBoulderWithDelay(0.3f));
+            return;
+        }
 
         // Apply force to move the boulder
         rb.velocity = moveDirection * boulderSpeed;
