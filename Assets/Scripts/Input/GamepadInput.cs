@@ -136,4 +136,18 @@ public class GamepadInput : MonoBehaviour, IInputInterface
 
         return isPressed;
     }
+
+    public bool GetDropWeaponInput_P1()
+    {
+        if (Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned) return false;
+
+        return Input.GetButtonDown("Gamepad_Drop_Weapon_P1");
+    }
+
+    public bool GetDropWeaponInput_P2()
+    {
+        if (!Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned) return false;
+
+        return Input.GetButtonDown("Gamepad_Drop_Weapon_P2");
+    }
 }

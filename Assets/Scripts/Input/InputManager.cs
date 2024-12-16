@@ -143,6 +143,28 @@ public class InputManager : MonoBehaviour
         return false;
     }
 
+    public bool GetDropWeaponInput_P1()
+    {
+        CheckActiveInput(); // Ensure the active input type is correctly detected
+
+        if (currentInputType == InputType.Gamepad)
+        {
+            return _gamepadInput.GetDropWeaponInput_P1();
+        }
+        else if (currentInputType == InputType.KeyboardAndMouse)
+        {
+            return _keyboardAndMouse.GetDropWeaponInput_P1();
+        }
+
+        return false;
+    }
+
+    public bool GetDropWeaponInput_P2()
+    {
+        // Player 2 is always using the gamepad
+        return _gamepadInput.GetDropWeaponInput_P2();
+    }
+
     public bool GetUltimateAttackInput_P2()
     {
 

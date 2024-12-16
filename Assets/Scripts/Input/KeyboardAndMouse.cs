@@ -94,4 +94,15 @@ public class KeyboardAndMouse : MonoBehaviour, IInputInterface
     {
         return false;
     }
+
+    public bool GetDropWeaponInput_P1()
+    {
+        return Input.GetKeyDown(KeyCode.Q);
+    }
+
+    public bool GetDropWeaponInput_P2()
+    {
+        return false;
+    }
+
 }
