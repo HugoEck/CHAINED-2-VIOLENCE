@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     private Collider _playerCollider;
     private Rigidbody _playerRigidbody;
     [SerializeField] private PlayerAttributes playerAttributes;
-
+    RigidBodyMassManager rigidBodyMassManager;
     #endregion
 
     #region Player attributes
@@ -112,6 +112,7 @@ public class Player : MonoBehaviour
 
         _playerCollider = GetComponent<Collider>();
         _playerRigidbody = GetComponent<Rigidbody>();
+        rigidBodyMassManager = GetComponent<RigidBodyMassManager>();
         #endregion
 
         #region Set attributes
@@ -335,6 +336,7 @@ public class Player : MonoBehaviour
         {
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
+                rigidBodyMassManager.RestoreOriginalMasses();
                 ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
@@ -342,6 +344,7 @@ public class Player : MonoBehaviour
             }
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
             {
+                rigidBodyMassManager.RestoreOriginalMasses();
                 ToggleRagdoll(true, player2Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
@@ -401,13 +404,13 @@ public class Player : MonoBehaviour
             if (_playerId == 1)
             {
                 ToggleRagdoll(false, player1Obj);
-
+                rigidBodyMassManager.SetMassesToZero();
                 DisableColliders();
             }
             else if (_playerId == 2)
             {
                 ToggleRagdoll(false, player2Obj);
-
+                rigidBodyMassManager.SetMassesToZero();
                 DisableColliders();
             }
 

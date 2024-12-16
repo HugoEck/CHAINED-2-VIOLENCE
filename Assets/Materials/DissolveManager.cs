@@ -24,6 +24,7 @@ public class DissolveManager : MonoBehaviour
     public Material[] fantasyMaterials;
     public Material[] currentDayMaterials;
     public Material[] sciFiMaterials;
+    public Material[] corruptedMaterials;
     private List<Material> allMaterials = new List<Material>();
     private Coroutine dissolveCoroutine;
 
@@ -34,6 +35,7 @@ public class DissolveManager : MonoBehaviour
     public GameObject farmArena;
     public GameObject currentDayArena;
     public GameObject sciFiArena;
+    public GameObject corruptedArena;
 
     public GameObject floor;
     public Material startFloorMaterial;
@@ -44,6 +46,7 @@ public class DissolveManager : MonoBehaviour
     public Material farmFloorMaterial;
     public Material currentDayFloorMaterial;
     public Material sciFiFloorMaterial;
+    public Material corruptedFloorMaterial;
     Renderer floorRenderer;
     Material currentFloorMaterial;
 
@@ -54,6 +57,7 @@ public class DissolveManager : MonoBehaviour
     private bool hasChangedToFantasy = false;
     private bool hasChangedToCurrentDay = false;
     private bool hasChangedToSciFi = false;
+    private bool hasChangedToCorrupted = false;
 
     public bool isChangingArena = true;
 
@@ -64,6 +68,7 @@ public class DissolveManager : MonoBehaviour
     float initialOffsetsFantasy = -6.2f;
     float initialOffsetsCurrentDay = -3f;
     float initialOffsetsSciFi = -100f;
+    float initialCorrupted = -100f;
 
     // Define the Y-level dissolve ranges for each arena
     private Dictionary<Material[], Vector2> materialYRanges = new Dictionary<Material[], Vector2>();
@@ -90,6 +95,7 @@ public class DissolveManager : MonoBehaviour
         materialYRanges.Add(fantasyMaterials, new Vector2(25f, initialOffsetsFantasy)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(currentDayMaterials, new Vector2(3, initialOffsetsCurrentDay)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(sciFiMaterials, new Vector2(110, initialOffsetsSciFi)); // Roman Y range: 0.2 to -0.1
+        materialYRanges.Add(corruptedMaterials, new Vector2(0.05f, initialCorrupted)); // Roman Y range: 0.2 to -0.1
 
     }
 
@@ -166,6 +172,26 @@ public class DissolveManager : MonoBehaviour
             StartCoroutine(DissolveAndChangeMaterial(currentDayFloorMaterial, sciFiFloorMaterial));
 
             hasChangedToSciFi = true;
+        }
+        if (WaveManager.currentWave == 30 && !hasChangedToSciFi)
+        {
+            isChangingArena = true;
+
+            sciFiArena.SetActive(true);
+            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
+            StartCoroutine(DissolveAndChangeMaterial(currentDayFloorMaterial, sciFiFloorMaterial));
+
+            hasChangedToSciFi = true;
+        }
+        if (WaveManager.currentWave == 35 && !hasChangedToCorrupted)
+        {
+            isChangingArena = true;
+
+            corruptedArena.SetActive(true);
+            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
+            StartCoroutine(DissolveAndChangeCorruptedMaterial(sciFiFloorMaterial, corruptedFloorMaterial));
+
+            hasChangedToCorrupted = true;
         }
 
     }
@@ -290,6 +316,35 @@ public class DissolveManager : MonoBehaviour
         // Phase 2: Dissolve from 100 to 0
         dissolveValue = 1;
         while (dissolveValue > 0)
+        {
+            dissolveValue -= Time.deltaTime / 3f;
+            UpdateDissolve(dissolveValue);
+            yield return null;
+        }
+
+    }
+
+    private IEnumerator DissolveAndChangeCorruptedMaterial(Material oldMaterial, Material newMaterial)
+    {
+        float dissolveValue;
+        // Phase 1: Dissolve from 0 to 100
+        currentFloorMaterial = oldMaterial;
+        dissolveValue = 0;
+        while (dissolveValue < 1)
+        {
+            dissolveValue += Time.deltaTime / 3f;
+            UpdateDissolve(dissolveValue);
+            yield return null;
+        }
+
+        // Change material after dissolve reaches 100%
+        floorRenderer.material = newMaterial; // You can change this to any material you'd like
+
+        currentFloorMaterial = newMaterial;
+        oldMaterial.SetFloat("_Dissolve", 0);
+        // Phase 2: Dissolve from 100 to 0
+        dissolveValue = 1;
+        while (dissolveValue > 0.3)
         {
             dissolveValue -= Time.deltaTime / 3f;
             UpdateDissolve(dissolveValue);

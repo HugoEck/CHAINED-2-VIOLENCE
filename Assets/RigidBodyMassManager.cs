@@ -7,15 +7,20 @@ public class RigidBodyMassManager : MonoBehaviour
     // Dictionary to store the original mass of each Rigidbody by reference
     private Dictionary<Rigidbody, float> originalMasses = new Dictionary<Rigidbody, float>();
     public bool setToZero;
-
     void Start()
     {
-
         StoreOriginalMasses();
         if(setToZero )
         SetMassesToZero();
     }
 
+    private void Update()
+    {
+        if(originalMasses == null)
+        {
+            StoreOriginalMasses();
+        }
+    }
 
     void StoreOriginalMasses()
     {
