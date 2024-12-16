@@ -19,11 +19,13 @@ public class Player : MonoBehaviour
     private ShieldAbility _shieldAbility;
     private AnimationStateController _animationStateController;
     private ClassSelector _classSelector;
+    private WeaponManager _weaponManager;
 
     private Collider _playerCollider;
     private Rigidbody _playerRigidbody;
     [SerializeField] private PlayerAttributes playerAttributes;
     RigidBodyMassManager rigidBodyMassManager;
+
     #endregion
 
     #region Player attributes
@@ -113,11 +115,12 @@ public class Player : MonoBehaviour
         _playerCollider = GetComponent<Collider>();
         _playerRigidbody = GetComponent<Rigidbody>();
         rigidBodyMassManager = GetComponent<RigidBodyMassManager>();
+        _weaponManager = GetComponent<WeaponManager>();
         #endregion
 
         #region Set attributes
 
-       
+
 
         _defaultIgnoreCollisionLayer = _playerCollider.excludeLayers.value;
 
@@ -196,6 +199,7 @@ public class Player : MonoBehaviour
         UpdateHealthBar();
         TakeDebugDamage(); // Used to kill players for debug, remove later.
         GhostChainIgnoreCollision();
+        GetDropWeaponInput();
     }
     #region Player Movement
     private void UpdatePlayerMovement()
@@ -250,6 +254,19 @@ public class Player : MonoBehaviour
     public Vector2 GetMovementInput()
     {
         return _movementInput;
+    }
+
+    private void GetDropWeaponInput()
+    {
+        if (_playerId == 1 && InputManager.Instance.GetDropWeaponInput_P1())
+        {
+            _weaponManager.DropWeapon();
+
+        }
+        if (_playerId == 2 && InputManager.Instance.GetDropWeaponInput_P2())
+        {
+            _weaponManager.DropWeapon();
+        }
     }
 
     private void GetPlayerCombatInput()
