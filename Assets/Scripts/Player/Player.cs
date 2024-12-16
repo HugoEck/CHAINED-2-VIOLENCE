@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private ShieldAbility _shieldAbility;
     private AnimationStateController _animationStateController;
     private ClassSelector _classSelector;
-
+    private WeaponManager _weaponManager;
     private Collider _playerCollider;
     private Rigidbody _playerRigidbody;
     [SerializeField] private PlayerAttributes playerAttributes;
@@ -112,6 +112,7 @@ public class Player : MonoBehaviour
 
         _playerCollider = GetComponent<Collider>();
         _playerRigidbody = GetComponent<Rigidbody>();
+        _weaponManager = GetComponent<WeaponManager>();
         #endregion
 
         #region Set attributes
@@ -189,7 +190,7 @@ public class Player : MonoBehaviour
         }
 
         GetPlayerMovementInput();
-
+        GetDropWeaponInput();
         UpdatePlayerCombat();
         CheckIfCurrentHPExceedsMaxHP();
         UpdateHealthBar();
@@ -529,6 +530,20 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+    private void GetDropWeaponInput()
+    {
+        if (_playerId == 1 && InputManager.Instance.GetDropWeaponInput_P1())
+        {
+            _weaponManager.DropWeapon();
+
+        }
+        if (_playerId == 2 && InputManager.Instance.GetDropWeaponInput_P2())
+        {
+            _weaponManager.DropWeapon();
+        }
+    }
+
 
     public void InitializeFlash()
     {
