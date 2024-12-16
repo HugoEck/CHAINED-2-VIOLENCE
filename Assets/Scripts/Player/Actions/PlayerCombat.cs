@@ -180,7 +180,7 @@ private void Awake()
             case PlayerClass.Ranged:
 
                 projectile.UseAbility(playerId);
-                cooldown = projectile.cooldown;
+                //cooldown = projectile.cooldown; // Moved to Projectile Script.
 
                 break;
 

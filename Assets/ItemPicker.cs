@@ -151,7 +151,7 @@ public class ItemPicker : MonoBehaviour
         while (dissolveValue > 0f)
         {
            
-            dissolveValue -= Time.deltaTime / 3f;
+            dissolveValue -= Time.deltaTime / 1f;
 
             for (int i = 0; i < rarityMaterials.Length; i++)
             {

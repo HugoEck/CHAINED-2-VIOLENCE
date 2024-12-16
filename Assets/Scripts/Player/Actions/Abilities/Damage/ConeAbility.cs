@@ -8,8 +8,12 @@ public class ConeAbility : MonoBehaviour, IAbility
     [Header("Cone Ability Sound: ")]
     [SerializeField] private AudioClip coneAbilitySound;
 
-    public float coneRange = 10f;
-    public float coneAngle = 90f;
+    [Header("Ability")]
+    [SerializeField] private float _damageCooldown = 0.2f;
+    [SerializeField] private float _coneEffectCooldown = 1.5f;
+
+    public float coneRange = 7f;
+    public float coneAngle = 160f;
     public float baseConeDamage = 50f;
     private float coneDamage;
     public GameObject coneEffectPrefab;
@@ -21,9 +25,20 @@ public class ConeAbility : MonoBehaviour, IAbility
 
     private HashSet<Collider> hitEnemiesOnce;
 
+    private AnimationStateController animationStateController;
+
+    private GameObject _coneEffect;
+    
+    private float _coneEffectTimer;
+
+    private float _damageTimer;
+   
+    private bool _bHasConeAbilityBeenUsed = false;
+
     private void Start()
     {
         hitEnemiesOnce = new HashSet<Collider>();
+        animationStateController = GetComponent<AnimationStateController>();
     }
 
     public void UseAbility(int playerId)
@@ -39,7 +54,10 @@ public class ConeAbility : MonoBehaviour, IAbility
             {
                 Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
             }
-            ActivateConeAbility();
+
+            _bHasConeAbilityBeenUsed = true;
+
+            //ActivateConeAbility();
             lastUseTime = Time.time; // Update the last use time
         }
         else
@@ -47,6 +65,26 @@ public class ConeAbility : MonoBehaviour, IAbility
             Debug.Log("Cone ability is on cooldown.");
         }
     }
+    private void Update()
+    {
+        if(_bHasConeAbilityBeenUsed)
+        {
+            _coneEffectTimer -= Time.deltaTime;
+            _damageTimer -= Time.deltaTime;
+            ActivateConeAbility();
+            if(_coneEffectTimer < 0)
+            {
+                _bHasConeAbilityBeenUsed = false;
+                animationStateController._animator.SetBool("WarriorAbilityOver", true);
+                _bHasEffectBeenSpawned = false;
+                Destroy(_coneEffect);
+               
+            }
+        }
+        
+    }
+
+    private bool _bHasEffectBeenSpawned = false;
 
     void ActivateConeAbility()
     {
@@ -55,44 +93,54 @@ public class ConeAbility : MonoBehaviour, IAbility
         SFXManager.instance.PlaySFXClip(coneAbilitySound, transform, 1f);
 
         // Instantiate the visual effect at the anchor's position
-        if (coneEffectPrefab != null && coneAnchor != null)
+        if (coneEffectPrefab != null && coneAnchor != null && !_bHasEffectBeenSpawned)
         {
-            GameObject coneEffect = Instantiate(coneEffectPrefab, coneAnchor.position, Quaternion.identity);
+            _coneEffectTimer = _coneEffectCooldown;
+            _damageTimer = _damageCooldown;
+            _bHasEffectBeenSpawned = true;
+
+            _coneEffect = Instantiate(coneEffectPrefab, coneAnchor.position, Quaternion.identity);
+            
+            animationStateController._animator.SetBool("WarriorAbilityOver", false);
 
             // Make the effect follow the cone anchor
-            coneEffect.transform.SetParent(coneAnchor);
+            _coneEffect.transform.SetParent(coneAnchor);
 
             // Align and scale the visual effect to match the cone
-            coneEffect.transform.localRotation = Quaternion.identity; // Keep aligned with the anchor's forward direction
-            coneEffect.transform.localScale = new Vector3(coneRange, coneRange, coneRange);
+            _coneEffect.transform.localRotation = Quaternion.identity; // Keep aligned with the anchor's forward direction
+            _coneEffect.transform.localScale = new Vector3(coneRange, coneRange, coneRange);
 
-            Destroy(coneEffect, 2.0f); // Destroy the effect after some time if it's temporary
+            //Destroy(coneEffect, 2.0f); // Destroy the effect after some time if it's temporary
         }
-
-        // Find all enemies within the range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, coneRange);
-
-        foreach (Collider enemy in hitEnemies)
+       
+        if(_damageTimer <= 0)
         {
-            // Check if enemy has been hit
-            if (hitEnemiesOnce.Contains(enemy)) continue;
+            // Find all enemies within the range
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, coneRange);
 
-            hitEnemiesOnce.Add(enemy);
-
-            Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
-            float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy);
-
-            // Check if the enemy is within the cone's angle
-            if (angleToEnemy <= coneAngle / 2)
+            foreach (Collider enemy in hitEnemies)
             {
-                BaseManager enemyManager = enemy.GetComponent<BaseManager>();
-                if (enemyManager != null)
+                // Check if enemy has been hit
+                if (hitEnemiesOnce.Contains(enemy)) continue;
+
+                hitEnemiesOnce.Add(enemy);
+
+                Vector3 directionToEnemy = (enemy.transform.position - transform.position).normalized;
+                float angleToEnemy = Vector3.Angle(transform.forward, directionToEnemy);
+
+                // Check if the enemy is within the cone's angle
+                if (angleToEnemy <= coneAngle / 2)
                 {
-                    enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage);
-                    Debug.Log("Cone hit enemy: " + enemy.name);
-                   // enemyManager.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 150, ForceMode.Force);
+                    BaseManager enemyManager = enemy.GetComponent<BaseManager>();
+                    if (enemyManager != null)
+                    {
+                        enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage);
+                        Debug.Log("Cone hit enemy: " + enemy.name);
+                        // enemyManager.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 150, ForceMode.Force);
+                    }
                 }
             }
+            _damageTimer = _damageCooldown;
         }
 
         Debug.Log("Cone Ability triggered.");
