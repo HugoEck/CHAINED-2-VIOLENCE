@@ -146,16 +146,14 @@ public class WeaponManager : MonoBehaviour
             return;
         }
 
-        // Create a temporary dropped weapon
         GameObject droppedWeapon = Instantiate(currentWeapon, playerCombat.transform.position, Quaternion.identity);
 
-        // Add Rigidbody and Collider for the dropped weapon to enable physics
         Rigidbody rb = droppedWeapon.GetComponent<Rigidbody>();
         if (rb == null)
         {
             rb = droppedWeapon.AddComponent<Rigidbody>();
         }
-        rb.isKinematic = false; // Enable physics
+        rb.isKinematic = false; 
 
         Collider col = droppedWeapon.GetComponent<Collider>();
         if (col == null)
@@ -163,16 +161,14 @@ public class WeaponManager : MonoBehaviour
             col = droppedWeapon.AddComponent<BoxCollider>();
         }
 
-        // Apply a forward and upward force to "throw" the weapon
         Vector3 throwDirection = playerCombat.transform.forward + Vector3.up * 0.5f;
-        rb.AddForce(throwDirection * 5f, ForceMode.Impulse); // Adjust throw force as needed
+        rb.AddForce(throwDirection * 5f, ForceMode.Impulse);
 
-        // Deactivate the current weapon in the player's inventory
+
         currentWeapon.SetActive(false);
         OnWeaponBroken?.Invoke(currentWeapon);
         currentWeapon = null;
 
-        // Destroy the dropped weapon after a delay to prevent clutter
-        Destroy(droppedWeapon, 5f);
+        Destroy(droppedWeapon, 4f);
     }
 }
