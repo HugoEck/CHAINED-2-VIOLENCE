@@ -11,11 +11,27 @@ public class OptionsMenuManager : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
+    [SerializeField] private Button lowQualityButton;
+    [SerializeField] private Button mediumQualityButton;
+    [SerializeField] private Button highQualityButton;
+
+    [SerializeField] private Color selectedColor = Color.white; // Highlighted color
+    [SerializeField] private Color unselectedColor = Color.gray; // Dark color for unselected buttons
+
+
     private void Start()
     {
         resolutions = Screen.resolutions;
 
         resolutionDropdown.ClearOptions();
+
+        int defaultQuality = 2;
+        QualitySettings.SetQualityLevel(defaultQuality, true);
+        UpdateButtonColors(defaultQuality);
+
+        lowQualityButton.onClick.AddListener(() => SetGraphicsQuality(0));
+        mediumQualityButton.onClick.AddListener(() => SetGraphicsQuality(1));
+        highQualityButton.onClick.AddListener(() => SetGraphicsQuality(2));
 
         List<string> options = new List<string>();
 
@@ -36,6 +52,21 @@ public class OptionsMenuManager : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
     }
 
+    private void SetGraphicsQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex, true);
+
+        UpdateButtonColors(qualityIndex);
+    }
+
+    private void UpdateButtonColors(int selectedQuality)
+    {
+        lowQualityButton.GetComponent<Image>().color = selectedQuality == 0 ? selectedColor : unselectedColor;
+        mediumQualityButton.GetComponent<Image>().color = selectedQuality == 1 ? selectedColor : unselectedColor;
+        highQualityButton.GetComponent<Image>().color = selectedQuality == 2 ? selectedColor : unselectedColor;
+    }
+
+
     public void SetMasterVolume (float volume)
     {
         audioMixer.SetFloat("MasterVolume", volume);
@@ -47,11 +78,6 @@ public class OptionsMenuManager : MonoBehaviour
     public void SetMusicVolume(float volume)
     {
         audioMixer.SetFloat("MusicVolume", volume);
-    }
-
-    public void SetQuality (int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel (qualityIndex);
     }
 
     public void SetFulllscreen(bool isFullscreen)
