@@ -190,7 +190,7 @@ public class Player2ComboManager : MonoBehaviour
         {
             if (currentPlayer2Weapon != null)
             {
-                weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer2Weapon.playerPosition.position;
+                weaponSlashEffects[comboIndex].gameObject.transform.position = currentPlayer2Weapon.slashEffectPositions[comboIndex].position;
 
                 ParticleSystem particle = weaponSlashEffects[comboIndex].GetComponent<ParticleSystem>();
                 var mainModule = particle.main;
