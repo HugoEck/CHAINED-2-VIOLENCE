@@ -106,6 +106,10 @@ public class Projectile : MonoBehaviour, IAbility
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position + direction * 3f, Quaternion.LookRotation(direction));
         ProjectileBehavior projectileBehavior = projectile.GetComponent<ProjectileBehavior>();
         projectileBehavior.playerAttributes = playerAttributes; // Assuming "this" is the PlayerCombat instance
+                                                                
+        // Trigger the AbilityCdEventsUI event for cooldown start
+        lastShootTime = Time.time;
+        AbilityCdEventsUI.AbilityUsed(_playerId, PlayerCombat.PlayerClass.Ranged, cooldown);
 
         if (projectile != null)
         {
