@@ -34,11 +34,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject OneHandSlashEffect;
     [SerializeField] private GameObject TwoHandSlashEffect;
     [SerializeField] private GameObject ReallyBigTwoHandSlashEffect;
+    [SerializeField] private GameObject PolearmSlashEffect;
 
     public WeaponType currentWeaponType = WeaponType.TwoHanded;
     public ComboAttackSO[] combos;
     public GameObject[] weaponSlashEffects;
     public Transform playerPosition;
+    public Transform[] slashEffectPositions;
 
     public int weaponId;
     public string weaponName;
@@ -57,7 +59,7 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        
+      
     }
 
     public void DecreaseDurability()
@@ -116,7 +118,7 @@ public class Weapon : MonoBehaviour
                 break;
             case WeaponType.Polearm:
                 // Uncomment if PolearmSlashEffect is added
-                // weaponSlashEffects = ReturnAllSlashEffectChildren(PolearmSlashEffect);
+                weaponSlashEffects = ReturnAllSlashEffectChildren(PolearmSlashEffect);
                 break;
             case WeaponType.Dagger:
                 // Uncomment if DaggerSlashEffect is added
