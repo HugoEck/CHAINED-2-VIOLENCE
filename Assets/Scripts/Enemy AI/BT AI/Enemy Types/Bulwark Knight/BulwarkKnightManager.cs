@@ -33,7 +33,12 @@ public class BulwarkKnightManager : BaseManager
         animator.SetBool("BulwarkKnight_StartChasing", true);
 
         children = GetComponentsInChildren<Transform>();
+
         shield = FindShieldObject()?.gameObject;
+        BoxCollider box = shield.GetComponent<BoxCollider>();
+        box.enabled = true;
+
+
         LoadStats();
         ConstructBT();
     }
