@@ -1,3 +1,4 @@
+using HighlightPlus;
 using Obi;
 using Pathfinding;
 using System.Collections;
@@ -282,6 +283,11 @@ public class NPC_Customization : MonoBehaviour
             BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
             IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
             ignoreChain.ObjectIgnoresLaserChain();
+
+            HighlightEffect enemyHighlight = enemy.AddComponent<HighlightEffect>();
+            enemyHighlight.outline = 0;
+            enemyHighlight.highlighted = true;
+            enemyHighlight.hitFxInitialIntensity = 1;
 
 
             enemy.transform.localScale *= 1.5f;

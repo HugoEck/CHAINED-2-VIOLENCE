@@ -1,3 +1,4 @@
+using HighlightPlus;
 using Obi;
 using Pathfinding;
 using System.Collections;
@@ -45,6 +46,8 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public CapsuleCollider c_collider;
     [HideInInspector] public Rigidbody rb;
+
+    private HighlightEffect highlightEffect;
 
     //VARIABLER
     [HideInInspector] public string enemyID;
@@ -97,6 +100,8 @@ public class BaseManager : MonoBehaviour
 
         //behaviorMethods.ToggleRagdoll(false);
         behaviorMethods.GetRagdollComponents(this);
+
+        highlightEffect = GetComponent<HighlightEffect>();
     }
     private void Update()
     {
@@ -104,8 +109,6 @@ public class BaseManager : MonoBehaviour
         {
             currentHealth = 0;
         }
-
-        visuals.FlashColor();
 
         //Hej sam förlåt för jag har rört i din manager //Victor
         if(gameObject.transform.position.y < -10 && currentHealth > 0)
@@ -122,6 +125,7 @@ public class BaseManager : MonoBehaviour
         
         if (defense - damage < 0)
         {
+            highlightEffect.HitFX();
             particleEffects.ActivateBloodParticles(transform);
             
             currentHealth = currentHealth + defense - damage;

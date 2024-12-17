@@ -1,3 +1,4 @@
+using HighlightPlus;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     private AnimationStateController _animationStateController;
     private ClassSelector _classSelector;
     private WeaponManager _weaponManager;
+    private HighlightEffect _highlightEffect;
 
     private Collider _playerCollider;
     private Rigidbody _playerRigidbody;
@@ -116,6 +118,7 @@ public class Player : MonoBehaviour
         _playerRigidbody = GetComponent<Rigidbody>();
         rigidBodyMassManager = GetComponent<RigidBodyMassManager>();
         _weaponManager = GetComponent<WeaponManager>();
+        _highlightEffect = GetComponent<HighlightEffect>();
         #endregion
 
         #region Set attributes
@@ -469,9 +472,9 @@ public class Player : MonoBehaviour
             // Handle player's death here if needed
             //Debug.Log(gameObject.tag + " has died.");
         }
-
+        _highlightEffect.HitFX();
         //Flash indication
-        ActivateVisuals();
+        //ActivateVisuals();
     }
 
     public void UpdateHealthBar()
