@@ -3522,7 +3522,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195160688}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3843485, y: -0.34694007, z: 0.15861593, w: 0.8406841}
+  m_LocalRotation: {x: 0.38434857, y: -0.34694013, z: 0.15861598, w: 0.8406841}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5471,52 +5471,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 347180057}
   m_Mesh: {fileID: 2863416601769685546, guid: b64ab1cab3031dd49865cc044d66262b, type: 3}
---- !u!1 &348909299
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 348909301}
-  - component: {fileID: 348909300}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &348909300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348909299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &348909301
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348909299}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &352357702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12808,6 +12762,52 @@ Transform:
   - {fileID: 1616435341}
   m_Father: {fileID: 2000314162}
   m_LocalEulerAnglesHint: {x: 0, y: 55.314, z: 0}
+--- !u!1 &780967879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 780967881}
+  - component: {fileID: 780967880}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &780967880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780967879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &780967881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780967879}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &782953389
 GameObject:
   m_ObjectHideFlags: 0
@@ -14851,7 +14851,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903612228}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3843485, y: -0.3469401, z: 0.15861598, w: 0.8406841}
+  m_LocalRotation: {x: 0.38434854, y: -0.34694016, z: 0.15861604, w: 0.840684}
   m_LocalPosition: {x: 13.168603, y: 29.217806, z: -13.23741}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32178,6 +32178,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.bomberBodies.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
       propertyPath: themeDataList.Array.data[4].themeData.bomberBodies.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -32344,6 +32349,48 @@ PrefabInstance:
       propertyPath: themeDataList.Array.data[8].themeData.warriorWeapons.Array.size
       value: 35
       objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.bomberBodies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1001859191395876, guid: 71aec2ac44f72884da1ef8e4bf6af92a,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.bomberBodies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1660164172697688, guid: c171cb3d72d5b534db0063f63f916ed7,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.bomberBodies.Array.data[2]
+      value: 
+      objectReference: {fileID: 1350103588185370, guid: e002d6bbed6a47e469e1bf4709e64077,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.bomberBodies.Array.data[3]
+      value: 
+      objectReference: {fileID: 1160220439793846, guid: a896d80fce0f7df4295f5070f3068bd0,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.bomberBodies.Array.data[4]
+      value: 
+      objectReference: {fileID: 1160220439793846, guid: a896d80fce0f7df4295f5070f3068bd0,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.bomberBodies.Array.data[5]
+      value: 
+      objectReference: {fileID: 1019791486663424, guid: fe3e66169010f8c4fa9f1a7336d4af3d,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.bomberBodies.Array.data[6]
+      value: 
+      objectReference: {fileID: 1674885529865632, guid: cbc2c452cc284da419efceba210979f4,
+        type: 3}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
       propertyPath: themeDataList.Array.data[2].themeData.BannermanBodies.Array.size
@@ -43345,4 +43392,4 @@ SceneRoots:
   - {fileID: 1336762205}
   - {fileID: 1363913785}
   - {fileID: 1496207209}
-  - {fileID: 348909301}
+  - {fileID: 780967881}
