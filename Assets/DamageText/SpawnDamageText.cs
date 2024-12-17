@@ -13,12 +13,12 @@ public class SpawnDamageText : MonoBehaviour
         if (damage > 10)
         {
             GameObject bigDamage = Instantiate(bigDamageText, position, Quaternion.identity);
-            float text = bigDamage.GetComponent<FloatingDamageText>().damage = damage;
+            float text = bigDamage.GetComponent<FloatingDamageText>().damage = Mathf.FloorToInt(damage);
         }
         else
         {
             GameObject normalDamage = Instantiate(normalDamageText, position, Quaternion.identity);
-            float text = normalDamage.GetComponent<FloatingDamageText>().damage = damage;
+            float text = normalDamage.GetComponent<FloatingDamageText>().damage = Mathf.FloorToInt(damage);
         }
         
     }
