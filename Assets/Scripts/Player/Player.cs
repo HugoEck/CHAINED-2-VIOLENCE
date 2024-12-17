@@ -159,6 +159,10 @@ public class Player : MonoBehaviour
 
         currentHealth = playerAttributes.maxHP;
 
+        if(Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.LobbyScene)
+        {
+            _playerRigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+        } 
     }
 
     private void FixedUpdate()
@@ -357,9 +361,11 @@ public class Player : MonoBehaviour
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
                 rigidBodyMassManager.RestoreOriginalMasses();
+                
                 ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
+                _playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 
             }
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
@@ -368,7 +374,7 @@ public class Player : MonoBehaviour
                 ToggleRagdoll(true, player2Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
-
+                _playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             }
 
             if (_bIsPlayerDisabled)
@@ -403,6 +409,13 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    private IEnumerator EnableRigidBodyConstraint()
+    {
+        yield return new WaitForSeconds(1);
+        _playerRigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+    }
+
     private bool respawnTimerSet = false;
     private void Respawn()
     {
@@ -426,12 +439,16 @@ public class Player : MonoBehaviour
                 ToggleRagdoll(false, player1Obj);
                 rigidBodyMassManager.SetMassesToZero();
                 DisableColliders();
+                
+               StartCoroutine(EnableRigidBodyConstraint());
+
             }
             else if (_playerId == 2)
             {
                 ToggleRagdoll(false, player2Obj);
                 rigidBodyMassManager.SetMassesToZero();
                 DisableColliders();
+                StartCoroutine(EnableRigidBodyConstraint());
             }
 
         }
