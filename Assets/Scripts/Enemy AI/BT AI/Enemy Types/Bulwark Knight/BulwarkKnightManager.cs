@@ -12,7 +12,7 @@ public class BulwarkKnightManager : BaseManager
     Transform[] children;
 
 
-    float shieldDefense = 10;
+    float shieldDefense = 1;
     float baseDefense = 1;
     float shieldWalkSpeed = 3;
     float runSpeed = 9;
@@ -36,8 +36,8 @@ public class BulwarkKnightManager : BaseManager
 
         shield = FindShieldObject()?.gameObject;
         BoxCollider box = shield.GetComponent<BoxCollider>();
-        box.enabled = true;
-
+        //box.enabled = true;
+        transform.localScale = new Vector3(3, 3, 3);
 
         LoadStats();
         ConstructBT();
@@ -51,11 +51,13 @@ public class BulwarkKnightManager : BaseManager
         {
             RageTimer();
         }
+
+       
     }
 
     private void LoadStats()
     {
-        maxHealth = 100 + maxHealthModifier;
+        maxHealth = 50 + maxHealthModifier;
         attack = 10 + attackModifier;
         currentHealth = maxHealth;
         navigation.maxSpeed = shieldWalkSpeed;
