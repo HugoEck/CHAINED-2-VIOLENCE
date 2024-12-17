@@ -71,14 +71,14 @@ public class BoulderManager : MonoBehaviour
     {
         if (!isActive || rb == null) return;
 
-        activeTime += Time.fixedDeltaTime;
+        //activeTime += Time.fixedDeltaTime;
 
-        // Despawn the boulder after 13 seconds
-        if (activeTime >= maxLifetime)
-        {
-            StartCoroutine(DestroyBoulderWithDelay(0.3f));
-            return;
-        }
+        //// Despawn the boulder after 13 seconds
+        //if (activeTime >= maxLifetime)
+        //{
+        //    StartCoroutine(DestroyBoulderWithDelay(0.3f));
+        //    return;
+        //}
 
         // Apply force to move the boulder
         rb.velocity = moveDirection * boulderSpeed;
