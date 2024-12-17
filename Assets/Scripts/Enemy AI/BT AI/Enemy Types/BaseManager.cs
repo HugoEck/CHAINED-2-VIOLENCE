@@ -104,9 +104,15 @@ public class BaseManager : MonoBehaviour
         //behaviorMethods.ToggleRagdoll(false);
         behaviorMethods.GetRagdollComponents(this);
 
-        highlightEffect = GetComponent<HighlightEffect>();
-
-        damageText = GetComponentInChildren<SpawnDamageText>();
+        if(highlightEffect != null)
+        {
+            highlightEffect = GetComponent<HighlightEffect>();
+        }
+        
+        if(damageText != null)
+        {
+            damageText = GetComponentInChildren<SpawnDamageText>();
+        }
     }
     private void Update()
     {
@@ -123,24 +129,32 @@ public class BaseManager : MonoBehaviour
     }
     public virtual void DealDamageToEnemy(float damage, DamageType damageType)
     {
-        if(damageType == DamageType.WeaponDamage || damageType == DamageType.UnarmedDamage)
+        if(currentHealth > 0)
         {
-            particleEffects.ActivateHitParticles(transform);
-        }
-        
-        if (defense - damage < 0)
-        {
-            damageText.Spawn(c_collider.transform.position + Vector3.up * (c_collider.height / 2), damage);
+            if (damageType == DamageType.WeaponDamage || damageType == DamageType.UnarmedDamage)
+            {
+                particleEffects.ActivateHitParticles(transform);
+            }
 
-            highlightEffect.HitFX();
-            particleEffects.ActivateBloodParticles(transform);
-            
-            currentHealth = currentHealth + defense - damage;
+            if (defense - damage < 0)
+            {
+                damageText.Spawn(c_collider.transform.position + Vector3.up * (c_collider.height / 2), damage);
+
+                if(highlightEffect != null)
+                {
+                    highlightEffect.HitFX();
+                }
+                
+                particleEffects.ActivateBloodParticles(transform);
+
+                currentHealth = currentHealth + defense - damage;
 
 
-            visuals.ActivateVisuals();
+                visuals.ActivateVisuals();
+            }
         }
     }
+        
 }
 
 
