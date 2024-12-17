@@ -109,10 +109,9 @@ public class BaseManager : MonoBehaviour
             highlightEffect = GetComponent<HighlightEffect>();
         }
         
-        if(damageText != null)
-        {
-            damageText = GetComponentInChildren<SpawnDamageText>();
-        }
+        
+        damageText = GetComponentInChildren<SpawnDamageText>();
+        
     }
     private void Update()
     {
@@ -138,7 +137,11 @@ public class BaseManager : MonoBehaviour
 
             if (defense - damage < 0)
             {
-                damageText.Spawn(c_collider.transform.position + Vector3.up * (c_collider.height / 2), damage);
+                if(damageText != null)
+                {
+                    damageText.Spawn(c_collider.transform.position + Vector3.up * (c_collider.height / 2), damage);
+                }
+                
 
                 if(highlightEffect != null)
                 {
