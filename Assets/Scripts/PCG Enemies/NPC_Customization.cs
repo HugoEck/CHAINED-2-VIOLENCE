@@ -52,6 +52,12 @@ public class ThemeData
     public List<GameObject> BannermanBodies;
     public List<GameObject> BannermanWeapons;
     public List<GameObject> BannermanShields;
+    [Header("Bomber")]
+    public List<GameObject> bomberHelmets;
+    public List<GameObject> bomberCapes;
+    public List<GameObject> bomberBodies;
+    public List<GameObject> bomberWeapons;
+    public List<GameObject> bomberShields;
     //Add future classes under new Header
 
 }
@@ -115,7 +121,8 @@ public class NPC_Customization : MonoBehaviour
         Charger,
         RockThrower,
         Warrior,
-        Bannerman
+        Bannerman,
+        Bomber
         //Add more classes here
     }
     public NPCTheme Theme;
@@ -167,11 +174,11 @@ public class NPC_Customization : MonoBehaviour
         if (themeData != null)
         {
             // Connect future assets and classes in their lists
-            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets, themeData.BannermanHelmets);
-            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons, themeData.BannermanWeapons);
-            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.runnerBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies, themeData.BannermanBodies);
-            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes, themeData.BannermanCapes);
-            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields, themeData.BannermanShields);
+            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets, themeData.BannermanHelmets, themeData.bomberHelmets);
+            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons, themeData.BannermanWeapons, themeData.bomberWeapons);
+            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.runnerBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies, themeData.BannermanBodies, themeData.bomberBodies);
+            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes, themeData.BannermanCapes, themeData.bomberCapes);
+            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields, themeData.BannermanShields, themeData.bomberShields);
 
             // Instantiate body and set up animator
             if (bodies != null && bodies.Count > 0)
@@ -197,8 +204,6 @@ public class NPC_Customization : MonoBehaviour
                 {
                     currentAnimator.runtimeAnimatorController = animController;
                 }
-
-
 
 
                 // Attach helmet
@@ -248,469 +253,481 @@ public class NPC_Customization : MonoBehaviour
                     {
                         currentShield = InstantiateRandomAsset(shields, lHandBone);
                     }
-                        if (Theme == NPCTheme.Corrupted || Theme == NPCTheme.Fantasy)
-                        {
-                            currentShield.transform.localScale = new Vector3(100, 100, 100);
-                        }
+                    if (Theme == NPCTheme.Corrupted || Theme == NPCTheme.Fantasy)
+                    {
+                        currentShield.transform.localScale = new Vector3(100, 100, 100);
+                    }
                     currentShield.transform.localEulerAngles = new Vector3(-70f, -180f, 0);
 
                 }
 
-                
+
 
 
             }
 
         }
 
-        }
+    }
 
-        public void AddBehaviourToClass(GameObject enemy)
+    public void AddBehaviourToClass(GameObject enemy)
+    {
+        AIPath agent = enemy.AddComponent<AIPath>();
+        AIDestinationSetter destinationSetter = enemy.AddComponent<AIDestinationSetter>();
+        CapsuleCollider capsule = enemy.AddComponent<CapsuleCollider>();
+        Rigidbody rb = enemy.AddComponent<Rigidbody>();
+        ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
+
+        SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
+        smoothing.strength = 0.5f;
+
+        RaycastModifier raycasts = enemy.AddComponent<RaycastModifier>();
+        raycasts.thickRaycast = true;
+        raycasts.thickRaycastRadius = 2;
+
+        BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
+        IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
+        ignoreChain.ObjectIgnoresLaserChain();
+
+        HighlightEffect enemyHighlight = enemy.AddComponent<HighlightEffect>();
+        enemyHighlight.outline = 0;
+        enemyHighlight.highlighted = true;
+        enemyHighlight.hitFxInitialIntensity = 1;
+
+
+        enemy.transform.localScale *= 1.5f;
+
+        GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
+        GameObject hitEffectCopy = Instantiate(hitEffect, enemy.transform);
+        GameObject electricityEffectParticles = Instantiate(electricityEffect, enemy.transform);
+        GameObject fireEffectParticles = Instantiate(fireEffect, enemy.transform);
+        //Physics.SyncTransforms();
+
+        triggerCollider.isTrigger = true;
+        enemy.tag = "Enemy";
+        enemy.layer = 9;
+
+
+        Rigidbody[] rigidbodies = enemy.GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody rbs in rigidbodies)
         {
-            AIPath agent = enemy.AddComponent<AIPath>();
-            AIDestinationSetter destinationSetter = enemy.AddComponent<AIDestinationSetter>();
-            CapsuleCollider capsule = enemy.AddComponent<CapsuleCollider>();
-            Rigidbody rb = enemy.AddComponent<Rigidbody>();
-            ObiCollider obiCollider = enemy.AddComponent<ObiCollider>();
-
-            SimpleSmoothModifier smoothing = enemy.AddComponent<SimpleSmoothModifier>();
-            smoothing.strength = 0.5f;
-
-            RaycastModifier raycasts = enemy.AddComponent<RaycastModifier>();
-            raycasts.thickRaycast = true;
-            raycasts.thickRaycastRadius = 2;
-
-            BoxCollider triggerCollider = enemy.AddComponent<BoxCollider>();
-            IgnoreCollisionWithAbilityChain ignoreChain = enemy.AddComponent<IgnoreCollisionWithAbilityChain>();
-            ignoreChain.ObjectIgnoresLaserChain();
-
-            HighlightEffect enemyHighlight = enemy.AddComponent<HighlightEffect>();
-            enemyHighlight.outline = 0;
-            enemyHighlight.highlighted = true;
-            enemyHighlight.hitFxInitialIntensity = 1;
+            rbs.isKinematic = true;
+            rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        }
+        Collider[] capsuleColliders = enemy.GetComponentsInChildren<Collider>();
+        foreach (Collider capsule1 in capsuleColliders)
+        {
+            capsule1.enabled = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+        }
+        capsule.enabled = true;
+        rb.isKinematic = false;
 
 
-            enemy.transform.localScale *= 1.5f;
+        if (Class == NPCClass.Basic)
+        {
+            PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
 
-            GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
-            GameObject hitEffectCopy = Instantiate(hitEffect, enemy.transform);
-            GameObject electricityEffectParticles = Instantiate(electricityEffect, enemy.transform);
-            GameObject fireEffectParticles = Instantiate(fireEffect, enemy.transform);
-            //Physics.SyncTransforms();
+        }
+        else if (Class == NPCClass.Runner)
+        {
+            RunnerManager behaviour = enemy.AddComponent<RunnerManager>();
 
-            triggerCollider.isTrigger = true;
-            enemy.tag = "Enemy";
-            enemy.layer = 9;
+        }
+        else if (Class == NPCClass.Warrior)
+        {
+            SwordsmanManager behaviour = enemy.AddComponent<SwordsmanManager>();
+        }
+        else if (Class == NPCClass.RockThrower)
+        {
+            RockThrowerManager behaviour = enemy.AddComponent<RockThrowerManager>();
 
+            GameObject throwPoint = new GameObject("throwPoint");
+            throwPoint.transform.SetParent(enemy.transform, false);
+            throwPoint.transform.localPosition = new Vector3(0.5f, 2, 1);
 
-            Rigidbody[] rigidbodies = enemy.GetComponentsInChildren<Rigidbody>();
-            foreach (Rigidbody rbs in rigidbodies)
+            if (Theme == NPCTheme.Roman)
             {
-                rbs.isKinematic = true;
-                rbs.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = RomanRock;
             }
-            Collider[] capsuleColliders = enemy.GetComponentsInChildren<Collider>();
-            foreach (Collider capsule1 in capsuleColliders)
+            else if (Theme == NPCTheme.Pirate)
             {
-                capsule1.enabled = false; // or you can use rb.gameObject.SetActive(false) to deactivate the GameObject
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = PirateRock;
             }
-            capsule.enabled = true;
-            rb.isKinematic = false;
-
-
-            if (Class == NPCClass.Basic)
+            else if (Theme == NPCTheme.Farm)
             {
-                PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
-
-            }
-            else if (Class == NPCClass.Runner)
-            {
-                RunnerManager behaviour = enemy.AddComponent<RunnerManager>();
-
-            }
-            else if (Class == NPCClass.Warrior)
-            {
-                SwordsmanManager behaviour = enemy.AddComponent<SwordsmanManager>();
-            }
-            else if (Class == NPCClass.RockThrower)
-            {
-                RockThrowerManager behaviour = enemy.AddComponent<RockThrowerManager>();
-
-                GameObject throwPoint = new GameObject("throwPoint");
-                throwPoint.transform.SetParent(enemy.transform, false);
-                throwPoint.transform.localPosition = new Vector3(0.5f, 2, 1);
-
-                if (Theme == NPCTheme.Roman)
-                {
-                    behaviour.throwPoint = throwPoint.transform;
-                    behaviour.rockPrefab = RomanRock;
-                }
-                else if (Theme == NPCTheme.Pirate)
-                {
-                    behaviour.throwPoint = throwPoint.transform;
-                    behaviour.rockPrefab = PirateRock;
-                }
-                else if (Theme == NPCTheme.Farm)
-                {
-                    behaviour.throwPoint = throwPoint.transform;
-                    behaviour.rockPrefab = FarmRock;
-                }
-            }
-            else if (Class == NPCClass.Bannerman)
-            {
-                BannerManManager behaviour = enemy.AddComponent<BannerManManager>();
-
-                if (Theme == NPCTheme.Pirate)
-                    behaviour.flagPrefab = PirateBanner;
-                else if (Theme == NPCTheme.Natives)
-                    behaviour.flagPrefab = WesternBanner;
-            }
-
-            else if (Class == NPCClass.Charger)
-            {
-                GameObject smokeTrailCopy = Instantiate(smokeTrail, enemy.transform);
-                ChargerManager behaviour = enemy.AddComponent<ChargerManager>();
-
-            }
-
-            if (Theme == NPCTheme.Corrupted)
-            {
-                RandomizeStatsOnEnemies(enemy);
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = FarmRock;
             }
         }
-
-
-        private void RandomizeStatsOnEnemies(GameObject enemy)
+        else if (Class == NPCClass.Bannerman)
         {
-            int points;
+            BannerManManager behaviour = enemy.AddComponent<BannerManManager>();
 
-            // Determine points based on the wave and unit cost
-            if (Class == NPCClass.Basic)
+            if (Theme == NPCTheme.Pirate)
+                behaviour.flagPrefab = PirateBanner;
+            else if (Theme == NPCTheme.Natives)
+                behaviour.flagPrefab = WesternBanner;
+        }
+
+        else if (Class == NPCClass.Charger)
+        {
+            GameObject smokeTrailCopy = Instantiate(smokeTrail, enemy.transform);
+            ChargerManager behaviour = enemy.AddComponent<ChargerManager>();
+
+        }
+
+        else if (Class == NPCClass.Tank)
+        {
+            BulwarkKnightManager behaviour = enemy.AddComponent<BulwarkKnightManager>();
+        }
+
+        else if (Class == NPCClass.Bomber)
+        {
+            BomberManager behaviour = enemy.AddComponent<BomberManager>();
+        }
+
+        if (Theme == NPCTheme.Corrupted)
+        {
+            RandomizeStatsOnEnemies(enemy);
+        }
+    }
+
+
+    private void RandomizeStatsOnEnemies(GameObject enemy)
+    {
+        int points;
+
+        // Determine points based on the wave and unit cost
+        if (Class == NPCClass.Basic)
+        {
+            PlebianManager behaviour = enemy.GetComponent<PlebianManager>();
+
+            // Calculate the points to distribute based on wave and unit cost
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            // Ensure we have at least 1 point to distribute
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            // Assign the even points to each stat
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
             {
-                PlebianManager behaviour = enemy.GetComponent<PlebianManager>();
-
-                // Calculate the points to distribute based on wave and unit cost
-                points = WaveManager.currentWave + (int)behaviour.unitCost;
-
-                // Ensure we have at least 1 point to distribute
-                if (points <= 0) return;
-
-                // Evenly distribute points across stats
-                int statsCount = 4; // maxHealth, attack, defense, attackSpeed
-                int pointsPerStat = points / statsCount;
-                int remainingPoints = points % statsCount;
-
-                // Assign the even points to each stat
-                behaviour.maxHealthModifier = pointsPerStat;
-                behaviour.attackModifier = pointsPerStat;
-                behaviour.defenseModifier = pointsPerStat;
-                behaviour.attackSpeedModifier = pointsPerStat;
-
-                // Distribute remaining points evenly
-                while (remainingPoints > 0)
+                if (remainingPoints > 0)
                 {
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.maxHealthModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.defenseModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackSpeedModifier++;
-                        remainingPoints--;
-                    }
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
                 }
-            }
-            else if (Class == NPCClass.Warrior)
-            {
-                SwordsmanManager behaviour = enemy.GetComponent<SwordsmanManager>();
-
-                points = WaveManager.currentWave + (int)behaviour.unitCost;
-
-                if (points <= 0) return;
-
-                // Evenly distribute points across stats
-                int statsCount = 4; // maxHealth, attack, defense, attackSpeed
-                int pointsPerStat = points / statsCount;
-                int remainingPoints = points % statsCount;
-
-                behaviour.maxHealthModifier = pointsPerStat;
-                behaviour.attackModifier = pointsPerStat;
-                behaviour.defenseModifier = pointsPerStat;
-                behaviour.attackSpeedModifier = pointsPerStat;
-
-                // Distribute remaining points evenly
-                while (remainingPoints > 0)
+                if (remainingPoints > 0)
                 {
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.maxHealthModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.defenseModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackSpeedModifier++;
-                        remainingPoints--;
-                    }
+                    behaviour.attackModifier++;
+                    remainingPoints--;
                 }
-            }
-            else if (Class == NPCClass.Runner)
-            {
-                RunnerManager behaviour = enemy.GetComponent<RunnerManager>();
-
-                points = WaveManager.currentWave + (int)behaviour.unitCost;
-
-                if (points <= 0) return;
-
-                // Evenly distribute points across stats
-                int statsCount = 4; // maxHealth, attack, defense, attackSpeed
-                int pointsPerStat = points / statsCount;
-                int remainingPoints = points % statsCount;
-
-                behaviour.maxHealthModifier = pointsPerStat;
-                behaviour.attackModifier = pointsPerStat;
-                behaviour.defenseModifier = pointsPerStat;
-                behaviour.attackSpeedModifier = pointsPerStat;
-
-                // Distribute remaining points evenly
-                while (remainingPoints > 0)
+                if (remainingPoints > 0)
                 {
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.maxHealthModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.defenseModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackSpeedModifier++;
-                        remainingPoints--;
-                    }
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
                 }
-            }
-            else if (Class == NPCClass.RockThrower)
-            {
-                RockThrowerManager behaviour = enemy.GetComponent<RockThrowerManager>();
-
-                points = WaveManager.currentWave + (int)behaviour.unitCost;
-
-                if (points <= 0) return;
-
-                // Evenly distribute points across stats
-                int statsCount = 4; // maxHealth, attack, defense, attackSpeed
-                int pointsPerStat = points / statsCount;
-                int remainingPoints = points % statsCount;
-
-                behaviour.maxHealthModifier = pointsPerStat;
-                behaviour.attackModifier = pointsPerStat;
-                behaviour.defenseModifier = pointsPerStat;
-                behaviour.attackSpeedModifier = pointsPerStat;
-
-                // Distribute remaining points evenly
-                while (remainingPoints > 0)
+                if (remainingPoints > 0)
                 {
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.maxHealthModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.defenseModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackSpeedModifier++;
-                        remainingPoints--;
-                    }
-                }
-            }
-            else if (Class == NPCClass.Bannerman)
-            {
-                BannerManManager behaviour = enemy.GetComponent<BannerManManager>();
-
-                points = WaveManager.currentWave + (int)behaviour.unitCost;
-
-                if (points <= 0) return;
-
-                // Evenly distribute points across stats
-                int statsCount = 4; // maxHealth, attack, defense, attackSpeed
-                int pointsPerStat = points / statsCount;
-                int remainingPoints = points % statsCount;
-
-                behaviour.maxHealthModifier = pointsPerStat;
-                behaviour.attackModifier = pointsPerStat;
-                behaviour.defenseModifier = pointsPerStat;
-                behaviour.attackSpeedModifier = pointsPerStat;
-
-                // Distribute remaining points evenly
-                while (remainingPoints > 0)
-                {
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.maxHealthModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.defenseModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackSpeedModifier++;
-                        remainingPoints--;
-                    }
-                }
-            }
-            else if (Class == NPCClass.Charger)
-            {
-                ChargerManager behaviour = enemy.GetComponent<ChargerManager>();
-
-                points = WaveManager.currentWave + (int)behaviour.unitCost;
-
-                if (points <= 0) return;
-
-                // Evenly distribute points across stats
-                int statsCount = 4; // maxHealth, attack, defense, attackSpeed
-                int pointsPerStat = points / statsCount;
-                int remainingPoints = points % statsCount;
-
-                behaviour.maxHealthModifier = pointsPerStat;
-                behaviour.attackModifier = pointsPerStat;
-                behaviour.defenseModifier = pointsPerStat;
-                behaviour.attackSpeedModifier = pointsPerStat;
-
-                // Distribute remaining points evenly
-                while (remainingPoints > 0)
-                {
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.maxHealthModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackModifier++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.defense++;
-                        remainingPoints--;
-                    }
-                    if (remainingPoints > 0)
-                    {
-                        behaviour.attackSpeedModifier++;
-                        remainingPoints--;
-                    }
-
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
                 }
             }
         }
-        private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> runner, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior, List<GameObject> bannerman /*add future classes in paramter*/)
+        else if (Class == NPCClass.Warrior)
         {
-            switch (Class)
+            SwordsmanManager behaviour = enemy.GetComponent<SwordsmanManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
             {
-                case NPCClass.Basic:
-                    return basic;
-                case NPCClass.Runner:
-                    return runner;
-                case NPCClass.Tank:
-                    return tank;
-                case NPCClass.Charger:
-                    return charger;
-                case NPCClass.RockThrower:
-                    return rockThrower;
-                case NPCClass.Warrior:
-                    return warrior;
-                case NPCClass.Bannerman:
-                    return bannerman;
-                //Add future classes in switch case
-                default:
-                    return null;
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
             }
         }
-
-        private GameObject InstantiateRandomAsset(List<GameObject> assets, Transform parentBone)
+        else if (Class == NPCClass.Runner)
         {
-            if (assets == null || assets.Count == 0 || parentBone == null)
+            RunnerManager behaviour = enemy.GetComponent<RunnerManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
             {
-                return null;
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
             }
-
-            int randomIndex = Random.Range(0, assets.Count);
-            GameObject newAsset = Instantiate(assets[randomIndex], parentBone.position, parentBone.rotation, parentBone);
-            return newAsset;
         }
-
-
-
-
-
-
-        private void DestroyAssets()
+        else if (Class == NPCClass.RockThrower)
         {
-            // Destroy the old attachments without affecting the root objects
-            DestroyChildren(helmetPoint);
-            DestroyChildren(weaponPoint);
-            DestroyChildren(capePoint);
-            DestroyChildren(shieldPoint);
-            DestroyChildren(bodyPoint);
+            RockThrowerManager behaviour = enemy.GetComponent<RockThrowerManager>();
 
-            // Reset asset references (this is optional depending on how you track them)
-            currentHelmet = null;
-            currentWeapon = null;
-            currentCape = null;
-            currentShield = null;
-            currentBody = null;
-        }
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
 
-        private void DestroyChildren(Transform parent)
-        {
-            foreach (Transform child in parent)
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
             {
-                Destroy(child.gameObject);
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+            }
+        }
+        else if (Class == NPCClass.Bannerman)
+        {
+            BannerManManager behaviour = enemy.GetComponent<BannerManManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
+            {
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defenseModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+            }
+        }
+        else if (Class == NPCClass.Charger)
+        {
+            ChargerManager behaviour = enemy.GetComponent<ChargerManager>();
+
+            points = WaveManager.currentWave + (int)behaviour.unitCost;
+
+            if (points <= 0) return;
+
+            // Evenly distribute points across stats
+            int statsCount = 4; // maxHealth, attack, defense, attackSpeed
+            int pointsPerStat = points / statsCount;
+            int remainingPoints = points % statsCount;
+
+            behaviour.maxHealthModifier = pointsPerStat;
+            behaviour.attackModifier = pointsPerStat;
+            behaviour.defenseModifier = pointsPerStat;
+            behaviour.attackSpeedModifier = pointsPerStat;
+
+            // Distribute remaining points evenly
+            while (remainingPoints > 0)
+            {
+                if (remainingPoints > 0)
+                {
+                    behaviour.maxHealthModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackModifier++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.defense++;
+                    remainingPoints--;
+                }
+                if (remainingPoints > 0)
+                {
+                    behaviour.attackSpeedModifier++;
+                    remainingPoints--;
+                }
+
             }
         }
     }
+    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> runner, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior, List<GameObject> bannerman, List<GameObject> bomber /*add future classes in paramter*/)
+    {
+        switch (Class)
+        {
+            case NPCClass.Basic:
+                return basic;
+            case NPCClass.Runner:
+                return runner;
+            case NPCClass.Tank:
+                return tank;
+            case NPCClass.Charger:
+                return charger;
+            case NPCClass.RockThrower:
+                return rockThrower;
+            case NPCClass.Warrior:
+                return warrior;
+            case NPCClass.Bannerman:
+                return bannerman;
+            case NPCClass.Bomber:
+                return bomber;
+            //Add future classes in switch case
+            default:
+                return null;
+        }
+    }
+
+    private GameObject InstantiateRandomAsset(List<GameObject> assets, Transform parentBone)
+    {
+        if (assets == null || assets.Count == 0 || parentBone == null)
+        {
+            return null;
+        }
+
+        int randomIndex = Random.Range(0, assets.Count);
+        GameObject newAsset = Instantiate(assets[randomIndex], parentBone.position, parentBone.rotation, parentBone);
+        return newAsset;
+    }
+
+
+
+
+
+
+    private void DestroyAssets()
+    {
+        // Destroy the old attachments without affecting the root objects
+        DestroyChildren(helmetPoint);
+        DestroyChildren(weaponPoint);
+        DestroyChildren(capePoint);
+        DestroyChildren(shieldPoint);
+        DestroyChildren(bodyPoint);
+
+        // Reset asset references (this is optional depending on how you track them)
+        currentHelmet = null;
+        currentWeapon = null;
+        currentCape = null;
+        currentShield = null;
+        currentBody = null;
+    }
+
+    private void DestroyChildren(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+}
