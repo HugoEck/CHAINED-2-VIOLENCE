@@ -78,7 +78,7 @@ public class NPC_Customization : MonoBehaviour
 
     [SerializeField] GameObject PirateBanner;
     [SerializeField] GameObject WesternBanner;
-
+    [SerializeField] GameObject damageTextObject;
 
     [SerializeField] GameObject RagdollRoot;
 
@@ -294,6 +294,7 @@ public class NPC_Customization : MonoBehaviour
         enemyHighlight.highlighted = true;
         enemyHighlight.hitFxInitialIntensity = 1;
 
+        GameObject damageTextObjectInstance = Instantiate(damageTextObject, enemy.transform);
 
         enemy.transform.localScale *= 1.5f;
 

@@ -6,6 +6,9 @@ using UnityEngine;
 public class FloatingDamageText : MonoBehaviour
 {
     [SerializeField] private float destroyTextTimer;
+    [SerializeField] private TextMesh damageText;
+
+    public float damage { get; set; }
 
     private Camera mainCamera;
 
@@ -22,6 +25,7 @@ public class FloatingDamageText : MonoBehaviour
 
     void Start()
     {
+        damageText.text = damage.ToString();
         mainCamera = Camera.main;
 
         // Store the original scale
@@ -72,6 +76,7 @@ public class FloatingDamageText : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.transform.position);
         }
     }
+    
 }
 
 

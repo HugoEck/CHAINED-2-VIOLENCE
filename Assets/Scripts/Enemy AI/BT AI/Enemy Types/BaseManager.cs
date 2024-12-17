@@ -4,6 +4,7 @@ using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -36,6 +37,8 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public AIParticleEffects particleEffects;
     [HideInInspector] public AIBehaviorMethods behaviorMethods;
     [HideInInspector] public AIVisuals visuals;
+
+    private SpawnDamageText damageText;
 
     //KOMPONENTER
     [HideInInspector] public GameObject player1;
@@ -102,6 +105,8 @@ public class BaseManager : MonoBehaviour
         behaviorMethods.GetRagdollComponents(this);
 
         highlightEffect = GetComponent<HighlightEffect>();
+
+        damageText = GetComponentInChildren<SpawnDamageText>();
     }
     private void Update()
     {
@@ -125,6 +130,8 @@ public class BaseManager : MonoBehaviour
         
         if (defense - damage < 0)
         {
+            damageText.Spawn(c_collider.transform.position + Vector3.up * (c_collider.height / 2), damage);
+
             highlightEffect.HitFX();
             particleEffects.ActivateBloodParticles(transform);
             
