@@ -57,11 +57,26 @@ public class StatsTransfer : MonoBehaviour
 
     private void OnDestroy()
     {
-        player1.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer1SpawnedIn;
-        player2.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer2SpawnedIn;
-        SaveStatsPlayer1(player1Attributes);
-        SaveStatsPlayer2(player2Attributes);
+        if (player1 != null && player1.GetComponent<Player>() != null)
+        {
+            player1.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer1SpawnedIn;
+        }
+
+        if (player2 != null && player2.GetComponent<Player>() != null)
+        {
+            player2.GetComponent<Player>().PlayerSpawnedIn -= OnPlayer2SpawnedIn;
+        }
+
+        if (player1Attributes != null)
+        {
+            SaveStatsPlayer1Upgrades(player1Attributes);
+        }
+        if (player2Attributes != null)
+        {
+            SaveStatsPlayer2Upgrades(player2Attributes);
+        }
     }
+
 
     private void Update()
     {

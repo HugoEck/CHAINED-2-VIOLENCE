@@ -26,6 +26,15 @@ public class PlayerAttributes : MonoBehaviour
     {
         _currentPlayerClass.OnClassSwitched += PlayerCombatOnClassSwitched;
         //SetBaseValues(_currentPlayerClass.currentPlayerClass);
+
+        // Apply correct upgraded stats upon loading back into lobby.
+        _upgradeMaxHP = StatsTransfer.Player1UpgradedMaxHP;
+        _upgradeAttackDamage = StatsTransfer.Player1UpgradedAttackDamage;
+        _upgradeMovementSpeed = StatsTransfer.Player1UpgradedSpeed;
+        RecalculateMaxHP();
+        RecalculateAttackDamage();
+        RecalculateMovementSpeed();
+
     }
 
     private void OnDestroy()
@@ -39,7 +48,7 @@ public class PlayerAttributes : MonoBehaviour
     }
 
     #region Recalculation Methods
-    private void RecalculateAttackDamage()
+    public void RecalculateAttackDamage()
     {
         foreach (ClassAttributeSO classAttribute in _classesAttributes)
         {
@@ -51,7 +60,7 @@ public class PlayerAttributes : MonoBehaviour
         }
     }
 
-    private void RecalculateMaxHP()
+    public void RecalculateMaxHP()
     {
         foreach (ClassAttributeSO classAttribute in _classesAttributes)
         {
@@ -63,7 +72,7 @@ public class PlayerAttributes : MonoBehaviour
         }
     }
 
-    private void RecalculateMovementSpeed()
+    public void RecalculateMovementSpeed()
     {
         foreach (ClassAttributeSO classAttribute in _classesAttributes)
         {

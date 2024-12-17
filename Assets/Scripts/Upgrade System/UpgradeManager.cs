@@ -45,6 +45,9 @@ public class UpgradeManager : MonoBehaviour
     public TMP_Text chainUpgradeCostText;
     #endregion
 
+    private GameObject player1;
+    private GameObject player2;
+
     private void Awake()
     {
         // Singleton
@@ -56,34 +59,45 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
     void Start()
     {
-        GameObject player1 = GameObject.FindGameObjectWithTag("Player1");
-        GameObject player2 = GameObject.FindGameObjectWithTag("Player2");
+        player1 = GameObject.FindGameObjectWithTag("Player1");
+        player2 = GameObject.FindGameObjectWithTag("Player2");
 
         if (player1 != null) player1Attributes = player1.GetComponent<PlayerAttributes>();
         if (player2 != null) player2Attributes = player2.GetComponent<PlayerAttributes>();
 
         if (player1Attributes == null || player2Attributes == null)
         {
-            Debug.LogError("PlayerAttributes script not found on players!");
+            Debug.LogError("JACK START script not found on players!");
         }
-
-        //Debug.Log("Speed Upgrade Start Value" + player1Attributes.movementSpeed);
 
         GameObject chainObject = GameObject.Find("Obi_Chain");
         if (chainObject != null)
         {
             adjustChainLength = chainObject.GetComponent<AdjustChainLength>();
         }
+    }
 
-        //if (adjustChainLength != null)
-        //{
-        //    chainUpgrade = new ChainUpgrade(adjustChainLength, 1, AdjustChainLength.AMOUNT_OF_UPGRADES, UpgradeCostIncrease);
-        //}
+    void Update()
+    {
+        if (player1 == null || player2 == null)
+        {
+            player1 = GameObject.FindGameObjectWithTag("Player1");
+            player2 = GameObject.FindGameObjectWithTag("Player2");
+        }
+
+        if (player1 != null) player1Attributes = player1.GetComponent<PlayerAttributes>();
+        if (player2 != null) player2Attributes = player2.GetComponent<PlayerAttributes>();
+
+        if (player1Attributes == null || player2Attributes == null)
+        {
+            Debug.LogError("JACK script not found on players!");
+        }
     }
 
     public void UpgradeMaxHealth()
@@ -92,17 +106,24 @@ public class UpgradeManager : MonoBehaviour
 
         if (CanAfford(cost) && healthLevel < maxUpgradeLevel)
         {
+            // Directly apply the upgrade to player attributes
             player1Attributes.UpgradeMaxHealth(maxHealthIncrease);
             player2Attributes.UpgradeMaxHealth(maxHealthIncrease);
 
-            SpendGold(cost);
-            healthLevel++;
+            // Update StatsTransfer to reflect the cumulative upgrades
+            StatsTransfer.Player1UpgradedMaxHP = player1Attributes._upgradeMaxHP;
+            StatsTransfer.Player2UpgradedMaxHP = player2Attributes._upgradeMaxHP;
 
-            StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
-            StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
+            // Save the upgraded values to StatsTransfer
             StatsTransfer.Instance.SaveStatsPlayer1Upgrades(player1Attributes);
             StatsTransfer.Instance.SaveStatsPlayer2Upgrades(player2Attributes);
+
+            SpendGold(cost);
+            healthLevel++;
             UpdateUI();
+
+            Debug.Log($"JACK Player 1 New HP: {player1Attributes.maxHP}, Upgrade Level: {healthLevel}");
+            Debug.Log($"JACK Player 2 New HP: {player2Attributes.maxHP}, Upgrade Level: {healthLevel}");
         }
         else
         {
@@ -113,20 +134,25 @@ public class UpgradeManager : MonoBehaviour
     public void UpgradeAttackDamage()
     {
         int cost = CalculateUpgradeCost(attackLevel);
+
         if (CanAfford(cost) && attackLevel < maxUpgradeLevel)
         {
             player1Attributes.UpgradeAttackDamage(attackDamageIncrease);
             player2Attributes.UpgradeAttackDamage(attackDamageIncrease);
-            Debug.Log("Upgrade new player attack damage:" + player1Attributes.attackDamage);
+
+            StatsTransfer.Player1UpgradedAttackDamage = player1Attributes._upgradeAttackDamage;
+            StatsTransfer.Player2UpgradedAttackDamage = player2Attributes._upgradeAttackDamage;
+
+            StatsTransfer.Instance.SaveStatsPlayer1Upgrades(player1Attributes);
+            StatsTransfer.Instance.SaveStatsPlayer2Upgrades(player2Attributes);
 
             SpendGold(cost);
             attackLevel++;
-
-            StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
-            StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
-            StatsTransfer.Instance.SaveStatsPlayer1Upgrades(player1Attributes);
-            StatsTransfer.Instance.SaveStatsPlayer2Upgrades(player2Attributes);
             UpdateUI();
+
+            // Debug Logs
+            Debug.Log($"JACK Player 1 New Damage: {player1Attributes.attackDamage}, Upgrade Level: {attackLevel}");
+            Debug.Log($"JACK Player 2 New Damage: {player2Attributes.attackDamage}, Upgrade Level: {attackLevel}");
         }
         else
         {
@@ -137,19 +163,24 @@ public class UpgradeManager : MonoBehaviour
     public void UpgradeMovementSpeed()
     {
         int cost = CalculateUpgradeCost(speedLevel);
+
         if (CanAfford(cost) && speedLevel < maxUpgradeLevel)
         {
             player1Attributes.UpgradeMovementSpeed(movementSpeedIncrease);
             player2Attributes.UpgradeMovementSpeed(movementSpeedIncrease);
-            Debug.Log("Speed upgraded " + player1Attributes.movementSpeed);
-            SpendGold(cost);
-            speedLevel++;
 
-            StatsTransfer.Instance.SaveStatsPlayer1(player1Attributes);
-            StatsTransfer.Instance.SaveStatsPlayer2(player2Attributes);
+            StatsTransfer.Player1UpgradedSpeed = player1Attributes._upgradeMovementSpeed;
+            StatsTransfer.Player2UpgradedSpeed = player2Attributes._upgradeMovementSpeed;
+
             StatsTransfer.Instance.SaveStatsPlayer1Upgrades(player1Attributes);
             StatsTransfer.Instance.SaveStatsPlayer2Upgrades(player2Attributes);
+
+            SpendGold(cost);
+            speedLevel++;
             UpdateUI();
+
+            Debug.Log($"JACK Player 1 New Speed: {player1Attributes.movementSpeed}, Upgrade Level: {speedLevel}");
+            Debug.Log($"JACK Player 2 New Speed: {player2Attributes.movementSpeed}, Upgrade Level: {speedLevel}");
         }
         else
         {
