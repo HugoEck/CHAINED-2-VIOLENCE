@@ -109,10 +109,9 @@ public class BaseManager : MonoBehaviour
             highlightEffect = GetComponent<HighlightEffect>();
         }
         
-        if(damageText != null)
-        {
-            damageText = GetComponentInChildren<SpawnDamageText>();
-        }
+        
+        damageText = GetComponentInChildren<SpawnDamageText>();
+        
     }
     private void Update()
     {
