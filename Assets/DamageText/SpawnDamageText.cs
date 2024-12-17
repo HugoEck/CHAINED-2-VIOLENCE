@@ -20,6 +20,7 @@ public class SpawnDamageText : MonoBehaviour
             GameObject normalDamage = Instantiate(normalDamageText, position, Quaternion.identity);
             float text = normalDamage.GetComponent<FloatingDamageText>().damage = Mathf.FloorToInt(damage);
         }
-        
+
+        return;
     }
 }
