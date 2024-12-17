@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     private WeaponManager _weaponManager;
     private HighlightEffect _highlightEffect;
 
+    private VignetteEffect _vignetteEffect;
+
     private Collider _playerCollider;
     private Rigidbody _playerRigidbody;
     [SerializeField] private PlayerAttributes playerAttributes;
@@ -158,6 +160,8 @@ public class Player : MonoBehaviour
         }
 
         currentHealth = playerAttributes.maxHP;
+
+        _vignetteEffect = FindAnyObjectByType<VignetteEffect>();
 
     }
 
@@ -440,6 +444,15 @@ public class Player : MonoBehaviour
     public void SetHealth(float damage)
     {
         if (GhostChain._bIsGhostChainActive) return;
+
+        if (_playerId == 1)
+        {
+            _vignetteEffect?.PlayerOneTakesDamage();
+        }
+        else if (_playerId == 2)
+        {
+            _vignetteEffect?.PlayerTwoTakesDamage();
+        }
 
         // Reset inactivity timer when taking damage
         ResetCombatInactivityTimer(_playerId);
