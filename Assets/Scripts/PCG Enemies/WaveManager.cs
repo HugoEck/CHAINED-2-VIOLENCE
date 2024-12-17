@@ -111,7 +111,7 @@ public class WaveManager : MonoBehaviour
             // Once items are picked, move to the next wave
             if (itemPicker.itemPicked)
             {
-                currentWave++; // Increment the wave
+                // Increment the wave
                 itemPicker.itemPicked = false; // Reset itemPicked so we can pick again in the next wave
                 itemPicker.isPicking = false; // Reset picking state
             }
@@ -151,6 +151,8 @@ public class WaveManager : MonoBehaviour
 
         // Once arena change is complete, spawn the next wave
         SpawnWave(waves[currentWave]);
+        currentWave++;
+
     }
 
     private IEnumerator SpawnWaveCoroutine(Wave wave)

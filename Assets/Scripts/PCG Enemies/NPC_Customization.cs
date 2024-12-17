@@ -84,6 +84,7 @@ public class NPC_Customization : MonoBehaviour
 
     [Header("NPC Particles")]
     [SerializeField] GameObject bloodSplatter;
+    [SerializeField] GameObject suicideBomb;
     [SerializeField] GameObject smokeTrail;
     [SerializeField] GameObject hitEffect;
     [SerializeField] GameObject electricityEffect;
@@ -386,6 +387,7 @@ public class NPC_Customization : MonoBehaviour
         else if (Class == NPCClass.Bomber)
         {
             BomberManager behaviour = enemy.AddComponent<BomberManager>();
+            behaviour.explosionParticle = suicideBomb;
         }
 
         if (Theme == NPCTheme.Corrupted)
