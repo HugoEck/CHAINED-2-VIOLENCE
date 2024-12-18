@@ -79,6 +79,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isFlashing = false;
     Renderer renderer;
 
+    public VignetteEffect vignetteEffect;
+
     private void Awake()
     {
         if (gameObject.tag == "Player1")
@@ -177,7 +179,8 @@ public class Player : MonoBehaviour
 
             }        
         }
-        
+
+        vignetteEffect = FindAnyObjectByType<VignetteEffect>();
     }
 
     private void FixedUpdate()
@@ -472,6 +475,8 @@ public class Player : MonoBehaviour
     public void SetHealth(float damage)
     {
         if (GhostChain._bIsGhostChainActive) return;
+
+        vignetteEffect.TriggerVignette(_playerId);
 
         // Reset inactivity timer when taking damage
         ResetCombatInactivityTimer(_playerId);
