@@ -11,7 +11,7 @@ public class AttackConditions : Node
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
 
-        if (distance < agent.attackRange)
+        if (distance <= agent.attackRange)
         {
             return NodeState.SUCCESS;
         }

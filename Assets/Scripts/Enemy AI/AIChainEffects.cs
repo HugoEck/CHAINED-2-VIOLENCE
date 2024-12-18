@@ -18,7 +18,7 @@ public class AIChainEffects
 
     public void ActivateGhostChainEffect(float durationTime)
     {
-        if (agent.enemyID != "Charger" && agent.enemyID != "CyberGiant")
+        if (agent.enemyID != "CyberGiant")
         {
             stunActivated = true;
             stunDurationTime = durationTime;
@@ -29,7 +29,7 @@ public class AIChainEffects
 
     public void ActivateShockChainEffect(float durationTime)
     {
-        if (agent.enemyID != "Charger" && agent.enemyID != "CyberGiant")
+        if (agent.enemyID != "CyberGiant")
         {
             stunActivated = true;
             stunDurationTime = durationTime;
@@ -40,7 +40,7 @@ public class AIChainEffects
 
     public void ActivateRagdollStun(float durationTime, GameObject affectingObject, float knockbackForce)
     {
-        if (agent.enemyID != "Charger" && agent.enemyID != "CyberGiant")
+        if (agent.enemyID != "CyberGiant" && agent.enemyID != "BulwarkKnight")
         {
             stunActivated = true;
             stunDurationTime = durationTime;
@@ -68,7 +68,7 @@ public class AIChainEffects
     }
     public void ActivateKnockbackStun(float durationTime, GameObject affectingObject, float knockbackForce)
     {
-        if (agent.enemyID != "Charger" && agent.enemyID != "CyberGiant")
+        if (agent.enemyID != "CyberGiant")
         {
             stunActivated = true;
             stunDurationTime = durationTime;

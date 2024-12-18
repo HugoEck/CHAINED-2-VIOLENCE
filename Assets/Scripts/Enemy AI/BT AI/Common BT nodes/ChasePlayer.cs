@@ -69,9 +69,12 @@ public class ChasePlayer : Node
         else if(agent.enemyID == "Charger")
         {
             agent.animator.SetBool("Charger_Chase", true);
+            agent.animator.SetBool("Charger_Prepare", false);
             agent.animator.SetBool("Charger_Attack", false);
             agent.animator.SetBool("Charger_Sprint", false);
             agent.animator.SetBool("Charger_Idle", false);
+            agent.animator.SetBool("Charger_Electrocute", false);
+            agent.animator.SetBool("Charger_Scared", false);
         }
         else if (agent.enemyID == "Bomber")
         {

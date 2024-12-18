@@ -6,7 +6,7 @@ public class AttackPlayer : Node
 {
     public override NodeState Evaluate(BaseManager agent)
     {
-
+        agent.navigation.isStopped = true;
         SetAnimation(agent);
 
         agent.behaviorMethods.RotateTowardsClosestPlayer();
@@ -51,9 +51,11 @@ public class AttackPlayer : Node
         }
         else if(agent.enemyID == "Charger")
         {
-            agent.animator.SetBool("Charger_Chase", false);
             agent.animator.SetBool("Charger_Prepare", false);
+            agent.animator.SetBool("Charger_Chase", false);
             agent.animator.SetBool("Charger_Sprint", false);
+            agent.animator.SetBool("Charger_Electrocute", false);
+            agent.animator.SetBool("Charger_Scared", false);
         }
         
     }

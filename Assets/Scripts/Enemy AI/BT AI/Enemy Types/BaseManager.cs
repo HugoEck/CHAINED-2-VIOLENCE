@@ -120,7 +120,7 @@ public class BaseManager : MonoBehaviour
         {
             currentHealth = 0;
         }
-
+        
         //Hej sam förlåt för jag har rört i din manager //Victor
         if (gameObject.transform.position.y < -10 && currentHealth > 0)
         {
