@@ -92,6 +92,7 @@ public class StunAgent : Node
 
         agent.animator.SetBool("Plebian_Attack", false);
         agent.animator.SetBool("Plebian_Chase", false);
+        agent.animator.SetBool("Plebian_Idle", false);
     }
 
     private void SetAnimationRunner(BaseManager agent)
@@ -110,6 +111,7 @@ public class StunAgent : Node
 
         agent.animator.SetBool("Runner_Attack", false);
         agent.animator.SetBool("Runner_Chase", false);
+        agent.animator.SetBool("Runner_Idle", false);
     }
 
     private void SetAnimationRockThrower(BaseManager agent)
@@ -146,6 +148,7 @@ public class StunAgent : Node
 
         agent.animator.SetBool("Swordsman_Attack", false);
         agent.animator.SetBool("Swordsman_Chase", false);
+        agent.animator.SetBool("Swordsman_Idle", false);
 
     }
     private void SetAnimationBannerMan(BaseManager agent)

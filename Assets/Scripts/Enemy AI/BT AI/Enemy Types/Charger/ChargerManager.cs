@@ -67,9 +67,9 @@ public class ChargerManager : BaseManager
     private void LoadStats()
     {
         
-        chargingDamage = 10f;
-        navigation.maxSpeed = speed;
-        chargingRange = 20f;
+        chargingDamage = 25f;
+        navigation.maxSpeed = 4;
+        chargingRange = 15f;
         chargingSpeed = 20f;
         navigation.radius = 0.75f;
         c_collider.center = new Vector3(0, 0.5f, 0);
@@ -77,14 +77,13 @@ public class ChargerManager : BaseManager
         c_collider.height = 3;
         transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
         rb.mass = 50;
-        maxHealth = 10 + maxHealthModifier;
+        maxHealth = 40 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 5 + attackModifier;
-        defense = 1 + defenseModifier;
-        navigation.maxSpeed = 5;
-        attackSpeed = 1.5f + attackSpeedModifier;
+        attack = 15 + attackModifier;
+        defense = 2 + defenseModifier;
+        attackSpeed = 3f + attackSpeedModifier;
         attackRange = 4f;
-        unitCost = 50;
+        unitCost = 30;
 
     }
     public void PrepareChargeTimer()
@@ -115,22 +114,22 @@ public class ChargerManager : BaseManager
     {
         if (SprintDamageAllowed && collision.gameObject.CompareTag("Player1") && CD_AlreadyAppliedP1 == false )
         {
-            Debug.Log("P1 took Damage!");
+            //Debug.Log("P1 took Damage!");
             CD_AlreadyAppliedP1 = true;
             playerManager1.SetHealth(chargingDamage);
 
         }
         else if (SprintDamageAllowed && collision.gameObject.CompareTag("Player2") && CD_AlreadyAppliedP2 == false )
         {
-            Debug.Log("P2 took Damage!");
+            //Debug.Log("P2 took Damage!");
             CD_AlreadyAppliedP2 = true;
             playerManager2.SetHealth(chargingDamage);
 
         }
-        else if (collision.gameObject.CompareTag("Misc"))
+        else if (SprintDamageAllowed && collision.gameObject.CompareTag("Misc") || collision.gameObject.CompareTag("Obstacles"))
         {
-            //Spawna partikelexplosion för förstört objekt
-            //Destroy(collision.gameObject);
+            //Spawna partikelexplosion för förstört objekt //Pontus
+            Destroy(collision.gameObject);
         }
     }
     private void ConstructBT()

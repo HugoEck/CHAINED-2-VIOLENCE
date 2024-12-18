@@ -59,6 +59,7 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public bool PCG_componentsInstantiated = false;
     [HideInInspector] public Vector3 originalScale;
 
+
     //PLAYER EFFECTS
     public enum DamageType
     {
@@ -121,7 +122,7 @@ public class BaseManager : MonoBehaviour
         }
 
         //Hej sam förlåt för jag har rört i din manager //Victor
-        if(gameObject.transform.position.y < -10 && currentHealth > 0)
+        if (gameObject.transform.position.y < -10 && currentHealth > 0)
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
         }

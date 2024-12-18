@@ -12,12 +12,12 @@ public class BulwarkKnightManager : BaseManager
     Transform[] children;
 
 
-    float shieldDefense = 1;
+    float shieldDefense = 10;
     float baseDefense = 1;
     float shieldWalkSpeed = 3;
-    float runSpeed = 9;
-    float shieldAttackSpeed = 2.5f;
-    float swordAttackSpeed = 1.25f;
+    float runSpeed = 8;
+    float shieldAttackSpeed = 3f;
+    float swordAttackSpeed = 2f;
     float shieldAttackRange = 6;
     float swordAttackRange = 6;
     float swordDamage = 15;
@@ -43,7 +43,7 @@ public class BulwarkKnightManager : BaseManager
         ConstructBT();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         rootNode.Evaluate(this);
 
@@ -52,7 +52,6 @@ public class BulwarkKnightManager : BaseManager
             RageTimer();
         }
 
-       
     }
 
     private void LoadStats()
@@ -63,9 +62,9 @@ public class BulwarkKnightManager : BaseManager
         navigation.maxSpeed = shieldWalkSpeed;
         defense = shieldDefense + defenseModifier;
         attackSpeed = shieldAttackSpeed +attackSpeedModifier;
-        attackRange = 5;
         attackRange = shieldAttackRange;
         rb.mass = 100;
+        unitCost = 50;
 
     }
 
