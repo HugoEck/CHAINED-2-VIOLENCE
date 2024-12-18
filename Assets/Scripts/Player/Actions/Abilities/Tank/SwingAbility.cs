@@ -7,6 +7,9 @@ public class SwingAbility : MonoBehaviour, IAbility
     [Header("Tank Ability Sound: ")]
     [SerializeField] private AudioClip tankAbilitySound;
 
+    [Header("Ability Ready Sound: ")]
+    [SerializeField] private AudioClip abilityReadySound;
+
     public static bool BIsPlayerCurrentlySwinging = false;
 
     public Transform otherPlayer;         // Reference to the other player being swung
@@ -32,6 +35,8 @@ public class SwingAbility : MonoBehaviour, IAbility
 
     private AnimationStateController animationStateController;
 
+    private bool abilityReadySoundPlayed = false;
+
     private void Start()
     {
         if (otherPlayer != null)
@@ -40,6 +45,15 @@ public class SwingAbility : MonoBehaviour, IAbility
         }
         anchorRb = GetComponent<Rigidbody>(); // Get the Rigidbody of this player (anchor)
         animationStateController = GetComponent<AnimationStateController>();
+    }
+
+    private void Update()
+    {
+        if(cooldown <= 0 && !abilityReadySoundPlayed)
+        {
+            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
+            abilityReadySoundPlayed = true;
+        }
     }
 
     public void UseAbility(int playerId)
@@ -63,6 +77,9 @@ public class SwingAbility : MonoBehaviour, IAbility
         {
             Debug.Log("Swing ability is on cooldown.");
         }
+
+        abilityReadySoundPlayed = false;
+
     }
 
     void StartSwing()
