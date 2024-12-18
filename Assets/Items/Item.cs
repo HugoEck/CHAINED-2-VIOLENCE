@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
 
     public float attackModifier = 0;
     public float speedModifier = 0;
-    public float chainkModifier = 0;
+    public int chainkModifier = 0;
     public float healthkModifier = 0;
     // Start is called before the first frame update
     public void AssignStats(List<string> stats)

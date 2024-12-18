@@ -17,7 +17,7 @@ public class WaveData : MonoBehaviour
         waves.Add(CreateWave("Wave 1",
             new List<EnemyConfig>
             {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Fantasy, enemyClass = NPC_Customization.NPCClass.Bomber, waveSize = 3 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Farm, enemyClass = NPC_Customization.NPCClass.Bomber, waveSize = 3 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 10 },
             }
         ));
