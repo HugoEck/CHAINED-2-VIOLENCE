@@ -171,24 +171,27 @@ public class WaveManager : MonoBehaviour
 
         foreach (var enemyConfig in wave.enemyConfigs)
         {
-            // Randomize and create the base enemy
-            enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass);
-            GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
-            //randomEnemy.transform.parent = waveParent.transform; // Set the parent for the base enemy
-            randomEnemy.transform.position = new Vector3(100, 0, 100);
-            for (int i = 0; i < enemyConfig.waveSize; i++)
+            if (enemyCreator.currentBody != null)
             {
-                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
-                CheckValidSpawn(ref spawnPoint);
-                enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass); // Apply to each enemy
-                GameObject newEnemy = Instantiate(enemyCreator.currentBody, spawnPoint.position, spawnPoint.rotation);
-                newEnemy.name = $"{enemyConfig.enemyClass} enemy {i + 1}";
-                newEnemy.transform.parent = waveParent.transform;
+                // Randomize and create the base enemy
+                enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass);
+                GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
+                //randomEnemy.transform.parent = waveParent.transform; // Set the parent for the base enemy
+                randomEnemy.transform.position = new Vector3(100, 0, 100);
+                for (int i = 0; i < enemyConfig.waveSize; i++)
+                {
+                    Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;
+                    CheckValidSpawn(ref spawnPoint);
+                    enemyCreator.Randomize(enemyConfig.theme, enemyConfig.enemyClass); // Apply to each enemy
+                    GameObject newEnemy = Instantiate(enemyCreator.currentBody, spawnPoint.position, spawnPoint.rotation);
+                    newEnemy.name = $"{enemyConfig.enemyClass} enemy {i + 1}";
+                    newEnemy.transform.parent = waveParent.transform;
 
-                enemyCreator.AddBehaviourToClass(newEnemy);
-                ActiveEnemies++;
+                    enemyCreator.AddBehaviourToClass(newEnemy);
+                    ActiveEnemies++;
 
-                yield return new WaitForSeconds(spawnInterval);
+                    yield return new WaitForSeconds(spawnInterval);
+                }
             }
         }
 

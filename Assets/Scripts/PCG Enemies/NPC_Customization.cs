@@ -75,9 +75,14 @@ public class NPC_Customization : MonoBehaviour
     [SerializeField] GameObject RomanRock;
     [SerializeField] GameObject PirateRock;
     [SerializeField] GameObject FarmRock;
+    [SerializeField] GameObject modernRock;
+    [SerializeField] GameObject sciFiRock;
 
     [SerializeField] GameObject PirateBanner;
     [SerializeField] GameObject WesternBanner;
+    [SerializeField] GameObject FarmBanner;
+    [SerializeField] GameObject sciFiBanner;
+    [SerializeField] GameObject modernBanner;
     [SerializeField] GameObject damageTextObject;
 
     [SerializeField] GameObject RagdollRoot;
@@ -362,6 +367,16 @@ public class NPC_Customization : MonoBehaviour
                 behaviour.throwPoint = throwPoint.transform;
                 behaviour.rockPrefab = FarmRock;
             }
+            else if (Theme == NPCTheme.CurrentDay)
+            {
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = modernRock;
+            }
+            else if (Theme == NPCTheme.SciFi)
+            {
+                behaviour.throwPoint = throwPoint.transform;
+                behaviour.rockPrefab = sciFiRock;
+            }
         }
         else if (Class == NPCClass.Bannerman)
         {
@@ -371,6 +386,12 @@ public class NPC_Customization : MonoBehaviour
                 behaviour.flagPrefab = PirateBanner;
             else if (Theme == NPCTheme.Natives)
                 behaviour.flagPrefab = WesternBanner;
+            else if (Theme == NPCTheme.Farm)
+                behaviour.flagPrefab = FarmBanner;
+            else if (Theme == NPCTheme.CurrentDay)
+                behaviour.flagPrefab = modernBanner;
+            else if (Theme == NPCTheme.SciFi)
+                behaviour.flagPrefab = sciFiBanner;
         }
 
         else if (Class == NPCClass.Charger)
