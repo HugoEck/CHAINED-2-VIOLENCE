@@ -31,7 +31,10 @@ public class ChargerManager : BaseManager
     [HideInInspector] public Vector3 chainPosition;
     [HideInInspector] public Vector3 lastSavedPosition;
 
-    
+    //----------------PONTUS KOD: PARTICLE & DESTRUCTION OF OBJECTS----------------\\
+    [Header("DESTRUCTION OF OBJECTS & PARTICLE")]
+    public itemAreaSpawner spawner;
+    public GameObject destructionParticle;
 
 
     void Start()
@@ -44,6 +47,23 @@ public class ChargerManager : BaseManager
         
         ConstructBT();
 
+        //----------------PONTUS KOD: PARTICLE & DESTRUCTION OF OBJECTS----------------\\
+        if (destructionParticle == null)
+        {
+            destructionParticle = Resources.Load<GameObject>("FX_GroundCrack_Blast_01");
+            if (destructionParticle == null)
+            {
+                Debug.LogError("Destruction Particle not found in Resources! Check the file name and folder structure.");
+            }
+        }
+        if (spawner == null)
+        {
+            spawner = FindObjectOfType<itemAreaSpawner>();
+            if (spawner == null)
+            {
+                Debug.LogError("itemAreaSpawner not found! Ensure it exists in the scene.");
+            }
+        }
 
     }
 
@@ -128,7 +148,25 @@ public class ChargerManager : BaseManager
         }
         else if (SprintDamageAllowed && collision.gameObject.CompareTag("Misc") || collision.gameObject.CompareTag("Obstacles"))
         {
-            //Spawna partikelexplosion för förstört objekt //Pontus
+            //----------------PONTUS KOD: PARTICLE & DESTRUCTION OF OBJECTS----------------\\
+            if (collision.contacts.Length > 0 && destructionParticle != null)
+            {
+                Vector3 collisionPoint = collision.contacts[0].point;
+                collisionPoint.y = 0;
+
+                GameObject particleInstance = Instantiate(destructionParticle, collisionPoint, Quaternion.identity);
+                Destroy(particleInstance, 2f);
+            }
+            else
+            {
+                Debug.Log("Particles prefab is not assigned or no collision contacts available.");
+            }
+
+            if (spawner != null)
+            {
+                spawner.RemoveObjectFromCollision(collision.gameObject);
+            }
+
             Destroy(collision.gameObject);
         }
     }
