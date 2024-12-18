@@ -47,8 +47,6 @@ public class Projectile : MonoBehaviour, IAbility
                 }
             }
         }
-
-        if(cooldown )
     }
     
     public void UseAbility(int playerId)
