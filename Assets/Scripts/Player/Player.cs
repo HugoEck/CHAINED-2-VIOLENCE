@@ -52,10 +52,10 @@ public class Player : MonoBehaviour
     #endregion
 
     // Variables for regeneration tracking
-    private float regenerationCooldown = 10f; // Time to wait before regenerating
+    private float regenerationCooldown = 5f; // Time to wait before regenerating
     private float timeSinceLastCombatAction_Player1 = 0f; // Timer for Player 1
     private float timeSinceLastCombatAction_Player2 = 0f; // Timer for Player 2
-    [SerializeField] private float regenerationRate = 1f; // Health regenerated per second
+    [SerializeField] private float regenerationRate = 2f; // Health regenerated per second
 
     public bool _bIsPlayerDisabled = false;
 
@@ -134,7 +134,7 @@ public class Player : MonoBehaviour
         Chained2ViolenceGameManager.Instance.OnSceneStateChanged += Chained2ViolenceGameManagerOnSceneStateChanged;
         _classSelector.OnClassSwitched += PlayerCombatOnClassSwitched;
 
-        StartCoroutine(DisablePlayerMovementTmp());
+        //StartCoroutine(DisablePlayerMovementTmp());
 
         // Find and add all CapsuleColliders and BoxColliders to the arrays
         FindAndStoreColliders(transform);
@@ -150,19 +150,34 @@ public class Player : MonoBehaviour
         if ( _playerId == 1)
         {
             StatsTransfer.Instance.SaveStatsPlayer1(playerAttributes);
+            _playerRigidbody.mass = playerAttributes.mass;
 
         }
         else if (_playerId == 2)
         {
             StatsTransfer.Instance.SaveStatsPlayer2(playerAttributes);
+            _playerRigidbody.mass = playerAttributes.mass;
         }
 
         currentHealth = playerAttributes.maxHP;
 
+        if(_playerId == 2)
+        {
+            if (!Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+            {
+                _bIsPlayerDisabled = true;
+            }
+        }
+       
         if(Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.LobbyScene)
         {
-            _playerRigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-        } 
+            if(!_bIsPlayerDisabled)
+            {
+                _playerRigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+
+            }        
+        }
+        
     }
 
     private void FixedUpdate()
@@ -174,6 +189,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleKnockout();
+        UpdateHealthBar();
 
         if (_bIsPlayerDisabled) return;
 
@@ -202,8 +218,7 @@ public class Player : MonoBehaviour
         GetPlayerMovementInput();
 
         UpdatePlayerCombat();
-        CheckIfCurrentHPExceedsMaxHP();
-        UpdateHealthBar();
+        CheckIfCurrentHPExceedsMaxHP();  
         TakeDebugDamage(); // Used to kill players for debug, remove later.
         GhostChainIgnoreCollision();
         GetDropWeaponInput();
@@ -288,20 +303,20 @@ public class Player : MonoBehaviour
             {
                 _playerCombat.UseBaseAttack();
                 Debug.Log("Player 1 is using basic attack");
-                ResetCombatInactivityTimer(1);
+                //ResetCombatInactivityTimer(1);
 
             }
             else if (_bIsUsingAbilityAttack)
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 1 is using Ability");
-                ResetCombatInactivityTimer(1);
+                //ResetCombatInactivityTimer(1);
             }
             else if (_bIsUsingUltimateAttack)
             {
                 UltimateAbilityManager.instance.UseUltimateAbilityPlayer1();
                 Debug.Log("Player 1 is using Ultimate ability");
-                ResetCombatInactivityTimer(1);
+                //ResetCombatInactivityTimer(1);
             }
         }
         else if (_playerId == 2)
@@ -314,19 +329,19 @@ public class Player : MonoBehaviour
             {
                 _playerCombat.UseBaseAttack();
                 Debug.Log("Player 2 is using basic attack");
-                ResetCombatInactivityTimer(2);
+                //ResetCombatInactivityTimer(2);
             }
             else if (_bIsUsingAbilityAttack)
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 2 is using Ability");
-                ResetCombatInactivityTimer(2);
+                //ResetCombatInactivityTimer(2);
             }
             else if (_bIsUsingUltimateAttack)
             {
                 UltimateAbilityManager.instance.UseUltimateAbilityPlayer2();
                 Debug.Log("Player 2 is using Ultimate ability");
-                ResetCombatInactivityTimer(2);
+                //ResetCombatInactivityTimer(2);
             }
         }
     }
@@ -491,7 +506,6 @@ public class Player : MonoBehaviour
         }
         _highlightEffect.HitFX();
         //Flash indication
-        //ActivateVisuals();
     }
 
     public void UpdateHealthBar()
@@ -685,6 +699,27 @@ public class Player : MonoBehaviour
     }
     private void PlayerCombatOnClassSwitched(GameObject player, PlayerCombat.PlayerClass newClass)
     {
+        if(newClass == PlayerCombat.PlayerClass.Default)
+        {
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+        else if(newClass == PlayerCombat.PlayerClass.Tank)
+        {
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Warrior)
+        {
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Support)
+        {           
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Ranged)
+        {
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+
         currentHealth = playerAttributes.maxHP;
     }
     private IEnumerator DisablePlayerMovementTmp()
