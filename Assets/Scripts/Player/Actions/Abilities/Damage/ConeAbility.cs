@@ -8,6 +8,9 @@ public class ConeAbility : MonoBehaviour, IAbility
     [Header("Cone Ability Sound: ")]
     [SerializeField] private AudioClip coneAbilitySound;
 
+    [Header("Ability Ready Sound: ")]
+    [SerializeField] private AudioClip abilityReadySound;
+
     [Header("Ability")]
     [SerializeField] private float _damageCooldown = 0.2f;
     [SerializeField] private float _coneEffectCooldown = 1.5f;
@@ -81,8 +84,13 @@ public class ConeAbility : MonoBehaviour, IAbility
                
             }
         }
-        
-    }
+
+        if (_damageTimer <= 0.1f)
+        {
+            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
+        }
+
+        }
 
     private bool _bHasEffectBeenSpawned = false;
 
