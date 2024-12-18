@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour, IAbility
     [Header("Range Ability Sound: ")]
     [SerializeField] private AudioClip rangeAbilitySound;
 
+    [Header("Range Ability Sound: ")]
+    [SerializeField] private AudioClip abilityReadySound;
     public PlayerAttributes playerAttributes;
 
     public GameObject projectilePrefab;
@@ -45,6 +47,8 @@ public class Projectile : MonoBehaviour, IAbility
                 }
             }
         }
+
+        if(cooldown )
     }
     
     public void UseAbility(int playerId)
