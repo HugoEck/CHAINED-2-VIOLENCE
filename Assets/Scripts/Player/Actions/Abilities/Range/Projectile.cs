@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour, IAbility
     [Header("Range Ability Sound: ")]
     [SerializeField] private AudioClip rangeAbilitySound;
 
-    [Header("Range Ability Sound: ")]
+    [Header("Ability Ready Sound: ")]
     [SerializeField] private AudioClip abilityReadySound;
     public PlayerAttributes playerAttributes;
 

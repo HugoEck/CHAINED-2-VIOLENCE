@@ -11,7 +11,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
     [Header("Break Shield Sound: ")]
     [SerializeField] private AudioClip breakShieldSound;
 
-    [Header("Range Ability Sound: ")]
+    [Header("Ability Ready Sound: ")]
     [SerializeField] private AudioClip abilityReadySound;
 
     [Header("Shield Settings")]
