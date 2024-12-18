@@ -13,6 +13,19 @@ using static NPC_Customization;
 public class Player : MonoBehaviour
 {
     // References for all player functionality (components) here
+    #region Player Sound Effects
+
+    [Header("Take Damage SoundArray: ")]
+    [SerializeField] private AudioClip[] takeDamageSounds;
+
+    [Header("Respawn Sound: ")]
+    [SerializeField] private AudioClip respawnSound;
+
+    [Header("Player Death Sound: ")]
+    [SerializeField] private AudioClip playerDeathSound;
+
+    #endregion
+
     #region Player components
 
     private PlayerMovement _playerMovement;
@@ -379,7 +392,9 @@ public class Player : MonoBehaviour
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
                 rigidBodyMassManager.RestoreOriginalMasses();
-                
+
+                SFXManager.instance.PlaySFXClip(playerDeathSound, transform, 1f);
+
                 ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
@@ -389,6 +404,9 @@ public class Player : MonoBehaviour
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
             {
                 rigidBodyMassManager.RestoreOriginalMasses();
+
+                SFXManager.instance.PlaySFXClip(playerDeathSound, transform, 1f);
+
                 ToggleRagdoll(true, player2Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
@@ -412,6 +430,8 @@ public class Player : MonoBehaviour
 
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
+                SFXManager.instance.PlaySFXClip(playerDeathSound, transform, 1f);
+
                 ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
@@ -452,6 +472,8 @@ public class Player : MonoBehaviour
             _bIsPlayerDisabled = false;
             respawnTimerSet = false;
 
+            SFXManager.instance.PlaySFXClip(respawnSound, transform, 1f);
+
             if (_playerId == 1)
             {
                 ToggleRagdoll(false, player1Obj);
@@ -468,7 +490,6 @@ public class Player : MonoBehaviour
                 DisableColliders();
                 StartCoroutine(EnableRigidBodyConstraint());
             }
-
         }
     }
 
@@ -499,6 +520,7 @@ public class Player : MonoBehaviour
             damage = remainingDamage;
         }
 
+        SFXManager.instance.PlayRandomSFXClip(takeDamageSounds, transform, 1f);
         // Apply the remaining damage to the player's health
         currentHealth -= damage;
         Debug.Log(gameObject.tag + " took: " + damage + " damage, current health = " + currentHealth);
