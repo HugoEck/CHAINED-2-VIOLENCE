@@ -62,6 +62,7 @@ public class itemAreaSpawner : MonoBehaviour
     //-------------SAMS SCRIPTS-------------------------
 
     public GridGraphUpdater gridGraphUpdater;
+    public float navMeshOffsetMultiplier = 1.2f; // Offset multiplier for NavMesh calculations
 
     #endregion
 
@@ -97,9 +98,60 @@ public class itemAreaSpawner : MonoBehaviour
         }
     }
 
+    //private bool SpreadItem(GameObject[] objectArray)
+    //{
+    //    int maxAttempts = 5;  // Maximum number of attempts to find a valid position
+    //    int attempt = 0;
+
+    //    if (attempt < maxAttempts)
+    //    {
+    //        attempt++;
+
+    //        // Generate a random position within the spread
+    //        Vector3 randPosition = new Vector3(
+    //            Random.Range(-itemXSpread, itemXSpread),
+    //            0f,  // Surface Y-position
+    //            Random.Range(-itemZSpread, itemZSpread)) + transform.position;
+
+    //        // Pick a random item from the selected object array
+    //        int randomIndex = Random.Range(0, objectArray.Length);
+    //        GameObject itemToSpread = objectArray[randomIndex];
+
+    //        // Perform overlap check using an overlap box
+    //        Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
+    //        Collider[] collidersInsideOverlapBox = new Collider[10];
+    //        int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(randPosition, overlapTestBoxScale, collidersInsideOverlapBox, Quaternion.identity, spawnedObjectLayer);
+
+    //        // If no collisions, spawn the object
+    //        if (numberOfCollidersFound == 0)
+    //        {
+    //            GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
+    //            spawnedObjects.Add(clone);
+
+
+    //            #region SAMS KOD
+    //            //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
+    //            float updateRadius = 0;
+    //            Collider collider = clone.GetComponent<Collider>();
+    //            if (collider != null)
+    //            {
+    //                Bounds bounds = collider.bounds;
+    //                updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2.0f) + 1;
+    //            }
+    //            if (!clone.CompareTag("Decor"))
+    //            {
+    //                gridGraphUpdater.UpdateGrid(clone.transform.position, updateRadius);
+    //            }
+    //            #endregion
+
+    //            return true;  // Successfully spawned an item
+    //        }
+    //    }
+    //    return false;  // Failed to spawn due to overlap
+    //}
     private bool SpreadItem(GameObject[] objectArray)
     {
-        int maxAttempts = 5;  // Maximum number of attempts to find a valid position
+        int maxAttempts = 5; // Maximum number of attempts to find a valid position
         int attempt = 0;
 
         if (attempt < maxAttempts)
@@ -109,44 +161,43 @@ public class itemAreaSpawner : MonoBehaviour
             // Generate a random position within the spread
             Vector3 randPosition = new Vector3(
                 Random.Range(-itemXSpread, itemXSpread),
-                0f,  // Surface Y-position
+                0f, // Surface Y-position
                 Random.Range(-itemZSpread, itemZSpread)) + transform.position;
 
             // Pick a random item from the selected object array
             int randomIndex = Random.Range(0, objectArray.Length);
             GameObject itemToSpread = objectArray[randomIndex];
 
-            // Perform overlap check using an overlap box
-            Vector3 overlapTestBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
-            Collider[] collidersInsideOverlapBox = new Collider[10];
-            int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(randPosition, overlapTestBoxScale, collidersInsideOverlapBox, Quaternion.identity, spawnedObjectLayer);
+            // Perform overlap check using the overlap test box
+            Vector3 overlapBoxScale = new Vector3(overlapTestBoxSize, overlapTestBoxSize, overlapTestBoxSize);
+            Collider[] collidersInsideOverlapBox = new Collider[10]; // Predefined array to avoid GC
+            int numberOfCollidersFound = Physics.OverlapBoxNonAlloc(
+                randPosition,
+                overlapBoxScale / 2f, // Divide by 2 because the box size is defined by extents
+                collidersInsideOverlapBox,
+                Quaternion.identity,
+                spawnedObjectLayer
+            );
 
             // If no collisions, spawn the object
             if (numberOfCollidersFound == 0)
             {
+                // Instantiate the object
                 GameObject clone = Instantiate(itemToSpread, randPosition, Quaternion.identity);
                 spawnedObjects.Add(clone);
 
+                // Apply rotation if required
+                //ApplyRandomRotation(clone);
 
-                #region SAMS KOD
-                //----------------SAMS KOD: UPDATETING PATHFINDING-------------------------------
-                float updateRadius = 0;
-                Collider collider = clone.GetComponent<Collider>();
-                if (collider != null)
-                {
-                    Bounds bounds = collider.bounds;
-                    updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2.0f) + 1;
-                }
-                if (!clone.CompareTag("Decor"))
-                {
-                    gridGraphUpdater.UpdateGrid(clone.transform.position, updateRadius);
-                }
+                #region NAVMESH UPDATE
+                UpdatePathfinding(clone); // Update NavMesh with the multiplier applied
                 #endregion
 
-                return true;  // Successfully spawned an item
+                return true; // Successfully spawned an item
             }
         }
-        return false;  // Failed to spawn due to overlap
+
+        return false; // Failed to spawn due to overlap
     }
     #endregion
 
@@ -367,5 +418,43 @@ public class itemAreaSpawner : MonoBehaviour
             Debug.Log($"Removed {obj.name} from spawnedObjects list.");
         }
     }
+    #endregion
+
+    #region PATHFINDING
+
+    private void UpdatePathfinding(GameObject obj)
+    {
+        float updateRadius = CalculateUpdateRadius(obj);
+
+        if (!obj.CompareTag("Decor"))
+        {
+            gridGraphUpdater.UpdateGrid(obj.transform.position, updateRadius);
+        }
+    }
+
+    private float CalculateUpdateRadius(GameObject obj)
+    {
+        Vector3 worldSize = GetObjectWorldSize(obj) * navMeshOffsetMultiplier; // Apply the multiplier
+        return Mathf.Max(worldSize.x, worldSize.z) / 2f + 1f; // Max dimension + buffer
+    }
+
+    private Vector3 GetObjectWorldSize(GameObject obj)
+    {
+        Renderer renderer = obj.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            return renderer.bounds.size; // World size (x, y, z)
+        }
+
+        Collider collider = obj.GetComponent<Collider>();
+        if (collider != null)
+        {
+            return collider.bounds.size; // Use collider size if Renderer is missing
+        }
+
+        Debug.LogWarning($"Object {obj.name} does not have a Renderer or Collider for size calculations!");
+        return Vector3.one; // Default size
+    }
+
     #endregion
 }
