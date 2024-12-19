@@ -15,8 +15,9 @@ public class ShootBomb : Node
 
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
+        cg.bomb_marker.transform.position = agent.behaviorMethods.CalculateChainPosition();
 
-        if (cg.IsBombReady() && distance > cg.minBombDistance)
+        if (cg.IsBombReady() && distance > cg.minBombDistance && !cg.CheckIfAbilityInProgress())
         {
             //cg.bombReady = false;
             GameObject bomb = GameObject.Instantiate(cg.bombPrefab, cg.bombShootPoint.position, cg.bombShootPoint.rotation);

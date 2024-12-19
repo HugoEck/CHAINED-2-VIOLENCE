@@ -13,13 +13,8 @@ public class CGWeaponCollisionDetecter : MonoBehaviour
         cg = GetComponentInParent<CyberGiantManager>();
     }
 
-
-
-
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-
         if (collision.gameObject.CompareTag("Player1"))
         {
             cg.DealDamageWithWeapon("p1");
@@ -34,4 +29,5 @@ public class CGWeaponCollisionDetecter : MonoBehaviour
 
         }
     }
+
 }

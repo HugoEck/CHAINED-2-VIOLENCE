@@ -14,6 +14,8 @@ public class MissileRain : Node
     float animationTimer = 4f;
     int nrMissilesShot = 0;
 
+    bool missilesShot = false;
+
 
     public override NodeState Evaluate(BaseManager agent)
     {
@@ -34,13 +36,25 @@ public class MissileRain : Node
         p2_Velocity = CalculateVelocity(cg, p2_LastPosition);
         chain_Velocity = CalculateVelocity(cg, chain_LastPosition);
 
+        
+        if (!missilesShot)
+        {
+            cg.missile1_marker.transform.position = p1_LastPosition;
+            cg.missile2_marker.transform.position = p2_LastPosition;
+            cg.missile3_marker.transform.position = chain_LastPosition;
+        }
+
+
+
         RotateTowardsChain(agent, chain_LastPosition);
 
         if (animationTimer < 1.5f && nrMissilesShot < 3)
         {
             ShootMissile(cg, nrMissilesShot);
             nrMissilesShot++;
+            missilesShot = true;
         }
+ 
 
         animationTimer -= Time.deltaTime;
 
@@ -49,10 +63,20 @@ public class MissileRain : Node
             animationTimer = animationTotTime;
             cg.missileRainActive = false;
             nrMissilesShot = 0;
+            missilesShot = false;
+
+            cg.missile1_marker.SetActive(false);
+            cg.missile2_marker.SetActive(false);
+            cg.missile3_marker.SetActive(false);
+
             return NodeState.SUCCESS;
         }
         else
         {
+            cg.missile1_marker.SetActive(true);
+            cg.missile2_marker.SetActive(true);
+            cg.missile3_marker.SetActive(true);
+
             return NodeState.RUNNING;
         }
 
