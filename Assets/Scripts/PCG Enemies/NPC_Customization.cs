@@ -183,11 +183,11 @@ public class NPC_Customization : MonoBehaviour
         if (themeData != null)
         {
             // Connect future assets and classes in their lists
-            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets, themeData.BannermanHelmets, themeData.bomberHelmets, themeData.cyberGiantPrefab);
-            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons, themeData.BannermanWeapons, themeData.bomberWeapons, themeData.cyberGiantPrefab);
+            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets, themeData.BannermanHelmets, themeData.bomberHelmets, null);
+            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons, themeData.BannermanWeapons, themeData.bomberWeapons, null);
             List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.runnerBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies, themeData.BannermanBodies, themeData.bomberBodies, themeData.cyberGiantPrefab);
-            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes, themeData.BannermanCapes, themeData.bomberCapes, themeData.cyberGiantPrefab);
-            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields, themeData.BannermanShields, themeData.bomberShields, themeData.cyberGiantPrefab);
+            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes, themeData.BannermanCapes, themeData.bomberCapes, null);
+            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields, themeData.BannermanShields, themeData.bomberShields, null);
 
             // Instantiate body and set up animator
             if (bodies != null && bodies.Count > 0)
