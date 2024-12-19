@@ -16,16 +16,16 @@ public class AudioClipManager : MonoBehaviour
     #region Combo-System
 
     [Header("Player Combo-System")]
-    [SerializeField] private AudioClip[] tankUnarmedSounds;
-    [SerializeField] private AudioClip[] warriorUnarmedSounds;
-    [SerializeField] private AudioClip[] rangedUnarmedSounds;
-    [SerializeField] private AudioClip[] supportUnarmedSounds;
-    [SerializeField] private AudioClip[] twoHandedWeaponSounds;
-    [SerializeField] private AudioClip[] oneHandedWeaponSounds;
-    [SerializeField] private AudioClip[] reallyBigTwoHandedWeaponSounds;
-    [SerializeField] private AudioClip[] polearmWeaponSounds;
-    [SerializeField] private AudioClip[] daggerWeaponSounds;
-    [SerializeField] private AudioClip[] bigPenWeaponSounds;
+    [SerializeField] public AudioClip[] tankUnarmedSounds;
+    [SerializeField] public AudioClip[] warriorUnarmedSounds;
+    [SerializeField] public AudioClip[] rangedUnarmedSounds;
+    [SerializeField] public AudioClip[] supportUnarmedSounds;
+    [SerializeField] public AudioClip[] twoHandedWeaponSounds;
+    [SerializeField] public AudioClip[] oneHandedWeaponSounds;
+    [SerializeField] public AudioClip[] reallyBigTwoHandedWeaponSounds;
+    [SerializeField] public AudioClip[] polearmWeaponSounds;
+    [SerializeField] public AudioClip[] daggerWeaponSounds;
+    [SerializeField] public AudioClip[] bigPenWeaponSounds;
 
     #endregion
 
@@ -115,6 +115,7 @@ public class AudioClipManager : MonoBehaviour
     private void Awake()
     {
         ValidateAudioClips();
+        GameObject.DontDestroyOnLoad(this);
     }
 
     public void ValidateAudioClips()

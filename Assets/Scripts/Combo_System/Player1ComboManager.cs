@@ -8,14 +8,16 @@ public class Player1ComboManager : MonoBehaviour
 {
     public static Player1ComboManager instance { get; private set; }
 
-    [Header("Sound Effects")]
-    [SerializeField] private AudioClip[] unarmedSounds;
-    [SerializeField] private AudioClip[] twoHandedWeaponSounds;
-    [SerializeField] private AudioClip[] oneHandedWeaponSounds;
-    [SerializeField] private AudioClip[] reallyBigTwoHandedWeaponSounds;
-    [SerializeField] private AudioClip[] polearmWeaponSounds;
-    [SerializeField] private AudioClip[] daggerWeaponSounds;
-    [SerializeField] private AudioClip[] bigPenWeaponSounds;
+    //[Header("Sound Effects")]
+    //[SerializeField] private AudioClip[] unarmedSounds;
+    //[SerializeField] private AudioClip[] twoHandedWeaponSounds;
+    //[SerializeField] private AudioClip[] oneHandedWeaponSounds;
+    //[SerializeField] private AudioClip[] reallyBigTwoHandedWeaponSounds;
+    //[SerializeField] private AudioClip[] polearmWeaponSounds;
+    //[SerializeField] private AudioClip[] daggerWeaponSounds;
+    //[SerializeField] private AudioClip[] bigPenWeaponSounds;
+
+    private AudioClipManager audioClipManager;
 
     [Header("Combat related")]
     [SerializeField] private UnarmedComboSOs _availableUnarmedCombos;
@@ -74,8 +76,9 @@ public class Player1ComboManager : MonoBehaviour
         player1WeaponManager.OnWeaponEquipped += WeaponManager_OnWeaponEquippedPlayer1;
         player1WeaponManager.OnWeaponBroken += WeaponManager_OnWeaponBrokenPlayer1;
         player1Combat.OnClassSwitched += PlayerCombatOnClassSwitched;
+        audioClipManager = FindObjectOfType<AudioClipManager>();
 
-        if(ClassManager._currentPlayer1Class == PlayerCombat.PlayerClass.Default)
+        if (ClassManager._currentPlayer1Class == PlayerCombat.PlayerClass.Default)
         {
             currentAnimator = player1DefaultAnimator;
             currentPlayer1Class = PlayerCombat.PlayerClass.Default;
@@ -425,8 +428,16 @@ public class Player1ComboManager : MonoBehaviour
 
     private void PlayComboSound(int comboIndex)
     {
+        if (audioClipManager == null)
+        {
+            Debug.LogWarning("AudioClipManager is not initialized.");
+            return;
+        }
+
         // Adjust for 0-based indexing if comboIndex starts at 1
         int adjustedIndex = comboIndex - 1;
+
+        AudioClip[] selectedSounds = null;
 
         if (currentPlayer1Weapon != null)
         {
@@ -434,48 +445,98 @@ public class Player1ComboManager : MonoBehaviour
             switch (currentEquippedPlayer1WeaponType)
             {
                 case Weapon.WeaponType.TwoHanded:
-                    if (adjustedIndex >= 0 && adjustedIndex < twoHandedWeaponSounds.Length)
-                        SFXManager.instance.PlaySFXClip(twoHandedWeaponSounds[adjustedIndex], transform, 1.0f);
+                    selectedSounds = audioClipManager.twoHandedWeaponSounds;
                     break;
 
                 case Weapon.WeaponType.OneHanded:
-                    if (adjustedIndex >= 0 && adjustedIndex < oneHandedWeaponSounds.Length)
-                        SFXManager.instance.PlaySFXClip(oneHandedWeaponSounds[adjustedIndex], transform, 1.0f);
+                    selectedSounds = audioClipManager.oneHandedWeaponSounds;
                     break;
 
                 case Weapon.WeaponType.ReallyBigTwoHanded:
-                    if (adjustedIndex >= 0 && adjustedIndex < reallyBigTwoHandedWeaponSounds.Length)
-                        SFXManager.instance.PlaySFXClip(reallyBigTwoHandedWeaponSounds[adjustedIndex], transform, 1.0f);
+                    selectedSounds = audioClipManager.reallyBigTwoHandedWeaponSounds;
                     break;
 
                 case Weapon.WeaponType.Polearm:
-                    if (adjustedIndex >= 0 && adjustedIndex < polearmWeaponSounds.Length)
-                        SFXManager.instance.PlaySFXClip(polearmWeaponSounds[adjustedIndex], transform, 1.0f);
+                    selectedSounds = audioClipManager.polearmWeaponSounds;
                     break;
 
                 case Weapon.WeaponType.Dagger:
-                    if (adjustedIndex >= 0 && adjustedIndex < daggerWeaponSounds.Length)
-                        SFXManager.instance.PlaySFXClip(daggerWeaponSounds[adjustedIndex], transform, 1.0f);
+                    selectedSounds = audioClipManager.daggerWeaponSounds;
                     break;
 
                 case Weapon.WeaponType.BigPen:
-                    if (adjustedIndex >= 0 && adjustedIndex < bigPenWeaponSounds.Length)
-                        SFXManager.instance.PlaySFXClip(bigPenWeaponSounds[adjustedIndex], transform, 1.0f);
+                    selectedSounds = audioClipManager.bigPenWeaponSounds;
+                    break;
+                case Weapon.WeaponType.Unarmed:
+                    if(currentPlayer1Class == PlayerCombat.PlayerClass.Default)
+                    {
+                    selectedSounds = audioClipManager.tankUnarmedSounds;
+                    }
+                    else if (currentPlayer1Class == PlayerCombat.PlayerClass.Tank)
+                    {
+                        selectedSounds = audioClipManager.tankUnarmedSounds;
+                    }
+                    else if (currentPlayer1Class == PlayerCombat.PlayerClass.Warrior)
+                    {
+                        selectedSounds = audioClipManager.warriorUnarmedSounds;
+                    }
+                    else if (currentPlayer1Class == PlayerCombat.PlayerClass.Ranged)
+                    {
+                        selectedSounds = audioClipManager.rangedUnarmedSounds;
+                    }
+                    else if (currentPlayer1Class == PlayerCombat.PlayerClass.Support)
+                    {
+                        selectedSounds = audioClipManager.supportUnarmedSounds;
+                    }
                     break;
 
-                // Add cases for additional weapon types
                 default:
                     Debug.LogWarning($"No sound defined for weapon type: {currentEquippedPlayer1WeaponType}");
                     break;
             }
         }
-        else
+
+        //// If no valid weapon sounds were selected, fallback to unarmed sounds
+        //if (selectedSounds == null)
+        //{
+        //    switch (currentPlayer1Class)
+        //    {
+        //        case PlayerCombat.PlayerClass.Default:
+        //            selectedSounds = audioClipManager.tankUnarmedSounds;
+        //            break;
+
+        //        case PlayerCombat.PlayerClass.Tank:
+        //            selectedSounds = audioClipManager.tankUnarmedSounds;
+        //            break;
+
+        //        case PlayerCombat.PlayerClass.Warrior:
+        //            selectedSounds = audioClipManager.warriorUnarmedSounds;
+        //            break;
+
+        //        case PlayerCombat.PlayerClass.Ranged:
+        //            selectedSounds = audioClipManager.rangedUnarmedSounds;
+        //            break;
+
+        //        case PlayerCombat.PlayerClass.Support:
+        //            selectedSounds = audioClipManager.supportUnarmedSounds;
+        //            break;
+
+        //        default:
+        //            Debug.LogWarning($"No unarmed sounds defined for class: {currentPlayer1Class}");
+        //            break;
+        //    }
+        //}
+
+        // Play the selected sound if available
+        if (selectedSounds != null && adjustedIndex >= 0 && adjustedIndex < selectedSounds.Length)
         {
-            // Unarmed sound logic
-            if (adjustedIndex >= 0 && adjustedIndex < unarmedSounds.Length)
-                SFXManager.instance.PlaySFXClip(unarmedSounds[adjustedIndex], transform, 1.0f);
+            SFXManager.instance.PlaySFXClip(selectedSounds[adjustedIndex], transform, 1.0f);
         }
     }
+
+
+
+
 
 
 }
