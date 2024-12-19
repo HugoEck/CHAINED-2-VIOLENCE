@@ -298,8 +298,6 @@ public class NPC_Customization : MonoBehaviour
         {
             return;
         }
-
-        //AUHWD
         AIPath agent = enemy.AddComponent<AIPath>();
         AIDestinationSetter destinationSetter = enemy.AddComponent<AIDestinationSetter>();
         CapsuleCollider capsule = enemy.AddComponent<CapsuleCollider>();
@@ -447,8 +445,11 @@ public class NPC_Customization : MonoBehaviour
 
         if (Theme == NPCTheme.Corrupted)
         {
-            RandomizeStatsOnEnemies(enemy);
+            //RandomizeStatsOnEnemies(enemy);
         }
+
+        RandomizeStatsOnEnemies(enemy);
+
     }
 
 
