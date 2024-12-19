@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 4383092222130518458, guid: 112bd9dbcfdf0bf4e8ed34afd7a0cc5a,
         type: 3}
       propertyPath: m_Name
-      value: SM_Env_Grass_03 Variant
+      value: Grass 1
       objectReference: {fileID: 0}
     - target: {fileID: 4383092222130518458, guid: 112bd9dbcfdf0bf4e8ed34afd7a0cc5a,
         type: 3}
@@ -85,6 +85,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -4119074600863277833}
+    - targetCorrespondingSourceObject: {fileID: 4383092222130518458, guid: 112bd9dbcfdf0bf4e8ed34afd7a0cc5a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6263270782859647033}
   m_SourcePrefab: {fileID: 100100000, guid: 112bd9dbcfdf0bf4e8ed34afd7a0cc5a, type: 3}
 --- !u!1 &5318324823612231208 stripped
 GameObject:
@@ -118,3 +122,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissolveMaterial: {fileID: 2100000, guid: 993d2539afb5ec34ca84c83773d05b13, type: 2}
   dissolveYRange: {x: -1, y: 15}
+--- !u!114 &6263270782859647033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5318324823612231208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786c653e90b24d94483d8e3fa3967308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swaySpeed: 1
+  swayAmount: 3

@@ -4,6 +4,7 @@ using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -37,6 +38,8 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public AIBehaviorMethods behaviorMethods;
     [HideInInspector] public AIVisuals visuals;
 
+    private SpawnDamageText damageText;
+
     //KOMPONENTER
     [HideInInspector] public GameObject player1;
     [HideInInspector] public GameObject player2;
@@ -55,6 +58,7 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public bool agentIsDead = false;
     [HideInInspector] public bool PCG_componentsInstantiated = false;
     [HideInInspector] public Vector3 originalScale;
+
 
     //PLAYER EFFECTS
     public enum DamageType
@@ -101,7 +105,14 @@ public class BaseManager : MonoBehaviour
         //behaviorMethods.ToggleRagdoll(false);
         behaviorMethods.GetRagdollComponents(this);
 
-        highlightEffect = GetComponent<HighlightEffect>();
+        if(highlightEffect != null)
+        {
+            highlightEffect = GetComponent<HighlightEffect>();
+        }
+        
+        
+        damageText = GetComponentInChildren<SpawnDamageText>();
+        
     }
     private void Update()
     {
@@ -109,31 +120,45 @@ public class BaseManager : MonoBehaviour
         {
             currentHealth = 0;
         }
-
+        
         //Hej sam förlåt för jag har rört i din manager //Victor
-        if(gameObject.transform.position.y < -10 && currentHealth > 0)
+        if (gameObject.transform.position.y < -10 && currentHealth > 0)
         {
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
         }
     }
     public virtual void DealDamageToEnemy(float damage, DamageType damageType)
     {
-        if(damageType == DamageType.WeaponDamage || damageType == DamageType.UnarmedDamage)
+        if(currentHealth > 0)
         {
-            particleEffects.ActivateHitParticles(transform);
-        }
-        
-        if (defense - damage < 0)
-        {
-            highlightEffect.HitFX();
-            particleEffects.ActivateBloodParticles(transform);
-            
-            currentHealth = currentHealth + defense - damage;
+            if (damageType == DamageType.WeaponDamage || damageType == DamageType.UnarmedDamage)
+            {
+                particleEffects.ActivateHitParticles(transform);
+            }
+
+            if (defense - damage < 0)
+            {
+                if(damageText != null)
+                {
+                    damageText.Spawn(c_collider.transform.position + Vector3.up * (c_collider.height / 2), damage);
+                }
+                
+
+                if(highlightEffect != null)
+                {
+                    highlightEffect.HitFX();
+                }
+                
+                particleEffects.ActivateBloodParticles(transform);
+
+                currentHealth = currentHealth + defense - damage;
 
 
-            visuals.ActivateVisuals();
+                visuals.ActivateVisuals();
+            }
         }
     }
+        
 }
 
 

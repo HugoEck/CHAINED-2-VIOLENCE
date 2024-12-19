@@ -15,7 +15,7 @@ public class PlayerInRange : Node
         if (distance <= agent.attackRange)
         {
             agent.navigation.isStopped = true;
-            RotateTowardsPlayer(agent, agent.targetedPlayer);
+            //RotateTowardsPlayer(agent, agent.targetedPlayer);
             return NodeState.SUCCESS;
         }
         else

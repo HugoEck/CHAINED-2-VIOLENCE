@@ -8,6 +8,9 @@ public class ConeAbility : MonoBehaviour, IAbility
     [Header("Cone Ability Sound: ")]
     [SerializeField] private AudioClip coneAbilitySound;
 
+    [Header("Ability Ready Sound: ")]
+    [SerializeField] private AudioClip abilityReadySound;
+
     [Header("Ability")]
     [SerializeField] private float _damageCooldown = 0.2f;
     [SerializeField] private float _coneEffectCooldown = 1.5f;
@@ -28,12 +31,14 @@ public class ConeAbility : MonoBehaviour, IAbility
     private AnimationStateController animationStateController;
 
     private GameObject _coneEffect;
-    
+
     private float _coneEffectTimer;
 
     private float _damageTimer;
-   
+
     private bool _bHasConeAbilityBeenUsed = false;
+
+    private bool abilityReadySoundPlayed = false;
 
     private void Start()
     {
@@ -56,6 +61,7 @@ public class ConeAbility : MonoBehaviour, IAbility
             }
 
             _bHasConeAbilityBeenUsed = true;
+            abilityReadySoundPlayed = false; // Reset the sound flag
 
             //ActivateConeAbility();
             lastUseTime = Time.time; // Update the last use time
@@ -67,21 +73,27 @@ public class ConeAbility : MonoBehaviour, IAbility
     }
     private void Update()
     {
-        if(_bHasConeAbilityBeenUsed)
+        if (_bHasConeAbilityBeenUsed)
         {
             _coneEffectTimer -= Time.deltaTime;
             _damageTimer -= Time.deltaTime;
             ActivateConeAbility();
-            if(_coneEffectTimer < 0)
+            if (_coneEffectTimer < 0)
             {
                 _bHasConeAbilityBeenUsed = false;
                 animationStateController._animator.SetBool("WarriorAbilityOver", true);
                 _bHasEffectBeenSpawned = false;
                 Destroy(_coneEffect);
-               
+
             }
         }
-        
+
+        if (_damageTimer <= 0f && !abilityReadySoundPlayed)
+        {
+            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
+            abilityReadySoundPlayed = true;
+        }
+
     }
 
     private bool _bHasEffectBeenSpawned = false;
@@ -100,7 +112,7 @@ public class ConeAbility : MonoBehaviour, IAbility
             _bHasEffectBeenSpawned = true;
 
             _coneEffect = Instantiate(coneEffectPrefab, coneAnchor.position, Quaternion.identity);
-            
+
             animationStateController._animator.SetBool("WarriorAbilityOver", false);
 
             // Make the effect follow the cone anchor
@@ -112,8 +124,8 @@ public class ConeAbility : MonoBehaviour, IAbility
 
             //Destroy(coneEffect, 2.0f); // Destroy the effect after some time if it's temporary
         }
-       
-        if(_damageTimer <= 0)
+
+        if (_damageTimer <= 0)
         {
             // Find all enemies within the range
             Collider[] hitEnemies = Physics.OverlapSphere(transform.position, coneRange);

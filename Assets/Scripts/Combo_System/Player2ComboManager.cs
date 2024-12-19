@@ -119,7 +119,7 @@ public class Player2ComboManager : MonoBehaviour
     {
         _saveNormalWalkingSpeed = _player2Attributes.movementSpeed;
 
-        _player2Attributes.movementSpeed = _player2Attributes.movementSpeed * 0.7f;
+        _player2Attributes.movementSpeed = _player2Attributes.movementSpeed * 0.5f;
     }
     public void NormalWalkingSpeed()
     {

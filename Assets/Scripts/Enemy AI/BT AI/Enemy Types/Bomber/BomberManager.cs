@@ -47,15 +47,15 @@ public class BomberManager : BaseManager
     {
         maxHealth = 10 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 50 + attackModifier;
+        attack = 25 + attackModifier;
         defense = 0 + defenseModifier;
         navigation.maxSpeed = 3;
         attackRange = 15f;
         unitCost = 15;
-        sprintSpeed = 7;
+        sprintSpeed = 6;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
 
         rootNode.Evaluate(this);

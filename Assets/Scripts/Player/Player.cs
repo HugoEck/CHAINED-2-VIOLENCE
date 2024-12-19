@@ -13,6 +13,19 @@ using static NPC_Customization;
 public class Player : MonoBehaviour
 {
     // References for all player functionality (components) here
+    #region Player Sound Effects
+
+    [Header("Take Damage SoundArray: ")]
+    [SerializeField] private AudioClip[] takeDamageSounds;
+
+    [Header("Respawn Sound: ")]
+    [SerializeField] private AudioClip respawnSound;
+
+    [Header("Player Death Sound: ")]
+    [SerializeField] private AudioClip playerDeathSound;
+
+    #endregion
+
     #region Player components
 
     private PlayerMovement _playerMovement;
@@ -52,10 +65,10 @@ public class Player : MonoBehaviour
     #endregion
 
     // Variables for regeneration tracking
-    private float regenerationCooldown = 10f; // Time to wait before regenerating
+    private float regenerationCooldown = 5f; // Time to wait before regenerating
     private float timeSinceLastCombatAction_Player1 = 0f; // Timer for Player 1
     private float timeSinceLastCombatAction_Player2 = 0f; // Timer for Player 2
-    [SerializeField] private float regenerationRate = 1f; // Health regenerated per second
+    [SerializeField] private float regenerationRate = 2f; // Health regenerated per second
 
     public bool _bIsPlayerDisabled = false;
 
@@ -78,6 +91,8 @@ public class Player : MonoBehaviour
     [HideInInspector] private Color originalColor;
     [HideInInspector] public bool isFlashing = false;
     Renderer renderer;
+
+    public VignetteEffect vignetteEffect;
 
     private void Awake()
     {
@@ -134,7 +149,7 @@ public class Player : MonoBehaviour
         Chained2ViolenceGameManager.Instance.OnSceneStateChanged += Chained2ViolenceGameManagerOnSceneStateChanged;
         _classSelector.OnClassSwitched += PlayerCombatOnClassSwitched;
 
-        StartCoroutine(DisablePlayerMovementTmp());
+        //StartCoroutine(DisablePlayerMovementTmp());
 
         // Find and add all CapsuleColliders and BoxColliders to the arrays
         FindAndStoreColliders(transform);
@@ -150,15 +165,35 @@ public class Player : MonoBehaviour
         if ( _playerId == 1)
         {
             StatsTransfer.Instance.SaveStatsPlayer1(playerAttributes);
+            _playerRigidbody.mass = playerAttributes.mass;
 
         }
         else if (_playerId == 2)
         {
             StatsTransfer.Instance.SaveStatsPlayer2(playerAttributes);
+            _playerRigidbody.mass = playerAttributes.mass;
         }
 
         currentHealth = playerAttributes.maxHP;
 
+        if(_playerId == 2)
+        {
+            if (!Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+            {
+                _bIsPlayerDisabled = true;
+            }
+        }
+       
+        if(Chained2ViolenceGameManager.Instance.currentSceneState != Chained2ViolenceGameManager.SceneState.LobbyScene)
+        {
+            if(!_bIsPlayerDisabled)
+            {
+                _playerRigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+
+            }        
+        }
+
+        vignetteEffect = FindAnyObjectByType<VignetteEffect>();
     }
 
     private void FixedUpdate()
@@ -170,6 +205,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleKnockout();
+        UpdateHealthBar();
 
         if (_bIsPlayerDisabled) return;
 
@@ -198,8 +234,7 @@ public class Player : MonoBehaviour
         GetPlayerMovementInput();
 
         UpdatePlayerCombat();
-        CheckIfCurrentHPExceedsMaxHP();
-        UpdateHealthBar();
+        CheckIfCurrentHPExceedsMaxHP();  
         TakeDebugDamage(); // Used to kill players for debug, remove later.
         GhostChainIgnoreCollision();
         GetDropWeaponInput();
@@ -284,20 +319,20 @@ public class Player : MonoBehaviour
             {
                 _playerCombat.UseBaseAttack();
                 Debug.Log("Player 1 is using basic attack");
-                ResetCombatInactivityTimer(1);
+                //ResetCombatInactivityTimer(1);
 
             }
             else if (_bIsUsingAbilityAttack)
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 1 is using Ability");
-                ResetCombatInactivityTimer(1);
+                //ResetCombatInactivityTimer(1);
             }
             else if (_bIsUsingUltimateAttack)
             {
                 UltimateAbilityManager.instance.UseUltimateAbilityPlayer1();
                 Debug.Log("Player 1 is using Ultimate ability");
-                ResetCombatInactivityTimer(1);
+                //ResetCombatInactivityTimer(1);
             }
         }
         else if (_playerId == 2)
@@ -310,19 +345,19 @@ public class Player : MonoBehaviour
             {
                 _playerCombat.UseBaseAttack();
                 Debug.Log("Player 2 is using basic attack");
-                ResetCombatInactivityTimer(2);
+                //ResetCombatInactivityTimer(2);
             }
             else if (_bIsUsingAbilityAttack)
             {
                 _playerCombat.UseAbility();
                 Debug.Log("Player 2 is using Ability");
-                ResetCombatInactivityTimer(2);
+                //ResetCombatInactivityTimer(2);
             }
             else if (_bIsUsingUltimateAttack)
             {
                 UltimateAbilityManager.instance.UseUltimateAbilityPlayer2();
                 Debug.Log("Player 2 is using Ultimate ability");
-                ResetCombatInactivityTimer(2);
+                //ResetCombatInactivityTimer(2);
             }
         }
     }
@@ -357,18 +392,25 @@ public class Player : MonoBehaviour
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
                 rigidBodyMassManager.RestoreOriginalMasses();
+
+                SFXManager.instance.PlaySFXClip(playerDeathSound, transform, 1f);
+
                 ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
+                _playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 
             }
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
             {
                 rigidBodyMassManager.RestoreOriginalMasses();
+
+                SFXManager.instance.PlaySFXClip(playerDeathSound, transform, 1f);
+
                 ToggleRagdoll(true, player2Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
-
+                _playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             }
 
             if (_bIsPlayerDisabled)
@@ -388,6 +430,8 @@ public class Player : MonoBehaviour
 
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
+                SFXManager.instance.PlaySFXClip(playerDeathSound, transform, 1f);
+
                 ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
                 playersDefeated++;
@@ -403,6 +447,13 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    private IEnumerator EnableRigidBodyConstraint()
+    {
+        yield return new WaitForSeconds(1);
+        _playerRigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+    }
+
     private bool respawnTimerSet = false;
     private void Respawn()
     {
@@ -421,25 +472,32 @@ public class Player : MonoBehaviour
             _bIsPlayerDisabled = false;
             respawnTimerSet = false;
 
+            SFXManager.instance.PlaySFXClip(respawnSound, transform, 1f);
+
             if (_playerId == 1)
             {
                 ToggleRagdoll(false, player1Obj);
                 rigidBodyMassManager.SetMassesToZero();
                 DisableColliders();
+                
+               StartCoroutine(EnableRigidBodyConstraint());
+
             }
             else if (_playerId == 2)
             {
                 ToggleRagdoll(false, player2Obj);
                 rigidBodyMassManager.SetMassesToZero();
                 DisableColliders();
+                StartCoroutine(EnableRigidBodyConstraint());
             }
-
         }
     }
 
     public void SetHealth(float damage)
     {
         if (GhostChain._bIsGhostChainActive) return;
+
+        vignetteEffect.TriggerVignette(_playerId);
 
         // Reset inactivity timer when taking damage
         ResetCombatInactivityTimer(_playerId);
@@ -462,6 +520,7 @@ public class Player : MonoBehaviour
             damage = remainingDamage;
         }
 
+        SFXManager.instance.PlayRandomSFXClip(takeDamageSounds, transform, 1f);
         // Apply the remaining damage to the player's health
         currentHealth -= damage;
         Debug.Log(gameObject.tag + " took: " + damage + " damage, current health = " + currentHealth);
@@ -474,7 +533,6 @@ public class Player : MonoBehaviour
         }
         _highlightEffect.HitFX();
         //Flash indication
-        //ActivateVisuals();
     }
 
     public void UpdateHealthBar()
@@ -668,6 +726,27 @@ public class Player : MonoBehaviour
     }
     private void PlayerCombatOnClassSwitched(GameObject player, PlayerCombat.PlayerClass newClass)
     {
+        if(newClass == PlayerCombat.PlayerClass.Default)
+        {
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+        else if(newClass == PlayerCombat.PlayerClass.Tank)
+        {
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Warrior)
+        {
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Support)
+        {           
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+        else if (newClass == PlayerCombat.PlayerClass.Ranged)
+        {
+            _playerRigidbody.mass = playerAttributes.mass;
+        }
+
         currentHealth = playerAttributes.maxHP;
     }
     private IEnumerator DisablePlayerMovementTmp()

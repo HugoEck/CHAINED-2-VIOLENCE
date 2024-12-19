@@ -8,25 +8,34 @@ using static UnityEngine.ParticleSystem;
 public class TrapManager : MonoBehaviour
 {
     #region Variables
-    private float surfaceY = -0.3f;
-    private float particleSurfacePosition = 0.2f;
-    private float spawnY = -15f;
+    // PUBLIC
+    [Header("Trap Damage & Speed")]
+    public float trapDamage = 10f;
     public float riseSpeed = 15f;
     public float despawnSpeed = 10f;
 
-    public float minWaitTime;
-    public float maxWaitTime;
+    [Header("Trap Timing Settings")]
+    [Tooltip("Time the trap stays at the surface")]
+    [SerializeField] private float timeAboveSurface = 2f;
+
+    [Tooltip("Time the trap waits below the surface before rising again")]
+    [SerializeField] private float timeBelowSurface = 10f;
+
+
+    // PRIVATE
+    [SerializeField] private GameObject riseParticle; // Particle prefab for the trap rising
+    private GameObject currentParticle; // Reference to the active particle
+    
     private float timer = 0f;
+    private float surfaceY = -0.3f;
+    private float particleSurfacePosition = 0.2f;
+    private float spawnY = -15f;
 
     private bool isDespawning = false;
     private bool isMovingUp = false;
     private bool waitingAbove = false;
     private bool waitingBelow = false;
-
-    public float trapDamage = 1f;
-
-    [SerializeField] private GameObject riseParticle; // Particle prefab for the trap rising
-    private GameObject currentParticle; // Reference to the active particle
+    
     #endregion
 
     #region START & UPDATE
@@ -34,7 +43,11 @@ public class TrapManager : MonoBehaviour
     {
         // Start the trap below the surface
         transform.position = new Vector3(transform.position.x, spawnY, transform.position.z);
-        timer = Random.Range(minWaitTime, maxWaitTime);
+
+        float randomOffset = Random.Range(0f, 7f);
+        timer = timeBelowSurface + randomOffset; // Initial wait time below the surface
+
+        waitingBelow = true;
     }
 
     void Update()
@@ -59,6 +72,7 @@ public class TrapManager : MonoBehaviour
             {
                 // Trap is waiting above or below, decrease the timer
                 timer -= Time.deltaTime;
+                
                 if (timer <= 0f)
                 {
                     waitingAbove = false;
@@ -87,7 +101,7 @@ public class TrapManager : MonoBehaviour
                     riseSpeed = 0f; // Reset the rise speed
                     isMovingUp = false;
                     waitingAbove = true;
-                    timer = 2f; // Fixed wait time at the surface
+                    timer = timeAboveSurface; // Use the adjustable timeAboveSurface value
 
                     // Stop the rise particle effect
                     if (currentParticle != null)
@@ -112,7 +126,7 @@ public class TrapManager : MonoBehaviour
                     riseSpeed = 0f; // Reset the rise speed
                     isMovingUp = true;
                     waitingBelow = true;
-                    timer = Random.Range(10f, 20f); // Random wait time below the surface
+                    timer = timeBelowSurface; // Use the adjustable timeBelowSurface value
                 }
             }
         }

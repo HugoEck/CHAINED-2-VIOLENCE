@@ -11,12 +11,14 @@ public class WaveData : MonoBehaviour
             {
 
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 1 }
+
             }
         ));
         waves.Add(CreateWave("Wave 1",
             new List<EnemyConfig>
             {
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 1 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.CurrentDay, enemyClass = NPC_Customization.NPCClass.Bomber, waveSize = 1 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 10 },
             }
         ));
 
@@ -204,6 +206,8 @@ public class WaveData : MonoBehaviour
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Farm, enemyClass = NPC_Customization.NPCClass.Charger, waveSize = 1 }
            }
        ));
+
+        //NO WARRIORS FOR CURRENT DAY
         waves.Add(CreateWave("Wave 25",
            new List<EnemyConfig>
            {
@@ -302,7 +306,9 @@ public class WaveData : MonoBehaviour
             NPC_Customization.NPCClass.Warrior,
             NPC_Customization.NPCClass.Charger,
             NPC_Customization.NPCClass.Bannerman,
-            NPC_Customization.NPCClass.Runner
+            NPC_Customization.NPCClass.Runner,
+            NPC_Customization.NPCClass.Tank,
+            NPC_Customization.NPCClass.Bomber
         };
 
         // List to hold random enemy configurations for the new wave
