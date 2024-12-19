@@ -168,16 +168,16 @@ public class Player2ComboManager : MonoBehaviour
                     if (currentPlayer2Weapon != null)
                     {
                         PlayComboSound(comboIndex);
-                        enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage, BaseManager.DamageType.WeaponDamage);
+                        enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage, BaseManager.DamageType.WeaponDamage, false, true);
                     }
                     else
                     {
                         if(currentPlayer2Class != PlayerCombat.PlayerClass.Default)
                         {
-                            enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage);
+                            enemyManager.DealDamageToEnemy(attackDamage + _player2Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage, false, true);
                         }        
                     }
-
+       
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
 
                     if (_currentPlayer2WeaponObject != null)
