@@ -8,8 +8,9 @@ using UnityEngine.Rendering;
 public class itemAreaSpawner : MonoBehaviour
 {
     #region VARIABLES
-
     // PUBLIC
+
+    [Header("ERAS")]
     public GameObject[] romanObjects;
     public GameObject[] fantasyObjects;
     public GameObject[] pirateObjects;
@@ -20,19 +21,24 @@ public class itemAreaSpawner : MonoBehaviour
     public GameObject boulder;
 
     // List of objects that has been added
+    [Header("HOW MANY OBJECTS HAS SPAWNED")]
     public List<GameObject> spawnedObjects = new List<GameObject>();
 
     // Max objects that can be spawned at the time
+    [Header("TRY TO SPAWN NR OF OBJECTS")]
     public int numObjectsToSpawn;
 
     // Size of the box for overlap check
+    [Header("OVERLAP BOX SIZE")]
     public float overlapTestBoxSize = 1f;
 
     // The spread of objects around the map
+    [Header("GRID OF SPREAD")]
     public float itemXSpread;
     public float itemYSpread;
     public float itemZSpread;
 
+    [Header("OBJECTS")]
     public LayerMask spawnedObjectLayer;
     public WaveManager waveManager;
 
@@ -61,8 +67,9 @@ public class itemAreaSpawner : MonoBehaviour
 
     //-------------SAMS SCRIPTS-------------------------
 
+    [Header("A*")]
     public GridGraphUpdater gridGraphUpdater;
-    public float navMeshOffsetMultiplier = 1.2f; // Offset multiplier for NavMesh calculations
+    public float navMeshOffsetMultiplier = 1.8f; // Offset multiplier for NavMesh calculations
 
     #endregion
 
