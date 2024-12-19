@@ -8,6 +8,15 @@ public class Player1ComboManager : MonoBehaviour
 {
     public static Player1ComboManager instance { get; private set; }
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip[] unarmedSounds;
+    [SerializeField] private AudioClip[] twoHandedWeaponSounds;
+    [SerializeField] private AudioClip[] oneHandedWeaponSounds;
+    [SerializeField] private AudioClip[] reallyBigTwoHandedWeaponSounds;
+    [SerializeField] private AudioClip[] polearmWeaponSounds;
+    [SerializeField] private AudioClip[] daggerWeaponSounds;
+    [SerializeField] private AudioClip[] bigPenWeaponSounds;
+
     [Header("Combat related")]
     [SerializeField] private UnarmedComboSOs _availableUnarmedCombos;
 
@@ -133,6 +142,7 @@ public class Player1ComboManager : MonoBehaviour
     public void DealDamageToEnemies(float attackRange, float attackDamage, float stunDuration, float knockbackForce, float maxAngle)
     {
         bool durabilityReduced = false;
+        int comboIndex = currentAnimator.GetInteger("ComboIndex");
 
         TriggerWeaponSlash();
         // Find all enemies within the attack range
@@ -157,8 +167,10 @@ public class Player1ComboManager : MonoBehaviour
                 if (enemyManager != null)
                 {
                     // Deal damage if within cone
-                    if(currentPlayer1Weapon != null)
+                    if (currentPlayer1Weapon != null)
                     {
+                        // Play corresponding sound for the combo
+                        PlayComboSound(comboIndex);
                         enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.WeaponDamage);
                     }
                     else
@@ -410,4 +422,60 @@ public class Player1ComboManager : MonoBehaviour
     {
         currentAnimator.SetFloat("AttackSpeed", _player1Attributes.attackSpeed);
     }
+
+    private void PlayComboSound(int comboIndex)
+    {
+        // Adjust for 0-based indexing if comboIndex starts at 1
+        int adjustedIndex = comboIndex - 1;
+
+        if (currentPlayer1Weapon != null)
+        {
+            // Determine sound by weapon type
+            switch (currentEquippedPlayer1WeaponType)
+            {
+                case Weapon.WeaponType.TwoHanded:
+                    if (adjustedIndex >= 0 && adjustedIndex < twoHandedWeaponSounds.Length)
+                        SFXManager.instance.PlaySFXClip(twoHandedWeaponSounds[adjustedIndex], transform, 1.0f);
+                    break;
+
+                case Weapon.WeaponType.OneHanded:
+                    if (adjustedIndex >= 0 && adjustedIndex < oneHandedWeaponSounds.Length)
+                        SFXManager.instance.PlaySFXClip(oneHandedWeaponSounds[adjustedIndex], transform, 1.0f);
+                    break;
+
+                case Weapon.WeaponType.ReallyBigTwoHanded:
+                    if (adjustedIndex >= 0 && adjustedIndex < reallyBigTwoHandedWeaponSounds.Length)
+                        SFXManager.instance.PlaySFXClip(reallyBigTwoHandedWeaponSounds[adjustedIndex], transform, 1.0f);
+                    break;
+
+                case Weapon.WeaponType.Polearm:
+                    if (adjustedIndex >= 0 && adjustedIndex < polearmWeaponSounds.Length)
+                        SFXManager.instance.PlaySFXClip(polearmWeaponSounds[adjustedIndex], transform, 1.0f);
+                    break;
+
+                case Weapon.WeaponType.Dagger:
+                    if (adjustedIndex >= 0 && adjustedIndex < daggerWeaponSounds.Length)
+                        SFXManager.instance.PlaySFXClip(daggerWeaponSounds[adjustedIndex], transform, 1.0f);
+                    break;
+
+                case Weapon.WeaponType.BigPen:
+                    if (adjustedIndex >= 0 && adjustedIndex < bigPenWeaponSounds.Length)
+                        SFXManager.instance.PlaySFXClip(bigPenWeaponSounds[adjustedIndex], transform, 1.0f);
+                    break;
+
+                // Add cases for additional weapon types
+                default:
+                    Debug.LogWarning($"No sound defined for weapon type: {currentEquippedPlayer1WeaponType}");
+                    break;
+            }
+        }
+        else
+        {
+            // Unarmed sound logic
+            if (adjustedIndex >= 0 && adjustedIndex < unarmedSounds.Length)
+                SFXManager.instance.PlaySFXClip(unarmedSounds[adjustedIndex], transform, 1.0f);
+        }
+    }
+
+
 }
