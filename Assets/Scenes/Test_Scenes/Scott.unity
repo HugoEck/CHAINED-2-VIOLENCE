@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -537,10 +537,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 9
   weaponName: 
   damage: 2
@@ -911,10 +913,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 11
   weaponName: 
   damage: 2
@@ -1088,7 +1092,7 @@ Transform:
   m_GameObject: {fileID: 144536265}
   serializedVersion: 2
   m_LocalRotation: {x: -0.01101271, y: 0.70462555, z: 0.0011736981, w: 0.7094929}
-  m_LocalPosition: {x: -21.36, y: 2.4, z: -48.5}
+  m_LocalPosition: {x: -21.36, y: 2.4, z: -17.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6429,10 +6433,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
@@ -6541,7 +6547,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 11.31063, y: 11.31063, z: 11.31063}
+  m_LocalScale: {x: 33.10508, y: 33.10508, z: 33.10508}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 789541745}
@@ -6577,10 +6583,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 17
   weaponName: 
   damage: 2
@@ -6709,10 +6717,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 6
   weaponName: 
   damage: 2
@@ -6795,10 +6805,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 5
   weaponName: 
   damage: 2
@@ -6871,10 +6883,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 9
   weaponName: 
   damage: 2
@@ -6932,10 +6946,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 8
   weaponName: 
   damage: 2
@@ -11812,10 +11828,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 7
   weaponName: 
   damage: 2
@@ -11852,10 +11870,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 16
   weaponName: 
   damage: 2
@@ -11892,10 +11912,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 4
   weaponName: Joust
   damage: 2
@@ -11932,10 +11954,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 13
   weaponName: 
   damage: 2
@@ -12037,10 +12061,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 16
   weaponName: 
   damage: 2
@@ -12108,10 +12134,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 15
   weaponName: 
   damage: 2
@@ -12184,10 +12212,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 8
   weaponName: 
   damage: 2
@@ -17402,10 +17432,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 19
   weaponName: 
   damage: 2
@@ -18025,10 +18057,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 12
   weaponName: 
   damage: 2
@@ -18065,10 +18099,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 21
   weaponName: 
   damage: 2
@@ -18720,10 +18756,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 4
   weaponName: Joust
   damage: 2
@@ -19804,10 +19842,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 17
   weaponName: 
   damage: 2
@@ -20121,10 +20161,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 20
   weaponName: 
   damage: 2
@@ -20244,10 +20286,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 6
   weaponName: 
   damage: 2
@@ -20629,7 +20673,7 @@ Transform:
   m_GameObject: {fileID: 1172182997}
   serializedVersion: 2
   m_LocalRotation: {x: -0.01101271, y: 0.70462555, z: 0.0011736981, w: 0.7094929}
-  m_LocalPosition: {x: -21.36, y: 2.4, z: -48.5}
+  m_LocalPosition: {x: -21.36, y: 2.4, z: -17.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20864,10 +20908,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 21
   weaponName: 
   damage: 2
@@ -20904,10 +20950,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 14
   weaponName: 
   damage: 2
@@ -20944,10 +20992,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
@@ -21185,10 +21235,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 13
   weaponName: 
   damage: 2
@@ -21225,10 +21277,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 18
   weaponName: 
   damage: 2
@@ -21362,10 +21416,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 20
   weaponName: 
   damage: 2
@@ -21670,10 +21726,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 10
   weaponName: 
   damage: 2
@@ -22032,10 +22090,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 1
   weaponName: Sword_Small
   damage: 2
@@ -22368,10 +22428,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 11
   weaponName: 
   damage: 2
@@ -22491,10 +22553,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 14
   weaponName: 
   damage: 2
@@ -22531,10 +22595,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 15
   weaponName: 
   damage: 2
@@ -22939,10 +23005,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 2
   weaponName: Wep_Axe_01
   damage: 2
@@ -23386,6 +23454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3e3f76aba9b534f9d783269dae0010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tankAbilitySound: {fileID: 0}
+  abilityReadySound: {fileID: 0}
   otherPlayer: {fileID: 2044101858}
   swingDuration: 3
   swingSpeed: 200
@@ -23491,9 +23561,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  takeDamageSounds: []
+  respawnSound: {fileID: 0}
+  playerDeathSound: {fileID: 0}
   playerAttributes: {fileID: 0}
+  regenerationRate: 2
   _bIsPlayerDisabled: 0
   isFlashing: 0
+  vignetteEffect: {fileID: 0}
 --- !u!54 &1749255302
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23763,10 +23838,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 5
   weaponName: 
   damage: 2
@@ -23884,10 +23961,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 18
   weaponName: 
   damage: 2
@@ -24009,10 +24088,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 7
   weaponName: 
   damage: 2
@@ -24150,10 +24231,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
@@ -24332,10 +24415,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 19
   weaponName: 
   damage: 2
@@ -24515,10 +24600,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 12
   weaponName: 
   damage: 2
@@ -24643,6 +24730,7 @@ MonoBehaviour:
     type: 3}
   waypointsParent: {fileID: 0}
   respawnTime: 5
+  rarityProbabilities: []
 --- !u!1 &2021537575 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1309936475503278, guid: 4ae69815433a0b84cbdb0e33ead1c063,
@@ -24672,10 +24760,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 10
   weaponName: 
   damage: 2
@@ -24858,6 +24948,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3e3f76aba9b534f9d783269dae0010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tankAbilitySound: {fileID: 0}
+  abilityReadySound: {fileID: 0}
   otherPlayer: {fileID: 1749255292}
   swingDuration: 3
   swingSpeed: 200
@@ -24963,9 +25055,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8801b4bab21d4a740a93ee0223a94aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  takeDamageSounds: []
+  respawnSound: {fileID: 0}
+  playerDeathSound: {fileID: 0}
   playerAttributes: {fileID: 0}
+  regenerationRate: 2
   _bIsPlayerDisabled: 0
   isFlashing: 0
+  vignetteEffect: {fileID: 0}
 --- !u!54 &2044101854
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30578,10 +30675,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 3
   weaponName: Small Dagger
   damage: 2
@@ -30683,6 +30782,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95d199657b548f64996651afb42591be, type: 3}
+--- !u!1001 &1977941781111412038
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.647995
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.6430535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4400555647512510026, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690063468244069829, guid: f25a6f8c677983342a4d00c1e67208c6,
+        type: 3}
+      propertyPath: m_Name
+      value: BigPen_Weapons
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f25a6f8c677983342a4d00c1e67208c6, type: 3}
 --- !u!1001 &3750992348737561119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31136,3 +31303,4 @@ SceneRoots:
   - {fileID: 1495155706}
   - {fileID: 1304405}
   - {fileID: 1939718837}
+  - {fileID: 1977941781111412038}

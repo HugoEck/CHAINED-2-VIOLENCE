@@ -14,6 +14,7 @@ public class WeaponSpawner : MonoBehaviour
     [SerializeField] private GameObject farmWeaponsPrefab;
     [SerializeField] private GameObject warriorWeaponsPrefab;
     [SerializeField] private GameObject medievalWeaponsPrefab;
+    [SerializeField] private GameObject bigPenWeaponsPrefab;
     [SerializeField] private Transform waypointsParent;  // Reference to the parent GameObject containing waypoints as child objects
     [SerializeField] private float respawnTime = 10f;
 
@@ -45,6 +46,10 @@ public class WeaponSpawner : MonoBehaviour
             weaponPrefabs.Add(weapon.gameObject);
         }
         foreach (Transform weapon in medievalWeaponsPrefab.transform)
+        {
+            weaponPrefabs.Add(weapon.gameObject);
+        }
+        foreach (Transform weapon in bigPenWeaponsPrefab.transform)
         {
             weaponPrefabs.Add(weapon.gameObject);
         }
