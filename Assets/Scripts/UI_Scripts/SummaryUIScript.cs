@@ -1,32 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[System.Serializable]
-public class PlayerStatsforUI
-{
-    public int PlayerId;
-    public int TotalKills;
-    public int DamageDealt;
-    public int TotalRevives;
-    public int DamageTaken;
-    public int HPRegenerated;
-
-    public PlayerStatsforUI(int playerId)
-    {
-        PlayerId = playerId;
-        ResetStats();
-    }
-
-    public void ResetStats()
-    {
-        TotalKills = 0;
-        DamageDealt = 0;
-        TotalRevives = 0;
-        DamageTaken = 0;
-        HPRegenerated = 0;
-    }
-}
-
 public class GameStatsManager : MonoBehaviour
 {
     public static GameStatsManager Instance;
@@ -35,7 +9,8 @@ public class GameStatsManager : MonoBehaviour
     public float ArenaRunDuration { get; private set; } // Time in seconds
 
     private int FinalWaveReached = WaveManager.currentWave;
-    private int DataPointsEarned = GoldDropManager.Instance.GetGoldAmount();
+    public int DataPointsEarned { get; private set; }
+    //private int DataPointsEarned = GoldDropManager.Instance.GetGoldAmount();
 
     public PlayerStatsforUI player1UIStats { get; private set; }
     public PlayerStatsforUI player2UIStats { get; private set; }
@@ -82,5 +57,31 @@ public class GameStatsManager : MonoBehaviour
 
         player1UIStats.ResetStats();
         player2UIStats.ResetStats();
+    }
+}
+
+[System.Serializable]
+public class PlayerStatsforUI
+{
+    public int PlayerId;
+    public int TotalKills;
+    public int DamageDealt;
+    public int TotalRevives;
+    public int DamageTaken;
+    public int HPRegenerated;
+
+    public PlayerStatsforUI(int playerId)
+    {
+        PlayerId = playerId;
+        ResetStats();
+    }
+
+    public void ResetStats()
+    {
+        TotalKills = 0;
+        DamageDealt = 0;
+        TotalRevives = 0;
+        DamageTaken = 0;
+        HPRegenerated = 0;
     }
 }
