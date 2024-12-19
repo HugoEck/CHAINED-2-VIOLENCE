@@ -79,4 +79,9 @@ public class PlebianManager : BaseManager
         unitCost = 1;
         
     }
+
+    //public override void DealDamageToPlayer()
+    //{
+    //    base.DealDamageToPlayer();
+    //}
 }
