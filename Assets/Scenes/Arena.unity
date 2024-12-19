@@ -1825,52 +1825,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40416f6f047a36b49b29f48e2de76762, type: 3}
---- !u!1 &76125533
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 76125535}
-  - component: {fileID: 76125534}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &76125534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76125533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &76125535
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76125533}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &77077129
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3561,6 +3515,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 141273448}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &141608135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 141608137}
+  - component: {fileID: 141608136}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &141608136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141608135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &141608137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141608135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &141999727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5161,7 +5161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195160688}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3843485, y: -0.34694013, z: 0.15861598, w: 0.8406841}
+  m_LocalRotation: {x: 0.38434857, y: -0.34694013, z: 0.15861598, w: 0.8406841}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22093,7 +22093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903612228}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3843485, y: -0.3469401, z: 0.15861598, w: 0.8406841}
+  m_LocalRotation: {x: 0.38434854, y: -0.34694016, z: 0.15861604, w: 0.840684}
   m_LocalPosition: {x: 13.168603, y: 29.217806, z: -13.23741}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -30585,7 +30585,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1280065953}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.36899334, y: -0.34976786, z: 0.15227908, w: 0.84753615}
+  m_LocalRotation: {x: 0.36899337, y: -0.34976786, z: 0.15227906, w: 0.84753615}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -54033,6 +54033,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.BannermanCapes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanCapes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.BannermanCapes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[6].themeData.BannermanCapes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
       propertyPath: themeDataList.Array.data[7].themeData.basicBodies.Array.data[0]
       value: 
       objectReference: {fileID: 1316981293597076, guid: 0c700c142c2c48047be112441d972110,
@@ -54101,6 +54121,11 @@ PrefabInstance:
         type: 3}
       propertyPath: themeDataList.Array.data[7].themeData.warriorWeapons.Array.size
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[8].themeData.BannermanCapes.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
@@ -54540,7 +54565,7 @@ PrefabInstance:
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
       propertyPath: themeDataList.Array.data[8].themeData.BannermanBodies.Array.size
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
@@ -55382,6 +55407,30 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
+      propertyPath: themeDataList.Array.data[1].themeData.BannermanCapes.Array.data[0]
+      value: 
+      objectReference: {fileID: 2159191529933682289, guid: 719dfc7b71a99494db6aa2b3e16e40d6,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[2].themeData.BannermanCapes.Array.data[0]
+      value: 
+      objectReference: {fileID: 8848543338153973950, guid: b9d1162c95b89674d95cd35851b7e00b,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[3].themeData.BannermanCapes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1273543711330380, guid: 572243d24eedeca48b8908da5bbb0fe2,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[6].themeData.BannermanCapes.Array.data[0]
+      value: 
+      objectReference: {fileID: 891304110485573222, guid: 247bc2426527ed347af34c34aadd2eb8,
+        type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
       propertyPath: themeDataList.Array.data[7].themeData.chargerBodies.Array.data[10]
       value: 
       objectReference: {fileID: 1848324045129022, guid: 09fdd914d7c7b944990aa868a133f7c0,
@@ -55743,6 +55792,12 @@ PrefabInstance:
       propertyPath: themeDataList.Array.data[7].themeData.warriorWeapons.Array.data[9]
       value: 
       objectReference: {fileID: 185350, guid: 89f2c24352766b5478d2f7e8fe40e629, type: 3}
+    - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
+        type: 3}
+      propertyPath: themeDataList.Array.data[8].themeData.BannermanCapes.Array.data[0]
+      value: 
+      objectReference: {fileID: 6282918347051085324, guid: 0aafd09e1db1f144d91aed6259e65002,
+        type: 3}
     - target: {fileID: 5409532343496490193, guid: 24c08ab112a00074c8bab557cc1cf7ef,
         type: 3}
       propertyPath: themeDataList.Array.data[8].themeData.rockThrowerBodies.Array.size
@@ -71838,4 +71893,4 @@ SceneRoots:
   - {fileID: 1336762205}
   - {fileID: 1363913785}
   - {fileID: 1496207209}
-  - {fileID: 76125535}
+  - {fileID: 141608137}

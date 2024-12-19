@@ -139,7 +139,6 @@ public class NPC_Customization : MonoBehaviour
 
     [Header("Spawn Points")]
     [SerializeField] Transform weaponPoint;
-    [SerializeField] Transform capePoint;
     [SerializeField] Transform helmetPoint;
     [SerializeField] Transform bodyPoint;
     [SerializeField] Transform shieldPoint;
@@ -192,7 +191,8 @@ public class NPC_Customization : MonoBehaviour
             // Instantiate body and set up animator
             if (bodies != null && bodies.Count > 0)
             {
-
+                Destroy(currentBody);
+                currentBody = null;
                 currentBody = InstantiateRandomAsset(bodies, bodyPoint);
                 //Apply glitch effect on corrupt enemies
 
@@ -252,6 +252,19 @@ public class NPC_Customization : MonoBehaviour
                     if (neckBone != null)
                     {
                         currentCape = InstantiateRandomAsset(capes, neckBone);
+                        
+                        if(Theme == NPCTheme.CurrentDay)
+                        {
+                            currentCape.transform.localScale = new Vector3(0.40f, 0.40f, 0.40f);
+                            currentCape.transform.localPosition = new Vector3(1.63300002f, -0.138999999f, 0.0109999999f);
+                            currentCape.transform.localEulerAngles = new Vector3(-4.64201503e-06f, -4.45423357e-05f, 73.6584167f);
+                        }
+                        else
+                        {
+                            currentCape.transform.localEulerAngles = new Vector3(-4.64201321e-06f, -4.45423357e-05f, 73.6584167f);
+                            currentCape.transform.localPosition = new Vector3(116.199997f, -9.69999981f, 0);
+                            currentCape.transform.localScale = new Vector3(40, 40, 40);
+                        }
                     }
                 }
 
@@ -421,6 +434,7 @@ public class NPC_Customization : MonoBehaviour
         else if (Class == NPCClass.Tank)
         {
             BulwarkKnightManager behaviour = enemy.AddComponent<BulwarkKnightManager>();
+
         }
 
         else if (Class == NPCClass.Bomber)
@@ -756,7 +770,6 @@ public class NPC_Customization : MonoBehaviour
         // Destroy the old attachments without affecting the root objects
         DestroyChildren(helmetPoint);
         DestroyChildren(weaponPoint);
-        DestroyChildren(capePoint);
         DestroyChildren(shieldPoint);
         DestroyChildren(bodyPoint);
 

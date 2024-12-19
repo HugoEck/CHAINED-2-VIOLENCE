@@ -178,9 +178,9 @@ public class WaveManager : MonoBehaviour
             if (enemyCreator.currentBody == null) continue;
 
 
-            GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
+            //GameObject randomEnemy = Instantiate(enemyCreator.currentBody);
             //randomEnemy.transform.parent = waveParent.transform; // Set the parent for the base enemy
-            randomEnemy.transform.position = new Vector3(100, 0, 100);
+            //randomEnemy.transform.position = new Vector3(100, 0, 100);
             for (int i = 0; i < enemyConfig.waveSize; i++)
             {
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)].transform;

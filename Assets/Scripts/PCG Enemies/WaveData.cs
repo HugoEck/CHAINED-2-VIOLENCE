@@ -11,6 +11,7 @@ public class WaveData : MonoBehaviour
             {
 
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.CurrentDay, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 1 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.CurrentDay, enemyClass = NPC_Customization.NPCClass.Tank, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Pirate, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.Natives, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 1 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 1 },
