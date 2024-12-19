@@ -9,11 +9,14 @@ public class DoorController : MonoBehaviour
     public Camera mainCamera;          // The main gameplay camera
     public float animationDuration = 3.0f; // Adjust this to match the length of your door animation
 
+    private AudioClipManager audioClipManager;
+
     void Start()
     {
         // Ensure the door camera is disabled at the start
         doorCamera.enabled = false;
         mainCamera.enabled = true;
+        audioClipManager = FindObjectOfType<AudioClipManager>();
     }
 
     public void OnStartButtonPress()
@@ -25,6 +28,9 @@ public class DoorController : MonoBehaviour
         // Trigger the door animations via the Open trigger
         leftDoorAnimator.SetTrigger("Open");
         rightDoorAnimator.SetTrigger("Open");
+
+        // Start a coroutine to play the sound after a delay
+        StartCoroutine(PlaySoundWithDelay(0.5f, audioClipManager.doorOpen));
 
         // Start a coroutine to switch back to the main camera after the animation
         StartCoroutine(SwitchBackToMainCamera());
@@ -39,5 +45,11 @@ public class DoorController : MonoBehaviour
         // Switch back to the main camera
         doorCamera.enabled = false;
         mainCamera.enabled = true;
+    }
+
+    private IEnumerator PlaySoundWithDelay(float delay, AudioClip clip)
+    {
+        yield return new WaitForSeconds(delay);
+        SFXManager.instance.PlaySFXClip(clip, transform, 1.0f);
     }
 }
