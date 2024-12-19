@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2149741261233670320
+--- !u!1 &3123618250943345428
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3425150259063901969}
-  - component: {fileID: 6622235118131389636}
+  - component: {fileID: 6751833239278436352}
+  - component: {fileID: 1185780058629030567}
   m_Layer: 0
   m_Name: AudioClipManager
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3425150259063901969
+--- !u!4 &6751833239278436352
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2149741261233670320}
+  m_GameObject: {fileID: 3123618250943345428}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 34.94, y: 4.13, z: -48.57}
@@ -32,20 +32,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6622235118131389636
+--- !u!114 &1185780058629030567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2149741261233670320}
+  m_GameObject: {fileID: 3123618250943345428}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1736a0463859a94daa677706f9b44a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDeath: {fileID: 0}
-  playerRespawn: {fileID: 0}
+  playerDeath: {fileID: 8300000, guid: d94e57a90b0269e4183e140f7a6c61fc, type: 3}
+  playerRespawn: {fileID: 8300000, guid: 63d8af299c8d946418d9cbfc294e8bdb, type: 3}
+  takeDamagePlayer:
+  - {fileID: 8300000, guid: e742e175444a157478b6a156b5aa63b3, type: 3}
+  - {fileID: 8300000, guid: 11e6b3c5d36e9bd47a30fa77011bcdf1, type: 3}
+  - {fileID: 8300000, guid: 572d88a21b3fe204f80508240262d7a5, type: 3}
   tankUnarmedSounds:
   - {fileID: 8300000, guid: 45ca9dd9a35012c428727e0b7806c977, type: 3}
   warriorUnarmedSounds:
@@ -81,13 +85,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6002b4f2d01061e4485da39239890942, type: 3}
   bigPenWeaponSounds:
   - {fileID: 8300000, guid: 9e15d8fc667cb34439bd8dadbaff12c5, type: 3}
-  coneAbility: {fileID: 0}
-  rangeAbility: {fileID: 0}
-  rangeAbilityExplosion: {fileID: 0}
-  swingAbility: {fileID: 0}
-  shieldActivate: {fileID: 0}
-  shieldAbsorb: {fileID: 0}
-  shieldBreak: {fileID: 0}
+  abilityReady: {fileID: 8300000, guid: 9e15d8fc667cb34439bd8dadbaff12c5, type: 3}
+  coneAbility: {fileID: 8300000, guid: 57f198ea5ff116d40944e75357cba850, type: 3}
+  rangeAbility: {fileID: 8300000, guid: 9e15d8fc667cb34439bd8dadbaff12c5, type: 3}
+  rangeAbilityExplosion: {fileID: 8300000, guid: cd2c437d8b77da74b857ac8baf4856ff,
+    type: 3}
+  swingAbility: {fileID: 8300000, guid: 0c70b9490a4ac334c981d735c8fc12cd, type: 3}
+  shieldActivate: {fileID: 8300000, guid: 02d5bd38c274c1747ae6aa6312592408, type: 3}
+  shieldAbsorb: {fileID: 8300000, guid: f471b5700bb28d846bd73180f0e46447, type: 3}
+  shieldBreak: {fileID: 8300000, guid: d6729d764bdbd0f49ad240f0eb002923, type: 3}
   electricChain: {fileID: 0}
   fireChain: {fileID: 0}
   ghostChain: {fileID: 0}
@@ -102,7 +108,7 @@ MonoBehaviour:
   chargeUp: {fileID: 0}
   move: []
   evilScientist: {fileID: 0}
-  button: {fileID: 0}
+  enterArenabutton: {fileID: 0}
   doorOpen: {fileID: 0}
   spawnObj: {fileID: 0}
   trapDamage: {fileID: 0}
