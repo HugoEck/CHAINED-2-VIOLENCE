@@ -10,6 +10,7 @@ public class AudioClipManager : MonoBehaviour
 
     [SerializeField] public AudioClip playerDeath;
     [SerializeField] public AudioClip playerRespawn;
+    [SerializeField] public AudioClip[] takeDamagePlayer;
 
     #endregion
 

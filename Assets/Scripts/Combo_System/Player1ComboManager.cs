@@ -173,7 +173,7 @@ public class Player1ComboManager : MonoBehaviour
                     if (currentPlayer1Weapon != null)
                     {
                         // Play corresponding sound for the combo
-                        PlayComboSound(comboIndex);
+                        
                         enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.WeaponDamage, true, false);
                     }
                     else
@@ -183,7 +183,7 @@ public class Player1ComboManager : MonoBehaviour
                             enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage, true, false);                 
                         }
                     }
-   
+                    PlayComboSound(comboIndex);
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
 
                     if (_currentPlayer1WeaponObject != null)
@@ -467,65 +467,35 @@ public class Player1ComboManager : MonoBehaviour
                 case Weapon.WeaponType.BigPen:
                     selectedSounds = audioClipManager.bigPenWeaponSounds;
                     break;
-                case Weapon.WeaponType.Unarmed:
-                    if(currentPlayer1Class == PlayerCombat.PlayerClass.Default)
-                    {
-                    selectedSounds = audioClipManager.tankUnarmedSounds;
-                    }
-                    else if (currentPlayer1Class == PlayerCombat.PlayerClass.Tank)
-                    {
-                        selectedSounds = audioClipManager.tankUnarmedSounds;
-                    }
-                    else if (currentPlayer1Class == PlayerCombat.PlayerClass.Warrior)
-                    {
-                        selectedSounds = audioClipManager.warriorUnarmedSounds;
-                    }
-                    else if (currentPlayer1Class == PlayerCombat.PlayerClass.Ranged)
-                    {
-                        selectedSounds = audioClipManager.rangedUnarmedSounds;
-                    }
-                    else if (currentPlayer1Class == PlayerCombat.PlayerClass.Support)
-                    {
-                        selectedSounds = audioClipManager.supportUnarmedSounds;
-                    }
-                    break;
 
                 default:
                     Debug.LogWarning($"No sound defined for weapon type: {currentEquippedPlayer1WeaponType}");
                     break;
             }
         }
-
-        //// If no valid weapon sounds were selected, fallback to unarmed sounds
-        //if (selectedSounds == null)
-        //{
-        //    switch (currentPlayer1Class)
-        //    {
-        //        case PlayerCombat.PlayerClass.Default:
-        //            selectedSounds = audioClipManager.tankUnarmedSounds;
-        //            break;
-
-        //        case PlayerCombat.PlayerClass.Tank:
-        //            selectedSounds = audioClipManager.tankUnarmedSounds;
-        //            break;
-
-        //        case PlayerCombat.PlayerClass.Warrior:
-        //            selectedSounds = audioClipManager.warriorUnarmedSounds;
-        //            break;
-
-        //        case PlayerCombat.PlayerClass.Ranged:
-        //            selectedSounds = audioClipManager.rangedUnarmedSounds;
-        //            break;
-
-        //        case PlayerCombat.PlayerClass.Support:
-        //            selectedSounds = audioClipManager.supportUnarmedSounds;
-        //            break;
-
-        //        default:
-        //            Debug.LogWarning($"No unarmed sounds defined for class: {currentPlayer1Class}");
-        //            break;
-        //    }
-        //}
+        else
+        {
+            if (currentPlayer1Class == PlayerCombat.PlayerClass.Default)
+            {
+                selectedSounds = audioClipManager.tankUnarmedSounds;
+            }
+            else if (currentPlayer1Class == PlayerCombat.PlayerClass.Tank)
+            {
+                selectedSounds = audioClipManager.tankUnarmedSounds;
+            }
+            else if (currentPlayer1Class == PlayerCombat.PlayerClass.Warrior)
+            {
+                selectedSounds = audioClipManager.warriorUnarmedSounds;
+            }
+            else if (currentPlayer1Class == PlayerCombat.PlayerClass.Ranged)
+            {
+                selectedSounds = audioClipManager.rangedUnarmedSounds;
+            }
+            else if (currentPlayer1Class == PlayerCombat.PlayerClass.Support)
+            {
+                selectedSounds = audioClipManager.supportUnarmedSounds;
+            }
+        }
 
         // Play the selected sound if available
         if (selectedSounds != null && adjustedIndex >= 0 && adjustedIndex < selectedSounds.Length)
@@ -533,10 +503,4 @@ public class Player1ComboManager : MonoBehaviour
             SFXManager.instance.PlaySFXClip(selectedSounds[adjustedIndex], transform, 1.0f);
         }
     }
-
-
-
-
-
-
 }
