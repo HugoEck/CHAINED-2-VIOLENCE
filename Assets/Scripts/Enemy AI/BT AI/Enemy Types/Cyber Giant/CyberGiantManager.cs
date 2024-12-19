@@ -17,6 +17,12 @@ public class CyberGiantManager : BaseManager
     private CapsuleCollider weaponCollider;
     public GameObject effectPrefab;
 
+    public GameObject bomb_marker;
+    public GameObject missile1_marker;
+    public GameObject missile2_marker;
+    public GameObject missile3_marker;
+
+
     [Header("CG STATS")]
 
     public float energyShieldDefense;
