@@ -39,9 +39,9 @@ public class MissileRain : Node
         
         if (!missilesShot)
         {
-            cg.missile1_marker.transform.position = p1_LastPosition;
-            cg.missile2_marker.transform.position = p2_LastPosition;
-            cg.missile3_marker.transform.position = chain_LastPosition;
+            cg.missile1_marker.transform.position = new Vector3(p1_LastPosition.x, 0.5f, p1_LastPosition.z);
+            cg.missile2_marker.transform.position = new Vector3(p2_LastPosition.x, 0.5f, p2_LastPosition.z);
+            cg.missile3_marker.transform.position = new Vector3(chain_LastPosition.x, 0.5f, chain_LastPosition.z);
         }
 
 
