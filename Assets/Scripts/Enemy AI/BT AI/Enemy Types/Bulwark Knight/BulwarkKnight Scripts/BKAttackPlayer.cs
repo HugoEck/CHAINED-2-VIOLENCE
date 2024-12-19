@@ -13,12 +13,12 @@ public class BKAttackPlayer : Node
         agent.behaviorMethods.RotateTowardsClosestPlayer();
 
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
-        Player playerManager = agent.behaviorMethods.GetCorrectPlayerManager(agent.targetedPlayer);
+        agent.chosenPlayerManager = agent.behaviorMethods.GetCorrectPlayerManager(agent.targetedPlayer);
 
         if (agent.behaviorMethods.IsAttackAllowed())
         {
             SetAttackAnimation(agent, bk, "enable");
-            playerManager.SetHealth(agent.attack);
+            //playerManager.SetHealth(agent.attack);
         }
         else
         {

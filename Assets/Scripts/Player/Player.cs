@@ -495,6 +495,7 @@ public class Player : MonoBehaviour
 
     public void SetHealth(float damage)
     {
+        Debug.Log("Dealt "+damage);
         if (GhostChain._bIsGhostChainActive) return;
 
         vignetteEffect.TriggerVignette(_playerId);
@@ -533,6 +534,7 @@ public class Player : MonoBehaviour
         }
         _highlightEffect.HitFX();
         //Flash indication
+
     }
 
     public void UpdateHealthBar()
