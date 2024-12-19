@@ -173,7 +173,7 @@ public class TrapManager : MonoBehaviour
 
             if (enemy != null)
             {
-                enemy.DealDamageToEnemy(trapDamage, BaseManager.DamageType.TrapsDamage);
+                enemy.DealDamageToEnemy(trapDamage, BaseManager.DamageType.TrapsDamage, false, false);
             }
         }
     }

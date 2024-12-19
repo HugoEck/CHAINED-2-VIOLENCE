@@ -19,7 +19,7 @@ public class LaserChainSegment : MonoBehaviour
             BaseManager enemyManager = other.GetComponent<BaseManager>();
             if (enemyManager != null)
             {
-                enemyManager.DealDamageToEnemy(_laserChainDamage, BaseManager.DamageType.UltimateLaser);
+                enemyManager.DealDamageToEnemy(_laserChainDamage, BaseManager.DamageType.UltimateLaser, true, true);
             }
         }
     }

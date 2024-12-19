@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using static PlayerCombat;
 
 public class PlayerAttributes : MonoBehaviour
 {
@@ -6,7 +8,8 @@ public class PlayerAttributes : MonoBehaviour
 
     [Header("Class specific attributes")]
     [SerializeField] private ClassAttributeSO[] _classesAttributes;
-    private int _playerId;
+
+    public int _playerId { get; private set; }
 
     public float attackDamage { get; set; }
     public float maxHP { get; set; }
@@ -270,4 +273,5 @@ public class PlayerAttributes : MonoBehaviour
             }
         }
     }
+
 }

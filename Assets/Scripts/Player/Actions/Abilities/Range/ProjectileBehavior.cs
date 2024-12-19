@@ -30,6 +30,8 @@ public class ProjectileBehavior : MonoBehaviour
     [SerializeField] private MeshRenderer grenadeRenderer;
 
     private float explosionTimer;
+
+    private int _playerId;
     private void Start()
     {
         hitEnemiesOnce = new HashSet<Collider>();
@@ -77,6 +79,8 @@ public class ProjectileBehavior : MonoBehaviour
     // Method to handle the explosion and damage enemies in the radius
     void Explode()
     {
+        _playerId = playerAttributes._playerId;
+
         explosionDamage = baseExplosionDamage + playerAttributes.attackDamage;
 
         //SFXManager.instance.PlaySFXClip(explosionSound, transform, 1f);
@@ -97,7 +101,15 @@ public class ProjectileBehavior : MonoBehaviour
             BaseManager enemyManager = enemy.GetComponent<BaseManager>();
             if (enemyManager != null)
             {
-                enemyManager.DealDamageToEnemy(explosionDamage,BaseManager.DamageType.AbilityDamage);
+                if(_playerId == 1)
+                {
+                    enemyManager.DealDamageToEnemy(explosionDamage, BaseManager.DamageType.AbilityDamage, true, false);
+                }
+                else if(_playerId == 2)
+                {
+                    enemyManager.DealDamageToEnemy(explosionDamage, BaseManager.DamageType.AbilityDamage, false, true);
+                }
+                
                 Debug.Log("Damaged enemy: " + enemy.name + explosionDamage);
 
 

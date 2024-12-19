@@ -40,6 +40,8 @@ public class ConeAbility : MonoBehaviour, IAbility
 
     private bool abilityReadySoundPlayed = false;
 
+    private int _playerId;
+
     private void Start()
     {
         hitEnemiesOnce = new HashSet<Collider>();
@@ -48,14 +50,15 @@ public class ConeAbility : MonoBehaviour, IAbility
 
     public void UseAbility(int playerId)
     {
+        _playerId = playerId;
         // Check if the cooldown has elapsed
         if (Time.time >= lastUseTime + cooldown)
         {
-            if (playerId == 1)
+            if (_playerId == 1)
             {
                 Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
             }
-            else if (playerId == 2)
+            else if (_playerId == 2)
             {
                 Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
             }
@@ -146,7 +149,15 @@ public class ConeAbility : MonoBehaviour, IAbility
                     BaseManager enemyManager = enemy.GetComponent<BaseManager>();
                     if (enemyManager != null)
                     {
-                        enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage);
+                        if(_playerId == 1)
+                        {
+                            enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage, true, false);
+                        }
+                        else if(_playerId == 2)
+                        {
+                            enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage, false, true);
+                        }
+                        
                         Debug.Log("Cone hit enemy: " + enemy.name);
                         // enemyManager.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 150, ForceMode.Force);
                     }
