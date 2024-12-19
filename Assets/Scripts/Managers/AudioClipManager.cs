@@ -71,7 +71,7 @@ public class AudioClipManager : MonoBehaviour
 
     [Header("Lobby")]
     [SerializeField] public AudioClip evilScientist;
-    [SerializeField] public AudioClip button;
+    [SerializeField] public AudioClip enterArenabutton;
     [SerializeField] public AudioClip doorOpen;
 
     #endregion
@@ -176,7 +176,7 @@ public class AudioClipManager : MonoBehaviour
 
         // Lobby
         checkClip(evilScientist, nameof(evilScientist));
-        checkClip(button, nameof(button));
+        checkClip(enterArenabutton, nameof(enterArenabutton));
         checkClip(doorOpen, nameof(doorOpen));
 
         // Environment
