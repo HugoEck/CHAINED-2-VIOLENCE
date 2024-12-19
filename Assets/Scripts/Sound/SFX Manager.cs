@@ -11,53 +11,82 @@ public class SFXManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        { 
+        {
             instance = this;
         }
     }
 
+    // Play a specific audio clip
     public void PlaySFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
-        //spawn sfx gameobject
+        // Spawn SFX gameobject
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
-        //assign the audioClip
+        // Assign the audioClip
         audioSource.clip = audioClip;
 
-        //assign volume
+        // Assign volume
         audioSource.volume = volume;
 
-        //playsound
+        // Play sound
         audioSource.Play();
 
-        //get length of clip
-        float clipLength = audioSource.clip.length;
-
-        //destroy clip after play
-        Destroy(audioSource.gameObject, clipLength);
+        // Destroy clip after play
+        Destroy(audioSource.gameObject, audioSource.clip.length);
     }
 
-    public void PlayRandomSFXClip(AudioClip[] audioClip, Transform spawnTransform, float volume)
+    // Play a random audio clip from an array
+    public void PlayRandomSFXClip(AudioClip[] audioClips, Transform spawnTransform, float volume)
     {
-        //assign random index
-        int rand = Random.Range(0, audioClip.Length);
+        // Validate the array
+        if (audioClips == null || audioClips.Length == 0)
+        {
+            Debug.LogWarning("AudioClip array is null or empty.");
+            return;
+        }
 
-        //spawn sfx gameobject
+        // Assign random index
+        int rand = Random.Range(0, audioClips.Length);
+
+        // Spawn SFX gameobject
         AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
 
-        //assign the audioClip
-        audioSource.clip = audioClip[rand];
+        // Assign the audioClip
+        audioSource.clip = audioClips[rand];
 
-        //assign volume
+        // Assign volume
         audioSource.volume = volume;
 
-        //playsound
+        // Play sound
         audioSource.Play();
 
-        //get length of clip
-        float clipLength = audioSource.clip.length;
+        // Destroy clip after play
+        Destroy(audioSource.gameObject, audioSource.clip.length);
+    }
 
-        //destroy clip after play
-        Destroy(audioSource.gameObject, clipLength);
+    // Play a specific audio clip by index from an array
+    public void PlaySFXFromArray(AudioClip[] audioClips, int index, Transform spawnTransform, float volume)
+    {
+        // Validate index and array
+        if (audioClips == null || index < 0 || index >= audioClips.Length)
+        {
+            Debug.LogWarning("Invalid index or audioClip array is null.");
+            return;
+        }
+
+        // Spawn SFX gameobject
+        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+
+        // Assign the audioClip
+        audioSource.clip = audioClips[index];
+
+        // Assign volume
+        audioSource.volume = volume;
+
+        // Play sound
+        audioSource.Play();
+
+        // Destroy clip after play
+        Destroy(audioSource.gameObject, audioSource.clip.length);
     }
 }
