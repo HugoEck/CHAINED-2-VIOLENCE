@@ -114,6 +114,21 @@ public class BoulderManager : MonoBehaviour
             }
 
             Destroy(collision.gameObject);
+            
+            // Ensure grid is updated when object is destroyed
+            if (spawner != null && collision.gameObject != null)
+            {
+                Collider collider = collision.gameObject.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    Bounds bounds = collider.bounds;
+                    float updateRadius = Mathf.Max(bounds.size.x, bounds.size.z) / 2f + 1f;
+                    spawner.gridGraphUpdater.RemoveObstacleUpdate(collision.gameObject.transform.position, updateRadius);
+                }
+
+                spawner.RemoveObjectFromCollision(collision.gameObject); // Remove from spawner's list
+            }
+
 
             // Skip further processing to ensure the boulder keeps its direction
             //return;
@@ -123,7 +138,6 @@ public class BoulderManager : MonoBehaviour
                 spawner.RemoveObjectFromCollision(collision.gameObject);
             }
             objectsToRemove.Add(collision.gameObject);
-
 
             Destroy(collision.gameObject);
 

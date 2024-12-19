@@ -382,8 +382,8 @@ public class itemAreaSpawner : MonoBehaviour
         new Vector3(45, 0.5f, 0),    // Right-center
         new Vector3(0, 0.5f, -45),   // Bottom-center
         new Vector3(-45, 0.5f, 0),   // Left-center
-        new Vector3(-35, 0.5f, -35), // New diagonal spawn (bottom-left)
-        new Vector3(-35, 0.5f, 35)   // New diagonal spawn (top-left)
+        new Vector3(-32, 0.5f, -35), // New diagonal spawn (bottom-left)
+        new Vector3(-32, 0.5f, 32)   // New diagonal spawn (top-left)
     };
 
         Vector3[] targetPositions = {
