@@ -34,6 +34,7 @@ public class AudioClipManager : MonoBehaviour
 
     [Header("Player Abilities and Ultimates")]
 
+    [SerializeField] public AudioClip abilityReady;
     [SerializeField] public AudioClip coneAbility;
     [SerializeField] public AudioClip rangeAbility;
     [SerializeField] public AudioClip rangeAbilityExplosion;

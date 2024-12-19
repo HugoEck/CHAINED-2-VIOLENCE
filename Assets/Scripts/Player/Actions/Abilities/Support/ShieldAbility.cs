@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class ShieldAbility : MonoBehaviour, IAbility
 {
-    [Header("Range Ability Sound: ")]
-    [SerializeField] private AudioClip supportAbilitySound;
+    //[Header("Range Ability Sound: ")]
+    //[SerializeField] private AudioClip supportAbilitySound;
 
-    [Header("Absorb Damage Sound: ")]
-    [SerializeField] private AudioClip absorbDamageSound;
+    //[Header("Absorb Damage Sound: ")]
+    //[SerializeField] private AudioClip absorbDamageSound;
 
-    [Header("Break Shield Sound: ")]
-    [SerializeField] private AudioClip breakShieldSound;
+    //[Header("Break Shield Sound: ")]
+    //[SerializeField] private AudioClip breakShieldSound;
 
-    [Header("Ability Ready Sound: ")]
-    [SerializeField] private AudioClip abilityReadySound;
+    //[Header("Ability Ready Sound: ")]
+    //[SerializeField] private AudioClip abilityReadySound;
+
+    private AudioClipManager audioClipManager;
 
     [Header("Shield Settings")]
     private float maxShieldHealth;
@@ -46,6 +48,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
         {
             Debug.LogError("Player script not found on the GameObject! Ensure it is attached.");
         }
+        audioClipManager = FindObjectOfType<AudioClipManager>();
     }
 
     private void OnEnable()
@@ -95,7 +98,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
             Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
         }
 
-        SFXManager.instance.PlaySFXClip(supportAbilitySound, transform, 1f);
+        SFXManager.instance.PlaySFXClip(audioClipManager.shieldActivate, transform, 1f);
 
         currentShieldHealth = maxShieldHealth;
         isShieldActive = true;
@@ -171,7 +174,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
     {
         if (!isShieldActive) return damage; // If shield is not active, pass damage through
 
-        SFXManager.instance.PlaySFXClip(absorbDamageSound, transform, 1f);
+        SFXManager.instance.PlaySFXClip(audioClipManager.shieldAbsorb, transform, 1f);
 
         currentShieldHealth -= damage;
         Debug.Log(gameObject.name + " Shield absorbed " + damage + " damage. Remaining Shield Health: " + currentShieldHealth);
@@ -191,7 +194,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
     {
         if (!isShieldActive) return;
 
-        SFXManager.instance.PlaySFXClip(breakShieldSound, transform, 1f);
+        SFXManager.instance.PlaySFXClip(audioClipManager.shieldBreak, transform, 1f);
 
         isShieldActive = false;
         currentShieldHealth = 0;
@@ -220,7 +223,7 @@ public class ShieldAbility : MonoBehaviour, IAbility
 
         if(cooldown <=0 && !abilityReadySoundPlayed)
         {
-            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
+            SFXManager.instance.PlaySFXClip(audioClipManager.abilityReady, transform, 1f);
             abilityReadySoundPlayed = true;
         }
     }

@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class ConeAbility : MonoBehaviour, IAbility
 {
-    [Header("Cone Ability Sound: ")]
-    [SerializeField] private AudioClip coneAbilitySound;
+    //[Header("Cone Ability Sound: ")]
+    //[SerializeField] private AudioClip coneAbilitySound;
 
-    [Header("Ability Ready Sound: ")]
-    [SerializeField] private AudioClip abilityReadySound;
+    //[Header("Ability Ready Sound: ")]
+    //[SerializeField] private AudioClip abilityReadySound;
+
+    private AudioClipManager audioClipManager;
 
     [Header("Ability")]
     [SerializeField] private float _damageCooldown = 0.2f;
@@ -46,6 +48,7 @@ public class ConeAbility : MonoBehaviour, IAbility
     {
         hitEnemiesOnce = new HashSet<Collider>();
         animationStateController = GetComponent<AnimationStateController>();
+        audioClipManager = FindObjectOfType<AudioClipManager>();
     }
 
     public void UseAbility(int playerId)
@@ -91,9 +94,9 @@ public class ConeAbility : MonoBehaviour, IAbility
             }
         }
 
-        if (_damageTimer <= 0f && !abilityReadySoundPlayed)
+        if (_damageTimer <= 0 && !abilityReadySoundPlayed)
         {
-            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
+            SFXManager.instance.PlaySFXClip(audioClipManager.abilityReady, transform, 1f);
             abilityReadySoundPlayed = true;
         }
 
@@ -104,8 +107,6 @@ public class ConeAbility : MonoBehaviour, IAbility
     void ActivateConeAbility()
     {
         coneDamage = baseConeDamage + playerAttributes.attackDamage;
-
-        SFXManager.instance.PlaySFXClip(coneAbilitySound, transform, 1f);
 
         // Instantiate the visual effect at the anchor's position
         if (coneEffectPrefab != null && coneAnchor != null && !_bHasEffectBeenSpawned)
@@ -152,10 +153,12 @@ public class ConeAbility : MonoBehaviour, IAbility
                         if(_playerId == 1)
                         {
                             enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage, true, false);
+                            SFXManager.instance.PlaySFXClip(audioClipManager.coneAbility, transform, 1f);
                         }
                         else if(_playerId == 2)
                         {
                             enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage, false, true);
+                            SFXManager.instance.PlaySFXClip(audioClipManager.coneAbility, transform, 1f);
                         }
                         
                         Debug.Log("Cone hit enemy: " + enemy.name);

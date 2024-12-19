@@ -3,11 +3,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour, IAbility
 {
-    [Header("Range Ability Sound: ")]
-    [SerializeField] private AudioClip rangeAbilitySound;
-
-    [Header("Ability Ready Sound: ")]
-    [SerializeField] private AudioClip abilityReadySound;
+    private AudioClipManager audioClipManager;
     public PlayerAttributes playerAttributes;
 
     public GameObject projectilePrefab;
@@ -24,6 +20,11 @@ public class Projectile : MonoBehaviour, IAbility
     private int _playerId;
 
     private bool abilityReadySoundPlayed = false;
+
+    private void Start()
+    {
+        audioClipManager = FindObjectOfType<AudioClipManager>();
+    }
 
     private void Update()
     {
@@ -52,7 +53,7 @@ public class Projectile : MonoBehaviour, IAbility
 
         if(cooldown <= 0 && !abilityReadySoundPlayed)
         {
-            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
+            SFXManager.instance.PlaySFXClip(audioClipManager.abilityReady, transform, 1f);
             abilityReadySoundPlayed |= true;
         }
     }
@@ -96,7 +97,7 @@ public class Projectile : MonoBehaviour, IAbility
             return;
         }
 
-        SFXManager.instance.PlaySFXClip(rangeAbilitySound, transform, 1f);
+        SFXManager.instance.PlaySFXClip(audioClipManager.rangeAbility, transform, 1f);
 
         // Retrieve speed from the particle system.
         //ParticleSystem particleSystem = projectilePrefab.GetComponent<ParticleSystem>();
