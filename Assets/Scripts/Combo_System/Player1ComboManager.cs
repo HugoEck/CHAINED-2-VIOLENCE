@@ -171,16 +171,16 @@ public class Player1ComboManager : MonoBehaviour
                     {
                         // Play corresponding sound for the combo
                         PlayComboSound(comboIndex);
-                        enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.WeaponDamage);
+                        enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.WeaponDamage, true, false);
                     }
                     else
                     {
                         if(currentPlayer1Class != PlayerCombat.PlayerClass.Default)
                         {
-                            enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage);
+                            enemyManager.DealDamageToEnemy(attackDamage + _player1Attributes.attackDamage, BaseManager.DamageType.UnarmedDamage, true, false);                 
                         }
                     }
-                    
+   
                     enemyManager.chainEffects.ActivateKnockbackStun(stunDuration, gameObject, knockbackForce);
 
                     if (_currentPlayer1WeaponObject != null)

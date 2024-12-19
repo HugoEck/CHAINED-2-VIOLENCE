@@ -130,10 +130,19 @@ public class BaseManager : MonoBehaviour
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
         }
     }
-    public virtual void DealDamageToEnemy(float damage, DamageType damageType)
+    public virtual void DealDamageToEnemy(float damage, DamageType damageType, bool player1Attacked, bool player2Attacked)
     {
         if(currentHealth > 0)
         {
+            if(player1Attacked)
+            {
+                playerManager1.bHasPlayerEnteredCombat = true;
+            }
+            if(player2Attacked)
+            {
+                playerManager2.bHasPlayerEnteredCombat = true;
+            }
+
             if (damageType == DamageType.WeaponDamage || damageType == DamageType.UnarmedDamage)
             {
                 particleEffects.ActivateHitParticles(transform);

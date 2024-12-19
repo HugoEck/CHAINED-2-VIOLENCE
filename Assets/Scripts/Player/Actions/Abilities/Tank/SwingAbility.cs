@@ -37,6 +37,8 @@ public class SwingAbility : MonoBehaviour, IAbility
 
     private bool abilityReadySoundPlayed = false;
 
+    private int _playerId;
+
     private void Start()
     {
         if (otherPlayer != null)
@@ -61,7 +63,7 @@ public class SwingAbility : MonoBehaviour, IAbility
         // Check if the ability is ready (cooldown has elapsed)
         if (!isSwinging && otherPlayer != null && !BIsPlayerCurrentlySwinging && Time.time >= lastSwingTime + cooldown)
         {
-            
+            _playerId = playerId;
             if (playerId == 1)
             {
                 Player1ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
@@ -146,7 +148,15 @@ public class SwingAbility : MonoBehaviour, IAbility
                 BaseManager enemyManager = enemy.GetComponent<BaseManager>();
                 if (enemyManager != null)
                 {
-                    enemyManager.DealDamageToEnemy(baseSwingDamage, BaseManager.DamageType.AbilityDamage);
+                    if(_playerId == 1)
+                    {
+                        enemyManager.DealDamageToEnemy(baseSwingDamage, BaseManager.DamageType.AbilityDamage, true, false);
+                    }
+                    else if(_playerId == 2)
+                    {
+                        enemyManager.DealDamageToEnemy(baseSwingDamage, BaseManager.DamageType.AbilityDamage, false, true);
+                    }
+                    
                     Debug.Log("Hit enemy during swing: " + enemy.name + swingDamage);
 
                     // Apply knockback force

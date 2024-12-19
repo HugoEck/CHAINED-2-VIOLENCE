@@ -79,7 +79,7 @@ public class BomberManager : BaseManager
             
             if (baseManager != null)
             {
-                baseManager.DealDamageToEnemy(attack, BaseManager.DamageType.ExplosionDamage);
+                baseManager.DealDamageToEnemy(attack, BaseManager.DamageType.ExplosionDamage, false, false);
 
                 if (SceneManager.GetActiveScene().name != "SamTestScene")
                 {
