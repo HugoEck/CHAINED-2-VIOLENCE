@@ -8,6 +8,18 @@ public class Player1ComboManager : MonoBehaviour
 {
     public static Player1ComboManager instance { get; private set; }
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip[] unarmedSounds;
+    [SerializeField] private AudioClip[] twoHandedWeaponSounds;
+    [SerializeField] private AudioClip[] oneHandedWeaponSounds;
+    [SerializeField] private AudioClip[] reallyBigTwoHandedWeaponSounds;
+    [SerializeField] private AudioClip[] polearmWeaponSounds;
+    [SerializeField] private AudioClip[] daggerWeaponSounds;
+    [SerializeField] private AudioClip[] bigPenWeaponSounds;
+    // Add other weapon types as necessary
+
+    [SerializeField] private AudioSource audioSource;
+
     [Header("Combat related")]
     [SerializeField] private UnarmedComboSOs _availableUnarmedCombos;
 
@@ -136,6 +148,10 @@ public class Player1ComboManager : MonoBehaviour
 
         TriggerWeaponSlash();
         // Find all enemies within the attack range
+
+        // Play corresponding sound for the combo
+        int comboIndex = currentAnimator.GetInteger("ComboIndex");
+        PlayComboSound(comboIndex);
 
         float totalAttackRange = attackRange;
         if(totalAttackRange > 10)
@@ -409,5 +425,63 @@ public class Player1ComboManager : MonoBehaviour
     private void SetAttackSpeed()
     {
         currentAnimator.SetFloat("AttackSpeed", _player1Attributes.attackSpeed);
+    }
+
+    private void PlayComboSound(int comboIndex)
+    {
+        AudioClip clipToPlay = null;
+
+        if (currentPlayer1Weapon != null)
+        {
+            // Determine sound by weapon type
+            switch (currentEquippedPlayer1WeaponType)
+            {
+                case Weapon.WeaponType.TwoHanded:
+                    if (comboIndex < twoHandedWeaponSounds.Length)
+                        clipToPlay = twoHandedWeaponSounds[comboIndex];
+                    break;
+
+                case Weapon.WeaponType.OneHanded:
+                    if (comboIndex < oneHandedWeaponSounds.Length)
+                        clipToPlay = oneHandedWeaponSounds[comboIndex];
+                    break;
+
+                case Weapon.WeaponType.ReallyBigTwoHanded:
+                    if (comboIndex < reallyBigTwoHandedWeaponSounds.Length)
+                        clipToPlay = reallyBigTwoHandedWeaponSounds[comboIndex];
+                    break;
+
+                case Weapon.WeaponType.Polearm:
+                    if (comboIndex < polearmWeaponSounds.Length)
+                        clipToPlay = polearmWeaponSounds[comboIndex];
+                    break;
+
+                case Weapon.WeaponType.Dagger:
+                    if (comboIndex < daggerWeaponSounds.Length)
+                        clipToPlay = daggerWeaponSounds[comboIndex];
+                    break;
+
+                case Weapon.WeaponType.BigPen:
+                    if (comboIndex < bigPenWeaponSounds.Length)
+                        clipToPlay = bigPenWeaponSounds[comboIndex];
+                    break;
+
+                // Add cases for any additional weapon types
+                default:
+                    Debug.LogWarning($"No sound defined for weapon type: {currentEquippedPlayer1WeaponType}");
+                    break;
+            }
+        }
+        else
+        {
+            // Unarmed sound logic
+            if (comboIndex < unarmedSounds.Length)
+                clipToPlay = unarmedSounds[comboIndex];
+        }
+
+        if (clipToPlay != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clipToPlay);
+        }
     }
 }
