@@ -36,7 +36,7 @@ public class BulwarkKnightManager : BaseManager
 
         shield = FindShieldObject()?.gameObject;
         BoxCollider box = shield.GetComponent<BoxCollider>();
-        //box.enabled = true;
+        box.enabled = true;
         transform.localScale = new Vector3(3, 3, 3);
 
         LoadStats();

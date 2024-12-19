@@ -58,6 +58,8 @@ public class ThemeData
     public List<GameObject> bomberBodies;
     public List<GameObject> bomberWeapons;
     public List<GameObject> bomberShields;
+    [Header("CyberGiant")]
+    public List<GameObject> cyberGiantPrefab;
     //Add future classes under new Header
 
 }
@@ -128,7 +130,8 @@ public class NPC_Customization : MonoBehaviour
         RockThrower,
         Warrior,
         Bannerman,
-        Bomber
+        Bomber,
+        CyberGiant
         //Add more classes here
     }
     public NPCTheme Theme;
@@ -136,7 +139,6 @@ public class NPC_Customization : MonoBehaviour
 
     [Header("Spawn Points")]
     [SerializeField] Transform weaponPoint;
-    [SerializeField] Transform capePoint;
     [SerializeField] Transform helmetPoint;
     [SerializeField] Transform bodyPoint;
     [SerializeField] Transform shieldPoint;
@@ -180,16 +182,17 @@ public class NPC_Customization : MonoBehaviour
         if (themeData != null)
         {
             // Connect future assets and classes in their lists
-            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets, themeData.BannermanHelmets, themeData.bomberHelmets);
-            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons, themeData.BannermanWeapons, themeData.bomberWeapons);
-            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.runnerBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies, themeData.BannermanBodies, themeData.bomberBodies);
-            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes, themeData.BannermanCapes, themeData.bomberCapes);
-            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields, themeData.BannermanShields, themeData.bomberShields);
+            List<GameObject> helmets = GetAssetsByClass(themeData.basicHelmets, themeData.runnerHelmets, themeData.tankHelmets, themeData.chargerHelmets, themeData.rockThrowerHelmets, themeData.warriorHelmets, themeData.BannermanHelmets, themeData.bomberHelmets, null);
+            List<GameObject> weapons = GetAssetsByClass(themeData.basicWeapons, themeData.runnerWeapons, themeData.tankWeapons, themeData.chargerWeapons, themeData.rockThrowerWeapons, themeData.warriorWeapons, themeData.BannermanWeapons, themeData.bomberWeapons, null);
+            List<GameObject> bodies = GetAssetsByClass(themeData.basicBodies, themeData.runnerBodies, themeData.tankBodies, themeData.chargerBodies, themeData.rockThrowerBodies, themeData.warriorBodies, themeData.BannermanBodies, themeData.bomberBodies, themeData.cyberGiantPrefab);
+            List<GameObject> capes = GetAssetsByClass(themeData.basicCapes, themeData.runnerCapes, themeData.tankCapes, themeData.chargerCapes, themeData.rockThrowerCapes, themeData.warriorCapes, themeData.BannermanCapes, themeData.bomberCapes, null);
+            List<GameObject> shields = GetAssetsByClass(themeData.basicShields, themeData.runnerShields, themeData.tankShields, themeData.chargerShields, themeData.rockThrowerShields, themeData.warriorShields, themeData.BannermanShields, themeData.bomberShields, null);
 
             // Instantiate body and set up animator
             if (bodies != null && bodies.Count > 0)
             {
-
+                Destroy(currentBody);
+                currentBody = null;
                 currentBody = InstantiateRandomAsset(bodies, bodyPoint);
                 //Apply glitch effect on corrupt enemies
 
@@ -249,6 +252,19 @@ public class NPC_Customization : MonoBehaviour
                     if (neckBone != null)
                     {
                         currentCape = InstantiateRandomAsset(capes, neckBone);
+                        
+                        if(Theme == NPCTheme.CurrentDay)
+                        {
+                            currentCape.transform.localScale = new Vector3(0.40f, 0.40f, 0.40f);
+                            currentCape.transform.localPosition = new Vector3(1.63300002f, -0.138999999f, 0.0109999999f);
+                            currentCape.transform.localEulerAngles = new Vector3(-4.64201503e-06f, -4.45423357e-05f, 73.6584167f);
+                        }
+                        else
+                        {
+                            currentCape.transform.localEulerAngles = new Vector3(-4.64201321e-06f, -4.45423357e-05f, 73.6584167f);
+                            currentCape.transform.localPosition = new Vector3(116.199997f, -9.69999981f, 0);
+                            currentCape.transform.localScale = new Vector3(40, 40, 40);
+                        }
                     }
                 }
 
@@ -278,6 +294,12 @@ public class NPC_Customization : MonoBehaviour
 
     public void AddBehaviourToClass(GameObject enemy)
     {
+        if (Class == NPCClass.CyberGiant)
+        {
+            return;
+        }
+
+        //AUHWD
         AIPath agent = enemy.AddComponent<AIPath>();
         AIDestinationSetter destinationSetter = enemy.AddComponent<AIDestinationSetter>();
         CapsuleCollider capsule = enemy.AddComponent<CapsuleCollider>();
@@ -302,7 +324,6 @@ public class NPC_Customization : MonoBehaviour
 
         GameObject damageTextObjectInstance = Instantiate(damageTextObject, enemy.transform);
 
-        enemy.transform.localScale *= 1.5f;
 
         GameObject bloodCopy = Instantiate(bloodSplatter, enemy.transform);
         GameObject hitEffectCopy = Instantiate(hitEffect, enemy.transform);
@@ -333,20 +354,27 @@ public class NPC_Customization : MonoBehaviour
         if (Class == NPCClass.Basic)
         {
             PlebianManager behaviour = enemy.AddComponent<PlebianManager>();
+            enemy.transform.localScale *= 1.5f;
+
 
         }
         else if (Class == NPCClass.Runner)
         {
             RunnerManager behaviour = enemy.AddComponent<RunnerManager>();
+            enemy.transform.localScale *= 1.5f;
+
 
         }
         else if (Class == NPCClass.Warrior)
         {
             SwordsmanManager behaviour = enemy.AddComponent<SwordsmanManager>();
+            enemy.transform.localScale *= 1.5f;
+
         }
         else if (Class == NPCClass.RockThrower)
         {
             RockThrowerManager behaviour = enemy.AddComponent<RockThrowerManager>();
+            enemy.transform.localScale *= 1.5f;
 
             GameObject throwPoint = new GameObject("throwPoint");
             throwPoint.transform.SetParent(enemy.transform, false);
@@ -381,6 +409,8 @@ public class NPC_Customization : MonoBehaviour
         else if (Class == NPCClass.Bannerman)
         {
             BannerManManager behaviour = enemy.AddComponent<BannerManManager>();
+            enemy.transform.localScale *= 1.5f;
+
 
             if (Theme == NPCTheme.Pirate)
                 behaviour.flagPrefab = PirateBanner;
@@ -404,12 +434,15 @@ public class NPC_Customization : MonoBehaviour
         else if (Class == NPCClass.Tank)
         {
             BulwarkKnightManager behaviour = enemy.AddComponent<BulwarkKnightManager>();
+
         }
 
         else if (Class == NPCClass.Bomber)
         {
             BomberManager behaviour = enemy.AddComponent<BomberManager>();
             behaviour.explosionParticle = suicideBomb;
+            enemy.transform.localScale *= 1.5f;
+
         }
 
         if (Theme == NPCTheme.Corrupted)
@@ -687,7 +720,7 @@ public class NPC_Customization : MonoBehaviour
             }
         }
     }
-    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> runner, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior, List<GameObject> bannerman, List<GameObject> bomber /*add future classes in paramter*/)
+    private List<GameObject> GetAssetsByClass(List<GameObject> basic, List<GameObject> runner, List<GameObject> tank, List<GameObject> charger, List<GameObject> rockThrower, List<GameObject> warrior, List<GameObject> bannerman, List<GameObject> bomber, List<GameObject> cyberGiant /*add future classes in paramter*/)
     {
         switch (Class)
         {
@@ -707,6 +740,8 @@ public class NPC_Customization : MonoBehaviour
                 return bannerman;
             case NPCClass.Bomber:
                 return bomber;
+            case NPCClass.CyberGiant:
+                return cyberGiant;
             //Add future classes in switch case
             default:
                 return null;
@@ -735,7 +770,6 @@ public class NPC_Customization : MonoBehaviour
         // Destroy the old attachments without affecting the root objects
         DestroyChildren(helmetPoint);
         DestroyChildren(weaponPoint);
-        DestroyChildren(capePoint);
         DestroyChildren(shieldPoint);
         DestroyChildren(bodyPoint);
 

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class PlayerUIManager : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] TMP_Text timeOfArenaRunLengthText;
     [SerializeField] TMP_Text currentWaveText;
     [SerializeField] TMP_Text remainingEnemiesPerWaveText;
+    [SerializeField] Image skullImage;
+    [SerializeField] Image clockImage;
 
     private void Awake()
     {
@@ -23,11 +27,6 @@ public class PlayerUIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-        
     }
 
     void Update()
@@ -43,16 +42,18 @@ public class PlayerUIManager : MonoBehaviour
             remainingEnemiesPerWaveText.gameObject.SetActive(false);
             currentWaveText.gameObject.SetActive(false);
             timeOfArenaRunLengthText.gameObject.SetActive(false);
-
-
+            skullImage.GameObject().SetActive(false);
+            clockImage.GameObject().SetActive(false);
         }
         else         
         {
             currentWaveText.gameObject.SetActive(true);
             timeOfArenaRunLengthText.gameObject.SetActive(true);
             remainingEnemiesPerWaveText.gameObject.SetActive(true);
-            remainingEnemiesPerWaveText.text = "Remaining Enemies: " + WaveManager.ActiveEnemies;
-            currentWaveText.text = "Wave: " + (WaveManager.currentWave);
+            skullImage.GameObject().SetActive(true);
+            clockImage.GameObject().SetActive(true);
+            remainingEnemiesPerWaveText.text = "" + WaveManager.ActiveEnemies;
+            //currentWaveText.text = "" + (WaveManager.currentWave);
         }
     }
 
