@@ -4,35 +4,42 @@ using UnityEngine;
 
 public class AttackPlayer : Node
 {
+
     public override NodeState Evaluate(BaseManager agent)
     {
-        agent.navigation.isStopped = true;
-        SetAnimation(agent);
-
-        agent.behaviorMethods.RotateTowardsClosestPlayer();
+        SetAttackAnimation(agent);
+        
 
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
 
         Player playerManager = agent.behaviorMethods.GetCorrectPlayerManager(agent.targetedPlayer);
 
+        //RotateTowardsPlayer(agent); Funkar inte med fixedEvaluate
+
         if (agent.behaviorMethods.IsAttackAllowed())
         {
-            SetAttackAnimation(agent, "enable");
-
             playerManager.SetHealth(agent.attack);
-        }
-        else
-        {
-            SetAttackAnimation(agent, "disable");
         }
 
         return NodeState.RUNNING;
     }
 
-    private void SetAnimation(BaseManager agent)
+    private void RotateTowardsPlayer(BaseManager agent)
+    {
+        // Calculate the direction from the agent to the player
+        Vector3 direction = (agent.targetedPlayer.position - agent.transform.position).normalized;
+
+        // Calculate the target rotation to face the player
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+
+        // Smoothly rotate the agent towards the player
+        agent.transform.rotation = Quaternion.Slerp(agent.transform.rotation, lookRotation, Time.deltaTime * agent.navigation.rotationSpeed);
+    }
+    public void SetAttackAnimation(BaseManager agent)
     {
         if (agent.enemyID == "Plebian")
         {
+            agent.animator.SetBool("Plebian_Attack", true);
             agent.animator.SetBool("Plebian_Chase", false);
             agent.animator.SetBool("Plebian_Electrocute", false);
             agent.animator.SetBool("Plebian_Scared", false);
@@ -40,79 +47,23 @@ public class AttackPlayer : Node
         else if (agent.enemyID == "Runner")
         {
             agent.animator.SetBool("Runner_Chase", false);
+            agent.animator.SetBool("Runner_Attack", true);
             agent.animator.SetBool("Runner_Electrocute", false);
             agent.animator.SetBool("Runner_Scared", false);
         }
         else if (agent.enemyID == "Swordsman")
         {
             agent.animator.SetBool("Swordsman_Chase", false);
+            agent.animator.SetBool("Swordsman_Attack", true);
             agent.animator.SetBool("Swordsman_Electrocute", false);
             agent.animator.SetBool("Swordsman_Scared", false);
         }
         else if(agent.enemyID == "Charger")
         {
-            agent.animator.SetBool("Charger_Prepare", false);
             agent.animator.SetBool("Charger_Chase", false);
+            agent.animator.SetBool("Charger_Attack", true);
             agent.animator.SetBool("Charger_Sprint", false);
-            agent.animator.SetBool("Charger_Electrocute", false);
-            agent.animator.SetBool("Charger_Scared", false);
         }
         
-    }
-    private void SetAttackAnimation(BaseManager agent, string type)
-    {
-        if (agent.enemyID == "Plebian")
-        {
-            if (type == "enable")
-            {
-                agent.animator.SetBool("Plebian_Idle", false);
-                agent.animator.SetBool("Plebian_Attack", true);
-            }
-            else if (type == "disable")
-            {
-                agent.animator.SetBool("Plebian_Idle", true);
-                agent.animator.SetBool("Plebian_Attack", false);
-            }
-            
-        }
-        else if (agent.enemyID == "Runner")
-        {
-            if (type == "enable")
-            {
-                agent.animator.SetBool("Runner_Idle", false);
-                agent.animator.SetBool("Runner_Attack", true);
-            }
-            else if (type == "disable")
-            {
-                agent.animator.SetBool("Runner_Idle", true);
-                agent.animator.SetBool("Runner_Attack", false);
-            }
-        }
-        else if (agent.enemyID == "Swordsman")
-        {
-            if (type == "enable")
-            {
-                agent.animator.SetBool("Swordsman_Idle", false);
-                agent.animator.SetBool("Swordsman_Attack", true);
-            }
-            else if (type == "disable")
-            {
-                agent.animator.SetBool("Swordsman_Idle", true);
-                agent.animator.SetBool("Swordsman_Attack", false);
-            }
-        }
-        else if (agent.enemyID == "Charger")
-        {
-            if (type == "enable")
-            {
-                agent.animator.SetBool("Charger_Idle", false);
-                agent.animator.SetBool("Charger_Attack", true);
-            }
-            else if (type == "disable")
-            {
-                agent.animator.SetBool("Charger_Idle", true);
-                agent.animator.SetBool("Charger_Attack", false);
-            }
-        }
     }
 }

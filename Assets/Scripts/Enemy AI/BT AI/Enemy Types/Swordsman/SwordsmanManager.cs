@@ -56,20 +56,27 @@ public class SwordsmanManager : BaseManager
 
     public void FixedEvaluate()
     {
-        rootNode.Evaluate(this);
+        timeSinceLastEvaluation += Time.fixedDeltaTime;
+
+        if (timeSinceLastEvaluation >= evaluationInterval + randomOffset)
+        {
+            timeSinceLastEvaluation -= evaluationInterval;
+            rootNode.Evaluate(this);
+            randomOffset = Random.Range(0f, evaluationInterval);
+        }
     }
 
     private void LoadStats()
     {
-        maxHealth = 20 + maxHealthModifier;
+        maxHealth = 10 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 10 + attackModifier;
+        attack = 15 + attackModifier;
         defense = 0 + defenseModifier;
-        navigation.maxSpeed = 4;
-        attackSpeed = 2 + attackSpeedModifier;
+        navigation.maxSpeed = 6;
+        attackSpeed = 1 + attackSpeedModifier;
         attackRange = 4;
         rb.mass = 10;
-        unitCost = 15;
+        unitCost = 10;
         transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
 
     }

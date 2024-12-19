@@ -6,8 +6,6 @@ public class Projectile : MonoBehaviour, IAbility
     [Header("Range Ability Sound: ")]
     [SerializeField] private AudioClip rangeAbilitySound;
 
-    [Header("Ability Ready Sound: ")]
-    [SerializeField] private AudioClip abilityReadySound;
     public PlayerAttributes playerAttributes;
 
     public GameObject projectilePrefab;
@@ -22,8 +20,6 @@ public class Projectile : MonoBehaviour, IAbility
 
     private bool bHasUsedAbility = false;
     private int _playerId;
-
-    private bool abilityReadySoundPlayed = false;
 
     private void Update()
     {
@@ -49,12 +45,6 @@ public class Projectile : MonoBehaviour, IAbility
                 }
             }
         }
-
-        if(cooldown <= 0 && !abilityReadySoundPlayed)
-        {
-            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
-            abilityReadySoundPlayed |= true;
-        }
     }
     
     public void UseAbility(int playerId)
@@ -72,8 +62,7 @@ public class Projectile : MonoBehaviour, IAbility
                 Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
             }
 
-            bHasUsedAbility = true;
-            abilityReadySoundPlayed = false;
+            bHasUsedAbility = true;         
             
         }
         else

@@ -40,7 +40,6 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Plebian_Attack", false);
             agent.animator.SetBool("Plebian_Electrocute", false);
             agent.animator.SetBool("Plebian_Scared", false);
-            agent.animator.SetBool("Plebian_Idle", false);
         }
         else if (agent.enemyID == "Runner")
         {
@@ -48,7 +47,6 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Runner_Attack", false);
             agent.animator.SetBool("Runner_Electrocute", false);
             agent.animator.SetBool("Runner_Scared", false);
-            agent.animator.SetBool("Runner_Idle", false);
         }
         else if (agent.enemyID == "Swordsman")
         {
@@ -56,7 +54,6 @@ public class ChasePlayer : Node
             agent.animator.SetBool("Swordsman_Attack", false);
             agent.animator.SetBool("Swordsman_Electrocute", false);
             agent.animator.SetBool("Swordsman_Scared", false);
-            agent.animator.SetBool("Swordsman_Idle", false);
         }
         else if(agent.enemyID == "RockThrower")
         {
@@ -69,12 +66,8 @@ public class ChasePlayer : Node
         else if(agent.enemyID == "Charger")
         {
             agent.animator.SetBool("Charger_Chase", true);
-            agent.animator.SetBool("Charger_Prepare", false);
             agent.animator.SetBool("Charger_Attack", false);
             agent.animator.SetBool("Charger_Sprint", false);
-            agent.animator.SetBool("Charger_Idle", false);
-            agent.animator.SetBool("Charger_Electrocute", false);
-            agent.animator.SetBool("Charger_Scared", false);
         }
         else if (agent.enemyID == "Bomber")
         {

@@ -11,9 +11,6 @@ public class ShieldAbility : MonoBehaviour, IAbility
     [Header("Break Shield Sound: ")]
     [SerializeField] private AudioClip breakShieldSound;
 
-    [Header("Ability Ready Sound: ")]
-    [SerializeField] private AudioClip abilityReadySound;
-
     [Header("Shield Settings")]
     private float maxShieldHealth;
     private float currentShieldHealth;
@@ -34,9 +31,6 @@ public class ShieldAbility : MonoBehaviour, IAbility
     private Player player;
 
     private int _playerId;
-
-    private bool abilityReadySoundPlayed = false;
-
     private void Start()
     {
         // Try to get the Player script
@@ -74,7 +68,6 @@ public class ShieldAbility : MonoBehaviour, IAbility
             CalculateShieldHealth();
             ActivateShield();
             ApplyShieldToOtherPlayer();
-            abilityReadySoundPlayed = false;
         }
         else
         {
@@ -216,12 +209,6 @@ public class ShieldAbility : MonoBehaviour, IAbility
         {
             Vector3 offset = new Vector3(0, -1.0f, 0);
             activeShieldVisual.transform.position = transform.position + offset;
-        }
-
-        if(cooldown <=0 && !abilityReadySoundPlayed)
-        {
-            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
-            abilityReadySoundPlayed = true;
         }
     }
 }

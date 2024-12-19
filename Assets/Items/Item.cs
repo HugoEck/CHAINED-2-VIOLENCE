@@ -17,10 +17,10 @@ public class Item : MonoBehaviour
     public TextMeshPro stat4;
     public TextMeshPro itemName;
 
-    public float attackModifier = 0;
-    public float speedModifier = 0;
+    public int attackModifier = 0;
+    public int speedModifier = 0;
     public int chainkModifier = 0;
-    public float healthkModifier = 0;
+    public int healthkModifier = 0;
     // Start is called before the first frame update
     public void AssignStats(List<string> stats)
     {
@@ -53,24 +53,7 @@ public class Item : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
-            for (int i = 0; i < stats.Count; i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        stat1.text = stats[i].ToString();
-                        break;
-                    case 1:
-                        stat2.text = stats[i].ToString();
-                        break;
-                    case 2:
-                        stat3.text = stats[i].ToString();
-                        break;
-                    case 3:
-                        stat4.text = stats[i].ToString();
-                        break;
-                }
-            }
+
         }
     }
 

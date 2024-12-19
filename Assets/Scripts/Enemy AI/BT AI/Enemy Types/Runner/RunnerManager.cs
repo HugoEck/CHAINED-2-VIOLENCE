@@ -31,14 +31,14 @@ public class RunnerManager : BaseManager
 
     private void LoadStats()
     {
-        maxHealth = 10 + maxHealthModifier;
+        maxHealth = 1 + maxHealthModifier;
         currentHealth = maxHealth;
-        attack = 5 + attackModifier;
+        attack = 2 + attackModifier;
         defense = 0 + defenseModifier;
-        navigation.maxSpeed = 4;
+        navigation.maxSpeed = 9;
         attackSpeed = 1 + attackSpeedModifier;
         attackRange = 3f;
-        unitCost = 5;
+        unitCost = 2;
 
     }
 

@@ -113,7 +113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1293356793197548, guid: 12c4abf4689be7e489107ccb6010bcba, type: 3}
       propertyPath: m_TagString
@@ -379,12 +379,7 @@ MonoBehaviour:
   attackSpeed: 1.5
   attackRange: 4
   unitCost: 50
-  maxHealthModifier: 0
-  attackModifier: 0
-  defenseModifier: 0
-  attackSpeedModifier: 0
   navigation: {fileID: 0}
-  visuals: {fileID: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
   playerManager1: {fileID: 0}
@@ -396,25 +391,15 @@ MonoBehaviour:
   enemyID: 
   activateDeathTimer: 0
   agentIsDead: 0
-  PCG_componentsInstantiated: 0
-  originalScale: {x: 0, y: 0, z: 0}
-  prepareChargeTimer: 3
-  lockTimer: 0
-  chargeRunTimer: 3
   chargingRange: 20
   chargingSpeed: 20
   hasAlreadyCharged: 0
   isAlreadyCharging: 0
+  activatePrepareChargeTimer: 0
   activateChargingTimer: 0
   prepareChargeComplete: 0
   chainPosition: {x: 0, y: 0, z: 0}
   lastSavedPosition: {x: 0, y: 0, z: 0}
-  chargeRunActive: 0
-  prepareChargeActive: 0
-  collidedWithWall: 0
-  spawner: {fileID: 0}
-  destructionParticle: {fileID: 1159970587636746, guid: 94af64f3ed314824cb376aa9c3d9d93f,
-    type: 3}
 --- !u!114 &3682693984132783775
 MonoBehaviour:
   m_ObjectHideFlags: 0

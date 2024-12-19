@@ -15,9 +15,9 @@ public class BulwarkKnightManager : BaseManager
     float shieldDefense = 10;
     float baseDefense = 1;
     float shieldWalkSpeed = 3;
-    float runSpeed = 8;
-    float shieldAttackSpeed = 3f;
-    float swordAttackSpeed = 2f;
+    float runSpeed = 9;
+    float shieldAttackSpeed = 2.5f;
+    float swordAttackSpeed = 1.25f;
     float shieldAttackRange = 6;
     float swordAttackRange = 6;
     float swordDamage = 15;
@@ -33,17 +33,12 @@ public class BulwarkKnightManager : BaseManager
         animator.SetBool("BulwarkKnight_StartChasing", true);
 
         children = GetComponentsInChildren<Transform>();
-
         shield = FindShieldObject()?.gameObject;
-        BoxCollider box = shield.GetComponent<BoxCollider>();
-        //box.enabled = true;
-        transform.localScale = new Vector3(3, 3, 3);
-
         LoadStats();
         ConstructBT();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         rootNode.Evaluate(this);
 
@@ -51,20 +46,19 @@ public class BulwarkKnightManager : BaseManager
         {
             RageTimer();
         }
-
     }
 
     private void LoadStats()
     {
-        maxHealth = 50 + maxHealthModifier;
+        maxHealth = 100 + maxHealthModifier;
         attack = 10 + attackModifier;
         currentHealth = maxHealth;
         navigation.maxSpeed = shieldWalkSpeed;
         defense = shieldDefense + defenseModifier;
         attackSpeed = shieldAttackSpeed +attackSpeedModifier;
+        attackRange = 5;
         attackRange = shieldAttackRange;
         rb.mass = 100;
-        unitCost = 50;
 
     }
 

@@ -271,7 +271,6 @@ public class Chained2ViolenceGameManager : MonoBehaviour
         if (bIsPlayer2Assigned)
         {
             _player2GameObject.GetComponent<Player>().enabled = true;
-            _player2GameObject.GetComponent<Player>()._bIsPlayerDisabled = false;
             _player2GameObject.GetComponentInChildren<Animator>(false).enabled = true;
             _player2GameObject.GetComponent<CapsuleCollider>().enabled = true;
 

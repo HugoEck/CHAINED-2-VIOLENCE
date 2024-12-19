@@ -74,10 +74,6 @@ public class StunAgent : Node
         {
             SetAnimationBomber(agent);
         }
-        else if (agent.enemyID == "Charger")
-        {
-            SetAnimationCharger(agent);
-        }
     }
 
     private void SetAnimationPlebian(BaseManager agent)
@@ -96,7 +92,6 @@ public class StunAgent : Node
 
         agent.animator.SetBool("Plebian_Attack", false);
         agent.animator.SetBool("Plebian_Chase", false);
-        agent.animator.SetBool("Plebian_Idle", false);
     }
 
     private void SetAnimationRunner(BaseManager agent)
@@ -115,7 +110,6 @@ public class StunAgent : Node
 
         agent.animator.SetBool("Runner_Attack", false);
         agent.animator.SetBool("Runner_Chase", false);
-        agent.animator.SetBool("Runner_Idle", false);
     }
 
     private void SetAnimationRockThrower(BaseManager agent)
@@ -152,7 +146,6 @@ public class StunAgent : Node
 
         agent.animator.SetBool("Swordsman_Attack", false);
         agent.animator.SetBool("Swordsman_Chase", false);
-        agent.animator.SetBool("Swordsman_Idle", false);
 
     }
     private void SetAnimationBannerMan(BaseManager agent)
@@ -213,28 +206,6 @@ public class StunAgent : Node
         agent.animator.SetBool("Bomber_Chase", false);
         agent.animator.SetBool("Bomber_Sprint", false);
         agent.animator.SetBool("Bomber_Idle", false);
-
-    }
-
-    private void SetAnimationCharger(BaseManager agent)
-    {
-        if (agent.chainEffects.stunType == "Ghost")
-        {
-            agent.animator.SetBool("Charger_Scared", true);
-            agent.animator.SetBool("Charger_Electrocute", false);
-        }
-
-        else if (agent.chainEffects.stunType == "Shock")
-        {
-            agent.animator.SetBool("Charger_Scared", false);
-            agent.animator.SetBool("Charger_Electrocute", true);
-        }
-
-        agent.animator.SetBool("Charger_Chase", false);
-        agent.animator.SetBool("Charger_Prepare", false);
-        agent.animator.SetBool("Charger_Attack", false);
-        agent.animator.SetBool("Charger_Sprint", false);
-        agent.animator.SetBool("Charger_Idle", false);
 
     }
 }

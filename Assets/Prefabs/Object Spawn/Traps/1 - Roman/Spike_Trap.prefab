@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -523185809439958883}
   m_Layer: 8
   m_Name: Spike_Trap
-  m_TagString: Trap
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,11 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8bedb64b43e28340ab8533b217a52fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trapDamage: 10
   riseSpeed: 15
   despawnSpeed: 10
-  timeAboveSurface: 7
-  timeBelowSurface: 1
+  minWaitTime: 4
+  maxWaitTime: 10
+  trapDamage: 1
   riseParticle: {fileID: 1396618616648682, guid: f31b5fcf0b0e6094f8109290889343ec,
     type: 3}
 --- !u!65 &3608101331505534015
@@ -172,10 +172,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -285,10 +281,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -396,10 +388,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -509,10 +497,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (19)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -620,10 +604,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (16)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -733,10 +713,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (14)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -844,10 +820,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -957,10 +929,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (20)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -1068,10 +1036,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (10)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -1181,10 +1145,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (13)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -1292,10 +1252,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (12)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -1405,10 +1361,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -1516,10 +1468,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (11)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -1629,10 +1577,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (9)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -1740,10 +1684,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -1853,10 +1793,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -1964,10 +1900,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (17)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -2077,10 +2009,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (18)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -2188,10 +2116,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (15)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
@@ -2301,10 +2225,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
-      objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7
@@ -2412,10 +2332,6 @@ PrefabInstance:
     - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Log_Spike_01 (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 106426, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
-      propertyPath: m_TagString
-      value: Trap
       objectReference: {fileID: 0}
     - target: {fileID: 477332, guid: 94c3f6a509913d848be5b2506c64355b, type: 3}
       propertyPath: m_LocalScale.x
