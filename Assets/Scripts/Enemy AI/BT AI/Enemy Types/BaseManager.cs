@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class BaseManager : MonoBehaviour
 {
@@ -59,6 +60,8 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public bool PCG_componentsInstantiated = false;
     [HideInInspector] public Vector3 originalScale;
 
+    float distance;
+    [HideInInspector] public Player chosenPlayerManager;
 
     //PLAYER EFFECTS
     public enum DamageType
@@ -165,6 +168,18 @@ public class BaseManager : MonoBehaviour
 
                 visuals.ActivateVisuals();
             }
+        }
+    }
+
+    public virtual void DealDamageToPlayer()
+    {
+        targetedPlayer = behaviorMethods.CalculateClosestTarget();
+        distance = Vector3.Distance(transform.position, targetedPlayer.position);
+
+        if (distance <= attackRange)
+        {
+            chosenPlayerManager.SetHealth(attack);
+            
         }
     }
         

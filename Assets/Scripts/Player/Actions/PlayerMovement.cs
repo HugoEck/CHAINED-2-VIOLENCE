@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 /// <summary>
@@ -16,9 +15,6 @@ public class PlayerMovement : MonoBehaviour ///// NOT PRODUCTION READY
     private Camera _mainCameraReference;
 
     private Rigidbody _playerRigidBody;
-
-    private InputAction _moveAction;
-    private PlayerInput _playerInput;
 
     private Vector2 _playerMoveDirection = Vector2.zero; // Direction on 2d plane (movement input)
     private Vector3 _isometricPlayerMoveDirection = Vector3.zero; // Adjust the player direction based on camera angle

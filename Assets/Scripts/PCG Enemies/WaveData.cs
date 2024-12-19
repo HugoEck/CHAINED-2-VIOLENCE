@@ -10,7 +10,11 @@ public class WaveData : MonoBehaviour
             new List<EnemyConfig>
             {
 
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.CyberGiant, waveSize = 1 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.CurrentDay, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 1 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.CurrentDay, enemyClass = NPC_Customization.NPCClass.Tank, waveSize = 1 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Pirate, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 1 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.Natives, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 1 },
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.Bannerman, waveSize = 1 },
 
             }
         ));
@@ -291,6 +295,12 @@ public class WaveData : MonoBehaviour
            {
                new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 60 },
                 new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.Runner, waveSize = 20 }
+           }
+           ));
+        waves.Add(CreateWave("Wave 35",
+           new List<EnemyConfig>
+           {
+               new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.CyberGiant, waveSize = 1 }
            }
            ));
 

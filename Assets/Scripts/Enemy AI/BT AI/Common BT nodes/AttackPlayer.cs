@@ -13,13 +13,11 @@ public class AttackPlayer : Node
 
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
 
-        Player playerManager = agent.behaviorMethods.GetCorrectPlayerManager(agent.targetedPlayer);
+        agent.chosenPlayerManager = agent.behaviorMethods.GetCorrectPlayerManager(agent.targetedPlayer);
 
         if (agent.behaviorMethods.IsAttackAllowed())
         {
             SetAttackAnimation(agent, "enable");
-
-            playerManager.SetHealth(agent.attack);
         }
         else
         {
