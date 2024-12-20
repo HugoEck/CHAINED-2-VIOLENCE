@@ -74,75 +74,40 @@ public class GamepadInput : MonoBehaviour, IInputInterface
         return (KeyCode)(baseKeyCode + (joystickNumber - 1) * 20 + buttonNumber);
     }
 
+    private List<int> connectedJoySticks = new List<int>();
     private void NumberOfActiveControlls()
     {
         _joystickNames = Input.GetJoystickNames();
 
         // Track the number of active joysticks
-        int connectedJoysticks = 0;
-
-        List<string> joysticks = new List<string>();
+        int connectedJoysticksCounter = 0;
         
         // Loop through each joystick and check if it is connected
         for (int i = 0; i < _joystickNames.Length; i++)
         {
             if (!string.IsNullOrEmpty(_joystickNames[i]))
             {
-                connectedJoysticks++;
+                connectedJoysticksCounter++;
 
-                if(connectedJoysticks == 1)
-                {
-                    _joystickIdPlayer1 = i + 1;
-                }
-                else if(connectedJoysticks == 2)
-                {
-                    _joystickIdPlayer2 = i + 1;
-                }
+                
                 // Optionally log the joystick name and its index (which corresponds to its joystick number)
                 Debug.Log($"Joystick {i + 1} is connected: {_joystickNames[i]}");
-                joysticks.Add("Joystick" + (i + 1));
+
+                if(connectedJoySticks.Count < 2)
+                {
+                    connectedJoySticks.Add(i + 1);
+                }
+
+                if(connectedJoySticks.Count == 1)
+                {
+                    _player1Joystick = connectedJoySticks[0];
+                }
+                else if(connectedJoySticks.Count == 2)
+                {
+                    _player2Joystick = connectedJoySticks[1];
+                }
             }
         }
-
-        if (joysticks.Count == 0) return;
-
-        if (!Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
-        {
-            
-            if (joysticks[0] == "Joystick2")
-            {
-                _player1Joystick = 1;
-
-            }
-            else
-            {
-                _player1Joystick = 2;
-            }
-           
-            joysticks.Clear();
-            return;
-        }
-        
-        if(connectedJoysticks == 2)
-        {            
-            _player1Joystick = 1;
-            _player2Joystick = 2;
-        }
-        else if(connectedJoysticks == 1)
-        {
-            _player1Joystick = -1;
-
-            if (joysticks[0] == "Joystick2")
-            {
-                _player2Joystick = 1;
-            }
-            else
-            {
-                _player2Joystick = 2;
-            }
-        }
-
-        joysticks.Clear();
     }
 
     public Vector2 GetMovementInput_P1()
@@ -156,16 +121,6 @@ public class GamepadInput : MonoBehaviour, IInputInterface
                 Input.GetAxisRaw("Gamepad_Left_Vertical_P" + (_player1Joystick))     // Use the assigned joystick's vertical axis
             );
         }
-
-        //// Ensure Player 1's input works regardless of activeInputs count
-        ////if (activeInputs >= 1)
-        ////{
-        //// Always read Player 1's inputs from the assigned axes
-        //return new Vector2(
-        //        Input.GetAxisRaw("Gamepad_Left_Horizontal_P1"),
-        //        Input.GetAxisRaw("Gamepad_Left_Vertical_P1")
-        //    );
-        ////}
 
         // If no controllers are connected, return zero
         return Vector2.zero;
@@ -391,7 +346,7 @@ public class GamepadInput : MonoBehaviour, IInputInterface
         // Ensure Player 1's input works regardless of activeInputs count
         if (_player1Joystick != -1)
         {
-            isPressed |= Input.GetKey(_player1DropWeapon);
+            isPressed = Input.GetKey(_player1DropWeapon);
         }
 
         return isPressed;    
@@ -404,11 +359,11 @@ public class GamepadInput : MonoBehaviour, IInputInterface
         {
             if(_player1Joystick == -1)
             {
-                isPressed = !Input.GetKey(_player1DropWeapon);
+                isPressed = Input.GetKey(_player1DropWeapon);
             }
             else
             {
-                isPressed = !Input.GetKey(_player2DropWeapon);
+                isPressed = Input.GetKey(_player2DropWeapon);
             }
            
         }
