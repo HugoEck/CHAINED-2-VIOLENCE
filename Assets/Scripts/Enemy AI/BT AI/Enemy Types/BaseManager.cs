@@ -62,6 +62,7 @@ public class BaseManager : MonoBehaviour
 
     float distance;
     [HideInInspector] public Player chosenPlayerManager;
+    [HideInInspector] public AudioClipManager audioClipManager;
 
     //PLAYER EFFECTS
     public enum DamageType
@@ -107,6 +108,8 @@ public class BaseManager : MonoBehaviour
 
         //behaviorMethods.ToggleRagdoll(false);
         behaviorMethods.GetRagdollComponents(this);
+
+        audioClipManager = FindAnyObjectByType<AudioClipManager>();
 
         if(highlightEffect != null)
         {
@@ -178,8 +181,8 @@ public class BaseManager : MonoBehaviour
 
         if (distance <= attackRange)
         {
+            SFXManager.instance.PlayRandomSFXClip(audioClipManager.basicAttacks, transform.transform, 1f);
             chosenPlayerManager.SetHealth(attack);
-            
         }
     }
         

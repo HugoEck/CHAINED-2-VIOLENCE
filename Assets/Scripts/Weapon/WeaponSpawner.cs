@@ -25,6 +25,8 @@ public class WeaponSpawner : MonoBehaviour
     private Transform[] spawnPoints;
     private bool[] spawnPointOccupied;
 
+    private Dictionary<WeaponRarityHandler.WeaponRarity, int> rarityChances;
+
     private void Start()
     {
         // Automatically populate the spawnPoints array from waypointsParent's children
@@ -53,6 +55,7 @@ public class WeaponSpawner : MonoBehaviour
         {
             weaponPrefabs.Add(weapon.gameObject);
         }
+        UpdateRarityChances();
 
         PlaceInitialWeapons();
         StartCoroutine(RespawnWeapons());
@@ -95,17 +98,15 @@ public class WeaponSpawner : MonoBehaviour
 
     private WeaponRarityHandler.WeaponRarity GetRandomRarity()
     {
-        // Calculate total weight
+
         float totalWeight = 0f;
         foreach (var rarity in rarityProbabilities)
         {
             totalWeight += rarity.spawnChance;
         }
 
-        // Choose a random value within the total weight
         float randomValue = Random.Range(0, totalWeight);
 
-        // Determine the rarity
         foreach (var rarity in rarityProbabilities)
         {
             if (randomValue < rarity.spawnChance)
@@ -115,7 +116,6 @@ public class WeaponSpawner : MonoBehaviour
             randomValue -= rarity.spawnChance;
         }
 
-        // Fallback to a default rarity
         return WeaponRarityHandler.WeaponRarity.Common;
     }
 
@@ -153,6 +153,63 @@ public class WeaponSpawner : MonoBehaviour
                 spawnPointOccupied[i] = false;
                 return;
             }
+        }
+    }
+
+    private void UpdateRarityChances()
+    {
+        int currentWave = WaveManager.currentWave;
+
+        rarityChances = new Dictionary<WeaponRarityHandler.WeaponRarity, int>();
+
+        if (currentWave < 5)
+        {
+            rarityChances[WeaponRarityHandler.WeaponRarity.Common] = 70;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Rare] = 20;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Epic] = 10;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Legendary] = 0;
+        }
+        else if (currentWave < 10)
+        {
+            rarityChances[WeaponRarityHandler.WeaponRarity.Common] = 50;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Rare] = 30;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Epic] = 15;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Legendary] = 5;
+        }
+        else if (currentWave < 15)
+        {
+            rarityChances[WeaponRarityHandler.WeaponRarity.Common] = 30;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Rare] = 40;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Epic] = 20;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Legendary] = 10;
+        }
+        else if (currentWave < 20)
+        {
+            rarityChances[WeaponRarityHandler.WeaponRarity.Common] = 20;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Rare] = 30;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Epic] = 30;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Legendary] = 20;
+        }
+        else if (currentWave < 25)
+        {
+            rarityChances[WeaponRarityHandler.WeaponRarity.Common] = 10;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Rare] = 20;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Epic] = 40;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Legendary] = 30;
+        }
+        else if (currentWave < 35)
+        {
+            rarityChances[WeaponRarityHandler.WeaponRarity.Common] = 5;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Rare] = 15;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Epic] = 50;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Legendary] = 30;
+        }
+        else
+        {
+            rarityChances[WeaponRarityHandler.WeaponRarity.Common] = 0;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Rare] = 10;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Epic] = 30;
+            rarityChances[WeaponRarityHandler.WeaponRarity.Legendary] = 60;
         }
     }
 }
