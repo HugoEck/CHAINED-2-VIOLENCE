@@ -27,7 +27,9 @@ public class ShootBomb : Node
             db.damage = cg.bombDamage;
             rb.velocity = cg.bombVelocity;
         }
-        
+
+        SFXManager.instance.PlaySFXClip(agent.audioClipManager.rangeAbilityExplosion, agent.transform.transform, 1f);
+
         return NodeState.SUCCESS;
     }
 }
