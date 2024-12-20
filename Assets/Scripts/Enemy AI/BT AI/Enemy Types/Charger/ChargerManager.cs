@@ -165,7 +165,7 @@ public class ChargerManager : BaseManager
                 if (collider != null)
                 {
                     Bounds bounds = collider.bounds;
-                    float updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2f) * spawner.navMeshOffsetMultiplier + 1f;
+                    float updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2f) * spawner.navMeshOffsetMultiplier + 3f;
                     spawner.gridGraphUpdater.RemoveObstacleUpdate(collision.gameObject.transform.position, updateRadius);
                 }
 
