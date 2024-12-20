@@ -69,7 +69,7 @@ public class WaveManager : MonoBehaviour
         enemyCreator = enemyCreatorObject.GetComponent<NPC_Customization>();
         waveData.LoadWaves(waves);
         //StartCoroutine(SpawnWavesRegularly());
-        currentWave = 30;
+        currentWave = 0;
     }
 
 
