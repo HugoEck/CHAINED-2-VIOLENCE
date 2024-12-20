@@ -20,7 +20,7 @@ public class ExplodeAgent : Node
 
             if (agent.audioClipManager.bossExplosions != null)
             {
-            SFXManager.instance.PlayRandomSFXClip(agent.audioClipManager.bossExplosions, agent.transform.transform, 1f);
+                SFXManager.instance.PlayRandomSFXClip(agent.audioClipManager.bossExplosions, agent.transform.transform, 1f);
             }
             bomber.Explode();
 

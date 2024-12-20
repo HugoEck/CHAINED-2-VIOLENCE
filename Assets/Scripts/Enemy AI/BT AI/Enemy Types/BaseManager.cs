@@ -122,10 +122,6 @@ public class BaseManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            currentHealth = 0;
-        }
         
         //Hej sam förlåt för jag har rört i din manager //Victor
         if (gameObject.transform.position.y < -10 && currentHealth > 0)

@@ -141,7 +141,7 @@ public class ChargerManager : BaseManager
             playerManager2.SetHealth(chargingDamage);
 
         }
-        else if (sprintDamageAllowed && collision.gameObject.CompareTag("Misc") || collision.gameObject.CompareTag("Obstacles"))
+        else if (sprintDamageAllowed && collision.gameObject.CompareTag("Misc"))
         {
             //----------------PONTUS KOD: PARTICLE & DESTRUCTION OF OBJECTS----------------\\
             // Handle destruction particle effect
