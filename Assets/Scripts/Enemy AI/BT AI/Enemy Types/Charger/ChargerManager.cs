@@ -13,7 +13,7 @@ public class ChargerManager : BaseManager
     [HideInInspector] public bool lockTimer = false;
 
     [HideInInspector] public float chargeRunTimer = 3;
-    
+
     [Header("CHARGER MANANAGER")]
 
     public float chargingRange;
@@ -30,7 +30,7 @@ public class ChargerManager : BaseManager
     [HideInInspector] public bool activateChargingTimer = false;
     [HideInInspector] public bool prepareChargeComplete = false;
 
-  
+
     [HideInInspector] public Vector3 chainPosition;
     [HideInInspector] public Vector3 lastSavedPosition;
 
@@ -48,11 +48,11 @@ public class ChargerManager : BaseManager
     void Start()
     {
         enemyID = "Charger";
-        
+
         animator.SetBool("Charger_StartChasing", true);
 
         LoadStats();
-        
+
         ConstructBT();
 
         GetDestructionParticle();
@@ -78,7 +78,7 @@ public class ChargerManager : BaseManager
 
     private void LoadStats()
     {
-        
+
         chargingDamage = 25f;
         navigation.maxSpeed = 5;
         chargingRange = 20f;
@@ -121,20 +121,20 @@ public class ChargerManager : BaseManager
         {
             sprintDamageAllowed = false;
             chargeRunActive = false;
-            
+
         }
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (sprintDamageAllowed && collision.gameObject.CompareTag("Player1") && CD_AlreadyAppliedP1 == false )
+        if (sprintDamageAllowed && collision.gameObject.CompareTag("Player1") && CD_AlreadyAppliedP1 == false)
         {
             //Debug.Log("P1 took Damage!");
             CD_AlreadyAppliedP1 = true;
             playerManager1.SetHealth(chargingDamage);
 
         }
-        else if (sprintDamageAllowed && collision.gameObject.CompareTag("Player2") && CD_AlreadyAppliedP2 == false )
+        else if (sprintDamageAllowed && collision.gameObject.CompareTag("Player2") && CD_AlreadyAppliedP2 == false)
         {
             //Debug.Log("P2 took Damage!");
             CD_AlreadyAppliedP2 = true;
@@ -144,10 +144,11 @@ public class ChargerManager : BaseManager
         else if (sprintDamageAllowed && collision.gameObject.CompareTag("Misc") || collision.gameObject.CompareTag("Obstacles"))
         {
             //----------------PONTUS KOD: PARTICLE & DESTRUCTION OF OBJECTS----------------\\
-            if (collision.contacts.Length > 0 && destructionParticle != null)
+            // Handle destruction particle effect
+            if (destructionParticle != null && collision.contacts.Length > 0)
             {
                 Vector3 collisionPoint = collision.contacts[0].point;
-                collisionPoint.y = 0;
+                collisionPoint.y = 0; // Adjust Y position if needed
 
                 GameObject particleInstance = Instantiate(destructionParticle, collisionPoint, Quaternion.identity);
                 Destroy(particleInstance, 2f);
@@ -157,12 +158,21 @@ public class ChargerManager : BaseManager
                 Debug.Log("Particles prefab is not assigned or no collision contacts available.");
             }
 
-            if (spawner != null)
+            // Update grid graph
+            if (spawner != null && collision.gameObject != null)
             {
-                spawner.RemoveObjectFromCollision(collision.gameObject);
+                Collider collider = collision.gameObject.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    Bounds bounds = collider.bounds;
+                    float updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2f) * spawner.navMeshOffsetMultiplier + 1f;
+                    spawner.gridGraphUpdater.RemoveObstacleUpdate(collision.gameObject.transform.position, updateRadius);
+                }
+
+                spawner.RemoveObjectFromCollision(collision.gameObject); // Remove from spawner's list
             }
 
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject); // Destroy the object
         }
         else if (sprintDamageAllowed && collision.gameObject.layer == LayerMask.NameToLayer("Wall") ||
             collision.gameObject.layer == LayerMask.NameToLayer("Obstacles") || collision.gameObject.layer == LayerMask.NameToLayer("Map"))
@@ -171,9 +181,9 @@ public class ChargerManager : BaseManager
         }
     }
 
+    //----------------PONTUS KOD: PARTICLE & DESTRUCTION OF OBJECTS----------------\\
     private void GetDestructionParticle()
     {
-        //----------------PONTUS KOD: PARTICLE & DESTRUCTION OF OBJECTS----------------\\
         if (destructionParticle == null)
         {
             destructionParticle = Resources.Load<GameObject>("FX_GroundCrack_Blast_01");
@@ -228,7 +238,7 @@ public class ChargerManager : BaseManager
         rootNode = new Selector(new List<Node>() { isDead, stun, charging, attack, chasePlayer });
     }
 
-    
+
 
 
 }
