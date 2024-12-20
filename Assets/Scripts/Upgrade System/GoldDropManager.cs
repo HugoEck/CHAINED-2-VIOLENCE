@@ -65,6 +65,13 @@ public class GoldDropManager : MonoBehaviour
         goldAmount += roundedAmount;
 
         UpdateGoldCounterText();
+        // Notify GameStatsManager about gold earned
+
+        // FOR UI
+        if (SummaryUIScript.Instance != null)
+        {
+            SummaryUIScript.Instance.DataPointsEarned += amount;
+        }
     }
 
     public int GetGoldAmount()

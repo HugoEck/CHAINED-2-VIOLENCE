@@ -137,10 +137,12 @@ public class BaseManager : MonoBehaviour
             if(player1Attacked)
             {
                 playerManager1.bHasPlayerEnteredCombat = true;
+                SummaryUIScript.Instance.player1UIStats.totalDamageDealt += damage; // FÖR UI // JACK
             }
             if(player2Attacked)
             {
                 playerManager2.bHasPlayerEnteredCombat = true;
+                SummaryUIScript.Instance.player2UIStats.totalDamageDealt += damage; // FÖR UI // JACK
             }
 
             if (damageType == DamageType.WeaponDamage || damageType == DamageType.UnarmedDamage)
@@ -165,7 +167,7 @@ public class BaseManager : MonoBehaviour
 
                 currentHealth = currentHealth + defense - damage;
 
-
+                
                 visuals.ActivateVisuals();
             }
         }

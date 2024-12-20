@@ -430,7 +430,9 @@ public class Player : MonoBehaviour
             if (playersDefeated == 2)
             {
                 playersDefeated = 0;
-                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+                Time.timeScale = 0f;
+                SummaryUIScript.Instance.ShowEndScreen();
+                //Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
             }
         }
         else
@@ -449,8 +451,10 @@ public class Player : MonoBehaviour
             if (playersDefeated == 1)
             {
                 playersDefeated = 0;
-                Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
-                HealthBar.Instance.ResetPlayerHealthBars();
+                Time.timeScale = 0f;
+                SummaryUIScript.Instance.ShowEndScreen();
+                //Chained2ViolenceGameManager.Instance.UpdateGamestate(Chained2ViolenceGameManager.GameState.GameOver);
+                //HealthBar.Instance.ResetPlayerHealthBars();
             }
         }
 
@@ -484,15 +488,17 @@ public class Player : MonoBehaviour
 
             if (_playerId == 1)
             {
+                SummaryUIScript.Instance.player1UIStats.totalRevives++;
                 ToggleRagdoll(false, player1Obj);
                 rigidBodyMassManager.SetMassesToZero();
                 DisableColliders();
                 
-               StartCoroutine(EnableRigidBodyConstraint());
+                StartCoroutine(EnableRigidBodyConstraint());
 
             }
             else if (_playerId == 2)
             {
+                SummaryUIScript.Instance.player2UIStats.totalRevives++;
                 ToggleRagdoll(false, player2Obj);
                 rigidBodyMassManager.SetMassesToZero();
                 DisableColliders();
@@ -531,6 +537,16 @@ public class Player : MonoBehaviour
         SFXManager.instance.PlayRandomSFXClip(audioClipManager.takeDamagePlayer, transform, 1f);
         // Apply the remaining damage to the player's health
         currentHealth -= damage;
+
+        // LOSE SCREEN UI
+        if (_playerId == 1)
+        {
+            SummaryUIScript.Instance.player1UIStats.totalDamageTaken += damage;
+        }
+        else if (_playerId == 2)
+        {
+            SummaryUIScript.Instance.player2UIStats.totalDamageTaken += damage;
+        }
         Debug.Log(gameObject.tag + " took: " + damage + " damage, current health = " + currentHealth);
 
         if (currentHealth <= 0)
@@ -580,7 +596,7 @@ public class Player : MonoBehaviour
             {
                 currentHealth += regenerationRate * Time.deltaTime;
                 currentHealth = Mathf.Clamp(currentHealth, 0, playerAttributes.maxHP);
-
+                SummaryUIScript.Instance.player1UIStats.totalHPRegenerated += regenerationRate * Time.deltaTime;
                 UpdateHealthBar();
             }
             
@@ -592,6 +608,7 @@ public class Player : MonoBehaviour
             {
                 currentHealth += regenerationRate * Time.deltaTime;
                 currentHealth = Mathf.Clamp(currentHealth, 0, playerAttributes.maxHP);
+                SummaryUIScript.Instance.player2UIStats.totalHPRegenerated += regenerationRate * Time.deltaTime;
             }
                 
             UpdateHealthBar();
