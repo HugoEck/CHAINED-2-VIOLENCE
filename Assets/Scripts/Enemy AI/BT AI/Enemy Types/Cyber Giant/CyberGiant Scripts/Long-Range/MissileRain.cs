@@ -22,6 +22,12 @@ public class MissileRain : Node
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
+        if (agent.audioClipManager.lockOnMissile != null)
+        {
+
+        SFXManager.instance.PlaySFXClip(agent.audioClipManager.lockOnMissile, agent.transform.transform, 1f);
+        }
+
         agent.navigation.rotationSpeed = 360;
         agent.navigation.isStopped = true;
 
@@ -120,6 +126,10 @@ public class MissileRain : Node
 
         if (missileID == 0)
         {
+            if (cg.audioClipManager.fireMissile != null)
+            {
+            SFXManager.instance.PlaySFXClip(cg.audioClipManager.fireMissile, cg.transform.transform, 1f);
+            }
             GameObject p1_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);
             p1_Missile.transform.forward = (p1_LastPosition - p1_Missile.transform.position).normalized;
             Rigidbody rb_p1_Missile = p1_Missile.GetComponent<Rigidbody>();
@@ -129,6 +139,10 @@ public class MissileRain : Node
         }
         else if (missileID == 1)
         {
+            if (cg.audioClipManager.fireMissile != null)
+            {
+                SFXManager.instance.PlaySFXClip(cg.audioClipManager.fireMissile, cg.transform.transform, 1f);
+            }
             GameObject p2_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);
             p2_Missile.transform.forward = (p2_LastPosition - p2_Missile.transform.position).normalized;
             Rigidbody rb_p2_Missile = p2_Missile.GetComponent<Rigidbody>();
@@ -138,6 +152,10 @@ public class MissileRain : Node
         }
         else if (missileID == 2)
         {
+            if (cg.audioClipManager.fireMissile != null)
+            {
+                SFXManager.instance.PlaySFXClip(cg.audioClipManager.fireMissile, cg.transform.transform, 1f);
+            }
             GameObject chain_Missile = GameObject.Instantiate(cg.missilePrefab, cg.missileShootPoint.position, cg.missileShootPoint.rotation);
             chain_Missile.transform.forward = (chain_LastPosition - chain_Missile.transform.position).normalized;
             Rigidbody rb_chain_Missile = chain_Missile.GetComponent<Rigidbody>();

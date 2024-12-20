@@ -401,7 +401,10 @@ public class Player : MonoBehaviour
             {
                 rigidBodyMassManager.RestoreOriginalMasses();
 
+                if(audioClipManager.playerDeath != null)
+                {                
                 SFXManager.instance.PlaySFXClip(audioClipManager.playerDeath, transform, 1f);
+                }
 
                 ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
@@ -412,8 +415,10 @@ public class Player : MonoBehaviour
             else if (currentHealth <= 0 && _playerId == 2 && !_bIsPlayerDisabled)
             {
                 rigidBodyMassManager.RestoreOriginalMasses();
-
-                SFXManager.instance.PlaySFXClip(audioClipManager.playerDeath, transform, 1f);
+                if (audioClipManager.playerDeath != null)
+                {
+                    SFXManager.instance.PlaySFXClip(audioClipManager.playerDeath, transform, 1f);
+                }
 
                 ToggleRagdoll(true, player2Obj);
                 _bIsPlayerDisabled = true;
@@ -438,7 +443,10 @@ public class Player : MonoBehaviour
 
             if (currentHealth <= 0 && _playerId == 1 && !_bIsPlayerDisabled)
             {
-                SFXManager.instance.PlaySFXClip(audioClipManager.playerDeath, transform, 1f);
+                if (audioClipManager.playerDeath != null)
+                {
+                    SFXManager.instance.PlaySFXClip(audioClipManager.playerDeath, transform, 1f);
+                }
 
                 ToggleRagdoll(true, player1Obj);
                 _bIsPlayerDisabled = true;
@@ -479,8 +487,10 @@ public class Player : MonoBehaviour
             currentHealth = playerAttributes.maxHP;
             _bIsPlayerDisabled = false;
             respawnTimerSet = false;
-
+            if (audioClipManager.playerRespawn != null)
+            {
             SFXManager.instance.PlaySFXClip(audioClipManager.playerRespawn, transform, 1f);
+            }
 
             if (_playerId == 1)
             {
@@ -528,7 +538,10 @@ public class Player : MonoBehaviour
             damage = remainingDamage;
         }
 
+        if (audioClipManager.takeDamagePlayer != null)
+        {
         SFXManager.instance.PlayRandomSFXClip(audioClipManager.takeDamagePlayer, transform, 1f);
+        }
         // Apply the remaining damage to the player's health
         currentHealth -= damage;
         Debug.Log(gameObject.tag + " took: " + damage + " damage, current health = " + currentHealth);

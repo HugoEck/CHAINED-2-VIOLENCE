@@ -181,7 +181,10 @@ public class BaseManager : MonoBehaviour
 
         if (distance <= attackRange)
         {
+            if (audioClipManager.basicAttacks != null)
+            {
             SFXManager.instance.PlayRandomSFXClip(audioClipManager.basicAttacks, transform.transform, 1f);
+            }
             chosenPlayerManager.SetHealth(attack);
         }
     }

@@ -53,7 +53,10 @@ public class Projectile : MonoBehaviour, IAbility
 
         if(cooldown <= 0 && !abilityReadySoundPlayed)
         {
+            if (audioClipManager.abilityReady != null)
+            {
             SFXManager.instance.PlaySFXClip(audioClipManager.abilityReady, transform, 1f);
+            }
             abilityReadySoundPlayed |= true;
         }
     }
@@ -96,8 +99,11 @@ public class Projectile : MonoBehaviour, IAbility
             Debug.LogError("Fire point is not assigned.");
             return;
         }
+        if (audioClipManager.rangeAbility != null)
+        {
 
         SFXManager.instance.PlaySFXClip(audioClipManager.rangeAbility, transform, 1f);
+        }
 
         // Retrieve speed from the particle system.
         //ParticleSystem particleSystem = projectilePrefab.GetComponent<ParticleSystem>();

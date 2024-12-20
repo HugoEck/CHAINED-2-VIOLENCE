@@ -33,7 +33,11 @@ public class DestroyMissile : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        SFXManager.instance.PlaySFXClip(audioClipManager.rangeAbilityExplosion, transform.transform, 1f);
+        if (audioClipManager.bossExplosions != null)
+        {
+
+        SFXManager.instance.PlayRandomSFXClip(audioClipManager.bossExplosions, transform.transform, 1f);
+        }
 
         // Wait for a brief moment to allow for additional hits
         yield return new WaitForSeconds(destroyDelay);

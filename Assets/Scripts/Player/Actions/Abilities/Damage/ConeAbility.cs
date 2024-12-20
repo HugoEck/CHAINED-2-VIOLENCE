@@ -96,7 +96,11 @@ public class ConeAbility : MonoBehaviour, IAbility
 
         if (_damageTimer <= 0 && !abilityReadySoundPlayed)
         {
+            if (audioClipManager.abilityReady != null)
+            {
+
             SFXManager.instance.PlaySFXClip(audioClipManager.abilityReady, transform, 1f);
+            }
             abilityReadySoundPlayed = true;
         }
 
@@ -153,12 +157,18 @@ public class ConeAbility : MonoBehaviour, IAbility
                         if(_playerId == 1)
                         {
                             enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage, true, false);
+                            if (audioClipManager.coneAbility != null)
+                            {
                             SFXManager.instance.PlaySFXClip(audioClipManager.coneAbility, transform, 1f);
+                            }
                         }
                         else if(_playerId == 2)
                         {
                             enemyManager.DealDamageToEnemy(coneDamage, BaseManager.DamageType.AbilityDamage, false, true);
+                            if (audioClipManager.coneAbility != null)
+                            {
                             SFXManager.instance.PlaySFXClip(audioClipManager.coneAbility, transform, 1f);
+                            }
                         }
                         
                         Debug.Log("Cone hit enemy: " + enemy.name);

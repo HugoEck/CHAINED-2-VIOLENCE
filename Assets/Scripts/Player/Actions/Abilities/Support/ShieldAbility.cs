@@ -98,7 +98,11 @@ public class ShieldAbility : MonoBehaviour, IAbility
             Player2ComboManager.instance.currentAnimator.SetBool("UseAbility", true);
         }
 
+        if (audioClipManager.shieldActivate != null)
+        {
+
         SFXManager.instance.PlaySFXClip(audioClipManager.shieldActivate, transform, 1f);
+        }
 
         currentShieldHealth = maxShieldHealth;
         isShieldActive = true;
@@ -174,7 +178,11 @@ public class ShieldAbility : MonoBehaviour, IAbility
     {
         if (!isShieldActive) return damage; // If shield is not active, pass damage through
 
+        if (audioClipManager.shieldAbsorb != null)
+        {
+
         SFXManager.instance.PlaySFXClip(audioClipManager.shieldAbsorb, transform, 1f);
+        }
 
         currentShieldHealth -= damage;
         Debug.Log(gameObject.name + " Shield absorbed " + damage + " damage. Remaining Shield Health: " + currentShieldHealth);
@@ -194,7 +202,11 @@ public class ShieldAbility : MonoBehaviour, IAbility
     {
         if (!isShieldActive) return;
 
+        if (audioClipManager.shieldBreak != null)
+        {
+
         SFXManager.instance.PlaySFXClip(audioClipManager.shieldBreak, transform, 1f);
+        }
 
         isShieldActive = false;
         currentShieldHealth = 0;
@@ -223,7 +235,11 @@ public class ShieldAbility : MonoBehaviour, IAbility
 
         if(cooldown <=0 && !abilityReadySoundPlayed)
         {
+            if (audioClipManager.abilityReady != null)
+            {
+
             SFXManager.instance.PlaySFXClip(audioClipManager.abilityReady, transform, 1f);
+            }
             abilityReadySoundPlayed = true;
         }
     }

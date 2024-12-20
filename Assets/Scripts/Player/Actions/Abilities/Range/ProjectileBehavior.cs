@@ -80,7 +80,10 @@ public class ProjectileBehavior : MonoBehaviour
 
         explosionDamage = baseExplosionDamage + playerAttributes.attackDamage;
 
+        if (audioClipManager.rangeAbilityExplosion != null)
+        {
         SFXManager.instance.PlaySFXClip(audioClipManager.rangeAbilityExplosion, transform, 1f);
+        }
 
         Debug.Log("Projectile exploded!");
 

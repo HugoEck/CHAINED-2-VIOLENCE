@@ -16,6 +16,12 @@ public class SuicideCharge : Node
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
         agent.navigation.destination = agent.targetedPlayer.position;
 
+        if (agent.audioClipManager.bomberManLaugh != null && agent.audioClipManager.bomberManFuse != null)
+        {
+            SFXManager.instance.PlaySFXClip(agent.audioClipManager.bomberManFuse, agent.transform.transform, 0.7f);
+            SFXManager.instance.PlaySFXClip(agent.audioClipManager.bomberManLaugh, agent.transform.transform, 1f);
+        }
+
 
         if (bomber.bombAnimationTimer < 0)
         {

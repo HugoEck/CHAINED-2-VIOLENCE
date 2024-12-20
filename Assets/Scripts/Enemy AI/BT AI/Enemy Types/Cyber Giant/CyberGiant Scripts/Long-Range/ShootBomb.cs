@@ -11,6 +11,11 @@ public class ShootBomb : Node
 
         CyberGiantManager cg =  agent as CyberGiantManager;
 
+        if (agent.audioClipManager.shootBomb != null)
+        {
+
+        SFXManager.instance.PlaySFXClip(agent.audioClipManager.shootBomb, agent.transform.transform, 1f);
+        }
         
 
         agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
@@ -28,7 +33,6 @@ public class ShootBomb : Node
             rb.velocity = cg.bombVelocity;
         }
 
-        SFXManager.instance.PlaySFXClip(agent.audioClipManager.rangeAbilityExplosion, agent.transform.transform, 1f);
 
         return NodeState.SUCCESS;
     }
