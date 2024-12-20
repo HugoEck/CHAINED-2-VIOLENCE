@@ -7167,6 +7167,11 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 537295843da26d4429e80589b55cd467, type: 3}
     - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
         type: 3}
+      propertyPath: enemyDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: d94e57a90b0269e4183e140f7a6c61fc, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
       propertyPath: chargerRoar
       value: 
       objectReference: {fileID: 8300000, guid: ef84eadefb1e0054c9fc3d1eebcf4ffa, type: 3}
@@ -10996,7 +11001,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1670448610
+--- !u!1 &1668028403
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11004,8 +11009,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1670448612}
-  - component: {fileID: 1670448611}
+  - component: {fileID: 1668028405}
+  - component: {fileID: 1668028404}
   m_Layer: 0
   m_Name: BurstCollisionWorld
   m_TagString: Untagged
@@ -11013,13 +11018,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1670448611
+--- !u!114 &1668028404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670448610}
+  m_GameObject: {fileID: 1668028403}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
@@ -11027,13 +11032,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSpans:
     m_AlignBytes: 16
---- !u!4 &1670448612
+--- !u!4 &1668028405
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670448610}
+  m_GameObject: {fileID: 1668028403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -13851,4 +13856,4 @@ SceneRoots:
   - {fileID: 1041048117}
   - {fileID: 1853807412}
   - {fileID: 2022469808}
-  - {fileID: 1670448612}
+  - {fileID: 1668028405}

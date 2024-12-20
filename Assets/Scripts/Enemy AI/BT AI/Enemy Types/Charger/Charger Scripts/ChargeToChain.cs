@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ChargeToChain : Node
 {
+    private bool runOnce = false;
 
     public override NodeState Evaluate(BaseManager agent)
     {
@@ -12,19 +13,22 @@ public class ChargeToChain : Node
         ChargerManager charger = agent as ChargerManager;
 
         SetAnimation(agent);
-
-        charger.chargeRunActive = true;
-
-        if (agent.audioClipManager.chargerRoar != null)
+        if (!runOnce)
         {
-        SFXManager.instance.PlaySFXClip(agent.audioClipManager.chargerRoar, agent.transform, 1f);
+            charger.chargeRunActive = true;
+
+            if (agent.audioClipManager.chargerRoar != null)
+            {
+                SFXManager.instance.PlaySFXClip(agent.audioClipManager.chargerRoar, agent.transform, 1f);
+            }
+
+            agent.navigation.isStopped = true;
+            Vector3 direction = (charger.chainPosition - charger.lastSavedPosition).normalized;
+            agent.transform.position += direction * charger.chargingSpeed * Time.deltaTime;
+            float distance = Vector3.Distance(agent.transform.position, charger.chainPosition);
+
+            runOnce = true;
         }
-
-        agent.navigation.isStopped = true;
-        Vector3 direction = (charger.chainPosition - charger.lastSavedPosition).normalized;
-        agent.transform.position += direction * charger.chargingSpeed * Time.deltaTime;
-        float distance = Vector3.Distance(agent.transform.position, charger.chainPosition);
-
         if (charger.chargeRunTimer < 0 || charger.collidedWithWall )
         {
             charger.chargeRunActive = false;
