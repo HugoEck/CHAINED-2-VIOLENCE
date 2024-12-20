@@ -168,27 +168,17 @@ public class DissolveManager : MonoBehaviour
             isChangingArena = true;
 
             sciFiArena.SetActive(true);
-            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
+            ChangeArena(sciFiMaterials, 15, initialOffsetsSciFi, currentDayArena);
             StartCoroutine(DissolveAndChangeMaterial(currentDayFloorMaterial, sciFiFloorMaterial));
 
             hasChangedToSciFi = true;
         }
-        if (WaveManager.currentWave == 30 && !hasChangedToSciFi)
-        {
-            isChangingArena = true;
-
-            sciFiArena.SetActive(true);
-            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
-            StartCoroutine(DissolveAndChangeMaterial(currentDayFloorMaterial, sciFiFloorMaterial));
-
-            hasChangedToSciFi = true;
-        }
-        if (WaveManager.currentWave == 35 && !hasChangedToCorrupted)
+        if (WaveManager.currentWave == 36 && !hasChangedToCorrupted)
         {
             isChangingArena = true;
 
             corruptedArena.SetActive(true);
-            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
+            ChangeArena(corruptedMaterials, 0.05f, initialCorrupted, sciFiArena);
             StartCoroutine(DissolveAndChangeCorruptedMaterial(sciFiFloorMaterial, corruptedFloorMaterial));
 
             hasChangedToCorrupted = true;

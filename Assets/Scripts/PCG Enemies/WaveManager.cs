@@ -69,13 +69,14 @@ public class WaveManager : MonoBehaviour
         enemyCreator = enemyCreatorObject.GetComponent<NPC_Customization>();
         waveData.LoadWaves(waves);
         //StartCoroutine(SpawnWavesRegularly());
-        currentWave = 0;
+        currentWave = 30;
     }
 
 
     private void Update()
     {
-        if(waves.Count == currentWave)
+
+        if(waves.Count == currentWave +1)
         {
             waveData.GenerateEndlessWave(waves, "Wave " + (currentWave + 1));
             waveData.GenerateEndlessWave(waves, "Wave " + (currentWave + 2));
