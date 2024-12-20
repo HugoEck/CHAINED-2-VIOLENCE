@@ -19,6 +19,7 @@ public class ChargeToChain : Node
         Vector3 direction = (charger.chainPosition - charger.lastSavedPosition).normalized;
         agent.transform.position += direction * charger.chargingSpeed * Time.deltaTime;
         float distance = Vector3.Distance(agent.transform.position, charger.chainPosition);
+        SFXManager.instance.PlaySFXClip(agent.audioClipManager.chargerRoar, agent.transform, 1f);
 
         if (charger.chargeRunTimer < 0 || charger.collidedWithWall )
         {
