@@ -20,6 +20,9 @@ public class InputManager : MonoBehaviour
 
     #endregion
 
+
+    private string[] _numberOfActiveJoysticks;
+
     private void Awake()
     {
         if (Instance == null)
@@ -40,6 +43,23 @@ public class InputManager : MonoBehaviour
         }
     }
     #region Check inputs
+
+    private int NumberOfActiveControlls(string[] joystickArray)
+    {
+        // Get the names of all connected joysticks
+        joystickArray = Input.GetJoystickNames();
+
+        // Count the non-empty joystick entries
+        int connectedJoysticks = 0;
+        foreach (var joystick in joystickArray)
+        {
+            if (!string.IsNullOrEmpty(joystick))
+            {
+                connectedJoysticks++;
+            }
+        }
+        return connectedJoysticks;
+    }
     public Vector2 GetMovementInput_P1()
     {
         CheckActiveInput();
@@ -74,7 +94,7 @@ public class InputManager : MonoBehaviour
     {
         CheckActiveInput();
 
-        if( currentInputType == InputType.Gamepad)
+        if(currentInputType == InputType.Gamepad)
         {
             return _gamepadInput.GetBasicAttackInput_P1();
         }
@@ -199,7 +219,7 @@ public class InputManager : MonoBehaviour
 
     public void CheckActiveInput()
     {      
-        if(Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
+        if(NumberOfActiveControlls(_numberOfActiveJoysticks) == 1 && Chained2ViolenceGameManager.Instance.BIsPlayer2Assigned)
         {
             currentInputType = InputType.KeyboardAndMouse;
             return;
