@@ -9,7 +9,7 @@ public class MissileRain : Node
     Vector3 p2_Velocity;
     Vector3 chain_Velocity;
 
-    float shootForce = 50;
+    float shootForce = 45;
     float animationTotTime = 4f;
     float animationTimer = 4f;
     int nrMissilesShot = 0;

@@ -283,6 +283,17 @@ public class CyberGiantManager : BaseManager
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Misc"))
+        {
+            // SKRIV DIN LOGIK HÄR PONTUS FÖR ATT UPPDATERA GRIDPATH, EXAKT SOM CHARGERN :)
+
+
+            Destroy(collision.gameObject);
+        }
+    }
+
     private void ConstructBT()
     {
 

@@ -85,7 +85,7 @@ public class BannerManManager : BaseManager
         currentHealth = maxHealth;
         attack = 0 + attackModifier;
         defense = 0 + defenseModifier;
-        navigation.maxSpeed = 9;
+        navigation.maxSpeed = 10;
         attackSpeed = 0 + attackSpeedModifier;
         attackRange = 20f;
         unitCost = 10;
