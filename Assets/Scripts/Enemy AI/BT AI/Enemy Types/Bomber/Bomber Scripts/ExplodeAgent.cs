@@ -18,7 +18,7 @@ public class ExplodeAgent : Node
 
             GameObject.Instantiate(bomber.explosionParticle, agent.transform.position, agent.transform.rotation);
 
-            if (agent.audioClipManager.bomberManExplosion != null)
+            if (agent.audioClipManager.bossExplosions != null)
             {
             SFXManager.instance.PlayRandomSFXClip(agent.audioClipManager.bossExplosions, agent.transform.transform, 1f);
             }
