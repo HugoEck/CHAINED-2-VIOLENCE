@@ -25,9 +25,19 @@ public class KillAgent : Node
 
         if (!runOnce)
         {
-            if (GoldDropManager.Instance != null) 
+            if (GoldDropManager.Instance != null)
             {
                 GoldDropManager.Instance.AddGold(agent.unitCost);
+            }
+            if (agent.playerManager1.bHasPlayerEnteredCombat) { // JACK UI
+                if (SummaryUIScript.Instance != null && SummaryUIScript.Instance.player1UIStats != null) {
+                    SummaryUIScript.Instance.player1UIStats.totalKills++;
+                }
+            }
+            else if (agent.playerManager2.bHasPlayerEnteredCombat) {
+                if (SummaryUIScript.Instance != null && SummaryUIScript.Instance.player2UIStats != null) {
+                    SummaryUIScript.Instance.player2UIStats.totalKills++;
+                }
             }
             WaveManager.ActiveEnemies--;
             runOnce = true;
