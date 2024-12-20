@@ -14,6 +14,11 @@ public class ActivateBomb : Node
         agent.navigation.isStopped = true;
         bomber.bombActivated = true;
 
+        if (agent.audioClipManager.bomberManFuse != null)
+        {
+        SFXManager.instance.PlaySFXClip(agent.audioClipManager.bomberManIgnite, agent.transform.transform, 1f);
+        }
+
 
         if (bomber.bombAnimationTimer < 5)
         {
