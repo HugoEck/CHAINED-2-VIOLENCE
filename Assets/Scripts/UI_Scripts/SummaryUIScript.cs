@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +16,26 @@ public class GameStatsManager : MonoBehaviour
 
     public PlayerStatsforUI player1UIStats { get; private set; }
     public PlayerStatsforUI player2UIStats { get; private set; }
+
+    #region Player 1 Texts
+    [SerializeField] private TMP_Text _p1TotalKillsText;
+    [SerializeField] private TMP_Text _p1TotalDamageText;
+    [SerializeField] private TMP_Text _p1TotalRevivestext;
+    [SerializeField] private TMP_Text _p1TotalDamageTakenText;
+    [SerializeField] private TMP_Text _p1TotalHPRegenText;
+    #endregion
+    #region Player 2 Texts
+    [SerializeField] private TMP_Text _p2TotalKillsText;
+    [SerializeField] private TMP_Text _p2TotalDamageText;
+    [SerializeField] private TMP_Text _p2TotalRevivestext;
+    [SerializeField] private TMP_Text _p2TotalDamageTakenText;
+    [SerializeField] private TMP_Text _p2TotalHPRegenText;
+    #endregion
+    #region Info Group Texts
+    [SerializeField] private TMP_Text _waveReachedText;
+    [SerializeField] private TMP_Text _GameDurationText;
+    [SerializeField] private TMP_Text _TotalDataPointsEarnedText;
+    #endregion
 
     private void Awake()
     {
@@ -39,14 +61,9 @@ public class GameStatsManager : MonoBehaviour
         }
     }
 
-    public void IncrementWave()
+    public void UpdateTextsUI()
     {
-        WaveReached++;
-    }
 
-    public void AddDataPoints(int points)
-    {
-        DataPointsEarned += points;
     }
 
     public void ResetGameStats()
@@ -63,25 +80,25 @@ public class GameStatsManager : MonoBehaviour
 [System.Serializable]
 public class PlayerStatsforUI
 {
-    public int PlayerId;
-    public int TotalKills;
-    public int DamageDealt;
-    public int TotalRevives;
-    public int DamageTaken;
-    public int HPRegenerated;
+    public int playerId;
+    public int totalKills;
+    public int totalDamageDealt;
+    public int totalRevives;
+    public int totalDamageTaken;
+    public int totalHPRegenerated;
 
     public PlayerStatsforUI(int playerId)
     {
-        PlayerId = playerId;
+        this.playerId = playerId;
         ResetStats();
     }
 
     public void ResetStats()
     {
-        TotalKills = 0;
-        DamageDealt = 0;
-        TotalRevives = 0;
-        DamageTaken = 0;
-        HPRegenerated = 0;
+        totalKills = 0;
+        totalDamageDealt = 0;
+        totalRevives = 0;
+        totalDamageTaken = 0;
+        totalHPRegenerated = 0;
     }
 }
