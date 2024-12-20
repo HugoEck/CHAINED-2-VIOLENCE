@@ -64,6 +64,7 @@ public class BaseManager : MonoBehaviour
     [HideInInspector] public Player chosenPlayerManager;
     [HideInInspector] public AudioClipManager audioClipManager;
 
+
     //PLAYER EFFECTS
     public enum DamageType
     {

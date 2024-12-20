@@ -23,6 +23,7 @@ public class Stagger : Node
 
         if (animationTimer < 3 && animationTimer > 2.5f)
         {
+            cg.bombCooldown = 3.5f;
             cg.closeRangeCooldown = 5;
             cg.midRangeCooldown = 15;
             cg.longRangeCooldown = 15;

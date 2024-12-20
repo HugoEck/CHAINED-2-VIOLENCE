@@ -14,19 +14,36 @@ public class DestroyBomb : MonoBehaviour
         audioClipManager = FindAnyObjectByType<AudioClipManager>();
     }
 
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    Player player = other.gameObject.GetComponent<Player>();
+
+    //    if (player != null)
+    //    {
+    //        player.SetHealth(damage);
+    //    }
+    //    if (other.gameObject.tag != "Missile" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "BossWeapon")
+    //    {
+    //        StartCoroutine(DestroyAfterDelay());
+    //    }
+
+    //}
+
     private void OnTriggerEnter(Collider other)
     {
         Player player = other.gameObject.GetComponent<Player>();
 
-        if (player != null)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             player.SetHealth(damage);
+            SFXManager.instance.PlayRandomSFXClip(audioClipManager.bossExplosions, transform.transform, 1f);
+            Destroy(gameObject);
         }
-        if (other.gameObject.tag != "Missile" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "BossWeapon")
+        else if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
         {
-            StartCoroutine(DestroyAfterDelay());
+            SFXManager.instance.PlayRandomSFXClip(audioClipManager.bossExplosions, transform.transform, 1f);
+            Destroy(gameObject);
         }
-
     }
 
 

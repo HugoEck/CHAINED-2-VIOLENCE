@@ -19,17 +19,18 @@ public class DestroyMissile : MonoBehaviour
     {
         Player player = other.gameObject.GetComponent<Player>();
 
-        if (player != null)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && player != null)
         {
             player.SetHealth(damage);
+            SFXManager.instance.PlayRandomSFXClip(audioClipManager.bossExplosions, transform.transform, 1f);
+            Destroy(gameObject);
         }
-        if (other.gameObject.tag != "Missile" && other.gameObject.tag != "Enemy" && other.gameObject.tag != "BossWeapon")
+        else if (other.gameObject.layer != LayerMask.NameToLayer("Enemy"))
         {
-            StartCoroutine(DestroyAfterDelay());
+            SFXManager.instance.PlayRandomSFXClip(audioClipManager.bossExplosions, transform.transform, 1f);
+            Destroy(gameObject);
         }
-
     }
-
 
     private IEnumerator DestroyAfterDelay()
     {

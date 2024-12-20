@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ActivateBomb : Node
 {
+    private bool runOnce = false;
     public override NodeState Evaluate(BaseManager agent)
     {
 
@@ -14,9 +15,10 @@ public class ActivateBomb : Node
         agent.navigation.isStopped = true;
         bomber.bombActivated = true;
 
-        if (agent.audioClipManager.bomberManFuse != null)
+        if (agent.audioClipManager.bomberManFuse != null && !runOnce)
         {
-        SFXManager.instance.PlaySFXClip(agent.audioClipManager.bomberManIgnite, agent.transform.transform, 1f);
+            runOnce = true;
+            SFXManager.instance.PlaySFXClip(agent.audioClipManager.bomberManIgnite, agent.transform.transform, 1f);
         }
 
 

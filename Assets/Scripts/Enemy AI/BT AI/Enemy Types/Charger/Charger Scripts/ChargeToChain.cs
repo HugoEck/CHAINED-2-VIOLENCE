@@ -13,22 +13,19 @@ public class ChargeToChain : Node
         ChargerManager charger = agent as ChargerManager;
 
         SetAnimation(agent);
-        if (!runOnce)
+
+        charger.chargeRunActive = true;
+        agent.navigation.isStopped = true;
+        Vector3 direction = (charger.chainPosition - charger.lastSavedPosition).normalized;
+        agent.transform.position += direction * charger.chargingSpeed * Time.deltaTime;
+        float distance = Vector3.Distance(agent.transform.position, charger.chainPosition);
+
+        if (agent.audioClipManager.chargerRoar != null && !runOnce)
         {
-            charger.chargeRunActive = true;
-
-            if (agent.audioClipManager.chargerRoar != null)
-            {
-                SFXManager.instance.PlaySFXClip(agent.audioClipManager.chargerRoar, agent.transform, 1f);
-            }
-
-            agent.navigation.isStopped = true;
-            Vector3 direction = (charger.chainPosition - charger.lastSavedPosition).normalized;
-            agent.transform.position += direction * charger.chargingSpeed * Time.deltaTime;
-            float distance = Vector3.Distance(agent.transform.position, charger.chainPosition);
-
+            SFXManager.instance.PlaySFXClip(agent.audioClipManager.chargerRoar, agent.transform, 1f);
             runOnce = true;
         }
+
         if (charger.chargeRunTimer < 0 || charger.collidedWithWall )
         {
             charger.chargeRunActive = false;

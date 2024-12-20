@@ -25,6 +25,7 @@ public class CGKill : Node
             if (GoldDropManager.Instance != null)
             {
                 GoldDropManager.Instance.AddGold(agent.unitCost);
+                WaveManager.ActiveEnemies--;
             }
 
             runOnce = true;
@@ -33,7 +34,6 @@ public class CGKill : Node
 
         if(deathTimer < 0)
         {
-            WaveManager.ActiveEnemies--;
             GameObject.Destroy(agent.gameObject);
             return NodeState.SUCCESS;
         }

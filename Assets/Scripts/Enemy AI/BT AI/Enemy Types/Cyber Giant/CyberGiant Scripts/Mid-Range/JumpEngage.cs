@@ -41,7 +41,6 @@ public class JumpEngage : Node
 
         if (animationTimer < 5.5f && animationTimer > 3.5f)
         {
-            //RotateTowardsPlayer(agent);
             targetedPlayerLastPos = agent.targetedPlayer.transform.position;
             agent.behaviorMethods.RotateTowardsClosestPlayer();
             jumpSpeed = distance / jumpAnimationTime;

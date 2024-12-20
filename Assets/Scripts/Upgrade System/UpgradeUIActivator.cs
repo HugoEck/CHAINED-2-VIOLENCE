@@ -3,22 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Actives the Upgrade Menu UI when one of the player presses the E or X on controller near the NPC. Press again to close.
+/// Actives the Upgrade Menu UI when one of the player presses the E or X on controller near the NPC.
 /// </summary>
 public class UpgradeUIActivator : MonoBehaviour
 {
     public GameObject upgradeUICanvas;
-    public float interactionDistance = 10f;
 
-    private GameObject player1;
-    private GameObject player2;
-    private bool isWithinRange;
+    private bool isPlayer1InRange = false;
+    private bool isPlayer2InRange = false;
 
     void Start()
     {
-        player1 = GameObject.FindGameObjectWithTag("Player1");
-        player2 = GameObject.FindGameObjectWithTag("Player2");
-
         if (upgradeUICanvas != null)
         {
             upgradeUICanvas.SetActive(false);
@@ -27,31 +22,43 @@ public class UpgradeUIActivator : MonoBehaviour
 
     void Update()
     {
-        if (player1 == null || player2 == null)
-        {
-            player1 = GameObject.FindGameObjectWithTag("Player1");
-            player2 = GameObject.FindGameObjectWithTag("Player2");
-        }
         ToggleUpgradeMenuUI();
-    }
-
-    private bool CheckPlayerDistance(GameObject player)
-    {
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-        return distance <= interactionDistance;
     }
 
     private void ToggleUpgradeMenuUI()
     {
-        if (player1 != null && player2 != null)
+        if ((isPlayer1InRange || isPlayer2InRange) && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)))
         {
-            isWithinRange = CheckPlayerDistance(player1) || CheckPlayerDistance(player2);
+            bool newState = !upgradeUICanvas.activeSelf;
+            upgradeUICanvas.SetActive(newState);
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player1"))
+        {
+            isPlayer1InRange = true;
+        }
+        else if (other.gameObject.CompareTag("Player2"))
+        {
+            isPlayer2InRange = true;
+        }
+    }
 
-            if (isWithinRange && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)))
-            {
-                bool newState = !upgradeUICanvas.activeSelf;
-                upgradeUICanvas.SetActive(newState);
-            }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player1"))
+        {
+            isPlayer1InRange = false;
+        }
+        else if (other.gameObject.CompareTag("Player2"))
+        {
+            isPlayer2InRange = false;
+        }
+
+        if (!isPlayer1InRange && !isPlayer2InRange)
+        {
+            upgradeUICanvas.SetActive(false);
         }
     }
 }
