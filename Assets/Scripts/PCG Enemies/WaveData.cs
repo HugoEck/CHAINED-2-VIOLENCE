@@ -10,7 +10,7 @@ public class WaveData : MonoBehaviour
             new List<EnemyConfig>
             {
 
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.Roman, enemyClass = NPC_Customization.NPCClass.Basic, waveSize = 1 }
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.Bomber, waveSize = 1 }
 
             }
         ));
