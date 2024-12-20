@@ -6,22 +6,27 @@ using UnityEngine;
 public class ShootBomb : Node
 {
     private float distance;
+    private bool runOnce;    
     public override NodeState Evaluate(BaseManager agent)
     {
 
         CyberGiantManager cg =  agent as CyberGiantManager;
 
-        if (agent.audioClipManager.shootBomb != null)
+        if (!runOnce)
         {
+            if (agent.audioClipManager.shootBomb != null)
+            {
 
-        SFXManager.instance.PlaySFXClip(agent.audioClipManager.shootBomb, agent.transform.transform, 1f);
+                SFXManager.instance.PlaySFXClip(agent.audioClipManager.shootBomb, agent.transform.transform, 1f);
+            }
+
+
+            agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
+            distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
+            cg.bomb_marker.transform.position = agent.behaviorMethods.CalculateChainPosition();
+
+            runOnce = true;
         }
-        
-
-        agent.targetedPlayer = agent.behaviorMethods.CalculateClosestTarget();
-        distance = Vector3.Distance(agent.transform.position, agent.targetedPlayer.position);
-        cg.bomb_marker.transform.position = agent.behaviorMethods.CalculateChainPosition();
-
         if (cg.IsBombReady() && distance > cg.minBombDistance && !cg.CheckIfAbilityInProgress())
         {
             //cg.bombReady = false;

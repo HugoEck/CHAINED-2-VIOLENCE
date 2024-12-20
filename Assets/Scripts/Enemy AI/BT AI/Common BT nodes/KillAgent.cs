@@ -25,6 +25,10 @@ public class KillAgent : Node
 
         if (!runOnce)
         {
+            if (agent.audioClipManager.enemyDeath != null)
+            {
+                SFXManager.instance.PlaySFXClip(agent.audioClipManager.enemyDeath, agent.transform.transform, 1f);
+            }
             if (GoldDropManager.Instance != null) 
             {
                 GoldDropManager.Instance.AddGold(agent.unitCost);
