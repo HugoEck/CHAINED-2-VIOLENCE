@@ -16,6 +16,9 @@ public class BoulderManager : MonoBehaviour
     public List<GameObject> objectsToRemove = new List<GameObject>();
     public itemAreaSpawner spawner;
 
+    [Header("A*")]
+    public float navMeshOffsetMultiplier;
+
     [Header("PARTICLES")]
     public GameObject pathParticle; // Particle prefab for the path trail
     [SerializeField] public GameObject destructionParticle;
@@ -55,6 +58,11 @@ public class BoulderManager : MonoBehaviour
         {
             Debug.LogError("MeshRenderer not found on the boulder! Ensure the boulder has a MeshRenderer component.");
             return;
+        }
+
+        if (spawner != null)
+        {
+            navMeshOffsetMultiplier = spawner.navMeshOffsetMultiplier;
         }
 
         // Disable visibility and movement initially
@@ -99,50 +107,29 @@ public class BoulderManager : MonoBehaviour
         // Check for specific collision tags
         if (collision.gameObject.CompareTag("Misc"))
         {
+            // Handle destruction particle effect
             if (destructionParticle != null && collision.contacts.Length > 0)
             {
                 Vector3 collisionPoint = collision.contacts[0].point;
-
-                collisionPoint.y = 0;
-
                 GameObject particlesGo = Instantiate(destructionParticle, collisionPoint, Quaternion.identity);
-                Destroy(particlesGo, 2f); // Destroy the particle system after 2 seconds
-            }
-            else
-            {
-                Debug.LogWarning("Particles prefab is not assigned or no collision contacts available.");
+                Destroy(particlesGo, 2f);
             }
 
-            Destroy(collision.gameObject);
-            
-            // Ensure grid is updated when object is destroyed
+            // Update grid graph
             if (spawner != null && collision.gameObject != null)
             {
                 Collider collider = collision.gameObject.GetComponent<Collider>();
                 if (collider != null)
                 {
                     Bounds bounds = collider.bounds;
-                    float updateRadius = Mathf.Max(bounds.size.x, bounds.size.z) / 2f + 1f;
+                    float updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2f) * navMeshOffsetMultiplier + 1f;
                     spawner.gridGraphUpdater.RemoveObstacleUpdate(collision.gameObject.transform.position, updateRadius);
                 }
 
                 spawner.RemoveObjectFromCollision(collision.gameObject); // Remove from spawner's list
             }
 
-
-            // Skip further processing to ensure the boulder keeps its direction
-            //return;
-
-            if (spawner != null)
-            {
-                spawner.RemoveObjectFromCollision(collision.gameObject);
-            }
-            objectsToRemove.Add(collision.gameObject);
-
-            Destroy(collision.gameObject);
-
-            // Skip further processing to ensure the boulder keeps its direction
-            return;
+            Destroy(collision.gameObject); // Destroy the object
         }
 
         // Check if the collided object is a player
