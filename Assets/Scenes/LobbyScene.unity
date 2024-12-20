@@ -4636,52 +4636,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796953881}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &797926064
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 797926066}
-  - component: {fileID: 797926065}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &797926065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797926064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &797926066
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797926064}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &804217757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7206,6 +7160,116 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: shootBomb
+      value: 
+      objectReference: {fileID: 8300000, guid: 537295843da26d4429e80589b55cd467, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: chargerRoar
+      value: 
+      objectReference: {fileID: 8300000, guid: ef84eadefb1e0054c9fc3d1eebcf4ffa, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: fireMissile
+      value: 
+      objectReference: {fileID: 8300000, guid: e59597fe44d1fb540bd48c50610640d7, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: bomberManFuse
+      value: 
+      objectReference: {fileID: 8300000, guid: 8a506071dfc923d4c95560b3c1751772, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: lockOnMissile
+      value: 
+      objectReference: {fileID: 8300000, guid: 91fadb377fc07b642b34b7bcd4ad2f89, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: bomberManLaugh
+      value: 
+      objectReference: {fileID: 8300000, guid: eb2deb3593e35c242a189be9f79acb1e, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: bomberManIgnite
+      value: 
+      objectReference: {fileID: 8300000, guid: c72364aa8b19bab479fbe2de8a4f4d5b, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: bossExplosions.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ca9dd9a35012c428727e0b7806c977, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9511f148b194d6b4da1e2cbd1ec6c418, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6f3986373e9d7254ebe162aceee8d8db, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7888e523e054cb44a85480a2a0b837f9, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: e825b1d214cee114eba405bbd1d7cd9a, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5266b37446607f74993b49d5d4b6b7af, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: 31691ba4b864f624c89c8892f698c9b1, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: 722ccb1eb667cfd4aa59f8f938fcdf15, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: ed1baba7ea4caed4687f3514f0001516, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: basicAttacks.Array.data[9]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a4776bc63f441944b02243d1c4bce34, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: bossExplosions.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 38cddc2490cdf3a4a999dfcbf5638063, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: bossExplosions.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 29b9382937dbb774da65f6eca16fca2b, type: 3}
+    - target: {fileID: 8389727953725544669, guid: ad4a3e7ceaa2e6a45a3f1c47aa3425fe,
+        type: 3}
+      propertyPath: bossExplosions.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 999b4f5df53594d4d9d3f790f88ae9fd, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10932,6 +10996,52 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1670448610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1670448612}
+  - component: {fileID: 1670448611}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1670448611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670448610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1670448612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670448610}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1677673129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4713385041369816, guid: de0e337e502ff3045bd81a5d1d89865b,
@@ -13183,7 +13293,7 @@ GameObject:
   - component: {fileID: 2022469808}
   - component: {fileID: 2022469807}
   m_Layer: 0
-  m_Name: Brah
+  m_Name: Controller Reactivation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13741,4 +13851,4 @@ SceneRoots:
   - {fileID: 1041048117}
   - {fileID: 1853807412}
   - {fileID: 2022469808}
-  - {fileID: 797926066}
+  - {fileID: 1670448612}

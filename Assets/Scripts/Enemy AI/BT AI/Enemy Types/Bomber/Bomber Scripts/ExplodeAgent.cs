@@ -17,6 +17,11 @@ public class ExplodeAgent : Node
             runOnce = true;
 
             GameObject.Instantiate(bomber.explosionParticle, agent.transform.position, agent.transform.rotation);
+
+            if (agent.audioClipManager.bossExplosions != null)
+            {
+            SFXManager.instance.PlayRandomSFXClip(agent.audioClipManager.bossExplosions, agent.transform.transform, 1f);
+            }
             bomber.Explode();
 
             if (GoldDropManager.Instance != null)

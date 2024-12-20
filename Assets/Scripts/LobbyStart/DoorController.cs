@@ -50,6 +50,9 @@ public class DoorController : MonoBehaviour
     private IEnumerator PlaySoundWithDelay(float delay, AudioClip clip)
     {
         yield return new WaitForSeconds(delay);
+        if (audioClipManager.doorOpen != null)
+        {
         SFXManager.instance.PlaySFXClip(clip, transform, 1.0f);
+        }
     }
 }

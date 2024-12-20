@@ -196,9 +196,7 @@ public class itemAreaSpawner : MonoBehaviour
                 // Apply rotation if required
                 //ApplyRandomRotation(clone);
 
-                #region NAVMESH UPDATE
                 UpdatePathfinding(clone); // Update NavMesh with the multiplier applied
-                #endregion
 
                 return true; // Successfully spawned an item
             }
@@ -270,6 +268,8 @@ public class itemAreaSpawner : MonoBehaviour
     {
         if (WaveManager.currentWave == waveNumber && !itemsSpawnedFlag)
         {
+            ClearGridForPreviousObjects();
+
             if (!isDespawning)
             {
                 DespawnObjects();
@@ -463,5 +463,32 @@ public class itemAreaSpawner : MonoBehaviour
         return Vector3.one; // Default size
     }
 
+    private void ClearGridForPreviousObjects()
+    {
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj == null) continue;
+
+            // Calculate the update radius for the object's size
+            float updateRadius = CalculateUpdateRadius(obj);
+
+            // Update the grid to mark this area as walkable
+            gridGraphUpdater.RemoveObstacleUpdate(obj.transform.position, updateRadius);
+        }
+    }
+
+    #endregion
+
+    #region ROTATION
+    private void ApplyRandomRotation(GameObject obj)
+    {
+        if (obj == null) return;
+
+        // Generate a random rotation around the Y-axis
+        Quaternion randYRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+
+        // Apply the random rotation to the object's transform
+        obj.transform.rotation = randYRotation;
+    }
     #endregion
 }

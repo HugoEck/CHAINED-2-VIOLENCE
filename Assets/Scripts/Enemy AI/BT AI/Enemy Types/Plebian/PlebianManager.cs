@@ -80,8 +80,8 @@ public class PlebianManager : BaseManager
         
     }
 
-    //public override void DealDamageToPlayer()
-    //{
-    //    base.DealDamageToPlayer();
-    //}
+    public override void DealDamageToPlayer()
+    {
+        base.DealDamageToPlayer();
+    }
 }

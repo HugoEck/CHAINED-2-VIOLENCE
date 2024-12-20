@@ -48,7 +48,10 @@ public class ButtonInteraction : MonoBehaviour
             // When the player presses 'E' while in range, open the doors
             if (isPlayer1PressingButton || isPlayer2PressingButton)
             {
+                if (audioClipManager.enterArenabutton != null)
+                {
                 SFXManager.instance.PlaySFXClip(audioClipManager.enterArenabutton, transform.transform, 1.0f);
+                }
                 doorController.OnStartButtonPress(); // Trigger door animation and camera switch
                 interactPromptUI.SetActive(false); // Hide the prompt after pressing 'E'
                 hasBeenPressed = true; // Mark the button as pressed so it can't be pressed again

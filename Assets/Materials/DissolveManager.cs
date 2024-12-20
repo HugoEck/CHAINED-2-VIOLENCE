@@ -67,7 +67,7 @@ public class DissolveManager : MonoBehaviour
     float initialOffsetsWestern = -1.2f;
     float initialOffsetsFantasy = -6.2f;
     float initialOffsetsCurrentDay = -3f;
-    float initialOffsetsSciFi = -100f;
+    float initialOffsetsSciFi = -5f;
     float initialCorrupted = -100f;
 
     // Define the Y-level dissolve ranges for each arena
@@ -94,7 +94,7 @@ public class DissolveManager : MonoBehaviour
         materialYRanges.Add(westernMaterials, new Vector2(25, initialOffsetsWestern)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(fantasyMaterials, new Vector2(25f, initialOffsetsFantasy)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(currentDayMaterials, new Vector2(3, initialOffsetsCurrentDay)); // Roman Y range: 0.2 to -0.1
-        materialYRanges.Add(sciFiMaterials, new Vector2(110, initialOffsetsSciFi)); // Roman Y range: 0.2 to -0.1
+        materialYRanges.Add(sciFiMaterials, new Vector2(15, initialOffsetsSciFi)); // Roman Y range: 0.2 to -0.1
         materialYRanges.Add(corruptedMaterials, new Vector2(0.05f, initialCorrupted)); // Roman Y range: 0.2 to -0.1
 
     }
@@ -168,27 +168,17 @@ public class DissolveManager : MonoBehaviour
             isChangingArena = true;
 
             sciFiArena.SetActive(true);
-            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
+            ChangeArena(sciFiMaterials, 15, initialOffsetsSciFi, currentDayArena);
             StartCoroutine(DissolveAndChangeMaterial(currentDayFloorMaterial, sciFiFloorMaterial));
 
             hasChangedToSciFi = true;
         }
-        if (WaveManager.currentWave == 30 && !hasChangedToSciFi)
-        {
-            isChangingArena = true;
-
-            sciFiArena.SetActive(true);
-            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
-            StartCoroutine(DissolveAndChangeMaterial(currentDayFloorMaterial, sciFiFloorMaterial));
-
-            hasChangedToSciFi = true;
-        }
-        if (WaveManager.currentWave == 35 && !hasChangedToCorrupted)
+        if (WaveManager.currentWave == 36 && !hasChangedToCorrupted)
         {
             isChangingArena = true;
 
             corruptedArena.SetActive(true);
-            ChangeArena(sciFiMaterials, 110f, initialOffsetsSciFi, currentDayArena);
+            ChangeArena(corruptedMaterials, 0.05f, initialCorrupted, sciFiArena);
             StartCoroutine(DissolveAndChangeCorruptedMaterial(sciFiFloorMaterial, corruptedFloorMaterial));
 
             hasChangedToCorrupted = true;

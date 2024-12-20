@@ -53,10 +53,13 @@ public class AudioClipManager : MonoBehaviour
     #region Enemy Sound Effects
 
     [Header("Enemies")]
-    [SerializeField] public AudioClip basicAttack;
+    [SerializeField] public AudioClip[] basicAttacks;
     [SerializeField] public AudioClip enemyDeath;
     [SerializeField] public AudioClip chargerRoar;
     [SerializeField] public AudioClip bannerMan;
+    [SerializeField] public AudioClip bomberManIgnite;
+    [SerializeField] public AudioClip bomberManFuse;
+    [SerializeField] public AudioClip bomberManLaugh;
 
     [Header("CyberGiant")]
     [SerializeField] public AudioClip[] attacks;
@@ -64,6 +67,12 @@ public class AudioClipManager : MonoBehaviour
     [SerializeField] public AudioClip shield;
     [SerializeField] public AudioClip chargeUp;
     [SerializeField] public AudioClip[] move;
+
+    [SerializeField] public AudioClip lockOnMissile;
+    [SerializeField] public AudioClip fireMissile;
+    [SerializeField] public AudioClip shootBomb;
+    [SerializeField] public AudioClip[] bossExplosions;
+    [SerializeField] public AudioClip shieldImpact;
 
     #endregion
 
@@ -162,7 +171,6 @@ public class AudioClipManager : MonoBehaviour
         checkClip(laserChain, nameof(laserChain));
 
         // Enemies
-        checkClip(basicAttack, nameof(basicAttack));
         checkClip(enemyDeath, nameof(enemyDeath));
         checkClip(chargerRoar, nameof(chargerRoar));
         checkClip(bannerMan, nameof(bannerMan));
