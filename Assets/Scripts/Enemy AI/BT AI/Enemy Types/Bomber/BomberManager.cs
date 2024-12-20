@@ -49,10 +49,10 @@ public class BomberManager : BaseManager
         currentHealth = maxHealth;
         attack = 25 + attackModifier;
         defense = 0 + defenseModifier;
-        navigation.maxSpeed = 3;
+        navigation.maxSpeed = 4;
         attackRange = 15f;
         unitCost = 15;
-        sprintSpeed = 6;
+        sprintSpeed = 7;
     }
 
     private void FixedUpdate()

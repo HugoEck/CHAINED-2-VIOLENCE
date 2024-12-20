@@ -39,7 +39,7 @@ public class RockThrowerManager : BaseManager
         currentHealth = maxHealth;
         attack = 15 + attackModifier;
         defense = 0 + defenseModifier;
-        navigation.maxSpeed = 4;
+        navigation.maxSpeed = 5;
         attackSpeed = 4 + attackSpeedModifier;
         attackRange = 20;
         unitCost = 5;

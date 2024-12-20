@@ -73,7 +73,7 @@ public class PlebianManager : BaseManager
         currentHealth = maxHealth;
         attack = 5 + attackModifier;
         defense = 0 + defenseModifier;
-        navigation.maxSpeed = 4;
+        navigation.maxSpeed = 5;
         attackSpeed = 2 + attackSpeedModifier;
         attackRange = 2.5f;
         unitCost = 1;

@@ -8,9 +8,6 @@ using UnityEngine.PlayerLoop;
 
 public class ProjectileBehavior : MonoBehaviour
 {
-    [Header("Explosion Sound: ")]
-    [SerializeField] private AudioClip explosionSound;
-
     [Header("Grenade explosion")]
     [SerializeField] private float timeForGrenadeToExplode;
     [SerializeField] private ParticleSystem explosionEffect;
@@ -24,6 +21,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     private HashSet<Collider> hitEnemiesOnce;
     public PlayerAttributes playerAttributes;
+    private AudioClipManager audioClipManager;
     private bool hasExploded = false;
 
     private Rigidbody rb;
@@ -35,9 +33,8 @@ public class ProjectileBehavior : MonoBehaviour
     private void Start()
     {
         hitEnemiesOnce = new HashSet<Collider>();
-
+        audioClipManager = FindObjectOfType<AudioClipManager>();
         rb = GetComponent<Rigidbody>();
-
         explosionTimer = timeForGrenadeToExplode;
     }
 
@@ -83,7 +80,7 @@ public class ProjectileBehavior : MonoBehaviour
 
         explosionDamage = baseExplosionDamage + playerAttributes.attackDamage;
 
-        //SFXManager.instance.PlaySFXClip(explosionSound, transform, 1f);
+        SFXManager.instance.PlaySFXClip(audioClipManager.rangeAbilityExplosion, transform, 1f);
 
         Debug.Log("Projectile exploded!");
 

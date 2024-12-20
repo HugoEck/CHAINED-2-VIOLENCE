@@ -7,6 +7,7 @@ public class ButtonInteraction : MonoBehaviour
     public GameObject player2;
     public GameObject interactPromptUI; // The UI element that prompts "Press E to Open Door"
     public DoorController doorController; // The script that controls the doors
+    private AudioClipManager audioClipManager;
 
     public float interactionDistance = 3.0f; // How close the player needs to be to interact with the button
 
@@ -20,6 +21,7 @@ public class ButtonInteraction : MonoBehaviour
     {
         // Ensure the prompt UI is hidden initially
         interactPromptUI.SetActive(false);
+        audioClipManager = FindObjectOfType<AudioClipManager>();
     }
 
     void Update()
@@ -46,6 +48,7 @@ public class ButtonInteraction : MonoBehaviour
             // When the player presses 'E' while in range, open the doors
             if (isPlayer1PressingButton || isPlayer2PressingButton)
             {
+                SFXManager.instance.PlaySFXClip(audioClipManager.enterArenabutton, transform.transform, 1.0f);
                 doorController.OnStartButtonPress(); // Trigger door animation and camera switch
                 interactPromptUI.SetActive(false); // Hide the prompt after pressing 'E'
                 hasBeenPressed = true; // Mark the button as pressed so it can't be pressed again

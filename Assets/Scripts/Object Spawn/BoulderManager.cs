@@ -7,19 +7,22 @@ public class BoulderManager : MonoBehaviour
 {
     #region VARIABLES
     // PUBLIC
+    [Header("SPEED & DAMAGE")]
     public float despawnTime = 5f;
-    public float boulderSpeed = 15f;
+    public float boulderSpeed = 20f;
+    public float boulderDamage = 30f;
 
+    [Header("SPAWNER")]
     public List<GameObject> objectsToRemove = new List<GameObject>();
     public itemAreaSpawner spawner;
-    public GameObject pathParticle; // Particle prefab for the path trail
 
+    [Header("PARTICLES")]
+    public GameObject pathParticle; // Particle prefab for the path trail
     [SerializeField] public GameObject destructionParticle;
     [SerializeField] public GameObject portalParticle;
     [SerializeField] public GameObject dustParticle;
 
     // PRIVATE
-    private float boulderDamage = 3f;
     private float dustSpawnTimer = 0f;
     private float dustSpawnInterval = 0.4f;
     private float damageCooldownDuration = 3f; // Cooldown duration in seconds
@@ -111,6 +114,21 @@ public class BoulderManager : MonoBehaviour
             }
 
             Destroy(collision.gameObject);
+            
+            // Ensure grid is updated when object is destroyed
+            if (spawner != null && collision.gameObject != null)
+            {
+                Collider collider = collision.gameObject.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    Bounds bounds = collider.bounds;
+                    float updateRadius = Mathf.Max(bounds.size.x, bounds.size.z) / 2f + 1f;
+                    spawner.gridGraphUpdater.RemoveObstacleUpdate(collision.gameObject.transform.position, updateRadius);
+                }
+
+                spawner.RemoveObjectFromCollision(collision.gameObject); // Remove from spawner's list
+            }
+
 
             // Skip further processing to ensure the boulder keeps its direction
             //return;
@@ -120,7 +138,6 @@ public class BoulderManager : MonoBehaviour
                 spawner.RemoveObjectFromCollision(collision.gameObject);
             }
             objectsToRemove.Add(collision.gameObject);
-
 
             Destroy(collision.gameObject);
 

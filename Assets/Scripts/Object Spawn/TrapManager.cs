@@ -10,7 +10,7 @@ public class TrapManager : MonoBehaviour
     #region Variables
     // PUBLIC
     [Header("Trap Damage & Speed")]
-    public float trapDamage = 10f;
+    public float trapDamage = 15f;
     public float riseSpeed = 15f;
     public float despawnSpeed = 10f;
 
@@ -139,9 +139,19 @@ public class TrapManager : MonoBehaviour
         isDespawning = true;
         isMovingUp = false; // Ensure the trap starts moving down immediately
 
+        if (currentParticle != null)
+        {
+            Destroy(currentParticle);
+        }
+
         if (transform.position.y > spawnY)
         {
             transform.position += Vector3.down * despawnSpeed * Time.deltaTime;
+
+            if (currentParticle != null)
+            {
+                Destroy(currentParticle);
+            }
 
             // Stop the rise particle effect if the trap is despawning
             if (currentParticle != null)
@@ -154,12 +164,12 @@ public class TrapManager : MonoBehaviour
     #endregion
 
     #region DEAL DAMAGE
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // DAMAGE PLAYER
-        if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
+        if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
-            Player player = collision.gameObject.GetComponent<Player>();
+            Player player = other.GetComponent<Player>();
 
             if (player != null)
             {
@@ -167,9 +177,10 @@ public class TrapManager : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        // DAMAGE ENEMY
+        if (other.CompareTag("Enemy"))
         {
-            BaseManager enemy = collision.gameObject.GetComponent<BaseManager>();
+            BaseManager enemy = other.GetComponent<BaseManager>();
 
             if (enemy != null)
             {
@@ -177,5 +188,29 @@ public class TrapManager : MonoBehaviour
             }
         }
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    // DAMAGE PLAYER
+    //    if (collision.gameObject.CompareTag("Player1") || collision.gameObject.CompareTag("Player2"))
+    //    {
+    //        Player player = collision.gameObject.GetComponent<Player>();
+
+    //        if (player != null)
+    //        {
+    //            player.SetHealth(trapDamage);
+    //        }
+    //    }
+
+    //    if (collision.gameObject.CompareTag("Enemy"))
+    //    {
+    //        BaseManager enemy = collision.gameObject.GetComponent<BaseManager>();
+
+    //        if (enemy != null)
+    //        {
+    //            enemy.DealDamageToEnemy(trapDamage, BaseManager.DamageType.TrapsDamage, false, false);
+    //        }
+    //    }
+    //}
     #endregion
 }

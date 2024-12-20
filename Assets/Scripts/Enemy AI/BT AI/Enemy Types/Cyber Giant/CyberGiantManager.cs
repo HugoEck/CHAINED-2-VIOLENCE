@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CyberGiantManager : BaseManager
@@ -14,8 +15,14 @@ public class CyberGiantManager : BaseManager
     public Transform missileShootPoint;
     public GameObject energyShield;
     [HideInInspector] public CapsuleCollider damageCollider;
-    private CapsuleCollider weaponCollider;
+    //private CapsuleCollider weaponCollider;
     public GameObject effectPrefab;
+
+    public GameObject bomb_marker;
+    public GameObject missile1_marker;
+    public GameObject missile2_marker;
+    public GameObject missile3_marker;
+
 
     [Header("CG STATS")]
 
@@ -61,6 +68,8 @@ public class CyberGiantManager : BaseManager
     private float lastMidRangeTime = -10;
     private float lastCloseRangeTime = -5;
 
+    private float distance;
+
     public float debugTimer;
 
     void Start()
@@ -81,6 +90,7 @@ public class CyberGiantManager : BaseManager
 
         ToggleEnergyShield();
 
+        ToggleBombMarker();
         
     }
 
@@ -255,6 +265,33 @@ public class CyberGiantManager : BaseManager
             currentWeaponDamage = overheadSmashDamage;
         }
         return currentWeaponDamage;
+    }
+
+    private void ToggleBombMarker()
+    {
+        targetedPlayer = behaviorMethods.CalculateClosestTarget();
+        distance = Vector3.Distance(transform.position, targetedPlayer.position);
+
+        if (distance > minBombDistance && !CheckIfAbilityInProgress())
+        {
+            bomb_marker.SetActive(true);
+        }
+        else
+        {
+            bomb_marker.SetActive(false);
+        }
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Misc"))
+        {
+            // SKRIV DIN LOGIK HÄR PONTUS FÖR ATT UPPDATERA GRIDPATH, EXAKT SOM CHARGERN :)
+
+
+            Destroy(collision.gameObject);
+        }
     }
 
     private void ConstructBT()

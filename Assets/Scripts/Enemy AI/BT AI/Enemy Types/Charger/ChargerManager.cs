@@ -80,9 +80,9 @@ public class ChargerManager : BaseManager
     {
         
         chargingDamage = 25f;
-        navigation.maxSpeed = 4;
+        navigation.maxSpeed = 5;
         chargingRange = 20f;
-        chargingSpeed = 20f;
+        chargingSpeed = 25f;
         navigation.radius = 0.75f;
         c_collider.center = new Vector3(0, 0.5f, 0);
         c_collider.radius = 0.75f;

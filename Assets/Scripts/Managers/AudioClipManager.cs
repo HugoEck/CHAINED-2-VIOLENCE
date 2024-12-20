@@ -10,22 +10,23 @@ public class AudioClipManager : MonoBehaviour
 
     [SerializeField] public AudioClip playerDeath;
     [SerializeField] public AudioClip playerRespawn;
+    [SerializeField] public AudioClip[] takeDamagePlayer;
 
     #endregion
 
     #region Combo-System
 
     [Header("Player Combo-System")]
-    [SerializeField] private AudioClip[] tankUnarmedSounds;
-    [SerializeField] private AudioClip[] warriorUnarmedSounds;
-    [SerializeField] private AudioClip[] rangedUnarmedSounds;
-    [SerializeField] private AudioClip[] supportUnarmedSounds;
-    [SerializeField] private AudioClip[] twoHandedWeaponSounds;
-    [SerializeField] private AudioClip[] oneHandedWeaponSounds;
-    [SerializeField] private AudioClip[] reallyBigTwoHandedWeaponSounds;
-    [SerializeField] private AudioClip[] polearmWeaponSounds;
-    [SerializeField] private AudioClip[] daggerWeaponSounds;
-    [SerializeField] private AudioClip[] bigPenWeaponSounds;
+    [SerializeField] public AudioClip[] tankUnarmedSounds;
+    [SerializeField] public AudioClip[] warriorUnarmedSounds;
+    [SerializeField] public AudioClip[] rangedUnarmedSounds;
+    [SerializeField] public AudioClip[] supportUnarmedSounds;
+    [SerializeField] public AudioClip[] twoHandedWeaponSounds;
+    [SerializeField] public AudioClip[] oneHandedWeaponSounds;
+    [SerializeField] public AudioClip[] reallyBigTwoHandedWeaponSounds;
+    [SerializeField] public AudioClip[] polearmWeaponSounds;
+    [SerializeField] public AudioClip[] daggerWeaponSounds;
+    [SerializeField] public AudioClip[] bigPenWeaponSounds;
 
     #endregion
 
@@ -33,6 +34,7 @@ public class AudioClipManager : MonoBehaviour
 
     [Header("Player Abilities and Ultimates")]
 
+    [SerializeField] public AudioClip abilityReady;
     [SerializeField] public AudioClip coneAbility;
     [SerializeField] public AudioClip rangeAbility;
     [SerializeField] public AudioClip rangeAbilityExplosion;
@@ -69,7 +71,7 @@ public class AudioClipManager : MonoBehaviour
 
     [Header("Lobby")]
     [SerializeField] public AudioClip evilScientist;
-    [SerializeField] public AudioClip button;
+    [SerializeField] public AudioClip enterArenabutton;
     [SerializeField] public AudioClip doorOpen;
 
     #endregion
@@ -115,6 +117,7 @@ public class AudioClipManager : MonoBehaviour
     private void Awake()
     {
         ValidateAudioClips();
+        GameObject.DontDestroyOnLoad(this);
     }
 
     public void ValidateAudioClips()
@@ -173,7 +176,7 @@ public class AudioClipManager : MonoBehaviour
 
         // Lobby
         checkClip(evilScientist, nameof(evilScientist));
-        checkClip(button, nameof(button));
+        checkClip(enterArenabutton, nameof(enterArenabutton));
         checkClip(doorOpen, nameof(doorOpen));
 
         // Environment

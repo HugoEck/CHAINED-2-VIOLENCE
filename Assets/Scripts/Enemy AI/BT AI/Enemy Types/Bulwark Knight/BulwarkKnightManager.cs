@@ -14,8 +14,8 @@ public class BulwarkKnightManager : BaseManager
 
     float shieldDefense = 10;
     float baseDefense = 1;
-    float shieldWalkSpeed = 3;
-    float runSpeed = 8;
+    float shieldWalkSpeed = 4;
+    float runSpeed = 9;
     float shieldAttackSpeed = 3f;
     float swordAttackSpeed = 2f;
     float shieldAttackRange = 6;

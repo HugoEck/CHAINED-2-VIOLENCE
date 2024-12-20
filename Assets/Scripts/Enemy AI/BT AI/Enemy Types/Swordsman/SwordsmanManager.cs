@@ -65,7 +65,7 @@ public class SwordsmanManager : BaseManager
         currentHealth = maxHealth;
         attack = 10 + attackModifier;
         defense = 0 + defenseModifier;
-        navigation.maxSpeed = 4;
+        navigation.maxSpeed = 5;
         attackSpeed = 2 + attackSpeedModifier;
         attackRange = 4;
         rb.mass = 10;

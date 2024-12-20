@@ -4,11 +4,6 @@ using System.Collections.Generic;
 
 public class SwingAbility : MonoBehaviour, IAbility
 {
-    [Header("Tank Ability Sound: ")]
-    [SerializeField] private AudioClip tankAbilitySound;
-
-    [Header("Ability Ready Sound: ")]
-    [SerializeField] private AudioClip abilityReadySound;
 
     public static bool BIsPlayerCurrentlySwinging = false;
 
@@ -30,6 +25,7 @@ public class SwingAbility : MonoBehaviour, IAbility
 
     public PlayerAttributes playerAttributes;
     public GameObject swingEffectPrefab;
+    private AudioClipManager audioClipManager;
 
     private HashSet<Collider> hitEnemies;
 
@@ -47,13 +43,14 @@ public class SwingAbility : MonoBehaviour, IAbility
         }
         anchorRb = GetComponent<Rigidbody>(); // Get the Rigidbody of this player (anchor)
         animationStateController = GetComponent<AnimationStateController>();
+        audioClipManager = FindObjectOfType<AudioClipManager>();
     }
 
     private void Update()
     {
         if(cooldown <= 0 && !abilityReadySoundPlayed)
         {
-            SFXManager.instance.PlaySFXClip(abilityReadySound, transform, 1f);
+            SFXManager.instance.PlaySFXClip(audioClipManager.abilityReady, transform, 1f);
             abilityReadySoundPlayed = true;
         }
     }
@@ -88,7 +85,7 @@ public class SwingAbility : MonoBehaviour, IAbility
     {
         swingDamage = baseSwingDamage + playerAttributes.attackDamage;
 
-        SFXManager.instance.PlaySFXClip(tankAbilitySound, transform, 1f);
+        SFXManager.instance.PlaySFXClip(audioClipManager.swingAbility, transform, 1f);
 
         GameObject swingEffect = Instantiate(swingEffectPrefab, transform.position, Quaternion.identity);
 
