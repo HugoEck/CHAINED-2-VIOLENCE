@@ -27,7 +27,7 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     List<Wave> waves = new List<Wave>();
-    WaveData waveData = new WaveData();
+    [SerializeField] WaveData waveData;
 
     [SerializeField] TextMeshProUGUI text;
     public static int currentWave = 0;
@@ -76,8 +76,9 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
 
-        if(waves.Count == currentWave +1)
+        if(waves.Count == currentWave)
         {
+            waveData.GenerateEndlessWave(waves, "Wave " + (currentWave));
             waveData.GenerateEndlessWave(waves, "Wave " + (currentWave + 1));
             waveData.GenerateEndlessWave(waves, "Wave " + (currentWave + 2));
             waveData.GenerateEndlessWave(waves, "Wave " + (currentWave + 3));

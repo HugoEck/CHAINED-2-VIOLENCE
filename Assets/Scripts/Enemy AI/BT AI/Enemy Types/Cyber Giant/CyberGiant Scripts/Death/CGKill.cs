@@ -33,6 +33,7 @@ public class CGKill : Node
 
         if(deathTimer < 0)
         {
+            WaveManager.ActiveEnemies--;
             GameObject.Destroy(agent.gameObject);
             return NodeState.SUCCESS;
         }
