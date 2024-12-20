@@ -174,8 +174,7 @@ public class ChargerManager : BaseManager
 
             Destroy(collision.gameObject); // Destroy the object
         }
-        else if (sprintDamageAllowed && collision.gameObject.layer == LayerMask.NameToLayer("Wall") ||
-            collision.gameObject.layer == LayerMask.NameToLayer("Obstacles") || collision.gameObject.layer == LayerMask.NameToLayer("Map"))
+        else if (sprintDamageAllowed && collision.gameObject.layer == LayerMask.NameToLayer("Map"))
         {
             collidedWithWall = true;
         }

@@ -10,7 +10,9 @@ public class WaveData : MonoBehaviour
             new List<EnemyConfig>
             {
 
-                new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.Bomber, waveSize = 1 }
+                //Just nu så spawnas två stycken CyberGiants in i banan, den andra under banan. Fixa är du så snäll Victor <3 / Sam
+                new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.CyberGiant, waveSize = 1 }
+                //new EnemyConfig { theme = NPC_Customization.NPCTheme.SciFi, enemyClass = NPC_Customization.NPCClass.Bomber, waveSize = 1 }
 
             }
         ));

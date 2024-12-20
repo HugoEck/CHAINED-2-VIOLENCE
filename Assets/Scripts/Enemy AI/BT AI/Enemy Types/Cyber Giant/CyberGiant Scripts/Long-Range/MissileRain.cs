@@ -23,58 +23,57 @@ public class MissileRain : Node
 
         CyberGiantManager cg = agent as CyberGiantManager;
 
+
+        agent.navigation.rotationSpeed = 360;
+        agent.navigation.isStopped = true;
+
+        SetAnimation(agent);
+
+        p1_LastPosition = agent.player1.transform.position;
+        p2_LastPosition = agent.player2.transform.position;
+        chain_LastPosition = agent.behaviorMethods.CalculateChainPosition();
+        chain_LastPosition = new Vector3(chain_LastPosition.x, 0, chain_LastPosition.z);
+
+        p1_Velocity = CalculateVelocity(cg, p1_LastPosition);
+        p2_Velocity = CalculateVelocity(cg, p2_LastPosition);
+        chain_Velocity = CalculateVelocity(cg, chain_LastPosition);
+
+
+        if (!missilesShot)
+        {
+            cg.missile1_marker.transform.position = new Vector3(p1_LastPosition.x, 0.5f, p1_LastPosition.z);
+            cg.missile2_marker.transform.position = new Vector3(p2_LastPosition.x, 0.5f, p2_LastPosition.z);
+            cg.missile3_marker.transform.position = new Vector3(chain_LastPosition.x, 0.5f, chain_LastPosition.z);
+        }
+
+
+
+        RotateTowardsChain(agent, chain_LastPosition);
+
+        if (animationTimer < 1.5f && nrMissilesShot < 3)
+        {
+            ShootMissile(cg, nrMissilesShot);
+            nrMissilesShot++;
+            missilesShot = true;
+        }
+
+
+        animationTimer -= Time.deltaTime;
+
         if (!runOnce)
         {
-
-            if (agent.audioClipManager.lockOnMissile != null)
-            {
-
-                SFXManager.instance.PlaySFXClip(agent.audioClipManager.lockOnMissile, agent.transform.transform, 1f);
-            }
-
-            agent.navigation.rotationSpeed = 360;
-            agent.navigation.isStopped = true;
-
-            SetAnimation(agent);
-
-            p1_LastPosition = agent.player1.transform.position;
-            p2_LastPosition = agent.player2.transform.position;
-            chain_LastPosition = agent.behaviorMethods.CalculateChainPosition();
-            chain_LastPosition = new Vector3(chain_LastPosition.x, 0, chain_LastPosition.z);
-
-            p1_Velocity = CalculateVelocity(cg, p1_LastPosition);
-            p2_Velocity = CalculateVelocity(cg, p2_LastPosition);
-            chain_Velocity = CalculateVelocity(cg, chain_LastPosition);
-
-
-            if (!missilesShot)
-            {
-                cg.missile1_marker.transform.position = new Vector3(p1_LastPosition.x, 0.5f, p1_LastPosition.z);
-                cg.missile2_marker.transform.position = new Vector3(p2_LastPosition.x, 0.5f, p2_LastPosition.z);
-                cg.missile3_marker.transform.position = new Vector3(chain_LastPosition.x, 0.5f, chain_LastPosition.z);
-            }
-
-
-
-            RotateTowardsChain(agent, chain_LastPosition);
-
-            if (animationTimer < 1.5f && nrMissilesShot < 3)
-            {
-                ShootMissile(cg, nrMissilesShot);
-                nrMissilesShot++;
-                missilesShot = true;
-            }
-
-
-            animationTimer -= Time.deltaTime;
+            SFXManager.instance.PlaySFXClip(agent.audioClipManager.lockOnMissile, agent.transform.transform, 1f);
             runOnce = true;
         }
+
+
         if (animationTimer < 0)
         {
             animationTimer = animationTotTime;
             cg.missileRainActive = false;
             nrMissilesShot = 0;
             missilesShot = false;
+            runOnce = false;
 
             cg.missile1_marker.SetActive(false);
             cg.missile2_marker.SetActive(false);

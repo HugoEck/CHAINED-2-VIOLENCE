@@ -73,7 +73,7 @@ public class CyberGiantManager : BaseManager
     private float lastMidRangeTime = -10;
     private float lastCloseRangeTime = -5;
 
-    private float distance;
+    private float bombDistance;
 
     public float debugTimer;
 
@@ -189,6 +189,7 @@ public class CyberGiantManager : BaseManager
         {
             return false;
         }
+        
     }
 
     private void ToggleEnergyShield()
@@ -196,9 +197,9 @@ public class CyberGiantManager : BaseManager
         if (!staggerActive)
         {
             Transform closestPlayer = behaviorMethods.CalculateClosestTarget();
-            float distance = Vector3.Distance(transform.position, closestPlayer.position);
+            float shieldDistance = Vector3.Distance(transform.position, closestPlayer.position);
 
-            if (distance > maxMidRangeDistance && !CheckIfAbilityInProgress())
+            if (shieldDistance > maxMidRangeDistance && !CheckIfAbilityInProgress())
             {
                 energyShield.SetActive(true);
                 damageCollider.radius = 1.4f;
@@ -278,9 +279,9 @@ public class CyberGiantManager : BaseManager
     private void ToggleBombMarker()
     {
         targetedPlayer = behaviorMethods.CalculateClosestTarget();
-        distance = Vector3.Distance(transform.position, targetedPlayer.position);
+        bombDistance = Vector3.Distance(transform.position, targetedPlayer.position);
 
-        if (distance > minBombDistance && !CheckIfAbilityInProgress())
+        if (bombDistance > minBombDistance && !CheckIfAbilityInProgress())
         {
             bomb_marker.SetActive(true);
         }
