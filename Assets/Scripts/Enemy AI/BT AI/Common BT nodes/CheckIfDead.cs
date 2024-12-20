@@ -15,13 +15,15 @@ public class CheckIfDead : Node
             agent.activateDeathTimer = true;
             agent.agentIsDead = true;
 
-            if (agent.playerManager1.bHasPlayerEnteredCombat) // FOR UI
-            {
-                SummaryUIScript.Instance.player1UIStats.totalKills ++;
+            if (agent.playerManager1.bHasPlayerEnteredCombat) { // JACK UI
+                if (SummaryUIScript.Instance != null && SummaryUIScript.Instance.player1UIStats != null) {
+                    SummaryUIScript.Instance.player1UIStats.totalKills++;
+                }
             }
-            else if (agent.playerManager2.bHasPlayerEnteredCombat) // FOR UI
-            {
-                SummaryUIScript.Instance.player2UIStats.totalKills++;
+            else if (agent.playerManager2.bHasPlayerEnteredCombat) { // JACK UI
+                if (SummaryUIScript.Instance != null && SummaryUIScript.Instance.player2UIStats != null) {
+                    SummaryUIScript.Instance.player2UIStats.totalKills++;
+                }
             }
             return NodeState.SUCCESS;
         }
