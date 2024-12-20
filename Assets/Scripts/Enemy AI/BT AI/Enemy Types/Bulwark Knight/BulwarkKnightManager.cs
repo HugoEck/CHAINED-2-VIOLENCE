@@ -49,6 +49,7 @@ public class BulwarkKnightManager : BaseManager
 
         if (rageActive)
         {
+            SFXManager.instance.PlaySFXClip(audioClipManager.chargerRoar, transform.transform, 1f);
             RageTimer();
         }
 

@@ -7,6 +7,13 @@ public class DestroyBomb : MonoBehaviour
     [HideInInspector] public float damage;
     private float destroyDelay = 0.1f;
 
+    private AudioClipManager audioClipManager;
+
+    private void Awake()
+    {
+        audioClipManager = FindAnyObjectByType<AudioClipManager>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Player player = other.gameObject.GetComponent<Player>();
@@ -25,6 +32,8 @@ public class DestroyBomb : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
+        SFXManager.instance.PlaySFXClip(audioClipManager.rangeAbilityExplosion, transform.transform, 1f);
+
         // Wait for a brief moment to allow for additional hits
         yield return new WaitForSeconds(destroyDelay);
         Destroy(gameObject);

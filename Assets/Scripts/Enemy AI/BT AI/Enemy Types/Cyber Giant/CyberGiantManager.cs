@@ -63,6 +63,11 @@ public class CyberGiantManager : BaseManager
     [HideInInspector] public string weaponDamageType;
     [HideInInspector] private float currentWeaponDamage;
 
+    //----------------PONTUS KOD: PARTICLE & DESTRUCTION OF OBJECTS----------------\\
+    [Header("DESTRUCTION OF OBJECTS & PARTICLE")]
+    public itemAreaSpawner spawner;
+    public GameObject destructionParticle;
+
     private float lastBombShotTime = 0;
     private float lastLongRangeTime = -5;
     private float lastMidRangeTime = -10;
@@ -81,6 +86,9 @@ public class CyberGiantManager : BaseManager
         LoadStats();
         ConstructBT();
         rb.isKinematic = true;
+
+        //----------------PONTUS KOD: PARTICLE----------------\\
+        GetDestructionParticle();
 
     }
 
@@ -285,10 +293,34 @@ public class CyberGiantManager : BaseManager
 
     private void OnCollisionEnter(Collision collision)
     {
+        //----------------PONTUS KOD: A* UPDATE, PARTICLE, DESTRUCTION OF OBJECTS----------------\\
         if (collision.gameObject.CompareTag("Misc"))
         {
-            // SKRIV DIN LOGIK HÄR PONTUS FÖR ATT UPPDATERA GRIDPATH, EXAKT SOM CHARGERN :)
+            if (destructionParticle != null && collision.contacts.Length > 0)
+            {
+                Vector3 collisionPoint = collision.contacts[0].point;
+                collisionPoint.y = 2; // Adjust Y position if needed
 
+                GameObject particleInstance = Instantiate(destructionParticle, collisionPoint, Quaternion.identity);
+                Destroy(particleInstance, 2f);
+            }
+            else
+            {
+                Debug.Log("Particles prefab is not assigned or no collision contacts available.");
+            }
+
+            if (spawner != null && collision.gameObject != null)
+            {
+                Collider collider = collision.gameObject.GetComponent<Collider>();
+                if (collider != null)
+                {
+                    Bounds bounds = collider.bounds;
+                    float updateRadius = (Mathf.Max(bounds.size.x, bounds.size.z) / 2f) * spawner.navMeshOffsetMultiplier + 3f;
+                    spawner.gridGraphUpdater.RemoveObstacleUpdate(collision.gameObject.transform.position, updateRadius);
+                }
+
+                spawner.RemoveObjectFromCollision(collision.gameObject);
+            }
 
             Destroy(collision.gameObject);
         }
@@ -359,5 +391,26 @@ public class CyberGiantManager : BaseManager
         //-------------------------------------------------------------------------------------------------------
         rootNode = new Selector(new List<Node>() { killBoss, staggerBehavior, attack, chase, idle });
         //rootNode = new Selector(new List<Node>() { chase, idle });
+    }
+
+    //----------------PONTUS KOD: PARTICLE----------------\\
+    private void GetDestructionParticle()
+    {
+        if (destructionParticle == null)
+        {
+            destructionParticle = Resources.Load<GameObject>("FX_GroundCrack_Blast_01 1");
+            if (destructionParticle == null)
+            {
+                Debug.LogError("Destruction Particle not found in Resources! Check the file name and folder structure.");
+            }
+        }
+        if (spawner == null)
+        {
+            spawner = FindObjectOfType<itemAreaSpawner>();
+            if (spawner == null)
+            {
+                Debug.LogError("itemAreaSpawner not found! Ensure it exists in the scene.");
+            }
+        }
     }
 }

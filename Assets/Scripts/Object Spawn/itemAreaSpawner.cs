@@ -78,11 +78,11 @@ public class itemAreaSpawner : MonoBehaviour
     {
         SpawnWithWaves();
 
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            WaveManager.currentWave++;
-            Debug.Log(WaveManager.currentWave);
-        }
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    WaveManager.currentWave++;
+        //    Debug.Log(WaveManager.currentWave);
+        //}
     }
     #endregion
 

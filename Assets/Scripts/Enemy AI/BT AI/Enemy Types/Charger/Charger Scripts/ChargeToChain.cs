@@ -14,6 +14,7 @@ public class ChargeToChain : Node
         SetAnimation(agent);
 
         charger.chargeRunActive = true;
+        SFXManager.instance.PlaySFXClip(agent.audioClipManager.chargerRoar, agent.transform, 1f);
 
         agent.navigation.isStopped = true;
         Vector3 direction = (charger.chainPosition - charger.lastSavedPosition).normalized;
