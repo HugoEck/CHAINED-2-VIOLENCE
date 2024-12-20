@@ -29,7 +29,7 @@ public class KillAgent : Node
             {
                 GoldDropManager.Instance.AddGold(agent.unitCost);
             }
-            if (agent.playerManager1.bHasPlayerEnteredCombat) { // JACK UI
+            if (agent.playerManager1.bHasPlayerEnteredCombat) {
                 if (SummaryUIScript.Instance != null && SummaryUIScript.Instance.player1UIStats != null) {
                     SummaryUIScript.Instance.player1UIStats.totalKills++;
                 }
