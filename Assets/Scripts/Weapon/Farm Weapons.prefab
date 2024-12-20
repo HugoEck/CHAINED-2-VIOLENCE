@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2160258962542160543}
   - component: {fileID: 3678177389819353527}
   - component: {fileID: 7998269151688583480}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 4405027703346167232}
   - component: {fileID: 6286138542787763825}
   - component: {fileID: 3511048799244019309}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4959,7 +4959,7 @@ GameObject:
   - component: {fileID: 3309648754725334729}
   - component: {fileID: 8391925082143403072}
   - component: {fileID: 147244049934527168}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5077,7 +5077,7 @@ GameObject:
   - component: {fileID: 2181431865133348345}
   - component: {fileID: 8843820358113379249}
   - component: {fileID: 8672457432936215193}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5195,7 +5195,7 @@ GameObject:
   - component: {fileID: 3843564042251857763}
   - component: {fileID: 8278376554427618028}
   - component: {fileID: 2190829292920250106}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10025,7 +10025,7 @@ GameObject:
   - component: {fileID: 842201414574553223}
   - component: {fileID: 7678122473571766867}
   - component: {fileID: 1749345391748200402}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14853,7 +14853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 978043768666332896}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Farm Weapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14891,7 +14891,7 @@ GameObject:
   - component: {fileID: 1457101535008556484}
   - component: {fileID: 2350766394217439795}
   - component: {fileID: 8392868097851931903}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15009,7 +15009,7 @@ GameObject:
   - component: {fileID: 7239471061875163116}
   - component: {fileID: 4456765373450092034}
   - component: {fileID: 6433921710620951535}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19839,7 +19839,7 @@ GameObject:
   - component: {fileID: 8723988409045664458}
   - component: {fileID: 5970460905928930153}
   - component: {fileID: 6057246977371205329}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19957,7 +19957,7 @@ GameObject:
   - component: {fileID: 4019825059684350410}
   - component: {fileID: 4041242967873475560}
   - component: {fileID: 2476087116983047477}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24788,6 +24788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Tool_Spade_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1968298529172754, guid: b44f9ed3ec61e5c4bb8f192899220f60, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4435005775557140, guid: b44f9ed3ec61e5c4bb8f192899220f60, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -24907,10 +24911,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 14
   weaponName: 
   damage: 2
@@ -25169,6 +25175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Tool_Pitchfork_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1682383683704824, guid: d185711a4114260409552a6c7722724f, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4061292131536004, guid: d185711a4114260409552a6c7722724f, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -25288,10 +25298,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 11
   weaponName: 
   damage: 2
@@ -25550,6 +25562,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Tool_Rake_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1851300905487520, guid: 065fb9c5bba446b47970326618ea03f5, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4770423201946952, guid: 065fb9c5bba446b47970326618ea03f5, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -25669,10 +25685,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 12
   weaponName: 
   damage: 2
@@ -25931,6 +25949,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Tool_Scythe_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1547028232771016, guid: 77b4387f63660784cab2dc6d1533c934, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4552791840064620, guid: 77b4387f63660784cab2dc6d1533c934, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -26044,10 +26066,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 13
   weaponName: 
   damage: 2
@@ -26312,6 +26336,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Tool_Hoe_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1309936475503278, guid: 4ae69815433a0b84cbdb0e33ead1c063, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4635547304238950, guid: 4ae69815433a0b84cbdb0e33ead1c063, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -26426,10 +26454,12 @@ MonoBehaviour:
   OneHandSlashEffect: {fileID: 0}
   TwoHandSlashEffect: {fileID: 0}
   ReallyBigTwoHandSlashEffect: {fileID: 0}
+  PolearmSlashEffect: {fileID: 0}
   currentWeaponType: 1
   combos: []
   weaponSlashEffects: []
   playerPosition: {fileID: 0}
+  slashEffectPositions: []
   weaponId: 10
   weaponName: 
   damage: 2
