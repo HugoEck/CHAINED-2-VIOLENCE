@@ -156,7 +156,20 @@ public class BaseManager : MonoBehaviour
             {
                 if(damageText != null)
                 {
-                    damageText.Spawn(c_collider.transform.position + Vector3.up * (c_collider.height / 2), damage);
+                    bool isCrit = false;
+
+                    int critChance = Random.Range(0, 10);
+                    if(critChance == 9)
+                    {
+                        isCrit = true;
+                    }
+
+                    if (isCrit)
+                    {
+                        damage = damage * (4f / 3f);
+                    }
+
+                    damageText.Spawn(c_collider.transform.position + Vector3.up * (c_collider.height / 2), damage, ref isCrit);
                 }
                 
 
