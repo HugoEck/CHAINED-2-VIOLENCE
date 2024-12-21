@@ -31,7 +31,7 @@ public class BannerLogic : BaseManager
         BaseManager agent = other.GetComponent<BaseManager>();
         if (agent != null && !buffedEnemies.Contains(agent))
         {
-            if(agent.enemyID != "BannerMan" && agent.enemyID != "Charger" && agent.enemyID != "CyberGiant")
+            if(agent.enemyID != "BannerMan" &&  agent.enemyID != "CyberGiant")
             {
                 buffedEnemies.Add(agent);
                 agent.behaviorMethods.BannerManBuff(buffMultiplier);
@@ -46,7 +46,7 @@ public class BannerLogic : BaseManager
         BaseManager agent = other.GetComponent<BaseManager>();
         if (agent != null && buffedEnemies.Contains(agent))
         {
-            if (agent.enemyID != "BannerMan" && agent.enemyID != "Charger")
+            if (agent.enemyID != "BannerMan" &&  agent.enemyID != "CyberGiant")
             {
                 buffedEnemies.Remove(agent);
                 agent.behaviorMethods.BannerManBuff(1 / buffMultiplier);
